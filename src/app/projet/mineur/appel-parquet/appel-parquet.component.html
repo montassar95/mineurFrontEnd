@@ -1,0 +1,35 @@
+
+<div dir="rtl"       style="margin-top: 5px; margin-bottom: 100px;" >
+
+    <mat-tab-group mat-align-tabs="center" (selectedTabChange)="onTabChanged($event);"  animationDuration="500ms" backgroundColor ="secondary">
+     
+        <mat-tab>
+            <ng-template mat-tab-label>
+               <h1>إدراج   إستئناف نيابة</h1>       
+    
+            </ng-template>
+            
+            <app-add-appel-parquet></app-add-appel-parquet>
+        </mat-tab>
+
+       
+        <mat-tab>
+            <ng-template mat-tab-label style="color:  black ;">
+                     
+                 <h1> إسترشــــــــــــــــاد  </h1>
+            </ng-template>
+             
+           
+            <app-edit-document [idValide]="idValide" ></app-edit-document>
+    
+    
+        </mat-tab>
+    
+    
+   
+        
+    </mat-tab-group>
+
+
+  
+    </div>

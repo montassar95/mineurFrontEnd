@@ -1,0 +1,136 @@
+
+ 
+ 
+    <div dir="rtl" *ngIf="appelEnfant">
+        <div  style=" margin-left: 5%; margin-right: 5%;    background-image: url(assets/layout/images/bg.png)" >
+            <div class="p-grid"  >
+                <div class="p-col-2">
+                    <label style="background-color: rgb(241, 241, 241);">
+                        الهوية:
+                         
+                    </label>
+                    </div>
+                    <div class="p-col-10">
+                        <label>
+                          
+                            <span>
+
+
+                                {{ appelEnfant.affaire.arrestation.enfant.nom }} بن {{ appelEnfant.affaire.arrestation.enfant.nomPere }} بن {{ appelEnfant.affaire.arrestation.enfant.nomGrandPere }} {{ appelEnfant.affaire.arrestation.enfant.prenom }}
+                            </span>
+                             
+                        </label>
+                    </div>
+                    </div>
+            
+                    <div class="p-grid"  >
+                        <div class="p-col-2">
+                            <label style="background-color: rgb(241, 241, 241);">
+                                عدد الإيقاف :
+                                 
+                            </label>
+                            </div>
+                            <div class="p-col-10">
+                                <label>
+                                  
+                                    <span dir="rtl">
+        
+        
+                                        {{ appelEnfant.numArrestation }}
+                                    </span>
+                                     
+                                </label>
+                            </div>
+                            </div>
+                            <div class="p-grid"  >
+                                <div class="p-col-2">
+                                    <label style="background-color: rgb(241, 241, 241);">
+                                        المركز :
+                                         
+                                    </label>
+                                    </div>
+                                    <div class="p-col-10">
+                                        <label>
+                                          
+                                            <span>
+                
+                
+                                                {{ appelEnfant.etablissement.libelle_etablissement }}
+                                            </span>
+                                             
+                                        </label>
+                                    </div>
+                                    </div>
+          
+                                
+            
+            
+                                            <div class="p-grid" *ngIf="appelEnfant.affaire" >
+                                                <div class="p-col-2">
+                                                    <label style="background-color: rgb(241, 241, 241);" >
+                                                        قضية  الإستئناف :
+                                                       
+                                                    </label>
+                                                    </div>
+                                                    <div class="p-col-10">
+                                                        <label>
+                                                          
+                                                            <span> {{ appelEnfant.affaire.affaireId.numAffaire }}</span>
+                                                            <span> {{ appelEnfant.affaire.tribunal.nom_tribunal }}</span>
+                                                             
+                                                        </label>
+                                                    </div>
+                                                    </div>
+
+
+                                                    
+                                                    
+            
+        
+                                                                    <div class="p-grid"   >
+                                                                        <div class="p-col-2">
+                                                                            <label style="background-color: rgb(241, 241, 241);" >
+                                                                                تاريخ الإستئناف :
+                                                                               
+                                                                            </label>
+                                                                            </div>
+                                                                            <div class="p-col-10">
+                                                                                <label>
+                                                                                  
+                                                                                    <span dir="rtl">{{ appelEnfant.dateEmission }}</span>
+                                                                                </label>
+                                                                            </div>
+                                                                            </div>
+                                                                            <!-- <div class="p-grid"   >
+                                                                                <div class="p-col-2">
+                                                                                    <label style="background-color: rgb(241, 241, 241);" >
+                                                                                        تاريخ الحكم  :
+                                                                                       
+                                                                                    </label>
+                                                                                    </div>
+                                                                                    <div class="p-col-10">
+                                                                                        <label>
+                                                                                          
+                                                                                            <span dir="rtl">{{ appelEnfant.dateDepotCarte }}</span>
+                                                                                        </label>
+                                                                                    </div>
+                                                                                    </div> -->
+                                                                                 
+                                                                                                                                                             
+           
+                                                                                                   
+            
+
+          
+        <label style="margin-top: 30px;">
+            المدرج    :
+            <span>{{ appelEnfant.personelle.nom +' '+ appelEnfant.personelle.prenom +'    '}}</span>
+            بتاريخ  :
+            <span dir="rtl">{{ appelEnfant.dateInsertion}}</span>
+        </label>
+        </div>
+         
+    </div>
+ 
+
+ 

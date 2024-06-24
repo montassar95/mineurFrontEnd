@@ -1,0 +1,42 @@
+
+<div dir="rtl"      style="margin-top: 5px; " >
+    <!-- (selectedTabChange)="onTabChanged($event);" -->
+    <mat-tab-group mat-align-tabs="center" (selectedTabChange)="onTabChanged($event);" animationDuration="500ms" backgroundColor ="secondary">
+    
+       
+        <mat-tab>
+            <ng-template mat-tab-label >
+                      
+    <h1> إدراج مضمــــــــون حكــــــــم  </h1>
+            </ng-template>
+             
+           
+            <app-carte-recup  ></app-carte-recup>
+        </mat-tab>
+        
+        <mat-tab>
+            <ng-template mat-tab-label style="color:  black ;">
+                     
+                 <h1> إسترشــــــــــــــــاد  </h1>
+            </ng-template>
+             
+           
+            <app-edit-document [idValide]="idValide" ></app-edit-document>
+    
+    
+        </mat-tab>
+    
+    
+   
+        
+    </mat-tab-group>
+
+
+  
+    </div>
+
+    <!-- [tribunal2] = "affaire.affaireLien.tribunal.nom_tribunal" 
+    [codeTribunal2] = "affaire.affaireLien.tribunal.id" 
+    [numAffaireT2] = "affaire.affaireLien.affaireId.numAffaire"
+ 
+    [tribunal2Objet]= "affaire.affaireLien.tribunal"  -->

@@ -1,0 +1,168 @@
+ 
+<div dir="rtl" *ngIf="refuseRevue">
+    <div  style=" margin-left: 5%; margin-right: 5%;    background-image: url(assets/layout/images/bg.png)" >
+        <div class="p-grid"  >
+            <div class="p-col-2">
+                <label style="background-color: rgb(241, 241, 241);">
+                    الهوية:
+                     
+                </label>
+                </div>
+                <div class="p-col-10">
+                    <label>
+                      
+                        <span>
+
+
+                            {{ refuseRevue.affaire.arrestation.enfant.nom }} بن {{ refuseRevue.affaire.arrestation.enfant.nomPere }} بن {{ refuseRevue.affaire.arrestation.enfant.nomGrandPere }} {{ refuseRevue.affaire.arrestation.enfant.prenom }}
+                        </span>
+                         
+                    </label>
+                </div>
+                </div>
+        
+                <div class="p-grid"  >
+                    <div class="p-col-2">
+                        <label style="background-color: rgb(241, 241, 241);">
+                            عدد الإيقاف :
+                             
+                        </label>
+                        </div>
+                        <div class="p-col-10">
+                            <label>
+                              
+                                <span dir="rtl">
+    
+    
+                                    {{ refuseRevue.numArrestation }}
+                                </span>
+                                 
+                            </label>
+                        </div>
+                        </div>
+                        <div class="p-grid"  >
+                            <div class="p-col-2">
+                                <label style="background-color: rgb(241, 241, 241);">
+                                    المركز :
+                                     
+                                </label>
+                                </div>
+                                <div class="p-col-10">
+                                    <label>
+                                      
+                                        <span>
+            
+            
+                                            {{ refuseRevue?.etablissement?.libelle_etablissement }}
+                                        </span>
+                                         
+                                    </label>
+                                </div>
+                                </div>
+      
+                            
+        
+        
+                                        <div class="p-grid" *ngIf="refuseRevue?.affaire" >
+                                            
+                                            <div class="p-col-2">
+                                                <label   style="background-color: rgb(241, 241, 241); color: red;">
+                                                    قضية رفض المراجعة   :
+                                                   
+                                                </label>
+                                             
+                                                </div>
+                                                <div class="p-col-10">
+                                                    <label>
+                                                      
+                                                        <span> {{ refuseRevue.affaire.affaireId.numAffaire }}</span>
+                                                        <span> {{ refuseRevue.affaire.tribunal.nom_tribunal }}</span>
+                                                         
+                                                    </label>
+                                                </div>
+                                                </div>
+  
+
+                                                <div class="p-grid" *ngIf="refuseRevue?.affaire  " >
+                                                    <div class="p-col-2" *ngIf="refuseRevue.affaire.affaireLien">
+                                                        <label style="background-color: rgb(241, 241, 241);" >
+                                                            قضية  الربط         :
+                                                           
+                                                        </label>
+                                                        </div>
+                                                        <div class="p-col-10">
+                                                            <label>
+                                                              
+                                                                <span *ngIf="refuseRevue?.affaire?.affaireLien"> {{ refuseRevue?.affaire?.affaireLien?.affaireId?.numAffaire }}</span>
+                                                                <span *ngIf="refuseRevue?.affaire?.affaireLien"> {{ refuseRevue?.affaire?.affaireLien?.tribunal?.nom_tribunal }}</span>
+                                                               
+                                                                 
+                                                            </label>
+                                                        </div>
+                                                        </div>       
+                                                
+        
+    
+                                                                <!-- <div class="p-grid"   >
+                                                                    <div class="p-col-2">
+                                                                        <label style="background-color: rgb(241, 241, 241);">
+                                                                            تاريخ صدور البطاقة
+                                                                           
+                                                                        </label>
+                                                                        </div>
+                                                                        <div class="p-col-10">
+                                                                            <label>
+                                                                              
+                                                                                <span dir="rtl">{{ refuseRevue.dateEmission }}</span>
+                                                                            </label>
+                                                                        </div>
+                                                                        </div> -->
+                                                                        <div class="p-grid"   >
+                                                                            <div class="p-col-2">
+                                                                                <label  style="background-color: rgb(241, 241, 241);">
+                                                                                    تاريخ المراجعة:
+                                                                                    
+                                                                                </label>
+                                                                              
+                                                                                   </div>
+                                                                                <div class="p-col-10">
+                                                                                    <label>
+                                                                                      
+                                                                                        <span dir="rtl">{{ refuseRevue.dateDepotCarte }}</span>
+                                                                                    </label>
+                                                                                </div>
+                                                                                </div>
+
+
+                                                                                <div class="p-grid"   >
+                                                                                    <div class="p-col-2">
+                                                                                        <label style="background-color: rgb(241, 241, 241);" >
+                                                                                            نص المراجعة :
+                                                                                           
+                                                                                        </label>
+                                                                                        </div>
+                                                                                        <div class="p-col-10">
+                                                                                            <label>
+                                                                                              
+                                                                                                <span dir="rtl">{{ refuseRevue.textJugement }}</span>
+                                                                                            </label>
+                                                                                        </div>
+                                                                                        </div>
+                                                                             
+                                                                                                                                                         
+       
+                                                                                               
+        
+
+      
+    <label style="margin-top: 30px;">
+        المدرج    :
+        <span>{{ refuseRevue?.personelle?.nom +' '+ refuseRevue?.personelle?.prenom +'    '}}</span>
+        بتاريخ  :
+        <span dir="rtl">{{ refuseRevue.dateInsertion}}</span>
+    </label>
+    </div>
+     
+</div>
+
+

@@ -1,0 +1,19 @@
+
+  
+<div class="layout-sidebar" [ngClass]="{'layout-sidebar-active': app.sidebarActive}"
+     (click)="app.onSidebarClick($event)"
+     (mouseover)="app.sidebarActive=true" (mouseleave)="app.sidebarActive=false">
+ 
+
+    <div  dir="rtl" class="layout-menu-container"   (click)="onMenuClick()">
+        <ul style=" font-size: 25px;   
+        font-family:Arial ;  
+        font-weight: bold;
+        display: flexbox;
+        " class="layout-menu">
+            <li app-menuitem   *ngFor="let item of model; let i = index;" [item]="item" [index]="i" [root]="true"></li>
+        </ul>
+    </div>
+</div>
+ 
+ 

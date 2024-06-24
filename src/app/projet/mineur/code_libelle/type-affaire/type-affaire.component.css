@@ -1,0 +1,31 @@
+th{
+    font-family: 'Amiri', Times, serif;
+    font-weight: bold;
+    font-size: 20px;
+ }
+ input{
+   
+   font-weight: bold;
+   font-size: 16px;
+}
+ html {
+   scroll-behavior: smooth;
+ }
+ td{
+   font-family: 'Amiri', Times, serif;
+   font-weight: 700;
+   font-size: 18px;
+   color: black;
+   text-align: center;
+}
+ h2{
+    font-family: 'Amiri', Times, serif;
+    font-weight: bold;
+    color: black;
+ }
+ h1{
+    color: #015ac7 !important;
+         font-family: 'Amiri', Times, serif;        
+   
+        font-weight: bold;
+  }

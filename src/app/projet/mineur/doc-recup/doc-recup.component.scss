@@ -1,0 +1,62 @@
+h3{
+
+    font-size: 30px; /* Titres de 40 pixels */
+    
+    font-weight: bold;
+    width:200px; 
+     background-color:transparent ;
+}
+
+h1{
+    color: #015ac7 !important;
+         font-family: 'Amiri', Times, serif;        
+     
+        font-weight: bold;
+  }
+
+ 
+  .item{
+    font-family: 'Amiri', Times, serif;
+          font-weight: bold;
+          font-size: 18px;
+          margin-top: 7px;
+          color: #000000;
+          
+  }
+  b{
+      color: #4a59a3;
+     
+  }
+
+
+  .d{
+    text-align: center;
+    font-size:25px;
+}
+  .neons   {
+   
+    text-align: center;
+ 
+  }
+  .neons span {
+    font-size:30px;
+    text-align: center;
+     font-weight: bold;
+  
+    animation: xx 0.20s ease-in-out infinite alternate;
+   
+  }
+
+    @-webkit-keyframes xx {
+     from {
+      color: #ff0000 !important;
+    
+          }
+  
+  to {
+     color: rgb(230, 230, 230);
+  
+  }
+ }
+
+  

@@ -1,0 +1,134 @@
+
+ 
+ 
+    <div dir="rtl" *ngIf="liberation">
+        <div  style=" margin-left: 5%; margin-right: 5%;    background-image: url(assets/layout/images/bg.png)" >
+            <div class="p-grid"  >
+                <div class="p-col-2">
+                    <label>
+                        الهوية:
+                         
+                    </label>
+                    </div>
+                    <div class="p-col-10">
+                        <label>
+                          
+                            <span>
+
+
+                                {{  enfant.nom }} بن {{  enfant.nomPere }} بن {{ enfant.nomGrandPere }} {{  enfant.prenom }}
+                            </span>
+                             
+                        </label>
+                    </div>
+
+                    
+                    </div>
+
+
+
+                
+                   
+                            <div class="p-grid"  >
+                                <div class="p-col-2">
+                                    <label>
+                                        تــاريخ الســراح :
+                                         
+                                    </label>
+                                    </div>
+                                    <div class="p-col-10">
+                                        <label>
+                                          
+                                            <span>
+                
+                
+                                                {{  liberation.date  }}
+                                            </span>
+                                             
+                                        </label>
+                                    </div>
+                
+                
+                                    
+                                    </div>           
+          
+                                   
+                                    
+            
+                                    <div class="p-grid"  >
+                                        <div class="p-col-2">
+                                            <label>
+                                                مــوجب الســراح   :
+                                                 
+                                            </label>
+                                            </div>
+                                            <div class="p-col-10">
+                                                <label>
+                                                  
+                                                    <span>
+                        
+                        
+                                                        {{  liberation.causeLiberation.libelleCauseLiberation }} 
+                                                    </span>
+                                                     
+                                                </label>
+                                            </div>
+                        
+                        
+                                            
+                                            </div>  
+                                           
+                                               
+                                    <div class="p-grid" *ngIf="liberation?.etabChangeManiere"  >
+                                        <div class="p-col-2">
+                                            <label>
+                                                مؤسسة تغير وسيلة  :   
+                                                 
+                                            </label>
+                                            </div>
+                                            <div class="p-col-10">
+                                                <label>
+                                                  
+                                                    <span>
+                        
+                        
+                                                        {{  liberation?.etabChangeManiere?.libelle_etabChangeManiere }} 
+                                                    </span>
+                                                     
+                                                </label>
+                                            </div>
+                         </div>                                    
+                                                                                                                                                             
+                                            <div class="p-grid"  >
+                                                <div class="p-col-2">
+                                                    <label>
+                                                        لفت نظر  :
+                                                         
+                                                    </label>
+                                                    </div>
+                                                    <div class="p-col-10">
+                                                        <label>
+                                                          
+                                                            <span>
+                                                                  
+                                
+                                                                {{  liberation.remarqueLiberation }}  
+                                                            </span>
+                                                             
+                                                        </label>
+                                                    </div>
+                                
+                                
+                                                    
+                                                    </div> 
+ 
+                                                                                                   
+            
+
+      
+        </div>
+         
+    </div>
+ 
+
+ 

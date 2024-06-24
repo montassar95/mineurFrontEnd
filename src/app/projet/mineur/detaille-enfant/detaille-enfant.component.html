@@ -1,0 +1,272 @@
+ 
+<div class="wrapper">
+    <div class="card">
+        <input type="checkbox" id="card1" class="more" aria-hidden="true">
+        <div class="content">
+         
+            <div class="front"    >
+                <div class="inner">
+                     
+                  <img src="assets/layout/images/criminal-recordd.png"  style="width: 50%; " />
+                    <label for="card1" class="button" aria-hidden="true">
+                        السوابــق العدلية
+                    </label>
+                </div>
+            </div>
+            <div class="back">
+              <div class="inner" >
+                      
+                    
+                <div  class="p-grid"  dir="rtl" style="margin-top: 50px;" >
+                    
+                   
+        
+                        <h1 class="info">    معرف الطفل : </h1>
+         
+                       <!-- <input   type="number" min="10"  [(ngModel)]="idAppelEnfant"  (keyup.enter)="dirAppelEnfant()" pInputText>  -->
+                     
+                     
+                       <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black'}"
+                       dir="rtl"    [(ngModel)]="idAppelEnfant" mask="99999999" slotChar="----------"
+                       (keyup.enter)="dirAppelEnfant()"      placeholder=" عدد  ">
+                       </p-inputMask>
+        
+                    
+        
+        
+        
+                </div>
+                
+                 
+                <label for="card1" class="button return" aria-hidden="true">
+                   
+                    <i class="pi pi-arrow-left"  >  السوابــق العدلية </i>
+                </label>
+            </div>
+                 
+            </div>
+        </div>
+    </div>
+     <div class="card">
+        <input type="checkbox" id="card2" class="more">
+        <div class="content">
+            <div class="front"    >
+                <div class="inner">
+                   
+                  <img src="assets/layout/images/folderr.png"  style="width: 50%; " />
+                    <label for="card2" class="button" aria-hidden="true">
+                        كشــف عن القضية
+                    </label>
+                </div>
+            </div>
+            <div class="back">
+              <div class="inner" >
+                      
+                    
+                <div  class="p-grid"  dir="rtl" style="margin-top: 50px;" >
+                    
+                   
+        
+                        <h1 class="info">     المحكمة و عدد القضية :  </h1>
+          
+                        <div class="p-field p-grid">
+                           
+
+
+                            <div class="p-col">
+                            
+                               <input class="tribunal" readonly [ngModel]="tribunal1" (click)="showListTribunal1()"  
+                                  type="text" style="width:  125%; font-size: 18px;" pInputText>
+
+
+                            </div>
+
+
+
+                         </div>
+                         <div class="p-field p-grid">
+                          
+                            <div class="p-col">
+
+                               <p-inputMask [style]="{'font-weight': '600','width':  '100%','font-size': '18px','color': 'black'}"
+                               dir="rtl"    [(ngModel)]="numAffaireT1" mask="999-999999" slotChar="----------"
+                                  placeholder=" عدد القضية">
+                               </p-inputMask>
+                               <!-- <input class="tribunal" [(readonly)]="!update"[(ngModel)]="numAffaireT1" placeholder="  عدد القضية"
+                                  style="width:  20%;" type="text" pInputText> -->
+                            </div>
+                         </div>
+                    
+        
+                    
+        
+        
+        
+                </div>
+                
+                 
+                <label for="card2" class="button return" aria-hidden="true">
+                   
+                    <i class="pi pi-arrow-left"  > كشــف عن القضية </i>
+                </label>
+            </div>
+  
+  
+                
+            </div>
+        </div>
+    </div>  
+    <div class="card">
+        <input type="checkbox" id="card3" class="more">
+        <div class="content">
+            <div class="front"    >
+                <div class="inner">
+                   
+                  <img src="assets/layout/images/prision.png" style="width: 50%; " />
+                    <label for="card3" class="button" aria-hidden="true">
+                        الإقــامــات
+                    </label>
+                </div>
+            </div>
+            <div class="back">
+  
+              <div class="inner" >
+                      
+                    
+                <div  class="p-grid"  dir="rtl" style="margin-top: 50px;" >
+                    
+                   
+        
+                        <h1 class="info">    معرف الطفل : </h1>
+         
+                       <!-- <input   type="number" min="10" [(ngModel)]="idAppelParquet"    (keyup.enter)="dirAppelParquet()" pInputText>  -->
+                     
+                     
+                    
+                       <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black'}"
+                       dir="rtl"    [(ngModel)]="idAppelParquet" mask="99999999" slotChar="----------"
+                       (keyup.enter)="dirAppelParquet()"      placeholder=" عدد  ">
+                       </p-inputMask>
+                    
+        
+        
+        
+                </div>
+                
+              
+                <label for="card3" class="button return" aria-hidden="true">
+                   
+                    <i class="pi pi-arrow-left"  > الإقــامــات</i>
+                </label>
+            </div> 
+               
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <p-dialog header="دليل المحاكم" dir="rtl" [(visible)]="displayTribunal1" modal="true" showEffect="fade">
+
+    <div style="width: 1200px;  min-height: 400px;">
+        <p-table [value]="entitiesTribunal" #dtTribunal1 selectionMode="single" [paginator]="true" [rows]="5"
+        paginatorPosition="top" [rowsPerPageOptions]="[5,10,20,50]"   [globalFilterFields]="['id','nom_tribunal' ]">
+            <ng-template pTemplate="caption">
+                <div class="p-grid">
+                <div class="p-col">
+                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                    <input type="text" pInputText size="50" placeholder=" بحث"
+                        (input)="dtTribunal1.filterGlobal($event.target.value, 'contains')" style="width:300px">
+
+                </div>
+                <div class="p-col">
+                    <p-multiSelect    [options]="gouvernoratSwich" [filter]="true"  
+                    [style]="{'width':'100%', 'margin-top':'0'}"   emptyFilterMessage="لا تيوجد نتيجية "
+                    defaultLabel="قائمة الولايات " selectedItemsLabel="{0} ولايات" appendTo="body"  
+                     (onChange)="dtTribunal1.filter($event.value,'gouvernorat.libelle_gouvernorat', 'in')">
+                    <ng-template let-group pTemplate="item">
+                      <div class="item">
+                          <span  >{{group.label}}</span>
+                         </div>
+                       
+                 </ng-template>
+                 
+                 </p-multiSelect> 
+                </div>
+                <div class="p-col">
+                    <p-multiSelect    [options]="typeTribunalSwich" [filter]="true"  
+                    [style]="{'width':'100%', 'margin-top':'0'}"   emptyFilterMessage="لا تيوجد نتيجية "
+                    defaultLabel="قائمة  أنواع المحاكم " selectedItemsLabel="{0}  أنواع المحاكم" appendTo="body"  
+                     (onChange)="dtTribunal1.filter($event.value,'typeTribunal.libelleTypeTribunal', 'in')">
+                    <ng-template let-group pTemplate="item">
+                      <div class="item">
+                          <span  >{{group.label}}</span>
+                         </div>
+                       
+                 </ng-template>
+                 
+                 </p-multiSelect>
+                </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+
+                    <th style="width: 10%;"  pSortableColumn="id" >الرمز
+                        <p-sortIcon field="id"></p-sortIcon>
+                    </th>
+
+
+                    <th  style="width: 80%;" pSortableColumn="nom_tribunal" > المحكمة
+                        <p-sortIcon field="nom_tribunal"></p-sortIcon>
+
+                    </th>
+
+                    <th  style="width: 10%;"> إدراج
+
+
+                    </th>
+
+
+                </tr>
+                <tr > 
+         
+                    <th     >     
+                        <input   pInputText type="text" placeholder="يبدأ بـــــــــــ" class="ui-column-filter" style="width: 100%; margin-top: 0;" (input)="dtTribunal1.filter($event.target.value, 'id', 'startsWith')">
+                                     
+                 </th>
+                    <th    >    
+                        <input   pInputText type="text" placeholder=" يبدأ بـــــــــــ" class="ui-column-filter" style="width: 100%; margin-top: 0;" (input)="dtTribunal1.filter($event.target.value, 'nom_tribunal', 'startsWith')">
+                                     
+                 </th> 
+              
+                    
+                    <th style="width: 10%;" >
+                      
+                   </th>
+                   
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-row>
+                <tr>
+
+
+                    <td> <b style="font-size:18px;">{{row.id}}</b></td>
+
+
+                    <td> <b style="font-size:18px;">{{row.nom_tribunal}} </b></td>
+
+
+                    <td>
+                        <p-button icon="pi pi-plus" (click)=saveTribunal1(row)>
+                        </p-button>
+
+
+                    </td>
+
+
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+</p-dialog>

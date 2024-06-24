@@ -1,0 +1,215 @@
+
+ 
+ 
+    <div dir="rtl" *ngIf="echappes">
+        <div  style=" margin-left: 5%; margin-right: 5%;    background-image: url(assets/layout/images/bg.png)" >
+            <div class="p-grid"  >
+                <div class="p-col-2">
+                    <label>
+                        الهوية:
+                         
+                    </label>
+                    </div>
+                    <div class="p-col-10">
+                        <label>
+                          
+                            <span>
+
+
+                                {{  enfant.nom }} بن {{  enfant.nomPere }} بن {{ enfant.nomGrandPere }} {{  enfant.prenom }}
+                            </span>
+                             
+                        </label>
+                    </div>
+
+                    
+                    </div>
+
+
+
+                    <div class="p-grid"  >
+                        <div class="p-col-2">
+                            <label>
+                                العدد الرتبي للفرار:
+                                 
+                            </label>
+                            </div>
+                            <div class="p-col-10">
+                                <label>
+                                  
+                                    <span>
+        
+        
+                                        {{  echappes.echappesId.numOrdinaleEchappes }} 
+                                    </span>
+                                     
+                                </label>
+                            </div>
+        
+        
+                            
+                            </div>
+                   
+                            <div class="p-grid"  >
+                                <div class="p-col-2">
+                                    <label>
+                                        بتاريخ :
+                                         
+                                    </label>
+                                    </div>
+                                    <div class="p-col-10">
+                                        <label>
+                                          
+                                            <span>
+                
+                
+                                                {{  echappes.dateEchappes }}
+                                            </span>
+                                             
+                                        </label>
+                                    </div>
+                
+                
+                                    
+                                    </div>           
+          
+                                
+            
+                                    <div class="p-grid"  >
+                                        <div class="p-col-2">
+                                            <label>
+                                                الكيفية  :
+                                                 
+                                            </label>
+                                            </div>
+                                            <div class="p-col-10">
+                                                <label>
+                                                  
+                                                    <span>
+                        
+                        
+                                                        {{  echappes.commentEchapper.libelleComment }} 
+                                                    </span>
+                                                     
+                                                </label>
+                                            </div>
+                        
+                        
+                                            
+                                            </div>  
+                                           
+                                                                                 
+                                                                                                                                                             
+                                            <div class="p-grid"  >
+                                                <div class="p-col-2">
+                                                    <label>
+                                                        لفت نظر  :
+                                                         
+                                                    </label>
+                                                    </div>
+                                                    <div class="p-col-10">
+                                                        <label>
+                                                          
+                                                            <span>
+                                                                  
+                                
+                                                                {{  echappes.remarqueEchappes }}  
+                                                            </span>
+                                                             
+                                                        </label>
+                                                    </div>
+                                
+                                
+                                                    
+                                                    </div> 
+
+
+
+
+
+
+
+
+                                                    <div class="p-grid"  *ngIf="echappes.dateTrouver" >
+                                                        <div class="p-col-2">
+                                                            <label>
+                                                                تاريخ إلقاء القبض :
+
+                                                                 
+                                                            </label>
+                                                            </div>
+                                                            <div class="p-col-10">
+                                                                <label>
+                                                                  
+                                                                    <span>
+                                        
+                                        
+                                                                        {{  echappes.dateTrouver }}
+                                                                    </span>
+                                                                     
+                                                                </label>
+                                                            </div>
+                                        
+                                        
+                                                            
+                                                            </div>           
+                                  
+                                                        
+                                    
+                                                            <div class="p-grid" *ngIf="echappes.commentTrouver" >
+                                                                <div class="p-col-2">
+                                                                    <label>
+                                                                        كيفية إلقاء القبض :
+                                                                         
+                                                                    </label>
+                                                                    </div>
+                                                                    <div class="p-col-10">
+                                                                        <label>
+                                                                          
+                                                                            <span>
+                                                
+                                                
+                                                                                {{  echappes.commentTrouver.libelleComment }} 
+                                                                            </span>
+                                                                             
+                                                                        </label>
+                                                                    </div>
+                                                
+                                                
+                                                                    
+                                                                    </div>  
+                                                                   
+                                                                                                         
+                                                                                                                                                                                     
+                                                                    <div class="p-grid" *ngIf="echappes.remarqueTrouver" >
+                                                                        <div class="p-col-2">
+                                                                            <label>
+                                                                                لفت نظر حول عملية إلقاءالقبض :
+                                                                                 
+                                                                            </label>
+                                                                            </div>
+                                                                            <div class="p-col-10">
+                                                                                <label>
+                                                                                  
+                                                                                    <span>
+                                                                                          
+                                                        
+                                                                                        {{  echappes.remarqueTrouver }}  
+                                                                                    </span>
+                                                                                     
+                                                                                </label>
+                                                                            </div>
+                                                        
+                                                        
+                                                                            
+                                                                            </div> 
+                                                                                                   
+            
+
+      
+        </div>
+         
+    </div>
+ 
+
+ 

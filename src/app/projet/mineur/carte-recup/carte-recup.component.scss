@@ -1,0 +1,176 @@
+ 
+  
+ 
+
+    
+  .profile-img-card {
+    width: 350px;
+    height: auto;
+    margin: 0 auto 10px;
+    display: block;
+    -moz-border-radius: 10%;
+    -webkit-border-radius: 10%;
+    border-radius: 10%;
+  }
+  
+  input{font-weight: 500;
+    font-size: 16px;
+color: black;
+}
+ 
+    .tribunal{
+    font-weight: 500;
+    font-size: 16px;
+    color: black;}
+    .profile-img-card2{
+        width: 250px;
+        height: 200px;
+        margin: 0 auto 10px;
+        margin-top: 10px;
+        display: block;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        border-radius: 5%;
+      }
+      .enLabel{
+        margin-top: 20px;
+        color: #000000cb;
+       
+      }
+      .d{
+        color: rgb(74, 89, 163);
+        
+      }
+      .alert{
+        color: rgb(238, 41, 41);
+        font-size: 16px;
+        
+      }
+      .container {
+        padding: 2px 16px;
+      }
+      .ui-dropdown .ui-dropdown-label {
+        padding-left: 2em;
+      }
+      
+      .ui-dropdown .ui-dropdown-trigger {
+        left: 0;
+      }
+
+      th{
+        font-size: 18px;
+         font-family: 'Amiri', Times, serif;
+        
+       }
+       td{
+         font-size: 17px;
+        font-family: 'Amiri', Times, serif;
+      }
+
+      h1
+      {
+          font-size: 40px;  
+          font-weight: bold;
+          font-family: 'Amiri', Times, serif;
+          color:rgba(0, 128, 0, 0.733); 
+         
+      }
+      .neons {
+        margin-top: 10px;
+        text-align: center;
+     }
+     .neons p {
+      font-size:30px;
+      text-align: center;
+       font-weight: bold;
+     font-family: 'Amiri', Times, serif;
+      animation: glow2 0.5s ease-in-out infinite alternate;
+    }
+     .neons span {
+       font-size:40px;
+       text-align: center;
+        font-weight: bold;
+      font-family: 'Amiri', Times, serif;
+       animation: glow2 0.5s ease-in-out infinite alternate;
+     }
+    
+       @-webkit-keyframes glow2 {
+        from {
+         color: #ff3434;
+       
+             }
+     
+     to {
+        color: white;
+     
+     }
+    }
+    @-webkit-keyframes glow3 {
+      from {
+       color: green;
+     
+           }
+   
+   to {
+      color: white;
+   
+   }
+  }
+
+
+    .button {
+     
+      text-align: center;
+      background-color: transparent;
+      margin-top: 30px;
+   }
+   
+   .button span {
+      
+      cursor: help;
+     font-size:25px;
+     text-align: center;
+      font-weight: bold;
+    font-family: 'Amiri', Times, serif;
+     animation: glow2 0.5s ease-in-out infinite alternate;
+     text-decoration: underline;
+   }
+
+
+
+   .save {
+     
+    text-align: center;
+    background-color: transparent;
+   
+ }
+ 
+ .save span {
+    
+    cursor: help;
+   font-size:25px;
+   text-align: center;
+    font-weight: bold;
+  font-family: 'Amiri', Times, serif;
+   animation: glow3 0.5s ease-in-out infinite alternate;
+  
+ }
+
+ .item{
+  text-align: right;
+  font-family: 'Amiri', Times, serif;
+  font-size: 17px;
+  font-weight: bold
+ 
+ }
+  
+ .line {
+  text-decoration: line-through gray;
+  
+}
+
+ 
+ 
+
+
+ 

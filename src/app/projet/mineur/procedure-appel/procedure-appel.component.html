@@ -1,0 +1,194 @@
+ 
+<div class="wrapper">
+
+  <div class="card">
+    <input type="checkbox" id="card4" class="more">
+    <div class="content">
+      <div class="front">
+        <div class="inner">
+  
+          <img src="assets/layout/images/pas-de-racisme.png" style="width: 150px; margin-top: 30px;" />
+          <label for="card4" class="button" aria-hidden="true">
+          إعتراض
+          </label>
+        </div>
+      </div>
+      <div class="back">
+        <div class="inner">
+  
+  
+          <div class="p-grid" dir="rtl" style="margin-top: 50px;">
+  
+  
+  
+            <h1 class="info"> معرف الطفل : </h1>
+  
+            <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black'}" dir="rtl"
+              [(ngModel)]="idRevue" mask="99999999" slotChar="----------"   placeholder=" عدد  ">
+            </p-inputMask>
+  
+  
+  
+  
+  
+  
+          </div>
+  
+  
+          <label for="card4" class="button return" aria-hidden="true">
+  
+            <i class="pi pi-arrow-left"> إعتراض    </i>
+          </label>
+        </div>
+  
+  
+  
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <input type="checkbox" id="card2" class="more">
+    <div class="content">
+      <div class="front">
+        <div class="inner">
+  
+          <img src="assets/layout/images/vote.png" style="width: 150px; margin-top: 30px;" />
+          <label for="card2" class="button" aria-hidden="true">
+        تعقيب
+          </label>
+        </div>
+      </div>
+      <div class="back">
+        <div class="inner">
+  
+  
+          <div class="p-grid" dir="rtl" style="margin-top: 50px;">
+  
+  
+  
+            <h1 class="info"> معرف الطفل : </h1>
+  
+            <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black'}" dir="rtl"
+              [(ngModel)]="idRevue" mask="99999999" slotChar="----------"   placeholder=" عدد  ">
+            </p-inputMask>
+  
+  
+  
+  
+  
+  
+          </div>
+  
+  
+          <label for="card2" class="button return" aria-hidden="true">
+  
+            <i class="pi pi-arrow-left"> تعقيب    </i>
+          </label>
+        </div>
+  
+  
+  
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+      <input type="checkbox" id="card1" class="more" aria-hidden="true">
+      <div class="content">
+       
+          <div class="front"    >
+              <div class="inner">
+                   
+                <img src="assets/layout/images/swear.png"  style="width: 50%;   margin-top: 20px;" />
+                  <label for="card1" class="button" aria-hidden="true">
+                    طعن الطفل بالاستئناف
+                  </label>
+              </div>
+          </div>
+          <div class="back">
+            <div class="inner" >
+                    
+                  
+              <div  class="p-grid"  dir="rtl" style="margin-top: 50px;" >
+                  
+                 
+      
+                      <h1 class="info">    معرف الطفل : </h1>
+       
+                     <!-- <input   type="number" min="10"  [(ngModel)]="idAppelEnfant"  (keyup.enter)="dirAppelEnfant()" pInputText>  -->
+                   
+                   
+                     <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black'}"
+                     dir="rtl"    [(ngModel)]="idAppelEnfant" mask="99999999" slotChar="----------"
+                     (keyup.enter)="dirAppelEnfant()"      placeholder=" عدد  ">
+                     </p-inputMask>
+      
+                  
+      
+      
+      
+              </div>
+              
+               
+              <label for="card1" class="button return" aria-hidden="true">
+                 
+                  <i class="pi pi-arrow-left"  >   طعن الطفل بالاستئناف</i>
+              </label>
+          </div>
+               
+          </div>
+      </div>
+  </div>
+   
+  <div class="card">
+      <input type="checkbox" id="card3" class="more">
+      <div class="content">
+          <div class="front"    >
+              <div class="inner">
+                 
+                <img src="assets/layout/images/court-judge.png"   style="width: 55%;   margin-top: 20px;" />
+                  <label for="card3" class="button" aria-hidden="true">
+                    طعن النيابة بالاستئناف
+                  </label>
+              </div>
+          </div>
+          <div class="back">
+
+            <div class="inner" >
+                    
+                  
+              <div  class="p-grid"  dir="rtl" style="margin-top: 50px;" >
+                  
+                 
+      
+                      <h1 class="info">    معرف الطفل : </h1>
+       
+                     <!-- <input   type="number" min="10" [(ngModel)]="idAppelParquet"    (keyup.enter)="dirAppelParquet()" pInputText>  -->
+                   
+                   
+                  
+                     <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black'}"
+                     dir="rtl"    [(ngModel)]="idAppelParquet" mask="99999999" slotChar="----------"
+                     (keyup.enter)="dirAppelParquet()"      placeholder=" عدد  ">
+                     </p-inputMask>
+                  
+      
+      
+      
+              </div>
+              
+            
+              <label for="card3" class="button return" aria-hidden="true">
+                 
+                  <i class="pi pi-arrow-left"  >  طعن النيابة بالاستئناف</i>
+              </label>
+          </div> 
+             
+          </div>
+      </div>
+  </div>
+
+
+  
+</div>

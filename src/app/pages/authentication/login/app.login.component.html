@@ -1,0 +1,48 @@
+<div  class="login-body" [ngClass]="{'layout-dark': dark, 'layout-light': !dark}">
+    
+    <div class="login-content">
+        
+        <div class="login-panel">
+            <div class="login-panel-content">
+                <div class="logo">
+                    <img id="logo-login" src="../../../../assets/layout/images/logo-login.png" alt="mirage-layout"/>
+                </div>
+                <h1 style="font-weight: bold;  color: dimgrey;"  >منظومة الأطفال الجانحين </h1>
+                <br>
+                <br>
+                <div class="forms" >
+                    <div class="login-input-wrapper">
+                        <label  for="username">إسم المستعمل</label>
+                        <input id="username" pInputText pTooltip="إسم المستعمل"
+                               [(ngModel)]="userName"
+                             
+                               tooltipEvent="focus"/>
+                        <i class="pi pi-envelope" style="font-size: 2em"></i>
+                    </div>
+
+                    <div class="login-input-wrapper">
+                        <label for="password">كلمة السر</label>
+                        <input [type]="flagPassword" id="password"   pPassword
+                               [(ngModel)]="password" [pTooltip]="toolTipPoliticasPassword"
+                               tooltipEvent="focus"
+                               (keyup)="validarPolitasPassword()"
+                               [feedback]="false"/>
+                        <i class="pi pi-eye" (click)="flagPassword='text'" *ngIf="flagPassword=='password'"
+                           style="font-size: 2em"></i>
+                        <i class="pi pi-eye-slash" (click)="flagPassword='password'" *ngIf="flagPassword=='text'"
+                           style="font-size: 2em"></i>
+                    </div>
+ 
+
+
+                    <div class="buttons" dir="rtl">
+                        <button pButton type="button" [routerLink]="['/']" label="دخول" icon="pi pi-sign-in"></button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="desert"></div>
+    </div>
+</div>

@@ -1,0 +1,1079 @@
+<!-- <div  style="  width: 100%;    "   style="right: 20%;  ">
+
+   <p-autoComplete id="acAdvanced" [(ngModel)]="selectedEtablissements" [suggestions]="filteredEtablissements"
+      (completeMethod)="filterEtablissements($event)" [size]="30" [minLength]="1" [dropdown]="true" multiple="true">
+      <ng-template let-etablissement pTemplate="item">
+         <div class="ui-helper-clearfix">
+
+            <div style="font-size:20px;height: 20px;float:right;margin:10px 10px 0 0;">
+               {{etablissement.libelle_etablissement }}</div>
+         </div>
+      </ng-template>
+
+      <ng-template let-etablissement pTemplate="selectedItem">
+         <div style="color: white; padding: 1px 40px 1px 1px;" class="title">
+            {{etablissement.libelle_etablissement}}
+             <button (click)="removeItem(etablissement)">X</button>  
+         </div>
+      </ng-template>
+
+   </p-autoComplete>
+
+
+</div> -->
+
+<div class="Listcontainer" style="   width: 80%;   " *ngIf=" !(sizeFile==0 && click)">
+   <p-toast key="tst" [style]="{marginTop: '150px'}"></p-toast>
+
+
+   <!-- <button class="button-3d" (click)="printAllCentre()">
+      <h1 class="color-animation">
+      طباعة قائمة شهري للأطفال المودعين بجميع مراكز الإصلاح خلال الشهر الحالي ( موقوفين، محكومين و سراحات )
+      </h1>
+   </button>   -->
+   <p-card [style]="{ 'height': 'auto',   'border-radius': '0%',   'margin-bottom':'1%' }">
+
+
+
+      <div class=" p-grid" style="text-align: right;">
+
+         <!-- <div class="p-col-8">
+<h2> قائمة شهري للأطفال المودعين بجميع مراكز الإصلاح  ( موقوفين، محكومين و سراحات )</h2>
+   </div> -->
+
+
+         <!-- <div class="p-col-2">
+<p-calendar dir="rtl" [readonlyInput]="false" [(ngModel)]="datePrintAllCentre"
+   [style]="{'font-weight': '500','font-size': '18px','color': 'black'}" appendTo="body" [yearNavigator]="true"
+   readonly="true" [monthNavigator]="true" [yearRange]="years" dateFormat="yy/mm/dd" [locale]="calendar_ar"
+   placeholder="يوم/شهر/سنة">
+
+</p-calendar> 
+
+</div>   -->
+
+         <!-- <div class="p-col-2">
+   
+   
+      <button mat-raised-button class="button-card3" *ngIf="!click" (click)="printAllCentre()"
+         style="   background-color:   #206b64;    ">
+         <span style="font-family: 'Amiri', Times, serif; font-size: 20px; color:   #fcfefc;"> تحميل قائمة شهرية </span>
+         <i class="pi pi-file" style="font-size: 35px;  color:    #fcfefc;"></i>
+      </button>
+   </div>  -->
+
+
+         <!-- <div class="p-col-9"  >
+ 
+
+   
+</div>
+<div class="p-col-3" style="text-align: right;">
+   <h2 for="acAdvanced">قم بإختيار المركز </h2>
+</div>     -->
+
+         <div class="p-col-9">
+
+
+            <input id="input" style="margin-left: 10px;" class="title" readonly [(ngModel)]="accusationsToAddLabel"
+               (click)="showListList()" type="text" pInputText />
+
+         </div>
+         <!-- <div class="p-col-2">
+
+
+            <button mat-raised-button class="button-card3" *ngIf="!click" (click)="printAllCentre()"
+               style="   background-color:   #206b64;    ">
+               <span style="font-family: 'Amiri', Times, serif; font-size: 20px; color:   #fcfefc;"> تحميل قائمة شهرية
+               </span>
+               <i class="pi pi-file" style="font-size: 35px;  color:    #fcfefc;"></i>
+            </button>
+         </div> -->
+         <!-- <div class="p-col-2">
+            <p-calendar dir="rtl" [readonlyInput]="false" [(ngModel)]="datePrintAllCentre"
+               [style]="{'font-weight': '500','font-size': '18px','color': 'black'}" appendTo="body"
+               [yearNavigator]="true" readonly="true" [monthNavigator]="true" [yearRange]="years" dateFormat="yy/mm/dd"
+               [locale]="calendar_ar" placeholder="يوم/شهر/سنة">
+
+            </p-calendar>
+
+         </div> -->
+         <div class="p-col-3" style="text-align: right;">
+            <h2>
+               :العنــــــــوان </h2>
+
+         </div>
+         <div class="p-col-9">
+
+            <p-autoComplete id="acAdvanced" [(ngModel)]="selectedEtablissements" [suggestions]="filteredEtablissements"
+               (completeMethod)="filterEtablissements($event)" [size]="30" [minLength]="1" [dropdown]="true"
+               multiple="true">
+               <ng-template let-etablissement pTemplate="item">
+                  <div class="ui-helper-clearfix">
+
+                     <div style="font-size:20px;height: 20px;float:right;margin:10px 10px 0 0;">
+                        {{etablissement.libelle_etablissement }}</div>
+                  </div>
+               </ng-template>
+
+               <ng-template let-etablissement pTemplate="selectedItem">
+                  <div style="color: white; padding: 1px 40px 1px 1px;" class="title">
+                     {{ etablissement.libelle_etablissement}}
+                     <!-- <button (click)="removeItem(etablissement)">X</button> -->
+                  </div>
+               </ng-template>
+
+            </p-autoComplete>
+
+
+         </div>
+         <div class="p-col-3" style="text-align: right;">
+            <h2 for="acAdvanced"> إختيار المركز </h2>
+         </div>
+         <!-- <div class="p-col-9" style="text-align: right;  ">
+
+
+   <p-autoComplete id="acAdvanced1" [(ngModel)]="selectedBrands" [suggestions]="filteredBrands"
+      (completeMethod)="filterBrands($event)" [size]="30" [minLength]="1" [dropdown]="true" multiple="true">
+      <ng-template let-brand pTemplate="item">
+         <div class="ui-helper-clearfix">
+             <img src="assets/demo/images/car/{{brand}}.png" style="width:32px;display:inline-block;margin:5px 0 2px 5px" />  
+            <div style="font-size:18px;float:right;margin:10px 10px 0 0">{{brand.label}}</div>
+         </div>
+      </ng-template>
+
+      <ng-template let-brand pTemplate="selectedItem">
+         <div class="selected-item" style="color: white;">
+            {{brand.label}}
+            <button (click)="removeItemBrand(brand)">X</button>
+         </div>
+      </ng-template>
+   </p-autoComplete>
+</div>
+<div class="p-col-3" style="text-align: center;">
+   <h2 for="acAdvanced">قم بإختيار القائمة </h2>
+</div> -->
+
+
+
+
+
+      </div>
+
+
+
+   </p-card>
+   <p-card dir="rtl">
+
+
+
+      <div class=" p-grid">
+
+         <!--      
+         <div class="p-col-2">
+         <h2>
+            قائمة     :</h2>
+
+     </div>
+     <div class="p-col-4" >
+        <input  id="input" class="title" readonly [(ngModel)]="accusationsToAddLabel" (click)="showListList()"  type="text" pInputText />  
+      
+        <p-dropdown [options]="accusationsToAdd"  
+      [(ngModel)]="accusationsToAddValue"  [filter]="true">
+
+
+
+    
+      <ng-template let-accu pTemplate="item">
+         <div class="item">
+
+
+            
+            <div>{{ accu.label}} </div>
+         </div>
+      </ng-template>
+   </p-dropdown>    
+  
+     </div>   -->
+
+         <!-- <div class="p-col-2" >
+      <h2   >  بمركــــز : </h2>
+
+  </div>
+  <div class="p-col-4">
+
+      <input #nom class="title"  id="input"  [(ngModel)]="centreLibelle" readonly (click)="showListCentre()"   type="text" pInputText /> 
+       <i class="pi pi-times" style="font-size: 22px;  color:   red;"  *ngIf="centreLibelle" (click)="deleteCentre()"></i>  
+  </div> -->
+
+
+         <div class="p-col-2" *ngIf="isShow">
+            <h2>
+               من :</h2>
+
+         </div>
+         <div class="p-col-4" *ngIf="isShow">
+
+            <p-calendar dir="rtl" [readonlyInput]="false" [(ngModel)]="dateDebutGlobale"
+               [style]="{'font-weight': '500','font-size': '18px','color': 'black'}" appendTo="body"
+               [yearNavigator]="true" readonly="true" [monthNavigator]="true" [yearRange]="years" dateFormat="yy/mm/dd"
+               [locale]="calendar_ar" placeholder="يوم/شهر/سنة">
+
+            </p-calendar>
+
+         </div>
+
+         <div class="p-col-2" *ngIf="isShow">
+            <h2>
+               إلى : </h2>
+
+         </div>
+         <div class="p-col-4" *ngIf="isShow">
+            <p-calendar dir="rtl" [readonlyInput]="false" [(ngModel)]="dateFinGlobale"
+               [style]="{'font-weight': '500','font-size': '18px','color': 'black'}" appendTo="body"
+               [yearNavigator]="true" readonly="true" [monthNavigator]="true" [yearRange]="years" dateFormat="yy/mm/dd"
+               [locale]="calendar_ar" placeholder="يوم/شهر/سنة">
+
+            </p-calendar>
+
+
+         </div>
+
+
+         <div class="p-col-2" *ngIf="accusationsToAddValue == 'libere' ">
+            <h2>أنواع السراح :</h2>
+
+         </div>
+
+         <div class="p-col-4" *ngIf="accusationsToAddValue == 'libere' ">
+
+            <input id="input" readonly [(ngModel)]="causeLiberationLibelle" (click)="showListCauseLiberation()"
+               type="text" pInputText />
+            <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="causeLiberationLibelle"
+               (click)="deleteCauseLiberation()"></i>
+         </div>
+         <div class="p-col-6" *ngIf="accusationsToAddValue == 'libere' "></div>
+
+         <div class="p-col-2">
+            <h2>الصنف الجزائي :</h2>
+
+         </div>
+         <div class="p-col-4">
+
+            <input id="input" readonly [(ngModel)]="classePenaleLibelle" (click)="showListClassePenale()" type="text"
+               pInputText />
+            <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="classePenaleLibelle"
+               (click)="deleteClassePenale()"></i>
+         </div>
+         <div class="p-col-2">
+            <h2>
+               نوع القضية : </h2>
+
+         </div>
+         <div class="p-col-4">
+
+            <input id="input" readonly [(ngModel)]="typeAffaireLibelle" (click)="showListTypeAffaire()" type="text"
+               pInputText />
+            <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="typeAffaireLibelle"
+               (click)="deleteTypeAffaire()"></i>
+
+         </div>
+
+
+         <div class="p-col-2">
+            <h2>
+               نوع المحكمة :</h2>
+
+         </div>
+         <div class="p-col-4">
+            <input id="input" readonly [(ngModel)]="typeTribunalLibelle" (click)="showListTypeTribunal()" type="text"
+               pInputText />
+            <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="typeTribunalLibelle"
+               (click)="deleteTypeTribunal()"></i>
+         </div>
+         <div class="p-col-2">
+            <h2>
+               ولاية المحكمة :</h2>
+
+         </div>
+         <div class="p-col-4">
+
+            <input id="input" readonly [(ngModel)]="gouvernoratTribunalLibelle" (click)="showListGouvernoratTribunal()"
+               type="text" pInputText />
+            <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="gouvernoratTribunalLibelle"
+               (click)="deleteGouvernoratTribunal()"></i>
+
+         </div>
+
+         <div class="p-col-2">
+            <h2>
+               نوع الحكم :</h2>
+
+         </div>
+         <div class="p-col-4">
+
+            <input id="input" readonly [(ngModel)]="typeJugeLibelle" (click)="showListTypeJuge()" type="text"
+               pInputText />
+            <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="typeJugeLibelle"
+               (click)="deleteTypeJuge()"></i>
+
+         </div>
+
+         <div class="p-col-2">
+            <h2> السـن بيـن : </h2>
+
+         </div>
+         <div class="p-col-4">
+            <div class="p-grid">
+
+               <!-- <div class="p-col-4"   >
+                                   <h2>   بيـن   </h2>
+                               </div> -->
+               <div class="p-col-4">
+                  <p-dropdown [options]="ageToAdd1" [(ngModel)]="ageToAddValue1" [style]="{'width': '100%' }">
+
+
+                     <ng-template let-accu pTemplate="selectedItem">
+                        <div class="item">
+
+                           <div *ngIf="accu.label=='empty'"> ؟ ؟ </div>
+                           <div *ngIf="accu.label!=='empty'">{{ accu.label}} </div>
+                        </div>
+                     </ng-template>
+
+                     <ng-template let-accu pTemplate="item">
+                        <div class="item">
+
+
+                           <div *ngIf="accu.label!='empty'">{{ accu.label}} </div>
+                           <div *ngIf="accu.label=='empty'" style="color: red;"> إلغاء </div>
+
+                        </div>
+                     </ng-template>
+                  </p-dropdown>
+               </div>
+               <div class="p-col-2">
+                  <h2 style="text-align: center;"> و </h2>
+               </div>
+               <div class="p-col-4">
+                  <p-dropdown [options]="ageToAdd2" [(ngModel)]="ageToAddValue2" [style]="{'width': '100%' }">
+
+
+
+                     <ng-template let-accu pTemplate="selectedItem">
+                        <div class="item">
+
+                           <div *ngIf="accu.label=='empty'"> ؟ ؟ </div>
+                           <div *ngIf="accu.label!=='empty'">{{ accu.label}} </div>
+                        </div>
+                     </ng-template>
+
+                     <ng-template let-accu pTemplate="item">
+                        <div class="item">
+
+
+
+
+                           <div *ngIf="accu.label!='empty'">{{ accu.label}} </div>
+                           <div *ngIf="accu.label=='empty'" style="color: red;"> إلغاء </div>
+                        </div>
+                     </ng-template>
+                  </p-dropdown>
+               </div>
+
+
+            </div>
+
+         </div>
+
+      </div>
+
+
+
+   </p-card>
+   <p-card dir="rtl" [style]="{ 'height': 'auto',   'border-radius': '0%',    'margin-top':'2%'  }">
+
+
+      <div class="p-grid">
+
+         <div class="p-col-2">
+            <h2>
+               المستوى الدراسي :</h2>
+
+         </div>
+         <div class="p-col-4">
+
+            <input id="input" readonly [(ngModel)]="niveauEducatifLibelle" (click)="showListNiveauEducatif()"
+               type="text" pInputText />
+            <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="niveauEducatifLibelle"
+               (click)="deleteNiveauEducatif()"></i>
+         </div>
+
+
+         <div class="p-col-2">
+            <h2>
+               ولايــــة الإقــامــة :</h2>
+
+         </div>
+         <div class="p-col-4">
+
+            <input id="input" readonly [(ngModel)]="gouvernoratLibelle" (click)="showListGouvernorat()" type="text"
+               pInputText />
+            <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="gouvernoratLibelle"
+               (click)="deleteGouvernorat()"></i>
+         </div>
+         <div class="p-col-2">
+            <h2>الحــالة العائلية :</h2>
+
+         </div>
+         <div class="p-col-4">
+
+            <input id="input" type="text" readonly [(ngModel)]="situationFamilialeLibelle"
+               (click)="showListSituationFamiliale()" pInputText />
+            <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="situationFamilialeLibelle"
+               (click)="deleteSituationFamiliale()"></i>
+         </div>
+
+         <div class="p-col-2" *ngIf="gouvernoratLibelle">
+            <h2>
+               معتمدية الإقــامــة :</h2>
+
+         </div>
+         <div class="p-col-4" *ngIf="gouvernoratLibelle">
+
+            <input id="input" readonly [(ngModel)]="delegationLibelle" (click)="showListDelegation()" type="text"
+               pInputText />
+            <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="delegationLibelle"
+               (click)="deleteDelegation()"></i>
+         </div>
+         <div class="p-col-2">
+            <h2>
+               المهنــة :</h2>
+
+         </div>
+         <div class="p-col-4">
+
+            <input id="input" readonly [(ngModel)]="metierLibelle" (click)="showListMetier()" type="text" pInputText />
+            <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="metierLibelle"
+               (click)="deleteMetier()"></i>
+         </div>
+
+         <div class="p-col-2">
+            <h2>
+               الحــالة الإجتماعية :</h2>
+
+         </div>
+         <div class="p-col-4">
+
+            <input id="input" readonly [(ngModel)]="situationSocialLibelle" (click)="showListSituationSocial()"
+               type="text" pInputText />
+            <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="situationSocialLibelle"
+               (click)="deleteSituationSocial()"></i>
+         </div>
+         <div class="p-col-2">
+            <h2>
+               الجنسيــــات :</h2>
+
+         </div>
+         <div class="p-col-4">
+
+            <input id="input" readonly [(ngModel)]="nationaliteLibelle" (click)="showListNationalite()" type="text"
+               pInputText />
+            <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="nationaliteLibelle"
+               (click)="deleteNationalite()"></i>
+         </div>
+
+         <div class="p-col-2">
+
+            <h2 style="color: rgb(231, 0, 231) ;"> أجــــانب فقـــط</h2>
+
+
+         </div>
+         <div class="p-col-4">
+
+
+
+            <p-checkbox name="cg" value="etranger" [(ngModel)]="checkEtranger"> </p-checkbox>
+
+         </div>
+
+
+
+         <div class="p-col-2">
+
+            <h2 style="color: rgb(231, 0, 231) ;"> حسب القضية الرئسية :</h2>
+
+
+         </div>
+         <div class="p-col-4">
+
+
+
+            <p-checkbox name="cgg" value="principal" [(ngModel)]="checkUniqueAff"> </p-checkbox>
+
+         </div>
+
+
+      </div>
+
+
+
+   </p-card>
+   <div class="p-col-12" *ngIf="!(sizeFile==0 && click)" style="text-align: center;">
+      <button mat-raised-button class="button-card3" (click)="print()"
+         style="   background-color:   #206b64;  width:200px;vertical-align:middle;  ">
+         <span style="font-family: 'Amiri', Times, serif; font-size: 20px; color:   #fcfefc;"> تحميل </span>
+         <i class="pi pi-file" style="font-size: 35px;  color:    #fcfefc;"></i>
+      </button>
+
+
+   </div>
+</div>
+
+<div *ngIf=" sizeFile==0 && click" style="text-align: center;">
+   <img src="assets/layout/images/g.gif" />
+
+</div>
+
+
+<p-dialog header="  دليل المستـــوى الدراســـي" dir="rtl" [(visible)]="displayNiveauEducatif" modal="true"
+   showEffect="fade">
+   <div style="width: 800px;">
+      <p-table [value]="entitiesNiveauEducatif" #dtNiveauEducatif selectionMode="single" [paginator]="true" [rows]="5"
+         [globalFilterFields]="['id','libelle_niveau_educatif' ]">
+         <ng-template pTemplate="caption">
+            <div style="text-align: right">
+               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+               <input type="text" pInputText size="50" placeholder=" بحث"
+                  (input)="dtNationalite.filterGlobal($event.target.value, 'contains')" style="width:300px">
+            </div>
+         </ng-template>
+         <ng-template pTemplate="header">
+            <tr>
+               <th style="width: 100px;">الرمز
+               </th>
+               <th> المستـــوى الدراســـي
+               </th>
+               <th style="width: 50px;"> إدراج
+               </th>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-row>
+            <tr>
+               <td> <b style="font-size:18px;">{{row.id}}</b></td>
+               <td> <b style="font-size:18px;">{{row.libelle_niveau_educatif}} </b></td>
+               <td>
+                  <p-button icon="pi pi-backward" (click)="saveNiveauEducatif(row)">
+                  </p-button>
+               </td>
+            </tr>
+         </ng-template>
+      </p-table>
+   </div>
+</p-dialog>
+
+<p-dialog header="  دليل الحالــة العائليــة  " dir="rtl" [(visible)]="displaySituationFamiliale" modal="true"
+   showEffect="fade">
+   <div style="width: 800px;">
+      <p-table [value]="entitiesSituationFamiliale" #dtSituationFamiliale selectionMode="single" [paginator]="true"
+         [rows]="5" [globalFilterFields]="['id','libelle_situation_familiale' ]">
+         <ng-template pTemplate="caption">
+            <div style="text-align: right">
+               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+               <input type="text" pInputText size="50" placeholder=" بحث"
+                  (input)="dtSituationFamiliale.filterGlobal($event.target.value, 'contains')" style="width:300px">
+            </div>
+         </ng-template>
+         <ng-template pTemplate="header">
+            <tr>
+               <th style="width: 100px;">الرمز
+               </th>
+               <th> الحالــة العائليــة
+               </th>
+               <th style="width: 50px;"> إدراج
+               </th>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-row>
+            <tr>
+               <td> <b style="font-size:18px;">{{row.id}}</b></td>
+               <td> <b style="font-size:18px;">{{row.libelle_situation_familiale}} </b></td>
+               <td>
+                  <p-button icon="pi pi-backward" (click)="saveSituationFamiliale(row)">
+                  </p-button>
+               </td>
+            </tr>
+         </ng-template>
+      </p-table>
+   </div>
+</p-dialog>
+
+<p-dialog header="  دليل الحالــة الإجتمـاعيـــة  " dir="rtl" [(visible)]="displaySituationSocial" modal="true"
+   showEffect="fade">
+   <div style="width: 800px;">
+      <p-table [value]="entitiesSituationSocial" #dtSituationSocial selectionMode="single" [paginator]="true" [rows]="5"
+         [globalFilterFields]="['id','libelle_situation_social' ]">
+         <ng-template pTemplate="caption">
+            <div style="text-align: right">
+               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+               <input type="text" pInputText size="50" placeholder=" بحث"
+                  (input)="dtSituationSocial.filterGlobal($event.target.value, 'contains')" style="width:300px">
+            </div>
+         </ng-template>
+         <ng-template pTemplate="header">
+            <tr>
+               <th style="width: 100px;">الرمز
+               </th>
+               <th> الحالــة الإجتمـاعيـة
+               </th>
+               <th style="width: 50px;"> إدراج
+               </th>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-row>
+            <tr>
+               <td> <b style="font-size:18px;">{{row.id}}</b></td>
+               <td> <b style="font-size:18px;">{{row.libelle_situation_social}} </b></td>
+               <td>
+                  <p-button icon="pi pi-backward" (click)="saveSituationSocial(row)">
+                  </p-button>
+               </td>
+            </tr>
+         </ng-template>
+      </p-table>
+   </div>
+</p-dialog>
+
+<p-dialog header="  دليل الولايــات     " dir="rtl" [(visible)]="displayGouvernorat" modal="true" showEffect="fade">
+   <div style="width: 800px;">
+      <p-table [value]="entitiesGouvernorat" #dtGouvernorat selectionMode="single" [paginator]="true" [rows]="5"
+         [globalFilterFields]="['id','libelle_gouvernorat' ]">
+         <ng-template pTemplate="caption">
+            <div style="text-align: right">
+               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+               <input type="text" pInputText size="50" placeholder=" بحث"
+                  (input)="dtGouvernorat.filterGlobal($event.target.value, 'contains')" style="width:300px">
+            </div>
+         </ng-template>
+         <ng-template pTemplate="header">
+            <tr>
+               <th style="width: 100px;">الرمز
+               </th>
+               <th> الولايــة
+               </th>
+               <th style="width: 50px;"> إدراج
+               </th>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-row>
+            <tr>
+               <td> <b style="font-size:18px;">{{row.id}}</b></td>
+               <td> <b style="font-size:18px;">{{row.libelle_gouvernorat}} </b></td>
+               <td>
+                  <p-button icon="pi pi-backward" (click)="saveGouvernorat(row)">
+                  </p-button>
+               </td>
+            </tr>
+         </ng-template>
+      </p-table>
+   </div>
+</p-dialog>
+
+<p-dialog header="  دليل الولايــات     " dir="rtl" [(visible)]="displayGouvernoratTribunal" modal="true"
+   showEffect="fade">
+   <div style="width: 800px;">
+      <p-table [value]="entitiesGouvernoratTribunal" #dtGouvernoratTribunal selectionMode="single" [paginator]="true"
+         [rows]="5" [globalFilterFields]="['id','libelle_gouvernorat' ]">
+         <ng-template pTemplate="caption">
+            <div style="text-align: right">
+               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+               <input type="text" pInputText size="50" placeholder=" بحث"
+                  (input)="dtGouvernorat.filterGlobal($event.target.value, 'contains')" style="width:300px">
+            </div>
+         </ng-template>
+         <ng-template pTemplate="header">
+            <tr>
+               <th style="width: 100px;">الرمز
+               </th>
+               <th> الولايــة
+               </th>
+               <th style="width: 50px;"> إدراج
+               </th>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-row>
+            <tr>
+               <td> <b style="font-size:18px;">{{row.id}}</b></td>
+               <td> <b style="font-size:18px;">{{row.libelle_gouvernorat}} </b></td>
+               <td>
+                  <p-button icon="pi pi-backward" (click)="saveGouvernoratTribunal(row)">
+                  </p-button>
+               </td>
+            </tr>
+         </ng-template>
+      </p-table>
+   </div>
+</p-dialog>
+
+
+
+<p-dialog header="  دليل المعتمديــات     " dir="rtl" [(visible)]="displayDelegation" modal="true" showEffect="fade">
+   <div style="width: 800px;">
+      <p-table [value]="entitiesDelegation" #dtDelegation selectionMode="single" [paginator]="true" [rows]="5"
+         [globalFilterFields]="['id','libelle_delegation' ]">
+         <ng-template pTemplate="caption">
+            <div style="text-align: right">
+               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+               <input type="text" pInputText size="50" placeholder=" بحث"
+                  (input)="dtDelegation.filterGlobal($event.target.value, 'contains')" style="width:300px">
+            </div>
+         </ng-template>
+         <ng-template pTemplate="header">
+            <tr>
+               <th style="width: 100px;">الرمز
+               </th>
+               <th> المعتمديــة
+               </th>
+               <th style="width: 50px;"> إدراج
+               </th>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-row>
+            <tr>
+               <td> <b style="font-size:18px;">{{row.id}}</b></td>
+               <td> <b style="font-size:18px;">{{row.libelle_delegation}} </b></td>
+               <td>
+                  <p-button icon="pi pi-backward" (click)="saveDelegation(row)">
+                  </p-button>
+               </td>
+            </tr>
+         </ng-template>
+      </p-table>
+   </div>
+</p-dialog>
+
+<p-dialog header="  دليل المهن      " dir="rtl" [(visible)]="displayMetier" modal="true" showEffect="fade">
+   <div style="width: 800px;">
+      <p-table [value]="entitiesMetier" #dtMetier selectionMode="single" [paginator]="true" [rows]="5"
+         [globalFilterFields]="['id','libelle_metier' ]">
+         <ng-template pTemplate="caption">
+            <div style="text-align: right">
+               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+               <input type="text" pInputText size="50" placeholder=" بحث"
+                  (input)="dtMetier.filterGlobal($event.target.value, 'contains')" style="width:300px">
+            </div>
+         </ng-template>
+         <ng-template pTemplate="header">
+            <tr>
+               <th style="width: 100px;">الرمز
+               </th>
+               <th> المهنة
+               </th>
+               <th style="width: 50px;"> إدراج
+               </th>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-row>
+            <tr>
+               <td> <b style="font-size:18px;">{{row.id}}</b></td>
+               <td> <b style="font-size:18px;">{{row.libelle_metier}} </b></td>
+               <td>
+                  <p-button icon="pi pi-backward" (click)="saveMetier(row)">
+                  </p-button>
+               </td>
+            </tr>
+         </ng-template>
+      </p-table>
+   </div>
+</p-dialog>
+
+
+<p-dialog header=" دليل الصنـــف الجزائـــي     " dir="rtl" [(visible)]="displayClassePenale" modal="true"
+   showEffect="fade">
+   <div style="width: 800px;">
+      <p-table [value]="entitiesClassePenale" #dtClassePenale selectionMode="single" [paginator]="true" [rows]="5"
+         [globalFilterFields]="['id','libelle_classe_penale' ]">
+         <ng-template pTemplate="caption">
+            <div style="text-align: right">
+               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+               <input type="text" pInputText size="50" placeholder=" بحث"
+                  (input)="dtNationalite.filterGlobal($event.target.value, 'contains')" style="width:300px">
+            </div>
+         </ng-template>
+         <ng-template pTemplate="header">
+            <tr>
+               <th style="width: 100px;">الرمز
+               </th>
+               <th> الصنف الجزائي
+               </th>
+               <th style="width: 50px;"> إدراج
+               </th>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-row>
+            <tr>
+               <td> <b style="font-size:18px;">{{row.id}}</b></td>
+               <td> <b style="font-size:18px;">{{row.libelle_classe_penale}} </b></td>
+               <td>
+                  <p-button icon="pi pi-backward" (click)="saveClassePenale(row)">
+                  </p-button>
+               </td>
+            </tr>
+         </ng-template>
+      </p-table>
+   </div>
+</p-dialog>
+
+
+
+
+
+<p-dialog header=" دليــل المراكــــز     " dir="rtl" [(visible)]="displayCentre" modal="true" showEffect="fade">
+   <div style="width: 800px;">
+      <p-table [value]="entitiesEtablissement" #dtCentre selectionMode="single" [paginator]="true" [rows]="5"
+         [globalFilterFields]="['id','libelle_etablissement' ]">
+         <ng-template pTemplate="caption">
+            <div style="text-align: right">
+               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+               <input type="text" pInputText size="50" placeholder=" بحث"
+                  (input)="dtCentre.filterGlobal($event.target.value, 'contains')" style="width:300px">
+            </div>
+         </ng-template>
+         <ng-template pTemplate="header">
+            <tr>
+               <th style="width: 100px;">الرمز
+               </th>
+               <th> المركـــز
+               </th>
+               <th style="width: 50px;"> إدراج
+               </th>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-row>
+            <tr>
+               <td> <b style="font-size:18px;">{{row.id}}</b></td>
+               <td> <b style="font-size:18px;">{{row.libelle_etablissement}} </b></td>
+               <td>
+                  <p-button icon="pi pi-backward" (click)="saveCentre(row)">
+                  </p-button>
+               </td>
+            </tr>
+         </ng-template>
+      </p-table>
+   </div>
+</p-dialog>
+
+
+<p-dialog header=" دليــل أنـــواع المحـــاكـــم     " dir="rtl" [(visible)]="displayTypeTribunal" modal="true"
+   showEffect="fade">
+   <div style="width: 800px;">
+      <p-table [value]="entitiesTypeTribunal" #dtTypeTribunal selectionMode="single" [paginator]="true" [rows]="5"
+         [globalFilterFields]="['id','libelleTypeTribunal' ]">
+         <ng-template pTemplate="caption">
+            <div style="text-align: right">
+               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+               <input type="text" pInputText size="50" placeholder=" بحث"
+                  (input)="dtTypeTribunal.filterGlobal($event.target.value, 'contains')" style="width:300px">
+            </div>
+         </ng-template>
+         <ng-template pTemplate="header">
+            <tr>
+               <th style="width: 100px;">الرمز
+               </th>
+               <th> نـــوع المحكمـــة
+               </th>
+               <th style="width: 50px;"> إدراج
+               </th>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-row>
+            <tr>
+               <td> <b style="font-size:18px;">{{row.id}}</b></td>
+               <td> <b style="font-size:18px;">{{row.libelleTypeTribunal}} </b></td>
+               <td>
+                  <p-button icon="pi pi-backward" (click)="saveTypeTribunal(row)">
+                  </p-button>
+               </td>
+            </tr>
+         </ng-template>
+      </p-table>
+   </div>
+</p-dialog>
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+<p-dialog header="دليل أنواع القضايا " dir="rtl" [(visible)]="displayTypeAffaire" modal="true" showEffect="fade">
+   <div style="width: 800px;">
+      <p-table [value]="entitiesTypeAffaire" #dtTypeAffaire selectionMode="single" [paginator]="true" [rows]="5"
+         [globalFilterFields]="['id','libelle_typeAffaire' ]">
+         <ng-template pTemplate="caption">
+            <div style="text-align: right">
+               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+               <input type="text" pInputText size="50" placeholder=" بحث"
+                  (input)="dtTypeAffaire.filterGlobal($event.target.value, 'contains')" style="width:300px">
+            </div>
+         </ng-template>
+         <ng-template pTemplate="header">
+            <tr>
+               <th style="width: 100px;">الرمز
+               </th>
+               <th> المحكمة
+               </th>
+               <th style="width: 50px;"> إدراج
+               </th>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-row>
+            <tr>
+               <td> <b style="font-size:16px;">{{row.id}}</b></td>
+               <td> <b style="font-size:16px;">{{row.libelle_typeAffaire}} </b></td>
+               <td>
+                  <p-button icon="pi pi-plus" (click)="saveTypeAffaire(row)">
+                  </p-button>
+               </td>
+            </tr>
+         </ng-template>
+      </p-table>
+   </div>
+</p-dialog>
+<p-dialog header=" دليــل أنـــواع القــائمــات      " dir="rtl" [(visible)]="displayList" modal="true"
+   showEffect="fade">
+   <div style="width: 1200px;">
+      <p-table [value]="accusationsToAdd" #dtList selectionMode="single" [paginator]="true" [rows]="5"
+         [globalFilterFields]="[ 'label' ]">
+         <ng-template pTemplate="caption">
+            <div style="text-align: right">
+               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+               <input type="text" pInputText size="50" placeholder=" بحث"
+                  (input)="dtList.filterGlobal($event.target.value, 'contains')" style="width:300px">
+            </div>
+         </ng-template>
+         <ng-template pTemplate="header">
+            <tr>
+
+               <th> نـــوع القائمة
+               </th>
+               <th style="width: 50px;"> إدراج
+               </th>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-row>
+            <tr>
+
+               <td style="text-align: center;"> <b style="font-size:30px; color: #5E81AC;">{{row.label}} </b></td>
+               <td>
+                  <p-button icon="pi pi-backward" (click)="saveList(row)">
+                  </p-button>
+               </td>
+            </tr>
+         </ng-template>
+      </p-table>
+   </div>
+</p-dialog>
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+
+<p-dialog header="  دليل أنــواع الحكــم      " dir="rtl" [(visible)]="displayTypeJuge" modal="true" showEffect="fade">
+   <div style="width: 800px;">
+      <p-table [value]="entitiesTypeJuge" #dtTypeJuge selectionMode="single" [paginator]="true" [rows]="5"
+         [globalFilterFields]="['id','libelle_gouvernorat' ]">
+         <ng-template pTemplate="caption">
+            <div style="text-align: right">
+               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+               <input type="text" pInputText size="50" placeholder=" بحث"
+                  (input)="dtTypeJuge.filterGlobal($event.target.value, 'contains')" style="width:300px">
+            </div>
+         </ng-template>
+         <ng-template pTemplate="header">
+            <tr>
+               <th style="width: 100px;">الرمز
+               </th>
+               <th> نوع الحكم
+               </th>
+               <th style="width: 50px;"> إدراج
+               </th>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-row>
+            <tr>
+               <td> <b style="font-size:18px;">{{row.id}}</b></td>
+               <td> <b style="font-size:18px;">{{row.libelle_typeJuge}} </b></td>
+               <td>
+                  <p-button icon="pi pi-backward" (click)="saveTypeJuge(row)">
+                  </p-button>
+               </td>
+            </tr>
+         </ng-template>
+      </p-table>
+   </div>
+</p-dialog>
+
+
+<p-dialog header="  دليل   أسبــاب الســراح     " dir="rtl" [(visible)]="displayCauseLiberation" modal="true"
+   showEffect="fade">
+   <div style="width: 800px;">
+      <p-table [value]="entitiesCauseLiberation" #dtCauseLiberation selectionMode="single" [paginator]="true" [rows]="5"
+         [globalFilterFields]="['id','libelleCauseLiberation' ]">
+         <ng-template pTemplate="caption">
+            <div style="text-align: right">
+               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+               <input type="text" pInputText size="50" placeholder=" بحث"
+                  (input)="dtCauseLiberation.filterGlobal($event.target.value, 'contains')" style="width:300px">
+            </div>
+         </ng-template>
+         <ng-template pTemplate="header">
+            <tr>
+               <th style="width: 100px;">الرمز
+               </th>
+               <th> نوع الحكم
+               </th>
+               <th style="width: 50px;"> إدراج
+               </th>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-row>
+            <tr>
+               <td> <b style="font-size:18px;">{{row.id}}</b></td>
+               <td> <b style="font-size:18px;">{{row.libelleCauseLiberation}} </b></td>
+               <td>
+                  <p-button icon="pi pi-backward" (click)="saveCauseLiberation(row)">
+                  </p-button>
+               </td>
+            </tr>
+         </ng-template>
+      </p-table>
+   </div>
+</p-dialog>
+
+
+<p-dialog header="  دليل  الجنسيــــات     " dir="rtl" [(visible)]="displayNationalite" modal="true" showEffect="fade">
+   <div style="width: 800px;">
+      <p-table [value]="entitiesNationalite" #dtNationalite selectionMode="single" [paginator]="true" [rows]="5"
+         [globalFilterFields]="['id','libelle_nationalite' ]">
+         <ng-template pTemplate="caption">
+            <div style="text-align: right">
+               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+               <input type="text" pInputText size="50" placeholder=" بحث"
+                  (input)="dtNationalite.filterGlobal($event.target.value, 'contains')" style="width:300px">
+            </div>
+         </ng-template>
+         <ng-template pTemplate="header">
+            <tr>
+               <th style="width: 100px;">الرمز
+               </th>
+               <th> الجنسيـــة
+               </th>
+               <th style="width: 50px;"> إدراج
+               </th>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-row>
+            <tr>
+               <td> <b style="font-size:18px;">{{row.id}}</b></td>
+               <td> <b style="font-size:18px;">{{row.libelle_nationalite}} </b></td>
+               <td>
+                  <p-button icon="pi pi-backward" (click)="saveNationalite(row)">
+                  </p-button>
+               </td>
+            </tr>
+         </ng-template>
+      </p-table>
+   </div>
+</p-dialog>

@@ -1,0 +1,189 @@
+
+    <div dir="rtl"  *ngIf="changementLieu">
+        <div  style=" margin-left: 5%; margin-right: 5%;    background-image: url(assets/layout/images/bg.png)" >
+            <div class="p-grid"  >
+                <div class="p-col-2">
+                    <label  style="background-color: rgb(241, 241, 241);"   >
+                        الهوية:
+                         
+                    </label>
+                    </div>
+                    <div class="p-col-10">
+                        <label>
+                          
+                            <span>
+
+
+                                {{changementLieu.affaire?.arrestation?.enfant?.nom}} بن {{changementLieu.affaire?.arrestation?.enfant?.nomPere}} بن {{changementLieu.affaire?.arrestation?.enfant?.nomGrandPere}} {{changementLieu.affaire?.arrestation?.enfant?.prenom}}
+                            </span>
+                             
+                        </label>
+                    </div>
+                </div>
+             
+
+
+
+
+                
+                <div class="p-grid"  >
+                    <div class="p-col-2">
+                        <label style="background-color: rgb(241, 241, 241);">
+                            عدد الإيقاف :
+                             
+                        </label>
+                        </div>
+                        <div class="p-col-10">
+                            <label>
+                              
+                                <span dir="rtl">
+    
+    
+                                    {{ changementLieu.numArrestation }}
+                                </span>
+                                 
+                            </label>
+                        </div>
+                        </div>
+                        <div class="p-grid"  >
+                            <div class="p-col-2">
+                                <label style="background-color: rgb(241, 241, 241);">
+                                    المركز :
+                                     
+                                </label>
+                                </div>
+                                <div class="p-col-10">
+                                    <label>
+                                      
+                                        <span>
+            
+            
+                                            {{ changementLieu?.etablissement?.libelle_etablissement }}
+                                        </span>
+                                         
+                                    </label>
+                                </div>
+                                </div>
+      
+                            
+        
+        
+                                        <div class="p-grid" *ngIf="changementLieu.affaire" >
+                                            <div class="p-col-4">
+                                                <label style="background-color: rgb(241, 241, 241);" >
+                                                    محكمة و عدد قضية قرار تغير مكان الإيداع :
+                                                   
+                                                </label>
+                                                </div>
+                                                <div class="p-col-8">
+                                                    <label>
+                                                      
+                                                        <span style="text-decoration: underline  rgba(255, 0, 0, 0.650);"> {{ changementLieu.affaire?.affaireId.numAffaire }}</span>
+                                                        <span style="text-decoration: underline  rgba(255, 0, 0, 0.650);" > {{ changementLieu.affaire?.tribunal.nom_tribunal }}</span>
+                                                         
+                                                    </label>
+                                                </div>
+                                                </div>
+
+
+                                                <div class="p-grid" *ngIf="changementLieu.affaire" >
+                                                    <div class="p-col-2" *ngIf="changementLieu.affaire.affaireLien">
+                                                        <label style="background-color: rgb(241, 241, 241);" >
+                                                            المحكمة و عدد القضية   :
+                                                           
+                                                        </label>
+                                                        </div>
+                                                        <div class="p-col-10">
+                                                            <label>
+                                                              
+                                                                <span *ngIf="changementLieu.affaire.affaireLien"> {{ changementLieu.affaire.affaireLien.affaireId.numAffaire }}</span>
+                                                                <span *ngIf="changementLieu.affaire.affaireLien"> {{ changementLieu.affaire.affaireLien.tribunal.nom_tribunal }}</span>
+                                                               
+                                                                 
+                                                            </label>
+                                                        </div>
+                                                        </div>
+        
+                                                        <div class="p-grid"   >
+                                                            <div class="p-col-2">
+                               <label  *ngIf="changementLieu?.type=='mutation'" style="background-color: rgb(241, 241, 241); color: red;" > نقلة إلى </label>
+                               <label  *ngIf="changementLieu?.type=='changementEtab'" style="background-color: rgb(241, 241, 241); color: red;" > تغير وسيلة إلى</label>
+                                                                    
+                                                                   
+
+                                                                
+                                                                </div>
+                                                                <div class="p-col-10">
+                                                                    <label>
+                                                                        <span *ngIf="changementLieu?.etablissementtMutation" >{{changementLieu?.etablissementtMutation?.libelle_etablissement }}</span>
+                                                                        <span *ngIf="changementLieu?.etabChangeManiere" >{{changementLieu?.etabChangeManiere?.libelle_etabChangeManiere}}</span>
+                                                                    </label>
+                                                                </div>
+                                                                </div>
+        
+    
+                                                                <div class="p-grid"   >
+                                                                    <div class="p-col-2">
+                                                                        <label style="background-color: rgb(241, 241, 241);" >
+                                                                            تاريخ  قرار تغير مكان الإيداع 
+                                                                           
+                                                                        </label>
+                                                                        </div>
+                                                                        <div class="p-col-10">
+                                                                            <label>
+                                                                              
+                                                                                <span dir="rtl">{{ changementLieu.dateDepotCarte }}</span>
+                                                                            </label>
+                                                                        </div>
+                                                                        </div>
+                                                                        <div class="p-grid"   >
+                                                                            <div class="p-col-2">
+                                                                                <label style="background-color: rgb(241, 241, 241);" >
+                                                                                    مــــدة  تغير مكان الإيداع :
+                                                                                   
+                                                                                </label>
+                                                                                </div>
+
+                                                                                <div class="p-col-4">
+                                                                                    <label >
+                                                                                        <label *ngIf="!(changementLieu?.jour  || changementLieu?.mois  || changementLieu?.annee)" 
+                                                                                        style="background-color: rgb(241, 241, 241); color: red;"> 
+                                                                                        غير محددة
+                                                                                        </label>
+                                                                                 <b *ngIf="changementLieu?.jour  || changementLieu?.mois  || changementLieu?.annee" >
+
+                                                                                    <span *ngIf="changementLieu?.jour">{{changementLieu?.jour}} يوم </span>
+                                                                                    <span *ngIf="changementLieu?.jour && changementLieu?.mois"> و </span>
+                                                                                    <span *ngIf="changementLieu?.mois">{{changementLieu?.mois}} شهر </span>
+                                                                                    <span *ngIf="changementLieu?.annee && changementLieu?.mois"> و </span>
+                                                                                    <span *ngIf="changementLieu?.annee && changementLieu?.jour && !changementLieu?.mois"> و
+                                                                                    </span>
+                                                                                    <span *ngIf="changementLieu.annee">{{changementLieu?.annee}} سنة</span>
+                                                                                
+                                                                                 </b> 
+                                                                                    </label>
+                                                                                    </div>
+                                                                             
+                                                                                </div>
+                                                                             
+                                                                                                                                                         
+       
+                                                                                               
+        
+
+      
+    <label style="margin-top: 30px;">
+        المدرج    :
+        <span>{{ changementLieu.personelle.nom +' '+ changementLieu.personelle.prenom +'    '}}</span>
+        بتاريخ  :
+        <span dir="rtl">{{ changementLieu.dateInsertion}}</span>
+    </label>
+          
+                                                           
+   
+        </div>
+         
+    </div>
+ 
+
+ 

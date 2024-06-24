@@ -1,0 +1,952 @@
+ 
+
+
+ 
+
+<div class="card-container card"      >
+
+     <div style="text-align: center  ">
+      <div class="p-grid" *ngIf="!faux" >
+  
+            <div class="p-col-12 p-md-6">
+               <b   [ngClass]="!booleanAge ? 'neons' : 'normal'" > <span [ngStyle]="{'color': !booleanAge ? 'red' : (booleanAge ? 'blue' : null) }" > {{ageEnfant}}  </span>  </b>
+                  
+            </div>
+            <div class="p-col-12 p-md-6">
+               
+               
+                  <b   [ngClass]="!booleanAge  ? 'neons' : 'normal'"  > <span [ngStyle]="{'color': !booleanAge ? 'red' : (booleanAge? 'blue' : null) }" >{{alertAge }}    </span>  </b>
+                  
+                  
+               </div>
+            </div>
+            
+  
+    
+   </div>  
+   
+   <mat-horizontal-stepper    style="background-color: transparent;"    linear  dir="rtl" #stepper>
+
+      
+     
+      
+     
+      <mat-step [stepControl]="addForm1"   >
+         
+         <form [formGroup]="addForm1" >
+           
+            <ng-template matStepLabel>الهوية</ng-template>
+            <div class="p-grid">
+               <div class="p-col-12 p-md-1">
+                  <h2>الإسم</h2>
+
+               </div>
+               <div class="p-col-12 p-md-2">
+                
+                  <input formControlName="nom"     type="text" pInputText required  #nomShow  />
+               </div>
+              
+               <div class="p-col-12 p-md-1">
+                  <h2>إسم الأب</h2>
+
+               </div>
+               <div class="p-col-12 p-md-2">
+
+                  <input formControlName="nomPere"    type="text" pInputText required #nomPereShow  />
+               </div>
+               <div class="p-col-12 p-md-1">
+                  <h2>إسم الجد</h2>
+
+               </div>
+               <div class="p-col-12 p-md-2">
+
+                  <input formControlName="nomGrandPere"     type="text" pInputText required #nomGrandPereShow />
+               </div>
+               <div class="p-col-12 p-md-1">
+                  <h2>اللقب</h2>
+
+               </div>
+               <div class="p-col-12 p-md-2">
+
+                  <input formControlName="prenom"   type="text" pInputText required  #prenomShow  />
+               </div>
+               <div class="p-col-12 p-md-1">
+                  <h2>إسم الأم</h2>
+
+               </div>
+               <div class="p-col-12 p-md-2">
+
+                  <input formControlName="nomMere"   type="text" pInputText required #nomMereShow />
+               </div>
+               <div class="p-col-12 p-md-1">
+                  <h2>لقبها</h2>
+
+               </div>
+               <div class="p-col-12 p-md-2">
+
+                  <input formControlName="prenomMere"    type="text" pInputText #prenomMereShow />
+               </div>
+
+               <div class="p-col-12 p-md-1">
+                  <h2>تاريخ الولادة</h2>
+
+               </div>
+
+               <div class="p-col-12 p-md-2">
+                  <p-inputMask formControlName="dateNaissance" required mask="99/99/9999"   (onBlur)="vDate()"
+                  [style]="{'font-weight': '600' ,'font-size': '16px','color': 'black'}"     placeholder="تاريخ" #dateNaissanceShow ></p-inputMask>
+                  <span *ngIf="faux" style="color: red;">خطأ</span>
+               </div>
+               <div class="p-col-12 p-md-1">
+                  <h2> مكانها</h2>
+
+               </div>
+               <div class="p-col-12 p-md-2">
+
+                  <input id="input" formControlName="lieuNaissance" type="text" pInputText required #lieuNaissanceShow />
+
+               </div>
+               <div class="p-col-12 p-md-1">
+                  <h2> الجنسية </h2>
+               
+               </div>
+               <div class="p-col-12 p-md-2">
+               
+               
+                  <input type="number" formControlName="nationaliteCode" (change)="getNationalite()" style="width:  20%;"
+                     placeholder="الرمز" pInputText>
+                  <input readonly formControlName="nationaliteLibelle" (click)="showListNationalite()" type="text" style="width:  70%;"
+                     pInputText #nationaliteLibelleShow>
+               
+               
+               
+               </div>
+
+               <div class="p-col-12 p-md-1">
+                  <h2> الجنس</h2>
+
+               </div>
+               <div style="margin-right: 40px;"  class="p-grid">
+                  <div class="p-col-4">
+                     <h2>
+                        <p-radioButton name="rg" formControlName="sexe"  value="ذكر" #sexeShow>
+
+                        </p-radioButton>
+                        ذكر
+                     </h2>
+                  </div>
+                  <div class="p-col-4">
+
+                  </div>
+                  <div class="p-col-4">
+                     <h2>
+                        <p-radioButton name="rg" formControlName="sexe" value="أنثى" #sexeShow>
+
+                        </p-radioButton>
+                        أنثى
+                     </h2>
+                  </div>
+                  
+               </div>
+                
+                 
+             
+
+            </div>
+
+
+
+         
+            <div style="text-align: center;">
+               <button mat-raised-button matStepperNext *ngIf="booleanAge">التالى<mat-icon>
+                  </mat-icon></button>
+            </div>
+
+         </form>
+      </mat-step>
+      <mat-step [stepControl]="addForm2">
+
+         <form [formGroup]="addForm2">
+            <ng-template matStepLabel>إجتماعي </ng-template>
+
+            <div class="p-grid">
+
+
+             
+
+
+
+               <div class="p-col-12 p-md-2">
+                  <h2>المستوى الدراسي</h2>
+
+               </div>
+               <div class="p-col-12 p-md-4">
+
+                  <input type="number" formControlName="niveauEducatifCode" (change)="getNiveauEducatif()"
+                     style="width:  20%;" placeholder="الرمز" pInputText>
+                  <input readonly formControlName="niveauEducatifLibelle" (click)="showListNiveauEducatif()"
+                       type="text" style="width:  70%;" pInputText #niveauEducatifLibelleShow>
+
+               </div>
+
+               <div class="p-col-12 p-md-2">
+                  <h2> الحالة العائلية </h2>
+
+               </div>
+               <div class="p-col-12 p-md-4">
+
+                  <input type="number" formControlName="situationFamilialeCode" (change)="getSituationFamiliale()"
+                     style="width:  20%;" placeholder="الرمز" pInputText>
+                  <input readonly formControlName="situationFamilialeLibelle" (click)="showListSituationFamiliale()"
+                       type="text" style="width:  70%;" pInputText #situationFamilialeLibelleShow>
+               </div>
+               <div class="p-col-12 p-md-2">
+                  <h2> المهنة   </h2>
+
+               </div>
+               <div class="p-col-12 p-md-4">
+
+                  <input type="number" formControlName="metierCode" (change)="getMetier()"
+                     style="width:  20%;" placeholder="الرمز" pInputText>
+                  <input readonly formControlName="metierLibelle" (click)="showListMetier()"
+                       type="text" style="width:  70%;" pInputText #metierLibelleShow>
+               </div>
+               
+               <div class="p-col-12 p-md-2">
+                  <h2> عدد الإخوة</h2>
+
+               </div>
+               <div class="p-col-12 p-md-4">
+                  <input type="number" formControlName="nombreFreres" style="width:  20%;" placeholder="عدد" pInputText #nombreFreresShow>
+
+               </div>
+               <div class="p-col-12 p-md-2">
+                  <h2> الولاية </h2>
+
+               </div>
+               <div class="p-col-12 p-md-4">
+
+                  <input type="number" #gouv formControlName="gouvernoratCode" (change)="getGouvernorat()"
+                     style="width:  20%;" placeholder="الرمز" pInputText required>
+
+                  <input #gouv readonly formControlName="gouvernoratLibelle" (click)="showListGouvernorat()"
+                       type="text" style="width:  70%;" pInputText required #gouvernoratLibelleShow>
+
+               </div>
+            
+               <div class="p-col-12 p-md-2">
+                  <h2> العنوان </h2>
+
+               </div>
+               <div class="p-col-12 p-md-4">
+
+                  <input formControlName="adresse" id="input" type="text" pInputText required #adresseShow />
+               </div>
+               <!-- *ngIf="gouv.value" -->
+               <div  class="p-col-12 p-md-2">
+                  <h2> المعتمدية </h2>
+
+               </div>
+               <!-- *ngIf="gouv.value" -->
+               <div  class="p-col-12 p-md-4">
+
+                  <input type="number" formControlName="delegationCode" (change)="getDelegation()" style="width:  20%;"
+                     placeholder="الرمز" pInputText required>
+
+                  <input readonly formControlName="delegationLibelle" (click)="showListDelegation()"  
+                     type="text" style="width:  70%;" pInputText required #delegationLibelleShow>
+
+
+               </div>
+
+               <div class="p-col-12 p-md-2">
+                  <h2> الحالة الإجتماعية </h2>
+               
+               </div>
+               <div class="p-col-12 p-md-4">
+               
+               
+                  <input type="number" formControlName="situationSocialCode" (change)="getSituationSocial()" style="width:  20%;"
+                     placeholder="الرمز" pInputText>
+                  <input readonly formControlName="situationSocialLibelle" (click)="showListSituationSocial()" type="text"
+                     style="width:  70%;" pInputText #situationSocialLibelleShow>
+               
+               
+               
+               </div>
+               
+               <div class="p-col-12 p-md-2">
+                  <h2> عدد الأبناء</h2>
+               
+               </div>
+               <div class="p-col-12 p-md-4">
+               
+                  <input id="input" formControlName="nbrEnfant" type="number" pInputText    #nbrEnfantShow />
+               
+               </div>
+
+            </div>
+            <div>
+               <div style="text-align: center;">
+                  <button mat-raised-button matStepperPrevious>
+                     <mat-icon> </mat-icon>رجوع
+                  </button>
+                  <button mat-raised-button matStepperNext>التالى<mat-icon>
+                     </mat-icon></button>
+               </div>
+            </div>
+         </form>
+
+      </mat-step>
+
+
+
+
+
+      <mat-step [stepControl]="addForm3">
+
+         <form [formGroup]="addForm3">
+            <ng-template matStepLabel>جزائي </ng-template>
+
+            <div class="p-grid">
+               <div class="p-col-12 p-md-6">
+<div class="p-grid">
+   <div class="p-col-12 p-md-4">
+      <h2> الصنف الجزائي </h2>
+
+   </div>
+   <div class="p-col-12 p-md-8">
+
+      <input type="number" formControlName="classePenaleCode" (change)="getClassePenale()" style="width:  20%;"
+         placeholder="الرمز" pInputText>
+      <input readonly formControlName="classePenaleLibelle" (click)="showListClassePenale()" type="text"
+         style="width:  70%;" pInputText #classePenaleLibelleShow>
+   </div>
+
+   <div class="p-col-12 p-md-4">
+      <h2> شهر</h2>
+
+   </div>
+   <div class="p-col-12 p-md-8">
+
+      <input formControlName="surnom" id="input" type="text" pInputText #surnomShow />
+   </div>
+   <div class="p-col-12 p-md-4">
+      <h2> الإسم المستعار</h2>
+
+   </div>
+   <div class="p-col-12 p-md-8">
+
+      <input formControlName="alias" id="input" type="text" pInputText #aliasShow />
+   </div>
+   <div class="p-col-12 p-md-4">
+      <h2> عدد الإيقاف </h2>
+
+   </div>
+   <div class="p-col-12 p-md-8">
+      <p-inputMask formControlName="numArrestation" mask="999999" slotChar="------"
+         [style]="{'font-weight': '600' ,'font-size': '16px','color': 'black'}" placeholder="عدد الإيقاف"
+         #numArrestationShow></p-inputMask>
+      <!-- <input formControlName="numArrestation" id="input" type="number" pInputText /> -->
+   </div>
+
+   <div class="p-col-12 p-md-4">
+      <h2> تاريخ الإيداع </h2>
+
+   </div>
+   <div class="p-col-12 p-md-8">
+
+
+      <!-- <p-inputMask formControlName="dateEntreLocal" required mask="99/99/9999"   
+                  [style]="{'font-weight': '600' ,'font-size': '16px','color': 'black'}"     placeholder="تاريخ" #dateEntreLocalShow ></p-inputMask>
+                  <span *ngIf="faux" style="color: red;">خطأ</span>
+                     -->
+
+      <p-calendar formControlName="dateEntreLocal" dir="rtl" [readonlyInput]="false" #dateEntreLocalShow
+         [style]="{'font-weight': '500','font-size': '18px','color': 'black'}" appendTo="body" [yearNavigator]="true"
+         readonly="true" [monthNavigator]="true" [yearRange]="years" dateFormat="yy/mm/dd" [locale]="calendar_ar"
+         placeholder="يوم/شهر/سنة">
+      </p-calendar>
+
+   </div>
+
+   <!-- <div class="p-col-12 p-md-2">
+                  <h2> صورة </h2>
+
+               </div>
+               <div class="p-col-12 p-md-4">
+
+                  
+         <input type="file" #file id="real" (change)="onFileChanged($event)">
+
+       
+         <img class="profile-img-card" (click)="file.click()" src={{url}} *ngIf="url">
+         <img src="assets/layout/images/image-not-found.jpg" class="profile-img-card" (click)="file.click()" *ngIf="!url">
+         <button pButton type="button" icon="pi pi-times" label="إلغاء الصورة" *ngIf="url"
+         style="color: red;background-color: transparent;" (click)="viderUrl()"></button>
+               </div> -->
+</div>
+
+               </div>
+
+                  <div class="p-col-12 p-md-6">
+                  <div class="p-grid">
+                  
+                
+               <div class="p-col-12 p-md-2">
+                  <h2> صورة </h2>
+               <button pButton type="button" icon="pi pi-times" label="إلغاء الصورة" *ngIf="url"
+                  style="color: red;background-color: transparent;" (click)="viderUrl()"></button>
+               </div>
+               
+               <div class="p-col-12 p-md-10">
+               
+               
+                  <input type="file" #file id="real" (change)="onFileChanged($event)">
+                
+               
+                  <img class="profile-img-card" (click)="file.click()" src={{url}} *ngIf="url">
+                  <img src="assets/layout/images/image-not-found.jpg" class="profile-img-card" (click)="file.click()" *ngIf="!url">
+          
+           
+           <p style="color: rgb(59, 105, 255);"  >الحد الأقصى لحجم الصورة    100 ko </p>
+            <p class="image-animation-text" [class.hidden]="!(taille/1024 > 100.00)"> جاري تقليص حجم الصورة : {{ taille/1024
+               | number:'1.0-0' }} ko</p>
+               </div>
+               </div>
+               </div>  
+            </div>
+            
+         </form>
+
+
+
+
+         <h2 style="text-align: center;">
+
+
+         </h2>
+
+         <div>
+            <div style="text-align: center;">
+               <button mat-raised-button matStepperPrevious>
+                  <mat-icon> </mat-icon>رجوع
+               </button>
+               <!-- <button mat-raised-button (click)="stepper.reset()">إعادة ضبط البيانات
+                        <mat-icon>    </mat-icon></button> -->
+               <!-- <button mat-raised-button (click)="onSubmit()">تسجيل
+                  <mat-icon>
+                  </mat-icon>
+               </button> -->
+                
+                  <button mat-raised-button matStepperNext [disabled]="taille/1024 > 100.00">التالى<mat-icon> 
+               </mat-icon></button>
+              
+            </div>
+
+         </div>
+      </mat-step>
+      <mat-step  >
+         <ng-template  matStepLabel>  <p  > تسجيل </p>
+
+         </ng-template>
+         <div *ngIf="update && residenceEdit" style="margin-bottom: 10px;" >
+            <p-card
+            [style]="{ 'height': 'auto',   'border-radius': '0%',  'margin-left': '5%' , 'margin-right':'5%' ,
+         '-moz-box-shadow': '5px 5px 5px 5px rgba(0, 0, 0, 0.61)',
+         '-webkit-box-shadow': '5px 5px 5px 5px rgba(0, 0, 0, 0.61)',
+         'box-shadow':'5px 5px 5px 5px rgba(0, 0, 0, 0.61)' ,'background-image': 'url(assets/layout/images/cart.jpg)'   }">
+            <p-header>
+   
+              
+            </p-header>
+   
+            <div class="p-grid">
+               
+               <div class="p-col-5">
+              
+                     
+                  <label class="enLabel">المعــــرف: <span class="d"   > {{residenceEdit.arrestation.enfant.id}} </span> </label>
+                  <label class="enLabel">الهويــــة: <span class="d"> {{ nomShow.value}} بن {{ nomPereShow.value}} بن
+                        {{residenceEdit.arrestation.enfant.nomGrandPere}} {{ prenomShow.value}}</span> </label>
+   
+                  <label    class="enLabel"> هويــــة الأم: <span class="d">{{ nomMereShow.value}}
+                        {{ prenomMereShow.value}}</span></label>
+                  <label    class="enLabel" dir="rtl"> تــــاريخ الــــولادة : <span dir="rtl"
+                        class="d">{{ dateNaissanceShow.value}}</span></label>
+                  <label    class="enLabel"   > مكان الولادة : <span
+                           class="d" dir="rtl">{{ lieuNaissanceShow.value  }}</span></label>
+
+
+                           <label class="enLabel"> عدد الأبناء : <span class="d" dir="rtl">{{ nbrEnfantShow.value }}</span></label>
+                           
+
+
+
+                 <label    class="enLabel"   > الجنسية : <span
+                              class="d" dir="rtl">{{ nationaliteLibelleShow.value}}</span></label>
+                <label    class="enLabel"   > الجنس : <span
+                              class="d" dir="rtl">{{ sexeShow.value}}</span></label>
+                <label    class="enLabel"   > الحالة العائلية : <span
+                                 class="d" dir="rtl">{{ situationFamilialeLibelleShow.value}}</span></label>
+                <label    class="enLabel"   >   المهنة : <span
+                                       class="d" dir="rtl">{{ metierLibelleShow.value}}</span></label>
+                                      
+                                    
+                                      
+         
+
+
+
+ 
+               </div>
+               <div class="p-col-4">
+   
+   
+                  <label    class="enLabel"   > عــــدد الإيقــــاف : <span
+                     class="d" dir="rtl">{{ numArrestationShow.value}}</span></label>
+                        <label    class="enLabel" dir="rtl"  > بتــــاريــــخ: <span
+                           dir="rtl"   class="d" > {{ dateEntreLocalShow.value  | date:'dd/MM/yyyy'}}</span></label>
+
+                           <label    class="enLabel"   > الصنف الجزائي: <span
+                              dir="rtl"   class="d" > {{ classePenaleLibelleShow.value}}</span></label>
+                 
+                              <label    class="enLabel"   >المستوى الدراسي : <span
+                                 class="d" dir="rtl">{{niveauEducatifLibelleShow.value}}</span></label>
+                                 <label    class="enLabel"   > مكان الإقامة قبل الإيقاف : 
+                                    <span  class="d" dir="rtl"  > 
+                                   {{adresseShow.value}}  {{delegationLibelleShow.value}}   {{gouvernoratLibelleShow.value}}
+                                 </span></label>
+                     
+                              
+                              <label    class="enLabel"   >شهر : <span
+                                 class="d" dir="rtl">{{ aliasShow.value}}</span></label>
+
+                                 <label    class="enLabel"   >الإسم المستعار : <span
+                                    class="d" dir="rtl">{{ surnomShow.value}}</span></label>
+   
+
+
+                                    <label    class="enLabel"   >عدد الإخوة  : <span
+                                       class="d" dir="rtl">{{nombreFreresShow.value}}</span></label>
+   
+
+                                       <label    class="enLabel"   > الحالة الإجتماعية   : <span
+                                          class="d" dir="rtl">{{ situationSocialLibelleShow.value}}</span></label>
+ 
+                                       
+ 
+               </div>
+               <div class="p-col-3">
+                  <img *ngIf="url" (click)="showImg()" src="{{url}}" class="profile-img-card">
+               </div>
+               
+               
+            </div>
+            <!-- <div class="button-container">
+               <button mat-raised-button color="primary" (click)="charger()">تسجيل</button>
+            </div> -->
+             <div style="text-align: center;">
+               <button pButton type="button" label="تسجيــــــــــــــــــــــــــــــــــــــــــــــــــل  "  (click)="onUpdate() "
+               style="margin-bottom:10px; width: 50%;    font-size: large; font-size: 20px; font-family: 'Amiri', Times, serif;"
+               class="ui-button-success"></button>
+            </div>  
+   
+         </p-card>
+         </div>
+         <div  *ngIf="!update" style="  width: 50%; margin-left: auto; margin-right: auto;">
+
+            <button   pButton type="button" label="تسجيل مع إنشاء بطاقة إيواء"  (click)="onSubmit('mineur/Heber')"
+               style="margin-bottom:10px; width: 100%; padding: 0.5em;  font-size: large;"
+               class="ui-button-info" [disabled]="showBeforSave"></button>
+
+            <button   pButton type="button" label="تسجيل مع إنشاء بطاقة إيداع"  (click)="onSubmit('mineur/depot')"
+               style="margin-bottom:10px; width: 100%; padding: 0.5em;  font-size: large;"
+               class="ui-button-success" [disabled]="showBeforSave"></button>
+
+            <button   pButton type="button" label="تسجيل مع إنشاء مضمون حكم"  (click)="onSubmit('mineur/recup')"
+               style="margin-bottom:10px; width: 100%; padding: 0.5em;  font-size: large;"
+               class="ui-button-danger" [disabled]="showBeforSave"></button>
+
+            <button   pButton type="button" label="تسجيل فقط "  (click)="onSubmit('mineur/all')"
+               style="margin-bottom:10px; width: 100%; padding: 0.5em;  font-size: large;" class="ui-button-secondary"
+               (click)="cancel()" [disabled]="showBeforSave"></button>
+
+
+         </div>
+         
+         <div>
+            <div style="text-align: center;">
+               <button mat-raised-button matStepperPrevious>
+                  <mat-icon> </mat-icon>رجوع
+               </button>
+            </div>
+             
+
+         </div>
+      </mat-step>
+   </mat-horizontal-stepper>
+
+   <!-- <h2 *ngIf="!(nom && prenom)" style="color: red; font-family: 'Amiri', Times, serif;text-align: center;"> الرجاء منكم  الإسترشاد عن الهوية  بالإسم واللقب قبل عملية الإدراج  </h2> -->
+</div>
+ 
+
+
+<p-dialog header="  دليل الجنسيـــــــات" [(visible)]="displayNationalite" modal="true" showEffect="fade">
+   <div style="width: 800px;">
+      <p-table [value]="entitiesNationalite" #dtNationalite selectionMode="single" [paginator]="true" [rows]="5"
+         [globalFilterFields]="['id','libelle_nationalite' ]">
+         <ng-template pTemplate="caption">
+            <div style="text-align: right">
+               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+               <input type="text" pInputText size="50" placeholder=" بحث"
+                  (input)="dtNationalite.filterGlobal($event.target.value, 'contains')" style="width:300px">
+            </div>
+         </ng-template>
+         <ng-template pTemplate="header">
+            <tr>
+               <th style="width: 100px;"  >الرمز
+               </th>
+               <th  > الجنسية
+               </th>
+               <th style="width: 50px;"> إدراج
+               </th>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-row>
+            <tr>
+               <td> <b style="font-size:18px;">{{row.id}}</b></td>
+               <td> <b style="font-size:18px;">{{row.libelle_nationalite}} </b></td>
+               <td>
+                  <p-button icon="pi pi-plus" (click)="saveNationalite(row)">
+                  </p-button>
+               </td>
+            </tr>
+         </ng-template>
+      </p-table>
+   </div>
+</p-dialog>
+
+
+<p-dialog header="  دليل المستـــوى الدراســـي" [(visible)]="displayNiveauEducatif" modal="true" showEffect="fade">
+   <div style="width: 800px;">
+      <p-table [value]="entitiesNiveauEducatif" #dtNiveauEducatif selectionMode="single" [paginator]="true" [rows]="5"
+         [globalFilterFields]="['id','libelle_niveau_educatif' ]">
+         <ng-template pTemplate="caption">
+            <div style="text-align: right">
+               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+               <input type="text" pInputText size="50" placeholder=" بحث"
+                  (input)="dtNationalite.filterGlobal($event.target.value, 'contains')" style="width:300px">
+            </div>
+         </ng-template>
+         <ng-template pTemplate="header">
+            <tr>
+               <th style="width: 100px;"  >الرمز
+               </th>
+               <th  > المستـــوى الدراســـي
+               </th>
+               <th style="width: 50px;"> إدراج
+               </th>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-row>
+            <tr>
+               <td> <b style="font-size:18px;">{{row.id}}</b></td>
+               <td> <b style="font-size:18px;">{{row.libelle_niveau_educatif}} </b></td>
+               <td>
+                  <p-button icon="pi pi-plus" (click)="saveNiveauEducatif(row)">
+                  </p-button>
+               </td>
+            </tr>
+         </ng-template>
+      </p-table>
+   </div>
+</p-dialog>
+
+<p-dialog header="  دليل الحالــة العائليــة  " [(visible)]="displaySituationFamiliale" modal="true" showEffect="fade">
+   <div style="width: 800px;">
+      <p-table [value]="entitiesSituationFamiliale" #dtSituationFamiliale selectionMode="single" [paginator]="true"
+         [rows]="5" [globalFilterFields]="['id','libelle_situation_familiale' ]">
+         <ng-template pTemplate="caption">
+            <div style="text-align: right">
+               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+               <input type="text" pInputText size="50" placeholder=" بحث"
+                  (input)="dtSituationFamiliale.filterGlobal($event.target.value, 'contains')" style="width:300px">
+            </div>
+         </ng-template>
+         <ng-template pTemplate="header">
+            <tr>
+               <th style="width: 100px;" >الرمز
+               </th>
+               <th  > الحالــة العائليــة
+               </th>
+               <th style="width: 50px;"> إدراج
+               </th>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-row>
+            <tr>
+               <td> <b style="font-size:18px;">{{row.id}}</b></td>
+               <td> <b style="font-size:18px;">{{row.libelle_situation_familiale}} </b></td>
+               <td>
+                  <p-button icon="pi pi-plus" (click)="saveSituationFamiliale(row)">
+                  </p-button>
+               </td>
+            </tr>
+         </ng-template>
+      </p-table>
+   </div>
+</p-dialog>
+
+<p-dialog header="  دليل الحالــة الإجتمـاعيـــة  " [(visible)]="displaySituationSocial" modal="true" showEffect="fade">
+   <div style="width: 800px;">
+      <p-table [value]="entitiesSituationSocial" #dtSituationSocial selectionMode="single" [paginator]="true"
+         [rows]="5" [globalFilterFields]="['id','libelle_situation_social' ]">
+         <ng-template pTemplate="caption">
+            <div style="text-align: right">
+               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+               <input type="text" pInputText size="50" placeholder=" بحث"
+                  (input)="dtSituationSocial.filterGlobal($event.target.value, 'contains')" style="width:300px">
+            </div>
+         </ng-template>
+         <ng-template pTemplate="header">
+            <tr>
+               <th style="width: 100px;" >الرمز
+               </th>
+               <th  > الحالــة الإجتمـاعيـة 
+               </th>
+               <th style="width: 50px;"> إدراج
+               </th>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-row>
+            <tr>
+               <td> <b style="font-size:18px;">{{row.id}}</b></td>
+               <td> <b style="font-size:18px;">{{row.libelle_situation_social}} </b></td>
+               <td>
+                  <p-button icon="pi pi-plus" (click)="saveSituationSocial(row)">
+                  </p-button>
+               </td>
+            </tr>
+         </ng-template>
+      </p-table>
+   </div>
+</p-dialog>
+
+
+
+<p-dialog header="  دليل الولايــات     " [(visible)]="displayGouvernorat" modal="true" showEffect="fade">
+   <div style="width: 800px;">
+      <p-table [value]="entitiesGouvernorat" #dtGouvernorat selectionMode="single" [paginator]="true" [rows]="5"
+         [globalFilterFields]="['id','libelle_gouvernorat' ]">
+         <ng-template pTemplate="caption">
+            <div style="text-align: right">
+               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+               <input type="text" pInputText size="50" placeholder=" بحث"
+                  (input)="dtGouvernorat.filterGlobal($event.target.value, 'contains')" style="width:300px">
+            </div>
+         </ng-template>
+         <ng-template pTemplate="header">
+            <tr>
+               <th style="width: 100px;" >الرمز
+               </th>
+               <th  > الولايــة
+               </th>
+               <th style="width: 50px;"> إدراج
+               </th>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-row>
+            <tr>
+               <td> <b style="font-size:18px;">{{row.id}}</b></td>
+               <td> <b style="font-size:18px;">{{row.libelle_gouvernorat}} </b></td>
+               <td>
+                  <p-button icon="pi pi-plus" (click)="saveGouvernorat(row)">
+                  </p-button>
+               </td>
+            </tr>
+         </ng-template>
+      </p-table>
+   </div>
+</p-dialog>
+
+
+
+<p-dialog header="  دليل المعتمديــات     " [(visible)]="displayDelegation" modal="true" showEffect="fade">
+   <div style="width: 800px;">
+      <p-table [value]="entitiesDelegation" #dtDelegation selectionMode="single" [paginator]="true" [rows]="5"
+         [globalFilterFields]="['id','libelle_delegation' ]">
+         <ng-template pTemplate="caption">
+            <div style="text-align: right">
+               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+               <input type="text" pInputText size="50" placeholder=" بحث"
+                  (input)="dtDelegation.filterGlobal($event.target.value, 'contains')" style="width:300px">
+            </div>
+         </ng-template>
+         <ng-template pTemplate="header">
+            <tr>
+               <th style="width: 100px;" >الرمز
+               </th>
+               <th  > المعتمديــة
+               </th>
+               <th style="width: 50px;"> إدراج
+               </th>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-row>
+            <tr>
+               <td> <b style="font-size:18px;">{{row.id}}</b></td>
+               <td> <b style="font-size:18px;">{{row.libelle_delegation}} </b></td>
+               <td>
+                  <p-button icon="pi pi-plus" (click)="saveDelegation(row)">
+                  </p-button>
+               </td>
+            </tr>
+         </ng-template>
+      </p-table>
+   </div>
+</p-dialog>
+
+<p-dialog header="  دليل المهن      " [(visible)]="displayMetier" modal="true" showEffect="fade">
+   <div style="width: 800px;">
+      <p-table [value]="entitiesMetier" #dtMetier selectionMode="single" [paginator]="true" [rows]="5"
+         [globalFilterFields]="['id','libelle_metier' ]">
+         <ng-template pTemplate="caption">
+            <div style="text-align: right">
+               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+               <input type="text" pInputText size="50" placeholder=" بحث"
+                  (input)="dtMetier.filterGlobal($event.target.value, 'contains')" style="width:300px">
+            </div>
+         </ng-template>
+         <ng-template pTemplate="header">
+            <tr>
+               <th style="width: 100px;" >الرمز
+               </th>
+               <th  > المهنة
+               </th>
+               <th style="width: 50px;"> إدراج
+               </th>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-row>
+            <tr>
+               <td> <b style="font-size:18px;">{{row.id}}</b></td>
+               <td> <b style="font-size:18px;">{{row.libelle_metier}} </b></td>
+               <td>
+                  <p-button icon="pi pi-plus" (click)="saveMetier(row)">
+                  </p-button>
+               </td>
+            </tr>
+         </ng-template>
+      </p-table>
+   </div>
+</p-dialog>
+
+
+<p-dialog header=" دليل الصنـــف الجزائـــي     " [(visible)]="displayClassePenale" modal="true" showEffect="fade">
+   <div style="width: 800px;">
+      <p-table [value]="entitiesClassePenale" #dtClassePenale selectionMode="single" [paginator]="true" [rows]="5"
+         [globalFilterFields]="['id','libelle_classe_penale' ]">
+         <ng-template pTemplate="caption">
+            <div style="text-align: right">
+               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+               <input type="text" pInputText size="50" placeholder=" بحث"
+                  (input)="dtNationalite.filterGlobal($event.target.value, 'contains')" style="width:300px">
+            </div>
+         </ng-template>
+         <ng-template pTemplate="header">
+            <tr>
+               <th style="width: 100px;"  >الرمز
+               </th>
+               <th  > الصنف الجزائي
+               </th>
+               <th style="width: 50px;"> إدراج
+               </th>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-row>
+            <tr>
+               <td> <b style="font-size:18px;">{{row.id}}</b></td>
+               <td> <b style="font-size:18px;">{{row.libelle_classe_penale}} </b></td>
+               <td>
+                  <p-button icon="pi pi-plus" (click)="saveClassePenale(row)">
+                  </p-button>
+               </td>
+            </tr>
+         </ng-template>
+      </p-table>
+   </div>
+</p-dialog>
+<!-- (onHide)="direction()"  -->
+<p-dialog *ngIf="arrestationValide"  [closable]="false"  [(visible)]="display" (onHide)="direction()"
+modal="true"    >
+<p-header>
+   <div class="container">
+      <div class="row">
+         <div class="neons col-12">
+            <span style="color: green; font-family: 'Amiri', Times, serif;"> تمت عملية التسجيل بنجاح </span>
+         </div>
+      </div>
+   </div>
+ 
+</p-header> 
+<p-card   [style]="{  'border-radius': '0%',
+'-moz-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
+'-webkit-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
+'box-shadow':' 0px 2px 2px rgba(0, 0, 0, 0.966)','background-image': 'url(assets/layout/images/cart.jpg)' }"     >
+  
+   <img    *ngIf="url" src="{{url}}" class="profile-img-card2">
+
+   <label   class="enLabel">     معرف الطفل   :  <span class="d">{{arrestationValide.enfant.id}}</span></label>
+
+   <label  class="enLabel"  >الهوية: <span class="d"> {{arrestationValide.enfant.nom}}   بن    {{arrestationValide.enfant.nomPere}}   بن     {{arrestationValide.enfant.nomGrandPere}} {{arrestationValide.enfant.prenom}}</span> </label>
+ 
+   <!-- <label   class="enLabel">  هوية الأم:  <span class="d">{{arrestationValide.enfant.nomMere}} {{arrestationValide.enfant.prenomMere}}</span></label>
+   <label   class="enLabel">    تاريخ الولادة :  <span class="d">{{arrestationValide.enfant.dateNaissance}}</span></label>
+    -->
+  
+   <label   class="enLabel" >    العدد  الرتبي للإيقاف:  <span class="d">{{residence?.arrestation?.arrestationId?.numOrdinale}}</span></label>
+   <label   class="enLabel"  >     عدد الإيقاف :  <span class="d">{{residence?.residenceId?.numOrdinaleArrestation}}</span></label>
+   <label   class="enLabel" >  مركز الإيقاف:  <span class="d">{{residence.etablissement.libelle_etablissement}}</span></label>
+   <label   class="enLabel"  >  بتاريخ:  <span class="d" dir="rtl">{{ residence?.arrestation?.date | date:'yyyy/MM/dd'}}</span></label>
+     
+
+   <p-footer>
+
+ 
+  </p-footer> 
+  
+</p-card>
+<p-footer>
+  
+      <div style="text-align: center;">
+        <span *ngIf="path == 'mineur/depot'" style="color: #99CE6B!important; font-size: 20px; font-weight: bold; font-family: 'Amiri', Times, serif;"> بطاقة إيداع </span> 
+        <span *ngIf="path =='mineur/Heber'" style="color: #88C0D0!important; font-size: 20px; font-weight: bold; font-family: 'Amiri', Times, serif;"> بطاقة إيواء  </span>
+        <span *ngIf="path == 'mineur/recup'" style="color: #F28686!important; font-size: 20px; font-weight: bold; font-family: 'Amiri', Times, serif;"> مضمون حكم </span>
+   <button *ngIf="path == 'mineur/depot'" (click)="valide()" style="background-color: #99CE6B!important;" mat-fab  aria-label="Example icon button with a home icon">
+      
+      <i class="pi pi-arrow-left" style="font-size: 25px;"></i>
+    </button>
+      <button *ngIf="path == 'mineur/Heber'" (click)="valide()" style="background-color: #88C0D0!important;" mat-fab  aria-label="Example icon button with a home icon">
+  
+         <i class="pi pi-arrow-left" style="font-size: 25px;"></i>
+      </button>
+         <button *ngIf="path == 'mineur/recup'" (click)="valide()" style="background-color: #F28686!important;" mat-fab  aria-label="Example icon button with a home icon">
+  
+      <i class="pi pi-arrow-left" style="font-size: 25px;"></i>
+    </button>
+
+   <button *ngIf="path == 'mineur/all'" (click)="valide()" style="background-color: #af86f2!important;" mat-fab
+      aria-label="Example icon button with a home icon">
+   
+      <i class="pi pi-arrow-left" style="font-size: 25px;"></i>
+   </button>
+
+
+</div>
+ 
+</p-footer> 
+
+</p-dialog> 
+
+ 

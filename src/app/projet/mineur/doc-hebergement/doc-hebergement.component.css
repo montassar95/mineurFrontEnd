@@ -1,0 +1,25 @@
+h3{
+
+    font-size: 30px; /* Titres de 40 pixels */
+    font-family:Arial Black ;
+    font-weight: bold;
+    width:200px; 
+     background-color:transparent ;
+}
+h1{
+    color: #015ac7 !important;
+         font-family: 'Amiri', Times, serif;        
+     
+        font-weight: bold;
+  }
+  .item{
+    font-family: 'Amiri', Times, serif;
+          font-weight: bold;
+          font-size: 20px;
+          margin-top: 10px;
+          color: #4c566a;
+          margin-top: 15px;
+  }
+  b{
+      color: #4a59a3;
+  }

@@ -1,0 +1,1050 @@
+<div dir="rtl" *ngIf="arrestationLocal" class="container" style=" margin-bottom: 300px; ">
+   <div class="p-grid">
+   </div>
+   <div class="p-grid">
+      <div class="p-col-3">
+         <button mat-raised-button class="button-card3" (click)="displayAllArrestation = true"
+            style="   background-color:   white; width: 150px; ">
+            <span style="font-family: 'Amiri', Times, serif; font-size: 20px; color:   black;"> قائمة
+               الإيقافات
+            </span>
+            <i class="pi pi-cog" style="font-size: 35px;  color:   #214954;"></i>
+         </button>
+      </div>
+      <div class="p-col-6">
+        
+    
+          <h1 class="text"> {{enfantLocal?.nom}} بن {{enfantLocal?.nomPere}} بن
+               {{enfantLocal?.nomGrandPere}} {{enfantLocal.prenom}}</h1> 
+      </div>
+   <div class="p-col-3" style="display: flex; align-items: center;">
+      <button mat-raised-button class="button-card3" (click)="print()">
+         <span class="button-text">تحميل مذكرة</span>
+         <i class="pi pi-file button-icon"></i>
+      </button>
+      <div class="checkbox-container" style="margin-left: 10px;">
+         <div class="checkbox-row">
+            <p-checkbox class="custom-checkbox" [binary]="true" (click)="showRefus()" name="cg" value="yes"
+               [(ngModel)]="sansDetail"></p-checkbox>
+            <label class="checkbox-label">غير مفصلة</label>
+         </div>
+         <div class="checkbox-row">
+            <p-checkbox class="custom-checkbox" [binary]="true" (click)="showRefus()" name="cg" value="yes"
+               [(ngModel)]="sansImage"></p-checkbox>
+            <label class="checkbox-label">بدون صورة</label>
+         </div>
+      </div>
+   </div>
+
+      <div class="p-col-12">
+         <div>
+            <p-card [style]="{ 'height': 'auto',   'border-radius': '0%',  
+               '-moz-box-shadow': '5px 5px 5px 5px rgba(0, 0, 0, 0.4)',
+               '-webkit-box-shadow': '5px 5px 5px 5px rgba(0, 0, 0, 0.4)',
+               'box-shadow':'5px 5px 5px 5px rgba(0, 0, 0, 0.4)'    }">
+               <div class="p-grid">
+                  <div class="p-col-6">
+                     <label class="enLabel">المعــــرف الوحيد : <b
+                           style="color: #ff3434; font-size: 26px; font-weight: bold;"> {{enfantLocal?.id}} /
+                           <b>{{'0'+arrestationLocal?.arrestationId?.numOrdinale }}</b> </b> </label>
+                     <label style=" background-color: transparent;" *ngIf="msg" class="wrapper">
+                        <b>{{msg}} </b></label>
+                     <label class="enLabel"> السن الحالي : <b
+                           style="color: blueviolet;font-size: 22px; font-weight: bold; ">
+                           {{this.ageEnfant}} عــــام </b> </label>
+                     <label class="enLabel"> تـــاريخ بلـــوغ سن الرشـــد :
+                        <b style="color: blueviolet;font-size: 22px; font-weight: bold; "> {{ageCon}} </b> </label>
+                    
+                     <b *ngIf="calculeAffaireDto?.etatJuridique =='isAEX' && !calculeAffaireDto?.liberation"
+                        style=" text-align: center; font-size: 30px;" class="neons"> <span>*** قــــــــــــــــــم
+                           بــــــــــــــــــإدراج
+                           الســــــــــــــــــراح *** </span> </b>
+                     <div class="p-grid">
+                        <div class="p-col-4" *ngIf="calculeAffaireDto?.totaleRecidenceWithetabChangeManiere">
+                           <label for="firstname3" class="enLabel"> تغير وسيلة:
+                              <b>{{calculeAffaireDto?.totaleRecidenceWithetabChangeManiere}}</b></label>
+                        </div>
+                        <div class="p-col-4" *ngIf="calculeAffaireDto?.totaleRecidence">
+                           <label for="firstname3" class="enLabel"> عدد النقل:
+                              <b>{{calculeAffaireDto?.totaleRecidence}}</b></label>
+                        </div>
+                        <div class="p-col-4" *ngIf="calculeAffaireDto?.totaleEchappe">
+                           <label for="firstname3" class="enLabel"> عدد الفرارات :
+                              <b>{{calculeAffaireDto?.totaleEchappe}}</b></label>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="p-col-3">
+                     <label class="enLabel"> العدد الرتبــــي للإيقــــاف:
+                        <b>{{arrestationLocal?.arrestationId?.numOrdinale}}</b> </label>
+                     <label class="enLabel"> مركز الإيقــــاف : <b>{{centre}} </b></label>
+                     <label class="enLabel">عــــدد الإيقــــاف : <b dir="rtl">{{numArrestation}}</b> </label>
+                     <label for="firstname3" class="enLabel"> تــاريخ الإيـداع بالمركز : <b
+                           dir="rtl">{{arrestationLocal?.date}}</b></label>
+                     <label class="enLabel">العقوبات السابقة : <b> {{enfantLocal?.classePenale?.libelle_classe_penale}}
+                        </b> </label>
+                  </div>
+                  <div class="p-col-3">
+                     <img (click)=" swipe()" style="margin-right:  30%;" *ngIf="photo"
+                        [src]="photo" class="profile-img-card3" />  
+                        <img (click)=" swipe()" style="margin-right:  30%;"  *ngIf="!photo" 
+                         [src]="photo ? photo : 'assets/layout/images/cameraa.png'" 
+                         class="profile-img-card3" />
+                       
+                  </div>
+                 
+               </div>
+            </p-card>
+         </div>
+      </div>
+   </div>
+   <div class="p-grid" style="margin-top: 10px;">
+      <div class="p-col-12">
+         <p-card [style]="{   'height': 'auto',     'margin-bottom': '15px' , 
+            '-moz-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
+            '-webkit-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
+            'box-shadow':'5px 5px 5px 5px rgba(0, 0, 0, 0.4)' 
+            }">
+            <p-header>
+            </p-header>
+            <div class="p-grid">
+               <div class="p-col-4">
+                  <label for="firstname3" class="enLabel"> هويــــة الأم: <b>{{enfantLocal?.nomMere}}
+                        {{enfantLocal?.prenomMere}}</b></label>
+                  <hr style="      border:0.1px solid rgba(0, 0, 0, 0.4);">
+                  <label class="enLabel">المهنــة : <b> {{enfantLocal?.metier?.libelle_metier}} </b> </label>
+                  <hr style="      border:0.1px solid rgba(0, 0, 0, 0.40);">
+                  <label for="firstname3" class="enLabel"> الجنسية: <b>{{enfantLocal.nationalite.libelle_nationalite}}
+                     </b></label>
+               </div>
+               <div class="p-col-4">
+                  <label for="firstname3" class="enLabel">تــــاريخ الــــولادة : <b dir="rtl"
+                        style="color: blueviolet;">{{enfantLocal?.dateNaissance}}</b></label>
+                  <hr style="      border:0.1px solid rgba(0, 0, 0, 0.40);">
+                  <label for="firstname3" class="enLabel"> مكان الولادة : <b>{{enfantLocal?.lieuNaissance}}</b></label>
+                  <hr style="      border:0.1px solid rgba(0, 0, 0, 0.40);">
+                  <label for="firstname3" class="enLabel"> الجنس : <b>{{enfantLocal?.sexe}}</b></label>
+               </div>
+               <div class="p-col-4">
+                  <label for="firstname3" class="enLabel"> الحالة العائلية :
+                     <b>{{enfantLocal?.situationFamiliale?.libelle_situation_familiale}}</b></label>
+                  <hr style="      border:0.1px solid rgba(0, 0, 0, 0.40);">
+                  <label for="firstname3" class="enLabel"> المستوى الدراسي :
+                     <b>{{enfantLocal?.niveauEducatif?.libelle_niveau_educatif}}</b></label>
+                  <hr style="      border:0.1px solid rgba(0, 0, 0, 0.40);">
+                  <label for="firstname3" class="enLabel"> مكان الإقامة قبل الإيقاف : <b>{{enfantLocal?.adresse +' '}}
+                        {{enfantLocal?.delegation?.libelle_delegation+' '}}
+                        {{enfantLocal?.delegation?.gouvernorat?.libelle_gouvernorat}}</b></label>
+               </div>
+            </div>
+         </p-card>
+      </div>
+     
+      <div *ngIf="calculeAffaireDto?.sansAffaire"
+         style="width: 100%; height: auto; margin-top: 20px; text-align: center;">
+         <b style=" text-align: center;" class="neons"> <span>الرجـــاء إدراج وثيقـــة قضـــائية </span> </b>
+      </div>
+      <div *ngIf="!calculeAffaireDto?.sansAffaire" style="width: 100%; height: auto;  
+         -moz-box-shadow :  5px 5px 5px 5px rgba(0, 0, 0, 0.4) ;
+         -webkit-box-shadow :  5px 5px 5px 5px rgba(0, 0, 0, 0.4) ;
+         box-shadow : 5px 5px 5px 5px rgba(0, 0, 0, 0.4) ; ">
+         <mat-tab-group mat-align-tabs="center" [(selectedIndex)]="selectedIndex" animationDuration="600ms">
+            <mat-tab>
+               <ng-template mat-tab-label>
+                  <i class="pi pi-search" style="font-size: 25px;   "></i>
+                  <span style="font-family: 'Amiri', Times, serif; font-size: 20px;     ">معطيات </span>
+               </ng-template>
+               <!-- <p-card [style]="{  'background-image': 'url(assets/layout/images/fond.jpg)'   }"> -->
+           <p-card> 
+                  <!-- <hr style="      border:0.1px solid rgba(0, 0, 0, 0.060);"> -->
+                  <div class="p-grid" style=" text-align: center;">
+                     <div class="p-col-12">
+                        <b *ngIf="calculeAffaireDto?.changementLieuCh" style=" text-align: center;" class="neons">
+                           <span> ***لم يتم تفعيل قرار تغير مكان الإيداع ( تغير وسيلة )*** </span> </b>
+                        <b *ngIf="calculeAffaireDto?.changementLieuMu" style=" text-align: center;" class="neons">
+                           <span> ***لم يتم تفعيل قرار تغير مكان الإيداع ( نقلة )*** </span> </b>
+                     </div>
+                     <div class="p-col-12" *ngIf="calculeAffaireDto?.appelParquet || calculeAffaireDto?.appelEnfant">
+                        <b *ngIf="calculeAffaireDto?.appelParquet" style=" text-align: center;" class="neons"  > <span  >
+                              طعـــــن النيابـــــة بالاستئنـــــاف 
+                              {{calculeAffaireDto?.dateAppelParquet | date:'dd-MM-yyyy'}} </span> </b>
+                        <b *ngIf="calculeAffaireDto?.appelEnfant && !calculeAffaireDto?.appelParquet" style=" text-align: center;"
+                           class="neons"> <span  > طعـــــن الطفــــــــل بالاستئنـــــاف
+                              {{calculeAffaireDto?.dateAppelEnfant | date:'dd-MM-yyyy' }} </span> </b>
+                     </div>
+                  
+                  </div>
+                  <!-- <hr style="      border:0.1px solid rgba(0, 0, 0, 0.060);"> -->
+                  <div class="p-grid">
+                     <div class="p-col-3">
+                        <label class="enLabel">عــــ<b style="color: #ff3434; font-size: 25px;">{{'
+                              '+calculeAffaireDto?.nbrAffaires+' '}}</b>ـــدد القضية : <b
+                              dir="rtl">{{affairePrincipale?.affaireId.numAffaire}}</b> </label>
+                        <label for="firstname3" class="enLabel"> لـــدى :
+                           <b>{{affairePrincipale?.tribunal?.nom_tribunal}}</b></label>
+                        <label class="enLabel" *ngIf="calculeAffaireDto?.dateJuge">تاريخ الحكـــــــــــــــــم : <b
+                              dir="rtl">
+                              {{calculeAffaireDto?.dateJugementPrincipale}} </b> </label>
+                        <label class="enLabel" *ngIf="!calculeAffaireDto?.dateJuge">تاريخ صدور البطاقة : <b dir="rtl">
+                              {{calculeAffaireDto?.dateJugementPrincipale}} </b> </label>
+                        <!-- <hr style="      border:0.1px solid rgba(0, 0, 0, 0.40);"> -->
+                     </div>
+                     <div class="p-col-6" style="text-align: center;">
+                        <label class="enLabel">الوضعية الجزائية :
+                           <b *ngIf="calculeAffaireDto?.etatJuridique=='juge'" style=" text-align: center;" class="neons">
+                              <span>محكــــــــــــــوم </span> </b>
+                           <b *ngIf="calculeAffaireDto?.etatJuridique=='arret'" style=" text-align: center; " class="neons">
+                              <span>موقــــــــــــــوف</span> </b>
+                           <b *ngIf="calculeAffaireDto?.liberation"
+                              style=" text-align: center; color: green; font-size: 26px; font-weight: bold;">
+                              {{calculeAffaireDto?.liberation?.causeLiberation?.libelleCauseLiberation}}
+                              <span dir="rtl" style="color: rgb(0, 0, 0);">
+                                 {{calculeAffaireDto?.liberation?.etabChangeManiere?.libelle_etabChangeManiere}} </span>
+                              <span dir="rtl" style="color: rgb(65, 64, 64);"> ({{calculeAffaireDto.liberation.date}}
+                                 )</span>
+                           </b>
+                        </label>
+                        <hr style="      border:0.1px solid rgba(0, 0, 0, 0.05);">
+                        <label [ngClass]="{ 'zoom-in': zoomIn, 'zoom-out': zoomOut }" for="firstname3" class="enLabel"> قضــايــــا : <b
+                              style="color: #ff3434;font-size: 28px; font-weight: bold;">
+                              {{affairePrincipale?.typeAffaire?.libelle_typeAffaire}}</b></label>
+
+                              <hr style="      border:0.1px solid rgba(0, 0, 0, 0.05);">
+                        <label class="enLabel">
+                           التهمة :
+                           <b> {{titreAcc}}</b>
+                        </label>
+                     </div>
+                     <div class="p-col-3">
+                        <label for="firstname3" class="enLabel"> الحكـــــــــــــم : <b
+                              style="font-size: 24px; font-weight: bold; color: rgb(255, 100, 0);">
+                              <span *ngIf="calculeAffaireDto?.ageAdulte "> إلى بلوغ سن الرشد </span>
+                              <span *ngIf="calculeAffaireDto?.anneePenal">{{calculeAffaireDto?.anneePenal}} سنة</span>
+                              <span
+                                 *ngIf="calculeAffaireDto?.anneePenal && calculeAffaireDto?.jourPenal && !calculeAffaireDto?.moisPenal">
+                                 و
+                              </span>
+                              <span *ngIf="calculeAffaireDto?.anneePenal && calculeAffaireDto?.moisPenal"> و </span>
+                              <span *ngIf="calculeAffaireDto?.moisPenal">{{calculeAffaireDto?.moisPenal}} شهر </span>
+                              <span *ngIf="calculeAffaireDto?.jourPenal && calculeAffaireDto?.moisPenal"> و </span>
+                              <span *ngIf="calculeAffaireDto?.jourPenal">{{calculeAffaireDto?.jourPenal}} يوم </span>
+                              <span
+                                 *ngIf="!calculeAffaireDto?.jourPenal && !calculeAffaireDto?.moisPenal && !calculeAffaireDto?.anneePenal && !calculeAffaireDto?.ageAdulte">
+                                 لا يوجد </span>
+                           </b></label>
+                        <label for="firstname3" class="enLabel" *ngIf="calculeAffaireDto?.dateDebut"> تــاريخ بــداية
+                           العقــاب : <b dir="rtl" style="text-decoration: underline  rgba(255, 0, 0, 0.650) ;">
+                              {{calculeAffaireDto?.dateDebut}}</b></label>
+                           
+                        <!-- <hr style="      border:0.1px solid rgba(0, 0, 0, 0.40);"> -->
+                        <div *ngIf="!calculeAffaireDto?.liberation">
+                           <label for="firstname3" class="enLabel"
+                              *ngIf="calculeAffaireDto?.dateFin && !calculeAffaireDto?.appelParquet"> تـــاريخ
+                              الســـــــــــراح : <b dir="rtl"
+                                 style="text-decoration: underline  rgba(255, 0, 0, 0.650);">
+                                 {{calculeAffaireDto?.dateFin}}</b></label>
+                           <label for="firstname3" class="enLabel"
+                              *ngIf="calculeAffaireDto?.dateFin && calculeAffaireDto?.appelParquet"> تـــاريخ
+                              الســـــــــــراح : <b dir="rtl"
+                                 style="text-decoration: line-through  rgba(255, 0, 0, 0.650); text-decoration-style: double;">
+                                 {{calculeAffaireDto?.dateFin}}</b></label>
+                        </div>
+                        <div *ngIf="calculeAffaireDto?.dateFin && calculeAffaireDto?.liberation">
+                           <label for="firstname3" class="enLabel"
+                              *ngIf="calculeAffaireDto?.dateFin == calculeAffaireDto?.liberation?.date"> تـــاريخ
+                              الســـــــــــراح : <b dir="rtl"
+                                 style="text-decoration: underline  rgba(255, 0, 0, 0.650);">
+                                 {{calculeAffaireDto?.dateFin}}</b></label>
+                           <label for="firstname3" class="enLabel"
+                              *ngIf="calculeAffaireDto?.dateFin > calculeAffaireDto?.liberation?.date"> تـــاريخ
+                              الســـــــــــراح : <b dir="rtl"
+                                 style="text-decoration: line-through  rgba(255, 0, 0, 0.650); text-decoration-style: double;">
+                                 {{calculeAffaireDto?.dateFin}}</b></label>
+                        </div>
+                        <label class="enLabel">
+                           إيقاف تحفظي:
+                           <b>
+                              <span
+                                 *ngIf="!calculeAffaireDto?.jourArret && !calculeAffaireDto?.moisArret && !calculeAffaireDto?.anneeArret">
+                                 لا يوجد </span>
+                              <span *ngIf="calculeAffaireDto?.jourArret">{{calculeAffaireDto?.jourArret}} يوم </span>
+                              <span *ngIf="calculeAffaireDto?.jourArret && calculeAffaireDto?.moisArret"> و </span>
+                              <span *ngIf="calculeAffaireDto?.moisArret">{{calculeAffaireDto?.moisArret}} شهر </span>
+                              <span *ngIf="calculeAffaireDto?.anneeArret && calculeAffaireDto?.moisArret"> و </span>
+                              <span
+                                 *ngIf="calculeAffaireDto?.anneeArret && calculeAffaireDto?.jourArret && !calculeAffaireDto?.moisArret">
+                                 و
+                              </span>
+                              <span *ngIf="calculeAffaireDto?.anneeArret">{{calculeAffaireDto?.anneeArret}} سنة</span>
+                              <ul
+                                 *ngIf="calculeAffaireDto?.jourArret || calculeAffaireDto?.moisArret || calculeAffaireDto?.anneeArret">
+                                 <li *ngFor="let arretProvisoire of  this.arretProvisoires">
+                                    <span style="color: grey;"> من </span> <b dir="rtl"> {{arretProvisoire?.dateDebut}}
+                                    </b> <span style="color: grey;"> إلى </span> <b dir="rtl">
+                                       {{arretProvisoire.dateFin}}</b>
+                                 </li>
+                              </ul>
+                           </b>
+                        </label>
+                     </div>
+                  </div>
+                  <!-- <div class="box"  >
+                  <div   style="text-align: center; padding: 20px;">
+                  
+                     <label   class="enLabel">
+                        التهمة  :
+                        <b> {{titreAcc}}</b>
+                        
+                     </label>
+                  </div>
+                  <div class="top"></div>
+                  <div class="right"></div>
+                  <div class="bottom"></div>
+                  <div class="left"></div> 
+                  
+                  </div> -->
+                  
+               </p-card>
+            </mat-tab>
+            <mat-tab>
+               <ng-template mat-tab-label>
+                  <i class="pi pi-copy" style="font-size: 25px;   "></i>
+                  <span style="font-family: 'Amiri', Times, serif; font-size: 20px;    ">قائمة القضايا </span>
+               </ng-template>
+               <p-table *ngIf="displayAffaire" [value]="calculeAffaireDto?.affaires" #dt dataKey="numOrdinale"
+                  selectionMode="single" [paginator]="true" [rows]="10" [globalFilterFields]="['type']">
+                  <ng-template pTemplate="header">
+                     <tr  >
+                        <th style="width:  3em;"> ع.ر </th>
+                        <th style="width: 10%;">عدد القضية</th>
+                        <th style="width: 10%;"> تاريخ الحكم </th>
+                        <th style="width: 20%;">المحكمة</th>
+                        <th style="width: 27%;">التهمة </th>
+                        <th style="width: 23%;">نص الحكم </th>
+                        <th style="width: 10%;">الوثيقة الجارية</th>
+                        <th style="width: 4em;">
+                           كشف
+                        </th>
+                        <th style="width: 4em;">
+                           الملف
+                        </th>
+                     </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-row>
+                     <tr>
+                        <td class="d">{{row?.numOrdinalAffaire}}</td>
+                        <td> {{row?.affaireId?.numAffaire}}</td>
+                        <td>{{row?.dateEmission}}</td>
+                        <td> {{row?.tribunal?.nom_tribunal}}</td>
+                        <td>
+                           <ul>
+                              <li class="li" *ngFor="let titreAccusation of row.titreAccusations">
+                                 <b> {{titreAccusation?.titreAccusation}}</b>
+                              </li>
+                           </ul>
+                        </td>
+                        <td *ngIf="!row.jour && !row.mois  &&  !row.annee && row.typeDocument !== 'AEX'">
+                           <span
+                              *ngIf="row.typeDocument !== 'CJ' && row.typeDocument !== 'CJA'  && row.typeDocument !== 'CR' ">موقوف</span>
+                           <div *ngIf="row.typeJuge">
+                              {{row.typeJuge?.libelle_typeJuge}}
+                           </div>
+                           <div *ngIf="row.affaireAffecter">
+                              تم الضم إلى القضية عدد : {{row?.affaireAffecter?.affaireId?.numAffaire}}
+                           </div>
+                        </td>
+                        <td *ngIf="!row.jour && !row.mois  &&  !row.annee && row.typeDocument =='AEX'">
+                           إيقاف الحكم
+                           <span class="dateDocument">(سراح)</span>
+                           <div *ngIf="row.affaireAffecter">
+                              تم الضم إلى القضية عدد : {{row?.affaireAffecter?.affaireId?.numAffaire}}
+                           </div>
+                        </td>
+                        <td *ngIf="row.jour ||  row.mois  || row.annee">
+                           <div>
+                              <span *ngIf="row.jour">{{row.jour}} يوم </span>
+                              <span *ngIf="row.jour && row.mois"> و </span>
+                              <span *ngIf="row.mois">{{row.mois}} شهر </span>
+                              <span *ngIf="row.annee && row.mois"> و </span>
+                              <span *ngIf="row.annee && row.jour && !row.mois"> و </span>
+                              <span *ngIf="row.annee">{{row.annee}} سنة</span>
+                           </div>
+                           <div *ngIf="row.typeJuge">
+                              {{row?.typeJuge?.libelle_typeJuge}}
+                           </div>
+                           <div *ngIf="row.typeDocument =='AEX'">
+                              إيقاف الحكم
+                              <span class="dateDocument">(سراح)</span>
+                           </div>
+                           <div *ngIf="row.affaireAffecter">
+                              تم الضم إلى القضية عدد : {{row?.affaireAffecter?.affaireId?.numAffaire}}
+                           </div>
+                        </td>
+                        <td *ngIf="row.typeDocumentActuelle == 'CHL'  else typeDocument " class="libre">
+                           <div> <span> قرار تغير مكان الإيداع </span></div>
+                           <div> <span class="dateDocument">({{row?.dateEmissionDocument}})</span> </div>
+                        </td>
+                        <ng-template #typeDocument>
+                           <td *ngIf="row.typeDocument == 'CP' " class="arrete">قرار تمديد </td>
+                           <td *ngIf="row.typeDocument == 'CD' " class="arrete">بطاقة إيداع</td>
+                           <td *ngIf="row.typeDocument == 'CH' " class="arrete">بطاقة إيواء</td>
+                           <td *ngIf="row.typeDocument == 'AEX' " class="libre">
+                              <div>
+                                 <span *ngIf="row.typeDocument == 'AEX' && (row?.typeFile=='AEX' ||  !row?.typeFile) ">
+                                    إيقاف تنفيذ الحكم
+                                 </span>
+                                 <span *ngIf="row.typeDocument == 'AEX' && (row?.typeFile=='L')">
+                                    ســــــــــــراح
+                                 </span>
+                              </div>
+                              <div> <span class="dateDocument">({{row?.dateEmissionDocument}})</span> </div>
+                           </td>
+                           <td *ngIf="row.typeDocument == 'CJ' || row.typeDocument == 'CJA' " class="jugee">مضمون حكم
+                           </td>
+                           <td *ngIf="row.typeDocument == 'T' " class="arrete">
+                              <div>
+                                 <span style="color: #0099ff !important;"
+                                    *ngIf="row.typeDocument == 'T' && (row?.typeFile=='T' ||  !row?.typeFile) ">
+                                    إحــــــالة
+                                 </span>
+                                 <span style="color: #0099ff !important;"
+                                    *ngIf="row.typeDocument == 'T' && (row?.typeFile=='A')">
+                                    تخلــــــي
+                                 </span>
+                                 <span style="color: #0099ff !important;"
+                                    *ngIf="row.typeDocument == 'T' && (row?.typeFile=='G')">
+                                    تعهــــــد
+                                 </span>
+                              </div>
+                              <div> <span class="dateDocument">({{row?.dateEmissionDocument}})</span> </div>
+                           </td>
+                           <td *ngIf="row.typeDocument == 'AE' " class="arrete">
+                              <div><span>طعن الطفل بالاستئناف</span> </div>
+                              <div><span class="dateDocument">({{row?.dateEmissionDocument}})</span> </div>
+                           </td>
+                           <td *ngIf="row.typeDocument == 'AP' " class="arrete">
+                              <div> <span>طعن النيابة بالاستئناف</span></div>
+                              <div> <span class="dateDocument">({{row?.dateEmissionDocument}})</span> </div>
+                           </td>
+                           <td *ngIf="row.typeDocument == 'CR' " class="jugee">
+                              <div> <span> مراجعة</span></div>
+                              <div> <span class="dateDocument">({{row?.dateEmissionDocument}})</span> </div>
+                           </td>
+                           <td *ngIf="row.typeDocument == 'CRR' " class="jugee">
+                              <div> <span> رفض مراجعة</span></div>
+                              <div> <span class="dateDocument">({{row?.dateEmissionDocument}})</span> </div>
+                           </td>
+                        </ng-template>
+                        <td style="text-align: center;">
+                           <button mat-mini-fab color="primary"
+                              style="background-color: white !important; color: #214954;"
+                              aria-label="Example icon button with a menu icon"
+                              (click)="getDocumentByAffaireConsult(row)">
+                              <i class="pi pi-eye" style="font-size: 30px;"></i>
+                           </button>
+                        </td>
+                        <td style="text-align: center;">
+                           <button mat-mini-fab color="primary"
+                              style="background-color: white !important; color: #214954;"
+                              aria-label="Example icon button with a menu icon" (click)="getDocumentByAffaire(row)">
+                              <i class="pi pi-folder-open" style="font-size: 30px;"></i>
+                           </button>
+                        </td>
+                     </tr>
+                  </ng-template>
+               </p-table>
+               <div style="width: 100%; height: min-content;" *ngIf="displayAffaireDetails && !displayAffaire">
+                  <p-dataView dir="rtl" *ngIf="displayAffaireDetails" [value]="documents" layout="grid">
+                     <p-header>
+                        <div class="ui-helper-clearfix" dir="rtl">
+                           <div class="p-grid">
+                              <div class="p-col-12 p-md-10" style="text-align:center; ">
+                                 <p-card *ngIf="calculeAffaireDto.displayArrestation" [style]="{ 
+                           'border-radius': '1%', ' background-color':' white !important',
+                           '-moz-box-shadow': '0px 1px 1px rgba(0, 0, 0, 0.966)', 'font-family': 'Times New Roman', 'font-size': '18px',  'font-weight': 'bold' ,
+                           '-webkit-box-shadow': '0px 1px 1px rgba(0, 0, 0, 0.966)',
+                           'box-shadow':' 0px 1px 1px rgba(0, 0, 0, 0.966)'  }">
+                                    <div class="p-grid" style="text-align:center">
+                                       <div class="p-col-12 p-md-1" style="text-align:right">
+                                          <label style="color: #2b2b2bda;" class="neonsBlack"> ع.ر : <b>
+                                                {{affaireLocal?.numOrdinalAffaire}} </b> </label>
+                                       </div>
+                                       <div class="p-col-12 p-md-4">
+                                          <label style="color: #2b2b2bda;" class="neonsBlack"> عدد القضية : <b
+                                                dir="rtl"> {{affaireLocal?.affaireId?.numAffaire }} </b> </label>
+                                       </div>
+                                       <div class="p-col-12 p-md-7">
+                                          <label style="color: #2b2b2bda;" class="neonsBlack"> محكمة : <b>
+                                                {{affaireLocal?.tribunal?.nom_tribunal }} </b> </label>
+                                       </div>
+                                    </div>
+                                 </p-card>
+                              </div>
+                              <div class="p-col-12 p-md-2" style="text-align:left" *ngIf="displayAffaireDetails">
+                                 <button mat-mini-fab color="primary"
+                                    style="background-color: white !important; color:red; margin-right: 100px; "
+                                    (click)="returnListAffaire()">
+                                    <i class="pi pi-power-off" style="font-size: 22px; "></i>
+                                 </button>
+                              </div>
+                           </div>
+                        </div>
+                     </p-header>
+                     <ng-template let-row pTemplate="gridItem">
+                        <div>
+                           <div   class="carda" (click)="showCarte(row)" >
+                               
+                                
+                                    <label class="d">
+                                       {{row?.documentId?.numOrdinalDocByAffaire}}/
+                                       <span *ngIf="row.typeDocumentActuelle == 'CHL' else typeDocument "
+                                          style="color: rgb(1, 151, 1) !important;"> قرار تغير مكان الإيداع </span>
+                                       <ng-template #typeDocument>
+                                          <span *ngIf="row.typeDocument == 'CP' "
+                                             style="color: #0099ff !important;">قرار تمديد </span>
+                                          <span *ngIf="row.typeDocument == 'CD' "
+                                             style="color: #0099ff !important;">بطاقة إيداع</span>
+                                          <span *ngIf="row.typeDocument == 'CH' "
+                                             style="color: #0099ff !important;">بطاقة إيواء</span>
+                                          <span *ngIf="row.typeDocument == 'CJ' || row.typeDocument == 'CJA'"
+                                             style="color: #ff3434 !important;">مضمون حكم</span>
+                                          <span style="color: #0099ff !important;"
+                                             *ngIf="row.typeDocument == 'T' && (row?.typeFile=='T' ||  !row?.typeFile) ">
+                                             إحــــــالة
+                                          </span>
+                                          <span style="color: #0099ff !important;"
+                                             *ngIf="row.typeDocument == 'T' && (row?.typeFile=='A')">
+                                             تخلــــــي
+                                          </span>
+                                          <span style="color: #0099ff !important;"
+                                             *ngIf="row.typeDocument == 'T' && (row?.typeFile=='G')">
+                                             تعهــــــد
+                                          </span>
+                                          <span *ngIf="row.typeDocument == 'AE' "
+                                             style="color: #0099ff !important;">إستناف الطفل </span>
+                                          <span *ngIf="row.typeDocument == 'AP' " style="color: #0099ff !important;">
+                                             إستناف النيابة </span>
+                                          <span *ngIf="row.typeDocument == 'CR' " style="color: #ff3434 !important;">
+                                             مراجعة</span>
+                                          <span *ngIf="row.typeDocument == 'CRR' " style="color: #ff3434 !important;">
+                                             رفض مراجعة</span>
+                                          <span style="color: rgb(1, 151, 1) !important;"
+                                             *ngIf="row.typeDocument == 'AEX' && (row?.typeFile=='AEX' ||  !row?.typeFile) ">
+                                             إيقاف تنفيذ الحكم
+                                          </span>
+                                          <span style="color: rgb(1, 151, 1) !important;"
+                                             *ngIf="row.typeDocument == 'AEX' && (row?.typeFile=='L')">
+                                             ســــــــــــراح
+                                          </span>
+                                       </ng-template>
+                                    </label>
+                                 
+                                 <div style="text-align: center;">
+                                    <i class="pi pi-file" *ngIf="  row.typeDocumentActuelle == 'CHL'  else typeDocumentImage "
+                                       style="font-size: 7em;color:    rgba(1, 151, 1, 0.699);"></i>
+                                       <ng-template #typeDocumentImage>
+                                    <i class="pi pi-file" *ngIf="row.typeDocument == 'CD' ||
+                                 row.typeDocument == 'CP' ||
+                                 row.typeDocument == 'CH' ||
+                                 row.typeDocument == 'T' ||
+                                 row.typeDocument == 'AE' ||
+                                 row.typeDocument == 'AP'" style="font-size: 7em;color:  #0099ffaf;"></i>
+                                    <i class="pi pi-file" *ngIf="row.typeDocument == 'CJ' || row.typeDocument == 'CJA' || row.typeDocument == 'CRR' ||
+                                 row.typeDocument == 'CR' " style="font-size: 7em;color:  #ff3434af;"></i>
+                                    <i class="pi pi-file"
+                                       *ngIf="row.typeDocument == 'AEX' "
+                                       style="font-size: 7em;color:    rgba(1, 151, 1, 0.699);"></i>
+                                       </ng-template>
+                                 </div>
+                              
+                           </div>
+                        </div>
+                     </ng-template>
+                  </p-dataView>
+               </div>
+            </mat-tab>
+            <mat-tab>
+               <ng-template mat-tab-label>
+                  <i class="pi pi-home" style="font-size: 25px;    "></i>
+                  <span style="font-family: 'Amiri', Times, serif; font-size: 20px;    "> قائمة الإقامات
+                  </span>
+               </ng-template>
+               <div style="margin-left: 1%;margin-right: 1%;">
+                  <div>
+                     <div class="p-grid layout-dashboard">
+                        <div class="p-col-12 p-lg-12" dir="rtl" style="width: 500 px; text-align: right;">
+                           <div class=" download-files">
+                              <ul>
+                                 <li *ngFor="let residence of this.calculeAffaireDto?.residences">
+                                    <div class="p-grid list-item">
+                                       <div class="p-col-4">
+                                          <label class="enLabel">العدد الرتبي للإقامة : <b>{{
+                                                residence?.residenceId?.numOrdinaleResidence }} </b> </label>
+                                          <label class="enLabel" *ngIf=" residence?.numArrestation">عدد الإيقاف: <b
+                                                dir="rtl">{{ residence?.numArrestation }}</b> </label>
+                                          <label class="enLabel" *ngIf="residence?.nombreEchappes"> عدد الفررات : <b>{{
+                                                residence?.nombreEchappes }} </b> </label>
+                                       </div>
+                                       <div class="p-col-4">
+                                          <label class="enLabel" *ngIf="residence?.causeMutation"> أسباب النقلة : <b>{{
+                                                residence?.causeMutation?.libelle_causeMutation }} </b> </label>
+                                          <label class="enLabel"> مركز : <b>{{
+                                                residence?.etablissement?.libelle_etablissement }} </b> </label>
+                                       </div>
+                                       <div class="p-col-4" *ngIf="residence?.statut != 2">
+                                          <label class="enLabel" *ngIf="residence?.etabChangeManiere"> تغير وسيلة :
+                                             <b>{{ residence?.etabChangeManiere?.libelle_etabChangeManiere }}</b>
+                                          </label>
+                                          <label class="enLabel" *ngIf="residence?.dateSortie">تاريخ المغادرة: <b
+                                                dir="rtl">{{ residence?.dateSortie }}</b> </label>
+                                          <label class="enLabel" *ngIf="residence?.dateEntree">تاريخ الإستقبال: <b
+                                                dir="rtl">{{ residence?.dateEntree }}</b> </label>
+                                       </div>
+                                       <div class="p-col-4" *ngIf="residence?.statut == 2">
+                                          <div class="item" style="  color: #ff3434; font-size: 26px;"> نقلة جارية, لم
+                                             يتم الإستقبال بعد ! </div>
+                                       </div>
+                                    </div>
+                                 </li>
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </mat-tab>
+         </mat-tab-group>
+      </div>
+   </div>
+   <p-dialog header="  قائمة الإيقافات  " dir="rtl" [(visible)]="displayAllArrestation" [baseZIndex]="10000"
+      modal="true" showEffect="fade">
+      <div style="width:1200PX;">
+         <p-table [value]="arrestations" #dtAllArrestation [paginator]="true" [rows]="4"
+            [globalFilterFields]="['arrestationId.numOrdinale','date' ]">
+            <ng-template pTemplate="caption">
+               <div style="text-align: right;">
+                  <i class="pi pi-search" style="margin: 4px 4px 0 0;"></i>
+                  <input type="text" pInputText size="50" placeholder=" بحث"
+                     (input)="dtAllArrestation.filterGlobal($event.target.value, 'contains')" style="width: 300px;" />
+               </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+               <tr style="color: black;">
+                  <th style="width: 5%;">العدد الرتبي</th>
+                  <th style="width: 10%;"> بتاريخ</th>
+                  <th style="width: 30%;">القضية الرئيسية </th>
+                  <th style="width: 20%;">  نوع القضية </th>
+                 
+                  <th style="width: 25%;">الوضعية الجزائية </th>
+                  <th style="width:  4em;">
+                  </th>
+               </tr>
+               
+            </ng-template>
+            <ng-template pTemplate="body" let-row>
+               <tr style="color: black;">
+                  <td><b style="font-size: 16px;">{{row?.arrestationId?.numOrdinale }}</b></td>
+                  <td><b style="font-size: 16px;">{{row?.date}} </b></td>
+                  <td style=" text-align: right;"><b style="font-size: 18px;  color: black;">
+                        {{ row?.numAffairePricipale + ' '+ row?.tribunalPricipale?.nom_tribunal }} </b></td>
+                        
+                  <td style=" text-align: center;"><b style="font-size: 18px;  color: black;">
+                        {{row?.typeAffairePricipale?.libelle_typeAffaire}} </b></td>
+                  
+
+                  <td *ngIf="row.etatJuridique=='juge'" style=" text-align: center;"><b class="neons"> <span
+                           style="font-size: 20px;">محكوم </span></b></td>
+                  <td *ngIf="row.etatJuridique=='arret'" style=" text-align: center;"><b class="neons"> <span
+                           style="font-size: 20px;">موقوف</span></b></td>
+                  <td *ngIf="row.etatJuridique=='libre'" style=" text-align: center;"><b
+                        style="font-size: 18px;  color: rgb(10, 99, 10);">
+                        {{row?.liberation?.causeLiberation?.libelleCauseLiberation }}  {{row?.liberation?.date | date:'dd-MM-yyyy'}}  </b></td>
+                  
+                  <td style="text-align: center;">
+                     <button mat-mini-fab color="primary"
+                        style="background-color: transparent; color: black !important;"
+                        aria-label="Example icon button with a menu icon" (click)="showArrestation(row)">
+                        <i class="pi pi-search" style="font-size: 25px;"></i>
+                     </button>
+                  </td>
+               </tr>
+            </ng-template>
+         </p-table>
+      </div>
+   </p-dialog>
+   <p-dialog *ngIf="carteRecup"
+      [style]="{width: '80vw', height: '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+      [closable]="false" [(visible)]="showCarteRecup" modal="true">
+      <p-header>
+         <label class="d">
+            {{carteRecup?.documentId?.numOrdinalDocByAffaire}}/
+            <span style="color: #ff3434 !important;">مضمون حكم</span>
+         </label>
+      </p-header>
+      <app-show-carte-recup [carteRecup]="carteRecup"></app-show-carte-recup>
+      <p-footer>
+         <div style="text-align: center;">
+            <button pButton type="button" label="واضح" style="margin-right: 2px;" class="ui-button-danger"
+               (click)="showCarteRecup = false"></button>
+         </div>
+      </p-footer>
+   </p-dialog>
+   <p-dialog *ngIf="carteDepot"
+      [style]="{width: '80vw', height: '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+      [closable]="false" [(visible)]="showCarteDepot" modal="true">
+      <p-header>
+         <label class="d">
+            {{carteDepot?.documentId?.numOrdinalDocByAffaire}}/
+            <span style="color: #0099ff !important;">بطاقة إيداع</span>
+         </label>
+      </p-header>
+      <app-show-carte-depot [carteDepot]="carteDepot"></app-show-carte-depot>
+      <p-footer>
+         <div style="text-align: center;">
+            <button pButton type="button" label="واضح" style="margin-right: 2px;" class="ui-button-danger"
+               (click)="showCarteDepot = false"></button>
+         </div>
+      </p-footer>
+   </p-dialog>
+   <p-dialog *ngIf="cartePropagation"
+      [style]="{width: '80vw', height: '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+      [closable]="false" [(visible)]="showCartePropagation" modal="true">
+      <p-header>
+         <label class="d">
+            {{cartePropagation?.documentId?.numOrdinalDocByAffaire}}/
+            <span style="color: #0099ff !important;"> قرار تمديد </span>
+         </label>
+      </p-header>
+      <app-show-carte-propagation [cartePropagation]="cartePropagation"></app-show-carte-propagation>
+      <p-footer>
+         <div style="text-align: center;">
+            <button pButton type="button" label="واضح" style="margin-right: 2px;" class="ui-button-danger"
+               (click)="showCartePropagation = false"></button>
+         </div>
+      </p-footer>
+   </p-dialog>
+   <p-dialog *ngIf="carteHeber"
+      [style]="{width: '80vw', height: '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+      [closable]="false" [(visible)]="showCarteHeber" modal="true">
+      <p-header>
+         <label class="d">
+            {{carteHeber?.documentId?.numOrdinalDocByAffaire}}/
+            <span style="color: #0099ff !important;">بطاقة إيواء</span>
+         </label>
+      </p-header>
+      <app-show-carte-hebergement [carteHeber]="carteHeber"></app-show-carte-hebergement>
+      <p-footer>
+         <div style="text-align: center;">
+            <button pButton type="button" label="واضح" style="margin-right: 2px;" class="ui-button-danger"
+               (click)="showCarteHeber = false"></button>
+         </div>
+      </p-footer>
+   </p-dialog>
+   <p-dialog *ngIf="transfert"
+      [style]="{width: '80vw', height: '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+      [closable]="false" [(visible)]="showTransfert" modal="true">
+      <p-header>
+         <label class="d">
+            {{transfert?.documentId?.numOrdinalDocByAffaire}}/
+            <span style="color: #0099ff !important;" *ngIf=" (transfert?.typeFile=='T' ||  !transfert?.typeFile) ">
+               إحــــــالة
+            </span>
+            <span style="color: #0099ff !important;" *ngIf="(transfert?.typeFile=='A')">
+               تخلــــــي
+            </span>
+            <span style="color: #0099ff !important;" *ngIf=" (transfert?.typeFile=='G')">
+               تعهــــــد
+            </span>
+         </label>
+      </p-header>
+      <app-show-transfert [transfert]="transfert"></app-show-transfert>
+      <p-footer>
+         <div style="text-align: center;">
+            <button pButton type="button" label="واضح" style="margin-right: 2px;" class="ui-button-danger"
+               (click)="showTransfert = false"></button>
+         </div>
+      </p-footer>
+   </p-dialog>
+   <p-dialog *ngIf="appelEnfant"
+      [style]="{width: '80vw', height: '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+      [closable]="false" [(visible)]="showAppelEnfant" modal="true">
+      <p-header>
+         <label class="d">
+            {{appelEnfant?.documentId?.numOrdinalDocByAffaire}}/
+            <span style="color:  #0099ff !important;"> إستناف الطفل </span>
+         </label>
+      </p-header>
+      <app-show-appel-enfant [appelEnfant]="appelEnfant"></app-show-appel-enfant>
+      <p-footer>
+         <div style="text-align: center;">
+            <button pButton type="button" label="واضح" style="margin-right: 2px;" class="ui-button-danger"
+               (click)="showAppelEnfant = false"></button>
+         </div>
+      </p-footer>
+   </p-dialog>
+   <p-dialog *ngIf="appelParquet"
+      [style]="{width: '80vw', height: '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+      [closable]="false" [(visible)]="showAppelParquet" modal="true">
+      <p-header>
+         <label class="d">
+            {{appelParquet?.documentId?.numOrdinalDocByAffaire}}/
+            <span style="color:  #0099ff !important;"> إستناف النيابة </span>
+         </label>
+      </p-header>
+      <app-show-appel-parquet [appelParquet]="appelParquet"></app-show-appel-parquet>
+      <p-footer>
+         <div style="text-align: center;">
+            <button pButton type="button" label="واضح" style="margin-right: 2px;" class="ui-button-danger"
+               (click)="showAppelParquet = false"></button>
+         </div>
+      </p-footer>
+   </p-dialog>
+   <p-dialog *ngIf="revue"
+      [style]="{width: '80vw', height: '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+      [closable]="false" [(visible)]="showRevue" modal="true">
+      <p-header>
+         <label class="d">
+            {{revue?.documentId?.numOrdinalDocByAffaire}}/
+            <span style="color: #ff3434 !important;"> مراجعة</span>
+         </label>
+      </p-header>
+      <app-show-revue [revue]="revue"></app-show-revue>
+      <p-footer>
+         <div style="text-align: center;">
+            <button pButton type="button" label="واضح" style="margin-right: 2px;" class="ui-button-danger"
+               (click)="showRevue = false"></button>
+         </div>
+      </p-footer>
+   </p-dialog>
+   <p-dialog *ngIf="refuseRevue"
+      [style]="{width: '80vw', height: '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+      [closable]="false" [(visible)]="showRefuseRevue" modal="true">
+      <p-header>
+         <label class="d">
+            {{refuseRevue?.documentId?.numOrdinalDocByAffaire}}/
+            <span style="color: #ff3434 !important;"> رفض مراجعة </span>
+         </label>
+      </p-header>
+      <app-show-refuse-revue [refuseRevue]="refuseRevue"></app-show-refuse-revue>
+      <p-footer>
+         <div style="text-align: center;">
+            <button pButton type="button" label="واضح" style="margin-right: 2px;" class="ui-button-danger"
+               (click)="showRefuseRevue = false"></button>
+         </div>
+      </p-footer>
+   </p-dialog>
+   <p-dialog *ngIf="arreterlexecution"
+      [style]="{width: '80vw', height: '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+      [closable]="false" [(visible)]="showArreterlexecution" modal="true">
+      <p-header>
+         <label class="d">
+            {{arreterlexecution?.documentId?.numOrdinalDocByAffaire}}/
+            <span style="color: rgb(1, 151, 1) !important;"
+               *ngIf="arreterlexecution.typeDocument == 'AEX' && (arreterlexecution?.typeFile=='AEX' ||  !arreterlexecution?.typeFile) ">
+               إيقاف تنفيذ الحكم
+            </span>
+            <span style="color: rgb(1, 151, 1) !important;"
+               *ngIf="arreterlexecution.typeDocument == 'AEX' && (arreterlexecution?.typeFile=='L')">
+               ســــــــــــراح
+            </span>
+         </label>
+      </p-header>
+      <app-show-arreter-lexecution [arreterlexecution]="arreterlexecution"></app-show-arreter-lexecution>
+      <p-footer>
+         <div style="text-align: center;">
+            <button pButton type="button" label="واضح" style="margin-right: 2px;" class="ui-button-danger"
+               (click)="showArreterlexecution = false"></button>
+         </div>
+      </p-footer>
+   </p-dialog>
+   <p-dialog *ngIf="changementLieu"
+      [style]="{width: '80vw', height: '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+      [closable]="false" [(visible)]="showChangementLieu" modal="true">
+      <p-header>
+         <label class="d">
+            {{changementLieu?.documentId?.numOrdinalDocByAffaire}}/
+            <span style="color:rgb(1, 151, 1) !important;"> قرار تغير مكان الإيداع</span>
+         </label>
+      </p-header>
+      <app-show-changement-lieu [changementLieu]="changementLieu"></app-show-changement-lieu>
+      <p-footer>
+         <div style="text-align: center;">
+            <button pButton type="button" label="واضح" style="margin-right: 2px;" class="ui-button-danger"
+               (click)="showChangementLieu = false"></button>
+         </div>
+      </p-footer>
+   </p-dialog>
+   <p-dialog
+      [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+      [closable]="false" [(visible)]="displayAffaireConsult" modal="true">
+      <p-header>
+         <div class="p-col-12 " style="text-align:center;">
+            <div class="p-grid" style="text-align:center;">
+               <div class="p-col-12 p-md-1" style="text-align:right">
+                  <label style="color: #2b2b2bda;" class="neonsBlack"> ع.ر : <b style="color: #2b2b2bda;">
+                        {{affaireLocal?.numOrdinalAffaire}} </b> </label>
+               </div>
+               <div class="p-col-12 p-md-4">
+                  <label style="color: #2b2b2bda;" class="neonsBlack"> عدد القضية : <b dir="rtl"
+                        style="color: #2b2b2bda;"> {{affaireLocal?.affaireId?.numAffaire }} </b> </label>
+               </div>
+               <div class="p-col-12 p-md-7">
+                  <label style="color: #2b2b2bda;" class="neonsBlack"> محكمة : <b style="color: #2b2b2bda;">
+                        {{affaireLocal?.tribunal?.nom_tribunal }} </b> </label>
+               </div>
+            </div>
+         </div>
+      </p-header>
+      <p-dataView dir="rtl" *ngIf="displayAffaireConsult" [value]="documents">
+         <ng-template let-row pTemplate="listItem">
+            <div class="p-col-12">
+               <p-card [style]="{ 'height': 'auto',   
+            'font-family': 'Times New Roman',  
+            '-moz-box-shadow': '0px 1px 1px rgba(0, 0, 0, 0.966)',
+            '-webkit-box-shadow': '0px 1px 1px rgba(0, 0, 0, 0.966)',
+            'box-shadow':'1px 1px 1px #919191,
+            1px 1px 1px #919191,
+            1px 1px 1px #919191,
+            1px 1px 1px #919191,
+            1px 1px 1px #919191,
+            1px 1px 1px #919191,
+            1px 1px 1px #919191,
+            1px 1px 1px #919191,
+            1px 1px 1px #919191,
+            1px 1px 1px #919191'  }">
+                  <div class="p-grid">
+                     <div class="p-col-4">
+                        <div class="item">العدد الرتبي للوثيقة: <b style=" color: rgb(74, 89, 163);">
+                              {{row?.documentId?.numOrdinalDocByAffaire}}</b></div>
+                        <div class="item">
+                           نوع الوثيقة:
+                           <b>
+                              <span *ngIf="row.typeDocumentActuelle == 'CHL'  else typeDocument "
+                                 style="color: rgb(1, 151, 1) !important;"> قرار تغير مكان الإيداع
+                              </span>
+                              <ng-template #typeDocument>
+                                 <span *ngIf="row.typeDocument == 'CP' " style="color: #0099ff !important;">قرار تمديد
+                                 </span>
+                                 <span *ngIf="row.typeDocument == 'CD' " style="color: #0099ff !important;">بطاقة
+                                    إيداع</span>
+                                 <span *ngIf="row.typeDocument == 'CH' " style="color: #0099ff !important;">بطاقة
+                                    إيواء</span>
+                                 <span *ngIf="row.typeDocument == 'CJ' || row.typeDocument == 'CJA' "
+                                    style="color: #ff3434 !important;">مضمون حكم</span>
+                                 <span style="color: #0099ff !important;"
+                                    *ngIf="row.typeDocument == 'T' && (row?.typeFile=='T' ||  !row?.typeFile) ">
+                                    إحــــــالة
+                                 </span>
+                                 <span style="color: #0099ff !important;"
+                                    *ngIf="row.typeDocument == 'T' && (row?.typeFile=='A')">
+                                    تخلــــــي
+                                 </span>
+                                 <span style="color: #0099ff !important;"
+                                    *ngIf="row.typeDocument == 'T' && (row?.typeFile=='G')">
+                                    تعهــــــد
+                                 </span>
+                                 <span *ngIf="row.typeDocument == 'AE' " style="color: #0099ff !important;"> إستناف
+                                    الطفل </span>
+                                 <span *ngIf="row.typeDocument == 'AP' " style="color: #0099ff !important;">إستناف
+                                    النيابة </span>
+                                 <span *ngIf="row.typeDocument == 'CR' " style="color:  #ff3434 !important;"> مراجعة
+                                 </span>
+                                 <span *ngIf="row.typeDocument == 'CRR' " style="color:  #ff3434 !important;"> رفض
+                                    مراجعة </span>
+                                 <span *ngIf="row.typeDocument == 'AEX' && (row?.typeFile=='AEX' ||  !row?.typeFile) "
+                                    style="color: rgb(1, 151, 1) !important;">
+                                    إيقاف تنفيذ الحكم
+                                 </span>
+                                 <span *ngIf="row.typeDocument == 'AEX' && (row?.typeFile=='L')"
+                                    style="color: rgb(1, 151, 1) !important;">
+                                    ســــــــــــراح
+                                 </span>
+                              </ng-template>
+                           </b>
+                        </div>
+                        <div class="item">بـــتــــــاريخ : <b dir="rtl"> {{row?.dateEmission}}</b> </div>
+                     </div>
+                     <div class="p-col-4">
+                        <div class="item">عددالقضية: <b> {{row?.affaire?.affaireId?.numAffaire}}</b> </div>
+                        <div class="item">المحكمة: <b> {{row?.affaire?.tribunal?.nom_tribunal}}</b> </div>
+                        <div style="color: red;" class="item">
+                           <div>
+                              <span *ngIf="row?.jour">{{row?.jour}} يوم </span>
+                              <span *ngIf="row?.jour && row?.mois"> و </span>
+                              <span *ngIf="row?.mois">{{row?.mois}} شهر </span>
+                              <span *ngIf="row?.annee && row?.mois"> و </span>
+                              <span *ngIf="row?.annee && row?.jour && !row?.mois"> و </span>
+                              <span *ngIf="row?.annee">{{row?.annee}} سنة</span>
+                              <span *ngIf="row?.type=='mutation'"> نقلة إلى </span>
+                              <span *ngIf="row?.type=='changementEtab'"> تغير وسيلة إلى</span>
+                              <span *ngIf="row?.etablissementtMutation">{{'
+                                 '+row?.etablissementtMutation?.libelle_etablissement+' ' }}</span>
+                              <span *ngIf="row?.etabChangeManiere">{{'
+                                 '+row?.etabChangeManiere?.libelle_etabChangeManiere+' '}}</span>
+                              <span
+                                 *ngIf="!row?.annee && !row?.jour && !row?.jour && (row?.type=='changementEtab' || row?.type=='mutation')">(
+                                 المدة غير محددة )</span>
+                           </div>
+                           <div *ngIf="row.typeJuge">
+                              {{row?.typeJuge?.libelle_typeJuge}}
+                           </div>
+                           <div *ngIf="row.typeDocument =='AEX'">
+                              إيقاف الحكم
+                              <span class="dateDocument">(سراح)</span>
+                           </div>
+                           <div
+                              *ngIf="row.typeDocument !=='CD' && row.typeDocument !=='CP' && row.typeDocument !=='CH' && row.typeDocument !=='T' && row?.affaire?.affaireAffecter">
+                              تم الضم إلى القضية عدد : {{row?.affaire?.affaireAffecter?.affaireId?.numAffaire}}
+                           </div>
+                        </div>
+                        <div style="color: black;" class="item" *ngIf="!row.jour && 
+                     !row.mois  &&  
+                     !row.annee && 
+                     row?.type!=='mutation' &&
+                     row?.type!=='changementEtab' &&
+                     row.typeDocument !== 'AEX'">
+                           <span *ngIf="row.typeDocument !== 'CJ' 
+                        && row.typeDocument !== 'CJA' 
+                        && row.typeDocument !== 'CRR' 
+                        && row.typeDocument !== 'CR'">موقوف</span>
+                           <div style="color: green;" *ngIf="row?.typeJuge?.situation == 'nonCal'">
+                              {{row.typeJuge?.libelle_typeJuge}}
+                           </div>
+                           <div style="color: black;" *ngIf="row?.typeJuge?.situation !== 'nonCal'">
+                              {{row.typeJuge?.libelle_typeJuge}}
+                           </div>
+                           <div
+                              *ngIf="row.typeDocument !=='CD' && row.typeDocument !=='CP' && row.typeDocument !=='CH' && row.typeDocument !=='T' && row?.affaire?.affaireAffecter">
+                              تم الضم إلى القضية عدد : {{row?.affaire?.affaireAffecter?.affaireId?.numAffaire}}
+                           </div>
+                        </div>
+                        <div style="color: green;" class="item"
+                           *ngIf="!row.jour && !row.mois  &&  !row.annee && row.typeDocument =='AEX'">
+                           إيقاف الحكم
+                           <span class="dateDocument">(سراح)</span>
+                           <div
+                              *ngIf="row.typeDocument !=='CD' && row.typeDocument !=='CP' && row.typeDocument !=='CH' && row.typeDocument !=='T' && row?.affaire?.affaireAffecter">
+                              تم الضم إلى القضية عدد : {{row?.affaire?.affaireAffecter?.affaireId?.numAffaire}}
+                           </div>
+                        </div>
+                     </div>
+                     <div class="p-col-4">
+                        <div class="item">نوع القضية: <b> {{row?.typeAffaire?.libelle_typeAffaire}}</b> </div>
+                        <div class="item" *ngIf="row?.dateDebutPunition">تاريخ البداية: <b dir="rtl">
+                              {{row?.dateDebutPunition}}</b> </div>
+                        <div class="item" *ngIf="row?.dateFinPunition">تاريخ النهاية: <b dir="rtl">
+                              {{row?.dateFinPunition}}</b> </div>
+                     </div>
+                  </div>
+               </p-card>
+            </div>
+         </ng-template>
+      </p-dataView>
+      <p-footer>
+         <div style="text-align: center;">
+            <button pButton type="button" label="واضح" style="margin-right: 2px;" class="ui-button-danger"
+               (click)="displayAffaireConsult = false"></button>
+         </div>
+      </p-footer>
+   </p-dialog>
+</div>

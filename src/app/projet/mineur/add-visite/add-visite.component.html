@@ -1,0 +1,42 @@
+<div style="width: 800px;">
+    <form class="p-grid">
+     
+
+        <div class="p-col-12">
+            <table class="table custom-table">
+                <thead>
+                    <tr>
+                        <th>السنة</th>
+                        <th>الشهر</th>
+                        <th>عدد الزيارات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <label for="year" class="custom-label">{{currentYear}}</label>
+                             
+                            <!-- <select class="form-control custom-select" [(ngModel)]="selectedYear" name="year" id="year">
+                                <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+                            </select> -->
+                        </td>
+                        <td>
+                            <select class="form-control custom-select" [(ngModel)]="selectedMonth" name="month"
+                              (change)="verifierVisite()"   id="month">
+                                <option *ngFor="let month of months" [value]="month.id">{{ month.name }}</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input class="form-control custom-input" type="number" [(ngModel)]="numberValue"
+                                name="number" id="number">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="p-col-12">
+            <button type="submit" class="btn btn-primary custom-button"  (click)="onSubmit()">تسجيل</button>
+        </div>
+    </form>
+</div>

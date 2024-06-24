@@ -1,0 +1,326 @@
+<p-toast key="tst" [style]="{marginTop: '150px'}"></p-toast>
+<div class="card" dir="rtl" style="margin-top: 20px; margin-left: 5%;margin-right:5%;">
+ 
+
+    <p-card *ngIf="enfantLocal"
+        [style]="{  'height': 'calc(100% + 10px)','text-align':'center',  'border-radius': '0%',
+              '-moz-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
+              '-webkit-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
+              'box-shadow':' 1px 1px 1px #919191,
+              1px 2px 1px #919191,
+              1px 3px 1px #919191,
+              1px 4px 1px #919191,
+              1px 5px 1px #919191,
+              1px 6px 1px #919191,
+              1px 7px 1px #919191,
+              1px 8px 1px #919191,
+              1px 9px 1px #919191,
+              1px 10px 1px #919191','background-image': 'url(assets/layout/images/cart.jpg)' }">
+        <p-header>
+
+         
+        </p-header>
+     
+        <div class="p-grid" style="text-align: right;">
+            <div class="p-col">
+                <label class="enLabel">الهوية: <span class="d"> {{enfantLocal.nom}} بن {{enfantLocal.nomPere}} بن
+                        {{enfantLocal.nomGrandPere}} {{enfantLocal.prenom}}</span> </label>
+
+                <label for="firstname3" class="enLabel"> هوية الأم: <span class="d">{{enfantLocal.nomMere}}
+                        {{enfantLocal.prenomMere}}</span></label>
+                <label for="firstname3" class="enLabel"> تاريخ الولادة : <span
+                        class="d">{{enfantLocal.dateNaissance}}</span></label>
+            </div>
+            <div class="p-col" *ngIf="!isLiberation">
+
+                <label for="firstname3" class="enLabel"> العدد الرتبي للإيقاف: <span
+                        class="d">{{arrestation.arrestationId.numOrdinale}}</span></label>
+                <label for="firstname3" class="enLabel"> عدد الإيقاف : <span class="d" dir="rtl">{{residence.numArrestation}}</span></label>
+                 
+
+            </div>
+            <div class="p-col"  *ngIf="!isLiberation">
+ 
+                <label for="firstname3" class="enLabel"> مركز الإيقاف: <span class="d">{{residence.etablissement.libelle_etablissement}}</span></label>
+                <label for="firstname3" class="enLabel"> بتاريخ: <span class="d">{{arrestation.date}}</span></label>
+
+            </div>
+            <div class="p-col">
+                <img (click)="showImg()" *ngIf="enfantLocal.img" src="{{enfantLocal.img}}" class="profile-img-card2">
+                <h2  class="neons" *ngIf="isEchappes" > <span>{{msg}}</span></h2>
+                <!-- <h2  class="neons" *ngIf="isEncourMutation" > <span>{{msg}}</span></h2> -->
+                
+            </div>
+        </div>
+
+        <p-footer>
+
+
+        </p-footer>
+        <ng-template pTemplate="footer">
+            <p-button label="Save" icon="pi pi-check"></p-button>
+
+        </ng-template>
+    </p-card>
+
+
+    <div class="card" *ngIf=" !isDeces && !isMutation && !isLiberation"
+        style="margin-top:20px ; border-radius:  0%;background-image: url(assets/layout/images/cart.jpg)">
+        <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+
+        <div class="card">
+
+            <div class="p-grid">
+                <div class="p-col">
+
+                    <div class="p-field p-grid">
+
+                    </div>
+
+                    <div class="p-field p-grid">
+                        <label for="lastname3" class="p-col-fixed" style="width: 180px;">  تــاريخ الوفــاة :</label>
+                        <div class="p-col">
+                            <p-inputMask mask="9999/99/99" dir="rtl" slotChar="----/--/--" placeholder="يوم/شهر/سنة"
+                                [style]="{'font-weight': '500','font-size': '16px','color': 'black'}"
+                                 [(ngModel)]="dateDeces"></p-inputMask>
+                        </div>
+                    </div>
+                    <div class="p-field p-grid">
+                        <label for="lastname3" class="p-col-fixed" style="width: 180px;">مكــان الوفــاة :</label>
+                        <div class="p-col">
+                            <input   readonly [(ngModel)]="lieuDeces" (click)="showListLieuDeces()" type="text" pInputText>
+                        </div>
+                    </div>
+
+                    <div class="p-field p-grid">
+                        <label for="lastname3" class="p-col-fixed " style="width: 180px;">  أسبــاب الوفــاة  :</label>
+                        <div class="p-col">
+                            <input   readonly [(ngModel)]="cause" (click)="showListCauseDeces()" type="text" pInputText>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="p-col">
+
+                    <div class="p-field p-grid">
+                        <label for="lastname3" class="p-col-fixed" style="width: 180px;" > لفت نظر :</label>
+                        <div class="p-col">
+                           <textarea class="tribunal" [(ngModel)]="remarqueDeces" [rows]="4" [cols]="40" pInputTextarea
+                              autoResize="autoResize"></textarea>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="enfantLocal" style="text-align: center;">
+
+            <button *ngIf=" !isDeces && !isMutation && !isLiberation" pButton type="button" label="تسجيل " (click)="save()"
+                style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;" class="ui-button-success"></button>
+            
+        </div>
+
+    </div>
+ 
+   
+    <div class="card"  *ngIf="isDeces"
+      style="margin-top:20px ;
+             border-radius:  0%;
+             background-image: url(assets/layout/images/cart.jpg)">
+             <div class="p-grid">
+                <div class="p-col">
+
+                    <div class="p-field p-grid">
+
+                    </div>
+
+                    <div class="p-field p-grid">
+                        
+                        <label for="firstname3" class="enLabel">تــاريخ الوفــاة: <span
+                            class="d">{{deces.dateDeces}}</span></label>
+                    </div>
+                    <div class="p-field p-grid">
+                       
+
+                        <label for="firstname3" class="enLabel"> مكــان  الوفــاة: <span
+                            class="d">{{deces.lieuDeces.libellelieuDeces}}</span></label>
+                    </div>
+
+                    <div class="p-field p-grid">
+                       
+                        <label for="firstname3" class="enLabel">أسبــاب الوفــاة: <span
+                            class="d">{{deces.causeDeces.libelle_causeDeces}}</span></label>
+                    </div>
+                    
+                </div>
+
+
+
+                <div class="p-col">
+
+                    <div class="p-field p-grid">
+                         
+                        <label for="firstname3" class="enLabel">لفت نظر: <span
+                            class="d">{{deces.remarqueDeces}}</span></label>
+                            
+                     </div>
+                </div>
+            </div>
+
+    </div>
+
+     
+        <div style="text-align: center;"  >
+            <br>
+            <h1  class="neons"  *ngIf="isDeces" > <span>{{msg}}</span></h1>
+            <h1  class="neons" *ngIf="isMutation" > <span>{{msg}}</span></h1>
+            <h1       *ngIf="isLiberation" >  {{msg}} </h1>
+        </div>
+ 
+ 
+ 
+     
+</div>
+
+
+<p-dialog modal="true" *ngIf="enfantLocal" header="صورة: {{enfantLocal.nom}} {{enfantLocal.prenom}}  "
+    [(visible)]="displayImg" showEffect="fade">
+
+
+    <img src="{{enfantLocal.img}}" class="profile-img-card">
+
+    <div style="text-align: center;">
+        <button pButton (click)="displayImg=!displayImg;" type="button" icon="pi pi-times" label="إخفاء الصورة"
+            style="color: red;background-color: transparent;"></button>
+
+    </div>
+
+
+
+</p-dialog>
+
+
+ 
+
+
+
+
+
+
+<p-dialog header="قائمة أسباب  الوفاة "  [(visible)]="displayCauseDeces"  modal="true" showEffect="fade" [style]="{ 'border-radius': '1%',  
+'-moz-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
+'-webkit-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
+'box-shadow':' 0px 2px 2px rgba(0, 0, 0, 0.966)','background-image': 'url(assets/layout/images/cart.jpg)' }">
+
+    <div style="width: 1000px;">
+        <p-table [value]="entitesCauseDeces" #dtCauseDeces selectionMode="single" [paginator]="true" [rows]="5"
+        
+            [globalFilterFields]="[ 'libelle_causeDeces' ]">
+            <ng-template pTemplate="caption">
+
+                <div style="text-align: right">
+                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                    <input type="text" pInputText size="50" placeholder=" بحث"
+                        (input)="dtCauseDeces.filterGlobal($event.target.value, 'contains')" style="width:300px">
+
+                </div>
+
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+
+                  
+                  
+                    <th> الأسباب  </th>
+
+                    <th style="width: 100px;"> إدراج
+
+
+                    </th>
+
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-row>
+                <tr>
+
+
+                    
+                    <td> <b style="font-size:16px;">{{row.libelle_causeDeces}} </b></td>
+
+                    <td >
+
+                    
+                        <button  pButton icon="pi pi-plus"  label="موافق " style="background-color: #66a266;"  (click)=saveCauseDeces(row)>
+                        </button>
+                       
+
+                    </td>
+
+
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+</p-dialog>
+
+<p-dialog header="قائمة المواقع    "  [(visible)]="displayLieuDeces"  modal="true" showEffect="fade" [style]="{ 'border-radius': '1%',  
+'-moz-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
+'-webkit-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
+'box-shadow':' 0px 2px 2px rgba(0, 0, 0, 0.966)','background-image': 'url(assets/layout/images/cart.jpg)' }">
+
+    <div style="width: 1000px;">
+        <p-table [value]="entitesLieuDeces" #dtLieuDeces selectionMode="single" [paginator]="true" [rows]="5"
+        
+            [globalFilterFields]="[ 'libelle_causeDeces' ]">
+            <ng-template pTemplate="caption">
+
+                <div style="text-align: right">
+                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                    <input type="text" pInputText size="50" placeholder=" بحث"
+                        (input)="dtLieuDeces.filterGlobal($event.target.value, 'contains')" style="width:300px">
+
+                </div>
+
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+
+                  
+                  
+                    <th> الأسباب  </th>
+
+                    <th style="width: 100px;"> إدراج
+
+
+                    </th>
+
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-row>
+                <tr>
+
+
+                    
+                    <td> <b style="font-size:16px;">{{row.libellelieuDeces}} </b></td>
+
+                    <td >
+
+                    
+                        <button  pButton icon="pi pi-plus"  label="موافق " style="background-color: #66a266;"  (click)=saveLieuDeces(row)>
+                        </button>
+                       
+
+                    </td>
+
+
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+</p-dialog>

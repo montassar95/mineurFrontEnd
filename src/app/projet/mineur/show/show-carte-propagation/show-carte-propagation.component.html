@@ -1,0 +1,161 @@
+
+ 
+ 
+    <div dir="rtl" *ngIf="cartePropagation">
+        <div  style=" margin-left: 5%; margin-right: 5%;    background-image: url(assets/layout/images/bg.png)" >
+            <div class="p-grid"  >
+                <div class="p-col-2">
+                    <label style="background-color: rgb(241, 241, 241);">
+                        الهوية:
+                         
+                    </label>
+                    </div>
+                    <div class="p-col-10">
+                        <label>
+                          
+                            <span>
+
+
+                                {{ cartePropagation.affaire.arrestation.enfant.nom }} بن {{ cartePropagation.affaire.arrestation.enfant.nomPere }} بن {{ cartePropagation.affaire.arrestation.enfant.nomGrandPere }} {{ cartePropagation.affaire.arrestation.enfant.prenom }}
+                            </span>
+                             
+                        </label>
+                    </div>
+                    </div>
+            
+                    <div class="p-grid"  >
+                        <div class="p-col-2">
+                            <label style="background-color: rgb(241, 241, 241);">
+                                عدد الإيقاف :
+                                 
+                            </label>
+                            </div>
+                            <div class="p-col-10">
+                                <label>
+                                  
+                                    <span dir="rtl">
+        
+        
+                                        {{ cartePropagation.numArrestation }}
+                                    </span>
+                                     
+                                </label>
+                            </div>
+                            </div>
+                            <div class="p-grid"  >
+                                <div class="p-col-2">
+                                    <label style="background-color: rgb(241, 241, 241);">
+                                        المركز :
+                                         
+                                    </label>
+                                    </div>
+                                    <div class="p-col-10">
+                                        <label>
+                                          
+                                            <span>
+                
+                
+                                                {{ cartePropagation.etablissement.libelle_etablissement }}
+                                            </span>
+                                             
+                                        </label>
+                                    </div>
+                                    </div>
+          
+                                
+            
+            
+                                            <div class="p-grid" *ngIf="cartePropagation.affaire" >
+                                                <div class="p-col-2">
+                                                    <label style="background-color: rgb(241, 241, 241);" >
+                                                        قضية  التــمديــــد :
+                                                       
+                                                    </label>
+                                                    </div>
+                                                    <div class="p-col-10">
+                                                        <label>
+                                                          
+                                                            <span> {{ cartePropagation.affaire.affaireId.numAffaire }}</span>
+                                                            <span> {{ cartePropagation.affaire.tribunal.nom_tribunal }}</span>
+                                                             
+                                                        </label>
+                                                    </div>
+                                                    </div>
+
+
+                                                    
+                                                    
+            
+        
+                                                                    <div class="p-grid"   >
+                                                                        <div class="p-col-2">
+                                                                            <label style="background-color: rgb(241, 241, 241);" >
+                                                                                تاريخ التــمديــــد :
+                                                                               
+                                                                            </label>
+                                                                            </div>
+                                                                            <div class="p-col-10">
+                                                                                <label>
+                                                                                    
+                                                                                    <span dir="rtl">{{ cartePropagation.dateDepotCarte }}</span>
+                                                                                </label>
+                                                                            </div>
+                                                                            </div>
+                                                                            <div class="p-grid"   >
+                                                                                <div class="p-col-2">
+                                                                                    <label style="background-color: rgb(241, 241, 241);" >
+                                                                                          تاريخ البدايـــة :
+                                                                                       
+                                                                                    </label>
+                                                                                    </div>
+                                                                                    <div class="p-col-10">
+                                                                                        <label>
+                                                                                          
+                                                                                            <span dir="rtl">{{ cartePropagation.dateEmission }}</span>
+                                                                                        </label>
+                                                                                    </div>
+                                                                             </div>
+                                                                            <div class="p-grid"   >
+                                                                                <div class="p-col-2">
+                                                                                    <label style="background-color: rgb(241, 241, 241);" >
+                                                                                        مــــدة التــمديــــد :
+                                                                                       
+                                                                                    </label>
+                                                                                    </div>
+
+                                                                                    <div class="p-col-4">
+                                                                                        <label >
+                                                                                     <b >
+
+                                                                                        <span *ngIf="cartePropagation?.jour">{{cartePropagation?.jour}} يوم </span>
+                                                                                        <span *ngIf="cartePropagation?.jour && cartePropagation?.mois"> و </span>
+                                                                                        <span *ngIf="cartePropagation?.mois">{{cartePropagation?.mois}} شهر </span>
+                                                                                        <span *ngIf="cartePropagation?.annee && cartePropagation?.mois"> و </span>
+                                                                                        <span *ngIf="cartePropagation?.annee && cartePropagation?.jour && !cartePropagation?.mois"> و
+                                                                                        </span>
+                                                                                        <span *ngIf="cartePropagation.annee">{{cartePropagation?.annee}} سنة</span>
+                                                                                    
+                                                                                     </b> 
+                                                                                        </label>
+                                                                                        </div>
+                                                                                 
+                                                                                    </div>
+                                                                                 
+                                                                                                                                                             
+           
+                                                                                                   
+            
+
+          
+        <label style="margin-top: 30px;">
+            المدرج    :
+            <span>{{ cartePropagation.personelle.nom +' '+ cartePropagation.personelle.prenom +'    '}}</span>
+            بتاريخ  :
+            <span dir="rtl">{{ cartePropagation.dateInsertion}}</span>
+        </label>
+        </div>
+         
+    </div>
+ 
+
+ 

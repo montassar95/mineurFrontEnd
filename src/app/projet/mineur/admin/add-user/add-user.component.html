@@ -1,0 +1,77 @@
+<div style="height: 500px ; width: auto;">
+
+
+
+<div class="p-field p-grid">
+    <label for="lastname3" class="p-col-fixed" style="width: 180px;">المعرف   :</label>
+    <div class="p-col">
+        <input         [(ngModel)]="id"   type="number" pInputText>
+    </div>
+</div>
+
+<div class="p-field p-grid">
+    <label for="lastname3" class="p-col-fixed " style="width: 180px;">  الإسم     :</label>
+    <div class="p-col">
+        <input   [(ngModel)]="nom"  type="text" pInputText>
+    </div>
+</div>
+<div class="p-field p-grid">
+    <label for="lastname3" class="p-col-fixed" style="width: 180px;">اللقب    :</label>
+    <div class="p-col">
+        <input   [(ngModel)]="prenom"    type="text" pInputText>
+    </div>
+</div>
+
+ 
+<div class="p-field p-grid">
+    <label   class="p-col-fixed" style="width:180px">  المؤسسة    :  </label>
+    <div class="p-col">
+        <p-dropdown    (onChange)="onChangeEta($event) " [options]="etablissements" placeholder="المؤسسات  "   [filter]="true" id="etablissement"  
+                  [style]="{'width':'300px'}"   name="etablissement"></p-dropdown>
+    </div>
+ </div>
+
+ <div class="p-field p-grid">
+    <label   class="p-col-fixed" style="width:180px">  الوظيفة    :  </label>
+    <div class="p-col">
+        <p-dropdown   (onChange)="onChange($event) "  [style]="{'width':'300px'}" [options]="roles" placeholder="  المهام  (متصرف)" [filter]="true" id="role"
+        name="role"></p-dropdown>
+    </div>
+ </div>
+
+<div class="p-field p-grid">
+    <label for="lastname3" class="p-col-fixed " style="width: 180px;">  إسم المستعمل   :</label>
+    <div class="p-col">
+        <input    [(ngModel)]="login"   type="text" pInputText>
+    </div>
+</div>
+<div class="p-field p-grid">
+    <label for="lastname3" class="p-col-fixed" style="width: 180px;">كلمة السر      :</label>
+    <div class="p-col">
+        <input      [(ngModel)]="pwd"     type="text" pInputText>
+    </div>
+</div>
+ 
+
+ 
+
+
+ 
+           
+   
+ <div style="text-align: center; margin-top: 20%;">
+            
+    <button  (click)="addUser()" style="background-color: #28a745!important;" mat-fab>
+        <i class="pi pi-save" style="font-size: 30px; color: white;"> </i>
+    
+    
+     </button>     
+                   
+    <button (click)="close()"
+       style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab>
+       <i class="pi pi-power-off" style="font-size: 30px; color: white;"> </i>
+
+
+    </button>
+ </div>
+</div>

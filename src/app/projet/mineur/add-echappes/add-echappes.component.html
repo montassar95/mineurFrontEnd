@@ -1,0 +1,506 @@
+<p-toast key="tst" [style]="{marginTop: '150px'}"></p-toast>
+<div class="card" dir="rtl" style="margin-top: 20px; margin-left: 5%;margin-right:5%;">
+
+
+    
+
+
+    <p-card *ngIf="enfantLocal && !isSaved"
+        [style]="{  'height': 'calc(100% + 10px)','text-align':'center',  'border-radius': '0%',
+              '-moz-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
+              '-webkit-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
+              'box-shadow':' 1px 1px 1px #919191,
+              1px 2px 1px #919191,
+              1px 3px 1px #919191,
+              1px 4px 1px #919191,
+              1px 5px 1px #919191,
+              1px 6px 1px #919191,
+              1px 7px 1px #919191,
+              1px 8px 1px #919191,
+              1px 9px 1px #919191,
+              1px 10px 1px #919191','background-image': 'url(assets/layout/images/cart.jpg)' }">
+        <p-header>
+
+         
+        </p-header>
+     
+        <div class="p-grid" style="text-align: right;">
+            <div class="p-col">
+                <label class="enLabel">الهوية: <span class="d"> {{enfantLocal.nom}} بن {{enfantLocal.nomPere}} بن
+                        {{enfantLocal.nomGrandPere}} {{enfantLocal.prenom}}</span> </label>
+
+                <label for="firstname3" class="enLabel"> هوية الأم: <span class="d">{{enfantLocal.nomMere}}
+                        {{enfantLocal.prenomMere}}</span></label>
+                <label for="firstname3" class="enLabel"> تاريخ الولادة : <span
+                        class="d">{{enfantLocal.dateNaissance}}</span></label>
+            </div>
+            <div class="p-col" *ngIf="!isShow">
+
+                <label for="firstname3" class="enLabel"> العدد الرتبي للإيقاف: <span
+                        class="d">{{arrestation.arrestationId.numOrdinale}}</span></label>
+                <label for="firstname3" class="enLabel"> عدد الإيقاف : <span class="d" dir="rtl">{{residence.numArrestation}}</span></label>
+                 
+
+            </div>
+            <div class="p-col" *ngIf="!isShow">
+ 
+                <label for="firstname3" class="enLabel"> مركز الإيقاف: <span class="d">{{residence.etablissement.libelle_etablissement}}</span></label>
+                <label for="firstname3" class="enLabel"> بتاريخ: <span class="d" dir="rtl">{{arrestation.date}}</span></label>
+              
+              
+            </div>
+            <div class="p-col">
+                <img (click)="showImg()" *ngIf="enfantLocal.img" src="{{enfantLocal.img}}" class="profile-img-card2">
+                <h2   *ngIf="isEncour" class="neons">    <span >طفل في حالة فرار </span></h2>
+                <!-- <h2   *ngIf="isEncourMutation" class="neons">   <span>{{msg}}</span></h2> -->
+            </div>
+        </div>
+
+        <p-footer>
+
+
+        </p-footer>
+        <ng-template pTemplate="footer">
+            <p-button label="Save" icon="pi pi-check"></p-button>
+
+        </ng-template>
+    </p-card>
+
+
+    <div class="card" *ngIf=" !isEncour && !isShow && !isSaved"
+        style="margin-top:20px ; border-radius:  0%;background-image: url(assets/layout/images/cart.jpg)">
+        <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+
+        <div class="card">
+
+            <div class="p-grid">
+                <div class="p-col">
+
+                    <div class="p-field p-grid">
+                        <label   class="p-col-fixed" >العدد الرتبي للفرار:  {{numOrdinaleEchappe}}</label>
+                        
+                    </div>
+
+                    <div class="p-field p-grid">
+                        <label   class="p-col-fixed" style="width: 160px;">بتاريخ :</label>
+                        <div class="p-col">
+                            <p-inputMask mask="9999/99/99" dir="rtl" slotChar="----/--/--" placeholder="يوم/شهر/سنة"
+                                [style]="{'font-weight': '500','font-size': '16px','color': 'black'}"
+                                [(ngModel)]="dateEchappes"></p-inputMask>
+                        </div>
+                    </div>
+                         
+                    
+
+                    <div class="p-field p-grid">
+                        <label   class="p-col-fixed " style="width: 160px;"> الكيفية  :</label>
+                        <div class="p-col">
+                            <input id="lastname3" readonly [(ngModel)]="commentEchapper" (click)="showListCommentEchapper()" type="text" pInputText>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="p-col">
+
+                    <div class="p-field p-grid">
+                        <label   class="p-col-fixed" style="width: 160px;" > لفت نظر :</label>
+                        <div class="p-col">
+                           <textarea  
+                                        class="tribunal" 
+                                        [(ngModel)]="remarqueCommentEchapper" 
+                                        [rows]="4" 
+                                        [cols]="40" 
+                                        pInputTextarea
+                                        autoResize="autoResize"
+
+                                        ></textarea>
+                        </div>
+                     </div>
+                </div>
+            </div>
+
+            
+            
+        </div>
+
+        <div *ngIf="enfantLocal" style="text-align: center;">
+
+            <button *ngIf="!isEncour && !isShow && !displayEdit" pButton type="button" label="تسجيل " (click)="save()"
+                style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;" class="ui-button-success"></button>
+            
+
+                <button *ngIf="!isEncour && !isShow &&  displayEdit" pButton type="button" label="تحييـــن " (click)="save()"
+                style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;" class="ui-button-danger"></button>
+                <button pButton *ngIf="!isEncour && !isShow &&  displayEdit " type="button" label="إلغاء"  (click)="annuleEdit()"
+                style="margin-bottom:10px; padding: 0.5em;margin-right: 10px;" class="ui-button-danger"></button>
+       
+        </div>
+       
+
+    </div>
+    <div style="text-align: center;" *ngIf="isShow"  >
+        <br>
+        <h1  class="neons"   > <span>{{msg}}</span></h1>
+         
+    </div>
+   
+     
+
+<div class="card" *ngIf="isEncour && !isShow  && !isSaved"
+        style="margin-top:20px ; border-radius:  0%;background-image: url(assets/layout/images/cart.jpg)">
+        <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+        <div class="card">
+
+            <div class="p-grid">
+                <div class="p-col-4">
+
+                    <div class="p-field p-grid">
+                        <label  class="enLabel"  >العدد الرتبي للفرار: 
+                         
+                            <span class="d">  {{numOrdinaleEchappe}}</span> 
+                        </label>
+                    </div>
+
+                    <div class="p-field p-grid">
+                        <label   class="enLabel"   >تاريخ الفرار :
+                       
+                              <span class="d"> {{echappes.dateEchappes}}</span> 
+                            </label>
+                    </div>
+                         
+                    <div class="p-field p-grid">
+                        <label  class="enLabel"  > كيفية الفرار :
+                         
+                            <span class="d"> {{echappes.commentEchapper.libelleComment }} </span> 
+                         
+                    </label>
+                    </div>
+                    <div class="p-field p-grid">
+                         
+                        <label   class="enLabel" >من مركز:
+                         
+                            <span  class="d">  {{echappes.residenceEchapper.etablissement.libelle_etablissement}}  </span> 
+                        </label>
+                    </div>
+                     
+                </div>
+
+
+
+                <div class="p-col-8">
+
+                    <div class="p-field p-grid">
+                        <div class="p-col-4">
+                        <label   class="enLabel"> لفت نظر حول عملية الفرار :</label>
+                         </div>
+                        <div class="p-col-8">
+                          <textarea class="text"   readonly  [rows]="4" [cols]="40" pInputTextarea
+                            autoResize="autoResize">      {{echappes.remarqueEchappes}} </textarea>
+                        </div>
+                     </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <p-accordion multiple="true" >
+            <p-accordionTab   >
+
+               <p-header style="font-family: 'Amiri', Times, serif; font-size: 25px; color: rgba(0, 128, 0)">
+                إجراءات إلقاء القبض
+                </p-header>
+
+                  <div class="card">
+            
+                    <div class="p-grid">
+                        <div class="p-col-4">
+        
+                            <div class="p-field p-grid">
+        
+                            </div>
+        
+                            <div class="p-field p-grid">
+                                <label   class="p-col-fixed" style="width: 160px; color: rgba(0, 0, 0, 0.733);">تاريخ إلقاء القبض :</label>
+                                <div class="p-col">
+                                    <p-inputMask mask="9999/99/99" dir="rtl" slotChar="----/--/--" placeholder="يوم/شهر/سنة"
+                                        [style]="{'font-weight': '500','font-size': '16px','color': 'black'}"
+                                        [(ngModel)]="dateTrouver"  ></p-inputMask>
+                                </div>
+                            </div>
+                                 
+                            <div class="p-field p-grid">
+                                <label   class="p-col-fixed " style="width: 160px; color: rgba(0, 0, 0, 0.733);"> كيفية إلقاء القبض  :</label>
+                                <div class="p-col">
+                                    <input id="lastname3" readonly type="text" readonly [(ngModel)]="commentTrouver" (click)="showListCommentTrouver()"  pInputText>
+                                </div>
+                            </div>
+                            <div *ngIf="memeEtablisement" class="p-field p-grid">
+                                <label   class="p-col-fixed" style="width: 160px; color: rgba(0, 0, 0, 0.733);">عدد الإيقاف  الجديد:</label>
+                                <div class="p-col">
+                                    <p-inputMask formControlName="numArrestation"   mask="999999" slotChar="------"  
+                                    placeholder="عدد الإيقاف"></p-inputMask>
+                                    <!-- <input   [(ngModel)]="numArrestation"   type="number" pInputText> -->
+                                </div>
+                            </div>
+                             
+                        </div>
+        
+        
+        
+                        <div class="p-col-8">
+        
+                            <div class="p-field p-grid">
+                                <div class="p-col-4">
+                                <label   class="p-col-fixed" style=" 
+                                  color: rgba(0, 0, 0, 0.733);
+                                 " > لفت نظر حول عملية  إلقاءالقبض :</label>
+                            </div>
+                                <div class="p-col-8">
+                                  <textarea class="text"    [(ngModel)]="remarqueCommentTrouver"    [rows]="4" [cols]="40" pInputTextarea
+                                    autoResize="autoResize">    </textarea>
+                                </div>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+        
+        
+                <div *ngIf="enfantLocal" style="text-align: center;">
+        
+                    <button *ngIf="isEncour && !isShow" pButton type="button" label="تسجيل "  (click)="saveTrouver()"
+                        style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;" class="ui-button-success"></button>
+                    
+                </div>
+            </p-accordionTab>
+             
+
+             
+         </p-accordion>
+
+       
+    </div>
+    <div style="text-align: center;">
+        <button   *ngIf ="update  && !displayEdit"    (click)="editEchappes()" 
+        style="background-color: white!important; margin-right: 15px;"   label="تحييـــن" mat-fab  >
+           <i class="pi pi-pencil" style="font-size: 30px; color: blue;" > </i>
+    
+       </button>
+
+    </div>
+  
+
+    <div *ngIf="isSaved">
+
+        <app-show-echappes [echappes]="echappes" [enfant]="enfantLocal"> </app-show-echappes>
+
+     </div>
+
+ 
+</div>
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+<p-dialog header="قائمة   كيفيات الفرار  "  [(visible)]="displayCommentEchapper"  modal="true" showEffect="fade" [style]="{ 'border-radius': '1%',  
+'-moz-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
+'-webkit-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
+'box-shadow':' 0px 2px 2px rgba(0, 0, 0, 0.966)','background-image': 'url(assets/layout/images/cart.jpg)' }">
+
+    <div style="width: 1000px;">
+        <p-table [value]="entitesCommentEchapper" #dtCommentEchapper selectionMode="single" [paginator]="true" [rows]="5"
+        
+            [globalFilterFields]="[ 'libelleComment' ]">
+            <ng-template pTemplate="caption">
+
+                <div style="text-align: right">
+                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                    <input type="text" pInputText size="50" placeholder=" بحث"
+                        (input)="dtCommentEchapper.filterGlobal($event.target.value, 'contains')" style="width:300px">
+
+                </div>
+
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+
+                  
+                  
+                    <th> الكيفيات  </th>
+
+                    <th style="width: 100px;"> إدراج
+
+
+                    </th>
+
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-row>
+                <tr>
+
+
+                    
+                    <td> <b style="font-size:16px;">{{row.libelleComment}} </b></td>
+
+                    <td >
+
+                    
+                        <button  pButton icon="pi pi-plus"  label="موافق " style="background-color: #66a266;"  (click)=saveCommentEchapper(row)>
+                        </button>
+                       
+
+                    </td>
+
+
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+</p-dialog>
+
+<p-dialog header="قائمة   كيفيات إلقاءالقبض   "  [(visible)]="displayCommentTrouver"  modal="true" showEffect="fade" [style]="{ 'border-radius': '1%',  
+'-moz-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
+'-webkit-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
+'box-shadow':' 0px 2px 2px rgba(0, 0, 0, 0.966)','background-image': 'url(assets/layout/images/cart.jpg)' }">
+
+    <div style="width: 1000px;">
+        <p-table [value]="entitesCommentTrouver" #dtCommentTrouver selectionMode="single" [paginator]="true" [rows]="5"
+        
+            [globalFilterFields]="[ 'libelleComment' ]">
+            <ng-template pTemplate="caption">
+
+                <div style="text-align: right">
+                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                    <input type="text" pInputText size="50" placeholder=" بحث"
+                        (input)="dtCommentTrouver.filterGlobal($event.target.value, 'contains')" style="width:300px">
+
+                </div>
+
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+
+                  
+                  
+                    <th> الكيفيات  </th>
+
+                    <th style="width: 100px;"> إدراج
+
+
+                    </th>
+
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-row>
+                <tr>
+
+
+                    
+                    <td> <b style="font-size:16px;">{{row.libelleComment}} </b></td>
+
+                    <td >
+
+                    
+                        <button  pButton icon="pi pi-plus"  label="موافق " style="background-color: #66a266;"  (click)=saveCommentTrouver(row)>
+                        </button>
+                       
+
+                    </td>
+
+
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+</p-dialog>
+
+
+
+
+<p-dialog modal="true" *ngIf="enfantLocal" header="صورة: {{enfantLocal.nom}} {{enfantLocal.prenom}}  "
+    [(visible)]="displayImg" showEffect="fade">
+
+
+    <img src="{{enfantLocal.img}}" class="profile-img-card">
+
+    <div style="text-align: center;">
+        <button pButton (click)="displayImg=!displayImg;" type="button" icon="pi pi-times" label="إخفاء الصورة"
+            style="color: red;background-color: transparent;"></button>
+
+    </div>
+
+
+
+</p-dialog>
+
+
+
+<p-dialog
+   [style]="{width: '80vw', height: '30vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+   [closable]="false" [(visible)]="showEchappes" modal="true">
+   <p-header style="color: red; font-family: 'Amiri', Times, serif;"> هل ترغب في تأكيد التسجيل؟ الرجاء التثبث
+      من المعطيات, أنت تضمن دقة البيانات المقدمة: </p-header>
+
+   <app-show-echappes [echappes]="echappes" [enfant]="enfantLocal"></app-show-echappes>
+
+   <p-footer>
+      <div style="text-align: center;">
+
+
+         <button (click)="confirmer()" style="background-color: #28a745!important;" mat-fab>
+            <i class="pi pi-save" style="font-size: 30px; color: white;"> </i>
+
+
+         </button>
+         <button (click)="showEchappes = false"
+            style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab>
+            <i class="pi pi-power-off" style="font-size: 30px; color: white;"> </i>
+
+
+         </button>
+      </div>
+   </p-footer>
+</p-dialog> 
+
+<p-dialog
+   [style]="{width: '80vw', height: '30vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+   [closable]="false" [(visible)]="showEchappesTrouver" modal="true">
+   <p-header style="color: red; font-family: 'Amiri', Times, serif;"> هل ترغب في تأكيد التسجيل؟ الرجاء التثبث
+      من المعطيات, أنت تضمن دقة البيانات المقدمة: </p-header>
+
+   <app-show-echappes [echappes]="echappes" [enfant]="enfantLocal"></app-show-echappes>
+
+   <p-footer>
+      <div style="text-align: center;">
+
+
+         <button (click)="confirmerTrouver()" style="background-color: #28a745!important;" mat-fab>
+            <i class="pi pi-save" style="font-size: 30px; color: white;"> </i>
+
+
+         </button>
+         <button (click)="showEchappesTrouver = false"
+            style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab>
+            <i class="pi pi-power-off" style="font-size: 30px; color: white;"> </i>
+
+
+         </button>
+      </div>
+   </p-footer>
+</p-dialog>
+
+

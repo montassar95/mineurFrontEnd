@@ -1,0 +1,21 @@
+.neons h1 {
+
+    font-size: 25px;
+    text-align: center;
+    font-weight: bold;
+
+    animation: xx 0.20s ease-in-out infinite alternate;
+
+}
+
+@-webkit-keyframes xx {
+    from {
+        color: #ff0000 !important;
+
+    }
+
+    to {
+        color: rgb(230, 230, 230);
+
+    }
+}

@@ -1,0 +1,163 @@
+.table-modern {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table-modern th,
+.table-modern td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.table-modern tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table-modern th {
+  background-color: #1a69a1;
+  color: white;
+}
+
+th{
+    font-family: 'Amiri', Times, serif;
+    font-weight: bold;
+    font-size: 20px;
+ }
+ html {
+   scroll-behavior: smooth;
+ }
+ td{
+   font-family: 'Amiri', Times, serif;
+   font-weight: bold;
+   font-size: 18px;
+   color: black;
+   text-align: center;
+}
+ h2{
+    font-family: 'Times New Roman';
+    font-weight: bold;
+    color: black;
+ }
+ h1{
+    color: #015ac7 !important;
+         font-family: 'Amiri', Times, serif;        
+   
+        font-weight: bold;
+  }
+
+  .neons   {
+   
+   
+ 
+ }
+ .neons span {
+ 
+   font-size:30px;
+   text-align: center;
+    font-weight: bold;
+ 
+   animation: xx 0.20s ease-in-out infinite alternate;
+  
+ }
+ 
+   @-webkit-keyframes xx {
+    from {
+     color: #ff0000 !important;
+   
+         }
+ 
+ to {
+    color: rgb(230, 230, 230);
+ 
+ }
+ }
+ .idEnfant{
+   font-size:30px;
+   text-align: center;
+    font-weight: bold;
+    color: black;
+    margin-right: 15px;
+   
+    color: white;
+ }
+ .card {
+   width: 340px;
+   height: auto;
+ margin: 1em;
+ perspective: 1500px;
+ .content {
+  
+   position: relative;
+   width: 100%;
+   height: 100%;
+   -moz-box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.800);
+ -webkit-box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.800);
+ box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.800);
+   transform-style: preserve-3d;
+   transition: transform 0.8s cubic-bezier(0.75, 0, 0.85, 1);
+ }
+ }
+
+
+ .card:hover {
+   border-radius:60% 60% 60% 60% / 10% 10% 10% 10% ;
+   box-shadow: 10px 20px rgba(0, 0, 0, 0.521);
+ }
+
+
+ 
+
+ .dialog-header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   background-color: #f0f0f0;
+   padding: 10px 20px;
+   border-bottom: 1px solid #ddd;
+ }
+
+ .dialog-title {
+   font-size: 24px;
+  //  color: green;
+   /* Modifier la couleur du titre selon vos préférences */
+ }
+
+ .dialog-close {
+   font-size: 0;
+ }
+
+ .close-button {
+   background: none;
+   border: none;
+   cursor: pointer;
+ }
+
+ .close-button .pi {
+   font-size: 30px;
+   color: white;
+   background-color: rgba(255, 0, 0, 0.822);
+   padding: 5px;
+   border-radius: 50%;
+ }
+
+ .dialog-content {
+  //  padding: 20px;
+  // width: 90% !important;
+ }
+
+ .child-info .info-label {
+   font-size: 18px;
+   color: #333;
+   margin-right: 10px;
+ }
+
+ .child-info .info-value {
+   font-size: 18px;
+   color: #666;
+ }
+
+ .custom-dialog {
+  width: 90% !important;
+ }
+ 

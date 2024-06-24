@@ -1,0 +1,190 @@
+<div dir="rtl" style="margin-bottom: 100px;"   >
+    <p-toast key="tst" [style]="{marginTop: '150px'}"></p-toast>
+    <p-table   [value]="tribunals"   
+    [style]="{    'box-shadow':'1px 1px 1px #9c9c9c,
+    1px 2px 1px #9c9c9c,
+    1px 3px 1px #9c9c9c,
+    1px 4px 1px #9c9c9c,
+    1px 5px 1px #9c9c9c,
+    1px 6px 1px #9c9c9c,
+    1px 7px 1px #9c9c9c,
+    1px 8px 1px #9c9c9c,
+    1px 9px 1px #9c9c9c,
+    1px 10px 1px #9c9c9c' , 'margin-right':'1%' ,'background-image': 'url(assets/layout/images/111.jpg)' }" id="dt" #dt dataKey="numOrdinale"
+    paginatorPosition="bottom" [rowsPerPageOptions]="[5,10,20,50]"    [paginator]="true" [rows]="10" [globalFilterFields]="['id','nom_tribunal','typeTribunal.libelleTypeTribunal','gouvernorat.libelle_gouvernorat']">
+     <ng-template pTemplate="caption">
+       <div class="p-d-flex p-ai-center p-jc-between">
+    
+        <h1  style="text-align: right;"  >  إسترشــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــاد :
+            <input type="text" pInputText size="50" placeholder="  كلمــــــــــة مفتــــــــــاح" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:250px;
+                                                                                                                        font-weight: bold;
+                                                                                                                        font-size: 16px;">
+   
+        
+        </h1> 
+    </div>
+    </ng-template>  
+    <ng-template pTemplate="header"  >
+       <tr > 
+         
+           <th style="width: 7%;" pSortableColumn="id" >  المعرف  
+            <p-sortIcon field="id"></p-sortIcon>
+        </th>
+           <th style="width: 26%;" pSortableColumn="nom_tribunal"  >المحكمة   
+            <p-sortIcon field="nom_tribunal"></p-sortIcon>
+        </th> 
+           <th style="width: 26%;" pSortableColumn="typeTribunal.libelleTypeTribunal"  >نوع المحكمة  
+            <p-sortIcon field="typeTribunal.libelleTypeTribunal"></p-sortIcon>
+        </th> 
+           <th style="width: 26%;" pSortableColumn="gouvernorat.libelle_gouvernorat"  > الولاية    
+            <p-sortIcon field="gouvernorat.libelle_gouvernorat"></p-sortIcon>
+        </th> 
+
+           <th style="width: 10%;" >
+              <button  (click)="add()"
+              style="background-color: #28a745!important;" mat-fab  >
+                 <i class="pi pi-plus" style="font-size: 25px;"> </i>
+    
+       
+             </button> 
+          </th>
+          
+       </tr>
+       <tr > 
+         
+        <th     >     
+            <input   pInputText type="text" placeholder="يبدأ بـــــــــــ" class="ui-column-filter" style="width: 100%; margin-top: 0;" (input)="dt.filter($event.target.value, 'id', 'startsWith')">
+                         
+     </th>
+        <th    >    
+            <input   pInputText type="text" placeholder=" يبدأ بـــــــــــ" class="ui-column-filter" style="width: 100%; margin-top: 0;" (input)="dt.filter($event.target.value, 'libelle_delegation', 'startsWith')">
+                         
+     </th> 
+     <th    >    
+        <p-multiSelect    [options]="typeTribunalSwich" [filter]="true"  
+           [style]="{'width':'100%', 'margin-top':'0'}"   emptyFilterMessage="لا تيوجد نتيجية "
+           defaultLabel="قائمة  أنواع المحاكم " selectedItemsLabel="{0}  أنواع المحاكم" appendTo="body"  
+            (onChange)="dt.filter($event.value,'typeTribunal.libelleTypeTribunal', 'in')">
+           <ng-template let-group pTemplate="item">
+             <div class="item">
+                 <span  >{{group.label}}</span>
+                </div>
+              
+        </ng-template>
+        
+        </p-multiSelect>    
+                      
+ </th>
+ <th    >    
+    <p-multiSelect    [options]="gouvernoratSwich" [filter]="true"  
+       [style]="{'width':'100%', 'margin-top':'0'}"   emptyFilterMessage="لا تيوجد نتيجية "
+       defaultLabel="قائمة الولايات " selectedItemsLabel="{0} ولايات" appendTo="body"  
+        (onChange)="dt.filter($event.value,'gouvernorat.libelle_gouvernorat', 'in')">
+       <ng-template let-group pTemplate="item">
+         <div class="item">
+             <span  >{{group.label}}</span>
+            </div>
+          
+    </ng-template>
+    
+    </p-multiSelect>    
+                  
+</th>  
+        <th style="width: 10%;" >
+          
+       </th>
+       
+    </tr>
+    </ng-template>
+    
+    <ng-template pTemplate="body" let-tribunal>
+       <tr>
+          
+        
+           <td> {{tribunal.id}} </td>
+           <td>{{tribunal.nom_tribunal}}   </td>
+           <td>{{tribunal.typeTribunal.libelleTypeTribunal}}   </td>
+           <td>{{tribunal.gouvernorat.libelle_gouvernorat}}   </td>
+           <td>
+               
+              <div class="example-button-container">
+                <button   (click)="update()" 
+                style="background-color: white!important; margin-left: 15px;"    mat-mini-fab  >
+                   <i class="pi pi-pencil" style="font-size: 30px; color: blue;" > </i>
+    
+               </button>
+             
+                <button  (click)="delete(tribunal)"   style="background-color: white!important; "  mat-mini-fab   aria-label="Example icon button with a home icon">
+                  <i class="pi pi-trash" style="font-size: 30px; color: red;"></i>
+              </button>
+              
+                </div>  
+                
+              
+               </td>
+       </tr>
+    </ng-template>
+    
+    </p-table>
+    </div>
+
+    <p-dialog  dir="rtl"   [(visible)]="display"    [closable]="false" 
+[modal]="true"      >
+<p-header>
+
+    <div class="p-grid " style="background-color: rgb(214, 214, 214);"  >
+      
+      <span    style=" color: green;"  >إدراج  محكمة  جديد    </span>
+
+
+    </div>
+    
+         
+    
+</p-header> 
+<div class="p-field p-grid">
+    <label for="lastname3" class="p-col-fixed" style="width: 180px;">المعرف   :</label>
+    <div class="p-col">
+        <input         [(ngModel)]="id"   type="number" pInputText>
+    </div>
+</div>
+
+<div class="p-field p-grid">
+    <label for="lastname3" class="p-col-fixed " style="width: 180px;">     إسم المحكمة 	     :</label>
+    <div class="p-col">
+        <input   [(ngModel)]="nom"  type="text" pInputText>
+    </div>
+</div>
+  
+<div class="p-field p-grid">
+    <label   class="p-col-fixed" style="width:180px">  نوع المحكمة	    :  </label>
+    <div class="p-col">
+        <p-dropdown    (onChange)="onChangeType($event) " [options]="typeTribunals" placeholder="المؤسسات  "   [filter]="true" id="typeTribunal"  
+                  [style]="{'width':'300px'}"   name="typeTribunal"></p-dropdown>
+    </div>
+ </div>  
+
+
+ <div class="p-field p-grid">
+    <label   class="p-col-fixed" style="width:180px">  الولاية    :  </label>
+    <div class="p-col">
+        <p-dropdown    (onChange)="onChangeGouv($event) " [options]="gouvernorats" placeholder="المؤسسات  "   [filter]="true" id="gouvernorat"  
+                  [style]="{'width':'300px'}"   name="gouvernorat"></p-dropdown>
+    </div>
+ </div> 
+ <div style="text-align: center; margin-top: 20%;">
+            
+    <button  (click)="addTri()" style="background-color: #28a745!important;" mat-fab>
+        <i class="pi pi-save" style="font-size: 30px; color: white;"> </i>
+    
+    
+     </button>     
+                   
+    <button (click)="display = false"
+       style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab>
+       <i class="pi pi-power-off" style="font-size: 30px; color: white;"> </i>
+
+
+    </button>
+ </div>   
+</p-dialog> 

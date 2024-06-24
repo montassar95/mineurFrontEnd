@@ -1,0 +1,108 @@
+<div class="p-col-4 p-lg-4">
+    <p-card dir="rtl" [style]="{ 'height': 'auto',   'border-radius': '0%',    'margin-bottom':'1%',
+    '-moz-box-shadow': '5px 5px 5px 5px rgba(0, 0, 0, 0.61)',
+    '-webkit-box-shadow': '5px 5px 5px 5px rgba(0, 0, 0, 0.61)',
+    'box-shadow':'5px 5px 5px 5px rgba(0, 0, 0, 0.61)'   ,'background-image': 'url(assets/layout/images/fond.jpg)'  }">
+
+
+        <div class="p-grid">
+
+            <div class="p-col-4">
+                <h2>
+                    المستوى الدراسي :</h2>
+
+            </div>
+            <div class="p-col-8">
+
+                <input id="input" readonly [(ngModel)]="niveauEducatifLibelle" (click)="showListNiveauEducatif()"
+                    type="text" pInputText />
+                <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="niveauEducatifLibelle"
+                    (click)="deleteNiveauEducatif()"></i>
+            </div>
+
+
+            <div class="p-col-4">
+                <h2>
+                    ولايــــة الإقــامــة :</h2>
+
+            </div>
+            <div class="p-col-8">
+
+                <input id="input" readonly [(ngModel)]="gouvernoratLibelle" (click)="showListGouvernorat()" type="text"
+                    pInputText />
+                <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="gouvernoratLibelle"
+                    (click)="deleteGouvernorat()"></i>
+            </div>
+            <div class="p-col-4">
+                <h2>الحــالة العائلية :</h2>
+
+            </div>
+            <div class="p-col-8">
+
+                <input id="input" type="text" readonly [(ngModel)]="situationFamilialeLibelle"
+                    (click)="showListSituationFamiliale()" pInputText />
+                <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="situationFamilialeLibelle"
+                    (click)="deleteSituationFamiliale()"></i>
+            </div>
+
+            <div class="p-col-4" *ngIf="gouvernoratLibelle">
+                <h2>
+                    معتمدية الإقــامــة :</h2>
+
+            </div>
+            <div class="p-col-8" *ngIf="gouvernoratLibelle">
+
+                <input id="input" readonly [(ngModel)]="delegationLibelle" (click)="showListDelegation()" type="text"
+                    pInputText />
+                <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="delegationLibelle"
+                    (click)="deleteDelegation()"></i>
+            </div>
+            <div class="p-col-4">
+                <h2>
+                    المهنــة :</h2>
+
+            </div>
+            <div class="p-col-8">
+
+                <input id="input" readonly [(ngModel)]="metierLibelle" (click)="showListMetier()" type="text"
+                    pInputText />
+                <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="metierLibelle"
+                    (click)="deleteMetier()"></i>
+            </div>
+
+            <div class="p-col-4">
+                <h2>
+                    الحــالة الإجتماعية :</h2>
+
+            </div>
+            <div class="p-col-8">
+
+                <input id="input" readonly [(ngModel)]="situationSocialLibelle" (click)="showListSituationSocial()"
+                    type="text" pInputText />
+                <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="situationSocialLibelle"
+                    (click)="deleteSituationSocial()"></i>
+            </div>
+
+
+            <div class="p-col-4">
+
+                <h2 style="color: rgb(231, 0, 231) ;"> أجــــانب فقـــط</h2>
+
+
+            </div>
+            <div class="p-col-8">
+
+
+
+                <p-checkbox name="cg" value="etranger" [(ngModel)]="checkEtranger"> </p-checkbox>
+
+            </div>
+
+
+
+        </div>
+
+
+
+    </p-card>
+</div>

@@ -1,0 +1,736 @@
+<p-toast key="tst" [style]="{marginTop: '150px'}"></p-toast>
+<div dir="rtl" style="margin-top: 20px; margin-left: 5%;margin-right:5%;">
+
+
+
+
+
+
+
+    <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+
+
+ 
+    <div class="card" *ngIf="enfantLocal && !isSaved">
+        <p-card [style]="{ 'height': 'auto',   'border-radius': '0%',
+ '-moz-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
+ '-webkit-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
+ 'box-shadow':'1px 1px 1px #919191,
+ 1px 2px 1px #919191,
+ 1px 3px 1px #919191,
+ 1px 4px 1px #919191,
+ 1px 5px 1px #919191,
+ 1px 6px 1px #919191,
+ 1px 7px 1px #919191,
+ 1px 8px 1px #919191,
+ 1px 9px 1px #919191,
+ 1px 10px 1px #919191','background-image': 'url(assets/layout/images/cart.jpg)' }">
+            <p-header>
+
+                <!-- <label  class="enLabel"  >معرف: <span class="d"> {{enfantLocal.id}}   </span> </label> -->
+            </p-header>
+            <div class="p-grid">
+                <div class="p-col-4">
+                   <label class="enLabel">المعــــرف: <span class="d"> {{enfantLocal?.id}} </span> </label>
+                   <label class="enLabel">الهويــــة: <span class="d"> {{enfantLocal?.nom}} بن {{enfantLocal?.nomPere}} بن
+                         {{enfantLocal?.nomGrandPere}} {{enfantLocal?.prenom}}</span> </label>
+    
+                   <label for="firstname3" class="enLabel"> هويــــة الأم: <span class="d">{{enfantLocal?.nomMere}}
+                         {{enfantLocal?.prenomMere}}</span></label>
+                   <label for="firstname3" class="enLabel"> تــــاريخ الــــولادة : <span dir="rtl"
+                         class="d">{{enfantLocal?.dateNaissance}}</span></label>
+                </div>
+                <div class="p-col-4">
+    
+    
+                   <label for="firstname3" class="enLabel" *ngIf="isExist"> العدد الرتبــــي للإيقــــاف: <span
+                         class="d">{{arrestation?.arrestationId?.numOrdinale}}</span></label>
+    
+                         <label for="firstname3" class="enLabel" *ngIf="isExist"> تاريخ الإيداع : <span
+                            class="d" dir="rtl">{{arrestation?.date}}</span></label>
+    
+                   <label for="firstname3" class="enLabel" *ngIf="isExist"> مركز الإيقــــاف: <span
+                         class="d">{{residence?.etablissement?.libelle_etablissement}}</span></label>
+    
+                         <label for="firstname3" class="enLabel" *ngIf="isExist"> بتــــاريــــخ: <span
+                            dir="rtl"   class="d" > {{residence?.dateEntree}}</span></label>
+                  
+                   <label for="firstname3" class="enLabel" *ngIf="isExist"> عــــدد الإيقــــاف : <span
+                         class="d" dir="rtl">{{residence?.numArrestation}}</span></label>
+                </div>
+                <div class="p-col-4">
+                   <img *ngIf="enfantLocal.img" (click)="showImg()" src="{{enfantLocal.img}}" class="profile-img-card2">
+                </div>
+    
+             </div>
+
+
+        </p-card>
+
+
+
+
+        <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+
+
+
+
+
+        <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+
+
+
+
+        <div *ngIf="isExist" class="card" style="margin-top:20px ; border-radius:  0%;background-image: url(assets/layout/images/cart.jpg);
+-moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.966);
+-webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.966);
+   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.966)">
+
+
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+
+
+
+            <div class="card">
+                <div class="p-grid">
+                    <div class="p-col ">
+                    <div class="p-field p-grid">
+
+                        <label for="lastname3" class="p-col-fixed">العدد الرتبي للوثيقة: <span
+                                class="d">{{numOrdinalDoc}}</span> </label>
+
+                    </div>
+                </div>
+                    <div class="p-col ">
+                        <div class="p-field p-grid">
+                            <label for="firstname3" class="p-col-fixed"> نوع الوثيقة: </label>
+                            <div class="p-col">
+                                <p-selectButton  [options]="types" [(ngModel)]="selectedType" (click)="typeFile()"></p-selectButton>
+                    
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-col ">
+                        <div class="p-field p-grid">
+                            <label for="firstname3" class="p-col-fixed"> تاريخ   السراح </label>
+                            <div class="p-col">
+                                   <!-- 
+                                <p-inputMask [style]="{'width':'120px' , 'font-weight': '500','font-size': '16px','color': 'black'}"
+                                [(ngModel)]="dateDepotCarte" mask="99/99/9999" slotChar="--/--/----"
+                                placeholder="يوم/شهر/سنة">
+                             </p-inputMask> -->
+
+                             <p-calendar  [(ngModel)]="dateDepotCarte"   dir="rtl"   [readonlyInput]="false"
+                             [style]="{'font-weight': '500','font-size': '18px','color': 'black'}"appendTo="body"
+                            [yearNavigator]="true"  readonly ="true" [monthNavigator]="true" [yearRange]="years"  dateFormat="yy/mm/dd"  [locale]="calendar_ar" placeholder="يوم/شهر/سنة"   >
+                              
+                          </p-calendar>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="p-col ">
+                        <div class="p-field p-grid">
+                            <label for="firstname3" class="p-col-fixed">تاريخ إيداع البطاقة</label>
+                            <div class="p-col">
+                                <p-inputMask [style]="{'font-weight': '500','font-size': '16px','color': 'black'}"
+                                [(ngModel)]="dateEmission"  mask="9999/99/99" slotChar="----/--/--" placeholder="يوم/شهر/سنة">
+                                </p-inputMask>
+                            </div>
+                        </div>
+                    </div> -->
+
+                </div>
+            </div>
+
+
+
+
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+            <div class="card">
+                <div class="p-grid">
+                    <div class="p-col">
+                        <div style="margin-top: 10px;  ">
+
+                            <p-panel >
+                                <p-header>
+                                    <label>
+                                        المحكمة و عدد القضية  
+                                    </label>
+                                </p-header>
+                                <div class="ui-toolbar-group-left">
+                                    <button pButton type="button" label=" قم بإختيار القضية      "
+                                        style="background-color: #f64f23;" icon="pi pi-paperclip"
+                                        (click)="showListAffaire()"  *ngIf="!update"></button>
+                                </div>
+                                <div class="p-field p-grid">
+                                    <label for="firstname3" class="p-col-fixed" style="width:150px"> المحكمة </label>
+
+
+                                    <div class="p-col">
+                                        <input class="tribunal" type="text" [(ngModel)]="codeTribunal"
+                                            style="width:  20%;" readonly placeholder=" رمز المحكمة"
+                                            pInputText>
+                                        <input class="tribunal" readonly [ngModel]="tribunal" placeholder="   المحكمة"
+                                              type="text" style="width:  50%;" pInputText>
+
+
+                                    </div>
+
+
+
+                                </div>
+                                <div class="p-field p-grid">
+                                    <label for="lastname3" class="p-col-fixed" style="width:150px">عدد القضية </label>
+                                    <div class="p-col">
+                                        <input class="tribunal" readonly  [(ngModel)]="numAffaireT" placeholder="  عدد القضية"
+                                            style="width:  20%;" type="text" pInputText>
+                                    </div>
+                                </div>
+                            </p-panel>
+
+
+                            <p-panel  >
+                              
+                                <div class="p-field p-grid">
+                                    <label for="firstname3" class="p-col-fixed" style="width:150px">أسباب السراح  </label>
+
+
+                                    <div class="p-col">
+                                        <input class="tribunal" type="text" [(ngModel)]="codeMotif"  (change)="getMotifArreterlexecution()"
+                                            style="width:  20%;"   placeholder=" رمز سبب السراح"
+                                            pInputText>
+                                        <input class="tribunal" readonly [ngModel]="motif" placeholder="   سبب السراح "
+                                        (click)="showListMotifArreterlexecution()"   type="text" style="width:  50%;" pInputText>
+
+
+                                    </div>
+
+
+
+                                </div>
+                               
+                            </p-panel>
+                            <p-panel  >
+                                <p-header>
+                                    <label>
+                                        المحكمة و عدد القضية السراح      (إن وجدت)   
+                                    </label>
+                                </p-header>
+                                <div class="p-field p-grid">
+                                    <label for="firstname3" class="p-col-fixed" style="width:150px">المحكمة </label>
+
+
+                                    <div class="p-col">
+                                        <input class="tribunal" type="text" [(ngModel)]="codeTribunalTransfere"   [(readonly)]="update"
+                                            style="width:  20%;" (change)="getTribunalTransfere()" placeholder=" رمز المحكمة"
+                                            pInputText>
+                                        <input class="tribunal" readonly [ngModel]="tribunalTransfere" placeholder="   المحكمة"
+                                            (click)="showListTribunalTransfere()" type="text" style="width:  50%;" pInputText>
+
+
+                                    </div>
+
+
+
+                                </div>
+                                <div class="p-field p-grid">
+                                    <label for="lastname3" class="p-col-fixed" style="width:150px">عدد القضية </label>
+                                    <div class="p-col">
+
+                                        <p-inputMask [style]="{'font-weight': '500','width':  '20%','font-size': '16px','color': 'black'}"
+                                            dir="rtl"  [(readonly)]="update" [(ngModel)]="numAffaireTransfere"  mask="999-999999" slotChar="----------"
+                                               placeholder=" عدد القضية">
+                                            </p-inputMask>
+                                        <!-- <input class="tribunal"  [(readonly)]="update" [(ngModel)]="numAffaireTransfere" placeholder="  عدد القضية"
+                                            style="width:  20%;" type="text" pInputText> -->
+                                    </div>
+                                </div>
+                            </p-panel>
+
+                          
+
+                            
+
+
+
+                          
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+
+            </div>
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+
+
+
+
+
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+
+
+
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+
+
+
+            <div style="text-align: center;">
+                  <button pButton type="button" label="تسجيل "  (click)="onSubmit()"
+                    style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;margin-right: 10px;"
+                    class="ui-button-success"></button>
+                <button pButton type="button" label="إلغاء"
+                    style="margin-bottom:10px; padding: 0.5em;margin-right: 10px;" class="ui-button-danger"></button>
+            </div>
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+            <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+        </div>
+
+
+    </div>
+    <div style="text-align: center;" *ngIf="!isExist">
+        
+        <div  *ngIf="!isSaved">
+            <br>
+            <h1  class="neons"  *ngIf="statEchappesOrlibre==0"> <span>{{msg}}</span></h1>
+            <h1 *ngIf="statEchappesOrlibre==1">  {{msg}} </h1>
+            <h1  class="neons"  *ngIf="statEchappesOrlibre==2"> <span>{{msg}}</span></h1>
+            <h1  class="neons"  *ngIf="statEchappesOrlibre==3"> <span>{{msg}}</span></h1>
+            <h1  class="neons"  *ngIf="statEchappesOrlibre==4"> <span>{{msg}}</span></h1>
+        </div>
+        <div  class="card" *ngIf="isSaved">
+    
+            <app-show-arreter-lexecution   [arreterlexecution]="arreterlexecution"> </app-show-arreter-lexecution>     
+        </div>
+
+        <div class="card" *ngIf="isSaved">
+
+            <div class="p-field p-grid">
+            <label   class="p-col-fixed"  >  إدراج وثيقة أخرى      ل{{enfantLocal.nom}} بن {{enfantLocal.nomPere}} بن
+               {{enfantLocal.nomGrandPere}} {{enfantLocal.prenom}}   :  </label>
+            <div class="p-col">
+                  <p-dropdown   (onChange)="onChangeDir($event) "  [style]="{'width':'300px'}" [options]="directions" placeholder="    الوثائق" [filter]="true"  
+                  ></p-dropdown>
+                  <button pButton type="button"  
+                  style="background-color: green;" icon="pi pi-times-circle"
+                  (click)="goTO()"  ></button>
+            </div>
+         </div>
+    </div>
+    </div>
+    
+ 
+</div>
+
+
+
+
+
+
+ 
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+
+
+<p-dialog header="دليل المحاكم" [style]="{ 'border-radius': '1%',  
+'-moz-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
+'-webkit-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
+'box-shadow':' 0px 2px 2px rgba(0, 0, 0, 0.966)','background-image': 'url(assets/layout/images/cart.jpg)'  }"  [(visible)]="displayTribunalTransfere" modal="true" showEffect="fade">
+
+    <div  style="width: 1200px;  min-height: 400px;"  dir="rtl"   >
+        <p-table [value]="entitiesTribunal" #dtTribunalTransfere selectionMode="single" [paginator]="true" [rows]="5"
+        paginatorPosition="top" [rowsPerPageOptions]="[5,10,20,50]"   [globalFilterFields]="['id','nom_tribunal' ]">
+            <ng-template pTemplate="caption">
+
+                <div class="p-grid">
+                    <div class="p-col">
+                        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                        <input type="text" pInputText size="50" placeholder=" بحث"
+                            (input)="dtTribunalTransfere.filterGlobal($event.target.value, 'contains')" style="width:300px">
+    
+                    </div>
+                    <div class="p-col">
+                        <p-multiSelect    [options]="gouvernoratSwich" [filter]="true"  
+                        [style]="{'width':'100%', 'margin-top':'0'}"   emptyFilterMessage="لا تيوجد نتيجية "
+                        defaultLabel="قائمة الولايات " selectedItemsLabel="{0} ولايات" appendTo="body"  
+                         (onChange)="dtTribunalTransfere.filter($event.value,'gouvernorat.libelle_gouvernorat', 'in')">
+                        <ng-template let-group pTemplate="item">
+                          <div class="item">
+                              <span  >{{group.label}}</span>
+                             </div>
+                           
+                     </ng-template>
+                     
+                     </p-multiSelect> 
+                    </div>
+                    <div class="p-col">
+                        <p-multiSelect    [options]="typeTribunalSwich" [filter]="true"  
+                        [style]="{'width':'100%', 'margin-top':'0'}"   emptyFilterMessage="لا تيوجد نتيجية "
+                        defaultLabel="قائمة  أنواع المحاكم " selectedItemsLabel="{0}  أنواع المحاكم" appendTo="body"  
+                         (onChange)="dtTribunalTransfere.filter($event.value,'typeTribunal.libelleTypeTribunal', 'in')">
+                        <ng-template let-group pTemplate="item">
+                          <div class="item">
+                              <span  >{{group.label}}</span>
+                             </div>
+                           
+                     </ng-template>
+                     
+                     </p-multiSelect>
+                    </div>
+                    </div>
+
+            </ng-template>
+            <ng-template pTemplate="header">
+               
+                    <tr>
+    
+                        <th style="width: 10%;"  pSortableColumn="id" >الرمز
+                            <p-sortIcon field="id"></p-sortIcon>
+                        </th>
+    
+    
+                        <th  style="width: 80%;" pSortableColumn="nom_tribunal" > المحكمة
+                            <p-sortIcon field="nom_tribunal"></p-sortIcon>
+    
+                        </th>
+    
+                        <th  style="width: 10%;"> إدراج
+    
+    
+                        </th>
+    
+    
+                    </tr>
+                    <tr > 
+             
+                        <th     >     
+                            <input   pInputText type="text" placeholder="يبدأ بـــــــــــ" class="ui-column-filter" style="width: 100%; margin-top: 0;" (input)="dtTribunalTransfere.filter($event.target.value, 'id', 'startsWith')">
+                                         
+                     </th>
+                        <th    >    
+                            <input   pInputText type="text" placeholder=" يبدأ بـــــــــــ" class="ui-column-filter" style="width: 100%; margin-top: 0;" (input)="dtTribunalTransfere.filter($event.target.value, 'nom_tribunal', 'startsWith')">
+                                         
+                     </th> 
+                  
+                        
+                        <th style="width: 10%;" >
+                          
+                       </th>
+                       
+                    </tr>
+                
+            </ng-template>
+            <ng-template pTemplate="body" let-row>
+                <tr>
+
+
+                    <td> <b style="font-size:18px;">{{row.id}}</b></td>
+
+
+                    <td> <b style="font-size:18px;">{{row.nom_tribunal}} </b></td>
+
+
+                    <td>
+                        <p-button icon="pi pi-plus" (click)=saveTribunalTransfere(row)>
+                        </p-button>
+
+
+                    </td>
+
+
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+</p-dialog>
+
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+
+
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+
+
+<p-dialog header="دليل أسباب إيقاف تنفيذ الحكم  "  [style]="{ 'border-radius': '1%',  
+'-moz-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
+'-webkit-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
+'box-shadow':' 0px 2px 2px rgba(0, 0, 0, 0.966)','background-image': 'url(assets/layout/images/cart.jpg)' }" [(visible)]="displayMotifArreterlexecution" modal="true" showEffect="fade">
+
+    <div style="width: 800px;">
+        <p-table [value]="entitiesMotifArreterlexecution" #dtMotifArreterlexecution selectionMode="single" [paginator]="true" [rows]="5"
+            [globalFilterFields]="['id','nom_tribunal' ]">
+            <ng-template pTemplate="caption">
+
+                <div style="text-align: right">
+                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                    <input type="text" pInputText size="50" placeholder=" بحث"
+                        (input)="dtMotifArreterlexecution.filterGlobal($event.target.value, 'contains')" style="width:300px">
+
+                </div>
+
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+
+                    <th style="width: 100px;" >الرمز
+
+                    </th>
+
+
+                    <th  > السبب 
+
+
+                    </th>
+
+                    <th style="width: 50px;"> إدراج
+
+
+                    </th>
+
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-row>
+                <tr>
+
+
+                    <td> <b style="font-size:18px;">{{row.id}}</b></td>
+
+
+                    <td> <b style="font-size:18px;">{{row.libelleMotifArretere}} </b></td>
+
+
+                    <td>
+                        <p-button icon="pi pi-plus" (click)=saveMotifArreterlexecution(row)>
+                        </p-button>
+
+
+                    </td>
+
+
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+</p-dialog>
+
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+
+
+
+
+
+<p-dialog header="قائمة القضايا التي يمكنك إيقاف تنفيذها  "  [(visible)]="displayAffaire"  modal="true" showEffect="fade" [style]="{ 'border-radius': '1%',  
+'-moz-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
+'-webkit-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
+'box-shadow':' 0px 2px 2px rgba(0, 0, 0, 0.966)','background-image': 'url(assets/layout/images/cart.jpg)' }">
+
+    <div style="width: 1200px;">
+        <p-table [value]="entitiesAffaire" #dtAffaire selectionMode="single" [paginator]="true" [rows]="5"
+        
+            [globalFilterFields]="['id','nom_tribunal' ]">
+            <ng-template pTemplate="caption">
+
+                <div style="text-align: right">
+                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                    <input type="text" pInputText size="50" placeholder=" بحث"
+                        style="width:300px">
+
+                </div>
+
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+
+                    <th style="width: 150px;"> العدد الرتبي للقضية </th>
+                    <th style="width: 150px;"> الوثيقة الجارية   </th>
+                    <th style="width: 150px;"> عدد القضية </th>
+                    <th> المحكمة </th>
+
+                    <th style="width: 100px;"> إدراج
+
+
+                    </th>
+
+
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-row>
+                <tr>
+
+
+                    <td> <b style="font-size:16px;">{{row.numOrdinalAffaire}}</b></td>
+
+                    <!-- <td *ngIf="row.typeDocument == 'CP' " style="color:  #0099ff!important;"> <b style="font-size:16px;">  قرار تمديد     </b></td>
+                    <td *ngIf="row.typeDocument == 'CD' " style="color:  #0099ff!important;"> <b style="font-size:16px;">بطاقة إيداع</b></td>
+                    <td *ngIf="row.typeDocument == 'CH' " style="color: #0099ff!important;"> <b style="font-size:16px;">بطاقة إيواء</b></td>
+                    <td   *ngIf="row.typeDocument == 'CJ' || row.typeDocument == 'CJA' " style="color: #ff3434 !important;"> <b style="font-size:16px;">مضمون حكم</b></td>
+                    <td  *ngIf="row.typeDocument == 'CR' " style="color:  #ff3434 !important;"> <b style="font-size:16px;">مراجعة</b></td>  
+                    <td *ngIf="row.typeDocument == 'CRR' " style="color:  #ff3434!important;">  <b style="font-size:16px;">رفض مراجعة</b> </td>
+                    <td *ngIf="row.typeDocument == 'T' " style="color:  #0099ff!important;"> <b style="font-size:16px;">إحالة</b></td>
+                    <td *ngIf="row.typeDocument == 'AE' " style="color:  #0099ff!important;"> <b style="font-size:16px;"> طعن الطفل بالاستئناف </b></td>
+                    <td *ngIf="row.typeDocument == 'AP' " style="color:  #0099ff!important;" > <b style="font-size:16px;">طعن النيابة بالاستئناف</b>  </td>
+                    <td *ngIf="row.typeDocumentActuelle == 'CHL' "  style="color: rgb(1, 151, 1) !important;" >  <b style="font-size:16px;" >  قرار تغير مكان الإيداع  </b> </td> -->
+              
+
+                    <td *ngIf="row.typeDocumentActuelle == 'CHL' else typeDocument" style="color: rgb(1, 151, 1) !important;"> <b
+                            style="font-size:16px;"> قرار تغير مكان الإيداع </b> </td>
+                    
+                    <ng-template #typeDocument>
+                    <td *ngIf="row.typeDocument == 'CP' " style="color:  #0099ff!important;"> <b style="font-size:16px;"> قرار تمديد </b>
+                    </td>
+                    <td *ngIf="row.typeDocument == 'CD' " style="color:  #0099ff!important;"> <b style="font-size:16px;">بطاقة إيداع</b>
+                    </td>
+                    <td *ngIf="row.typeDocument == 'CH' " style="color: #0099ff!important;"> <b style="font-size:16px;">بطاقة إيواء</b></td>
+                    <td *ngIf="row.typeDocument == 'CJ' || row.typeDocument == 'CJA' " style="color: #ff3434 !important;"> <b
+                            style="font-size:16px;">مضمون حكم</b></td>
+                    <td *ngIf="row.typeDocument == 'CR' " style="color:  #ff3434 !important;"> <b style="font-size:16px;">مراجعة</b></td>
+                    <td *ngIf="row.typeDocument == 'CRR' " style="color:  #ff3434!important;"> <b style="font-size:16px;">رفض مراجعة</b>
+                    </td>
+                    <td *ngIf="row.typeDocument == 'T' " style="color:  #0099ff!important;"> <b style="font-size:16px;">إحالة</b></td>
+                    <td *ngIf="row.typeDocument == 'AE' " style="color:  #0099ff!important;"> <b style="font-size:16px;"> طعن الطفل
+                            بالاستئناف </b></td>
+                    <td *ngIf="row.typeDocument == 'AP' " style="color:  #0099ff!important;"> <b style="font-size:16px;">طعن النيابة
+                            بالاستئناف</b> </td>
+                    </ng-template>
+
+
+
+                    <td> <b style="font-size:16px;">{{row.affaireId.numAffaire}} </b></td>
+                    <td> <b style="font-size:16px;">{{row.tribunal.nom_tribunal}} </b></td>
+
+                    <td >
+
+                    
+                        <button  pButton icon="pi pi-plus"  label="إيقاف" style="background-color: #66a266;"  (click)=saveAffaire(row)>
+                        </button>
+                       
+
+                    </td>
+
+
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+</p-dialog>
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p-dialog modal="true" *ngIf="enfantLocal" header="صورة: {{enfantLocal.nom}} {{enfantLocal.prenom}}  "
+    [(visible)]="displayImg" showEffect="fade">
+
+
+    <img src="{{enfantLocal.img}}" class="profile-img-card">
+
+    <div style="text-align: center;">
+        <button pButton (click)="displayImg=!displayImg;" type="button" icon="pi pi-times" label="إخفاء الصورة"
+            style="color: red;background-color: transparent;"></button>
+
+    </div>
+
+
+
+</p-dialog>
+
+
+
+<p-dialog [style]="{width: '30vw'}"  [(visible)]="displayAlertOrigineExist" modal="true" [baseZIndex]="10000">
+
+
+    <p-header>
+       تنبيه
+    </p-header>
+
+    
+       <span class="alert"> هذه القضية موجودة بقاعدة البيانات     </span> 
+
+     
+      
+    
+      
+    
+
+
+
+    <p-footer>
+       <div style="text-align: center;">
+         
+          <button pButton type="button" label="واضح" style="margin-right: 2px;" class="ui-button-danger"
+             (click)="displayAlertOrigineExist = false; "></button>
+          <!-- <p-button icon="pi pi-check" (click)="displayBasic=false" label="Ok" styleClass="p-button-text"></p-button> -->
+       </div>
+    </p-footer>
+ </p-dialog>
+
+
+ <p-dialog [style]="{width: '80vw', height: '30vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}" 
+ [closable]="false"
+                                         [(visible)]="showTransfert"
+                                                                 modal="true"  >
+   <p-header style="color: red; font-family: 'Amiri', Times, serif;"  > هل ترغب في   تأكيد التسجيل؟   الرجاء التثبث من المعطيات, أنت تضمن دقة البيانات المقدمة: </p-header>
+   
+    
+   <app-show-arreter-lexecution   [arreterlexecution]="arreterlexecution"> </app-show-arreter-lexecution>                                                         
+   <p-footer>
+       <div style="text-align: center;">
+ 
+          
+             <button  (click)="confirmer()"
+             style="background-color: #28a745!important;" mat-fab  >
+                <i class="pi pi-save" style="font-size: 30px; color: white;" > </i>
+         
+         
+            </button>
+            <button (click)="showTransfert = false"
+            style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab  >
+               <i class="pi pi-power-off" style="font-size: 30px; color: white;" > </i>
+         
+         
+           </button>
+       </div>
+    </p-footer>
+ </p-dialog>
+
+
+  

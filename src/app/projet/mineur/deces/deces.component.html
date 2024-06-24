@@ -1,0 +1,84 @@
+<div dir="rtl"      style="margin-top: 5px; margin-bottom: 200px;" >
+
+    <mat-tab-group mat-align-tabs="center" 
+     animationDuration="500ms" backgroundColor ="secondary">
+    
+       
+        <mat-tab>
+            <ng-template mat-tab-label>
+                 
+               <h1>حالـــة وفــاة    </h1>   
+            </ng-template>
+             
+           
+    
+ 
+
+                <app-add-deces></app-add-deces>
+               
+            
+               
+    
+    
+        </mat-tab>
+    
+        <!-- <mat-tab>
+            <ng-template mat-tab-label>
+                
+                <h1>إسترشاد</h1>    
+            </ng-template>
+           
+            <div dir="rtl" style="margin-top: 20px; margin-left: 10%;margin-right:10%;">
+                <div class="p-grid layout-dashboard">
+                <div class="p-col-12 p-lg-12" dir="rtl" style="width: 500 px; text-align: center;">
+                    <div class="card download-files">
+                         
+                        <div class="p-grid p-nogutter">
+                            <div class="p-col-12 title">
+                                <h1 style="font-family: 'Amiri', Times, serif; 
+                                text-align: center;">قائمة الوثائق للإيقاف  الحالي:</h1> 
+                                
+                            </div>
+                             
+                        </div>
+            
+                        
+            
+            
+                        <ul>
+                            <li *ngFor="let document of documents">
+                                <div class="p-grid list-item">
+                                  
+                                    <div class="p-col-4">
+                                        
+                                        <div class="item" >العدد الرتبي للإقامة :  <b>{{ document.documentId.numOrdinalDoc }} </b>  </div>
+                                        <div class="item" > أسباب النقلة :  <b>{{ document.documentId.numOrdinalDoc }} </b>  </div>
+                                       
+                                       
+                                         </div>
+                                    
+                                    <div class="p-col-4">
+                                        <div class="item" >عدد الإيقاف: <b>{{ document.affaire.affaireId.numAffaire }}</b>   </div>
+                                        <div class="item" > بمركز : <b>{{ document.affaire.tribunal.nom_tribunal }} </b>  </div>
+                                    </div>
+                                     
+                                    <div class="p-col-4"> 
+                                        <div class="item">تاريخ الإستقبال: <b>{{ document.dateEmission }}</b>  </div>
+                                        <div class="item">تاريخ المغادرة:  <b>{{ document.dateDepotCarte }}</b> </div>
+                                    </div>
+                                </div>
+                            </li>
+                            
+                        </ul>
+                        <div class="list-effect"></div>
+                    </div>
+                </div>
+            </div>
+            </div>
+    
+        </mat-tab>
+        -->
+       
+      
+    </mat-tab-group>
+    </div>

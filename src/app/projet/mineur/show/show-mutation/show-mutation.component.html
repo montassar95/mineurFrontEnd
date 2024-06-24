@@ -1,0 +1,136 @@
+
+ 
+ 
+    <div dir="rtl"  *ngIf="residence">
+        <div  style=" margin-left: 5%; margin-right: 5%;    background-image: url(assets/layout/images/bg.png)" >
+            <div class="p-grid"  >
+                <div class="p-col-2">
+                    <label>
+                        الهوية:
+                         
+                    </label>
+                    </div>
+                    <div class="p-col-10">
+                        <label>
+                          
+                            <span>
+
+
+                                {{  enfant?.nom }} بن {{  enfant?.nomPere }} بن {{ enfant?.nomGrandPere }} {{  enfant?.prenom }}
+                            </span>
+                             
+                        </label>
+                    </div>
+
+                    
+                    </div>
+
+
+
+                
+                   
+                            <div class="p-grid"  >
+                                <div class="p-col-2">
+                                    <label>
+                                        بتاريخ :
+                                         
+                                    </label>
+                                    </div>
+                                    <div class="p-col-10">
+                                        <label>
+                                          
+                                            <span>
+                
+                
+                                                {{  residence?.dateEntree  }}
+                                            </span>
+                                             
+                                        </label>
+                                    </div>
+                
+                
+                                    
+                                    </div>           
+          
+                                   
+                                    <div class="p-grid"  >
+                                        <div class="p-col-2">
+                                            <label>
+                                                مركز الإيقاف:
+                                                 
+                                            </label>
+                                            </div>
+                                            <div class="p-col-10">
+                                                <label>
+                                                  
+                                                    <span>
+                        
+                        
+                                                        {{  residence?.etablissement?.libelle_etablissement }} 
+                                                    </span>
+                                                     
+                                                </label>
+                                            </div>
+                        
+                        
+                                            
+                                            </div>
+            
+                                    <div class="p-grid"  >
+                                        <div class="p-col-2">
+                                            <label>
+                                                الأسباب   :
+                                                 
+                                            </label>
+                                            </div>
+                                            <div class="p-col-10">
+                                                <label>
+                                                  
+                                                    <span>
+                        
+                        
+                                                        {{  residence?.causeMutation?.libelle_causeMutation }} 
+                                                    </span>
+                                                     
+                                                </label>
+                                            </div>
+                        
+                        
+                                            
+                                            </div>  
+                                           
+                                                                                 
+                                                                                                                                                             
+                                            <div class="p-grid"  >
+                                                <div class="p-col-2">
+                                                    <label>
+                                                        لفت نظر  :
+                                                         
+                                                    </label>
+                                                    </div>
+                                                    <div class="p-col-10">
+                                                        <label>
+                                                          
+                                                            <span>
+                                                                  
+                                
+                                                                {{  residence?.remarqueMutation }}  
+                                                            </span>
+                                                             
+                                                        </label>
+                                                    </div>
+                                
+                                
+                                                    
+                                                    </div> 
+ 
+                                                                                                   
+            
+
+      
+        </div>
+         
+    </div>
+ 
+
+ 

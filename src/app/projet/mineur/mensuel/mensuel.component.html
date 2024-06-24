@@ -1,0 +1,56 @@
+
+
+<div class="Listcontainer" style="   width: 80%;   ">
+    <p-toast key="tst" [style]="{marginTop: '150px'}"></p-toast>
+
+  
+    <p-card [style]="{ 'height': 'auto',   'border-radius': '0%',   'margin-bottom':'1%' }">
+
+
+
+        <div class=" p-grid" dir="rtl" style="text-align: right;">
+
+         <div class="p-col-8">
+<h2> قائمة شهري للأطفال المودعين بجميع مراكز الإصلاح  ( موقوفين، محكومين و سراحات )</h2>
+   </div>
+
+
+            <div class="p-col-2">
+<p-calendar dir="rtl" [readonlyInput]="false" [(ngModel)]="datePrintAllCentre"
+   [style]="{'font-weight': '500','font-size': '18px','color': 'black'}" appendTo="body" [yearNavigator]="true"
+   readonly="true" [monthNavigator]="true" [yearRange]="years" dateFormat="yy/mm/dd" [locale]="calendar_ar"
+   placeholder="يوم/شهر/سنة">
+
+</p-calendar> 
+
+</div>   
+
+            <div class="p-col-2">
+   
+   
+      <button mat-raised-button class="button-card3" *ngIf="!click" (click)="printAllCentre()"
+         style="   background-color:   #206b64;    ">
+         <span style="font-family: 'Amiri', Times, serif; font-size: 20px; color:   #fcfefc;"> تحميل     </span>
+         <i class="pi pi-file" style="font-size: 35px;  color:    #fcfefc;"></i>
+      </button>
+   </div>  
+
+
+     
+
+            
+
+        </div>
+
+
+
+    </p-card>
+  
+   
+ 
+</div>
+
+<div *ngIf=" sizeFile==0 && click" style="text-align: center;">
+    <img src="assets/layout/images/g.gif" />
+
+</div>
