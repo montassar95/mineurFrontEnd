@@ -1,79 +1,21 @@
 <p-toast key="tst" [style]="{marginTop: '150px'}"></p-toast>
 <div class="card" dir="rtl" style="margin-top: 20px; margin-left: 5%;margin-right:5%;">
  
-
-    <p-card *ngIf="enfantLocal && !isSaved"
-        [style]="{  'height': 'calc(100% + 10px)','text-align':'center',  'border-radius': '0%',
-              '-moz-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
-              '-webkit-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
-              'box-shadow':' 1px 1px 1px #919191,
-              1px 2px 1px #919191,
-              1px 3px 1px #919191,
-              1px 4px 1px #919191,
-              1px 5px 1px #919191,
-              1px 6px 1px #919191,
-              1px 7px 1px #919191,
-              1px 8px 1px #919191,
-              1px 9px 1px #919191,
-              1px 10px 1px #919191','background-image': 'url(assets/layout/images/cart.jpg)' }">
-        <p-header>
-
-         
-        </p-header>
-        
-        <div class="p-grid" style="text-align: right;">
-            <div class="p-col">
-                <label class="enLabel">المعــــرف: <span class="d"> {{enfantLocal?.id}} </span> </label>
-                <label class="enLabel">الهويــــة: <span class="d"> {{enfantLocal?.nom}} بن {{enfantLocal?.nomPere}} بن
-                      {{enfantLocal?.nomGrandPere}} {{enfantLocal?.prenom}}</span> </label>
  
-                      <label for="firstname3" class="enLabel"> هويــــة الأم: <span class="d">{{enfantLocal?.nomMere}}
-                        {{enfantLocal?.prenomMere}}</span></label>
-                  <label for="firstname3" class="enLabel"> تــــاريخ الــــولادة : <span dir="rtl"
-                        class="d">{{enfantLocal?.dateNaissance}}</span></label>
-            </div>
-            <div class="p-col"  *ngIf="!isLiberation">
+<div *ngIf="enfantLocal && !isSaved">
 
-                <label for="firstname3" class="enLabel"  > العدد الرتبــــي للإيقــــاف: <span
-                    class="d">{{arrestation?.arrestationId?.numOrdinale}}</span></label>
+    <app-details-enfant [enfantLocal]="enfantLocal" [arrestation]="arrestation" [residence]="residence" [msg]="msg"
+        [isSaved]="isSaved">
+    </app-details-enfant>
 
-                    <label for="firstname3" class="enLabel" > تاريخ الإيداع : <span
-                       class="d" dir="rtl">{{arrestation?.date}}</span></label>
+    
+</div>
+<div *ngIf="isSaved ">
 
-              
+    <app-show-liberation [liberation]="liberation" [enfant]="enfantLocal"> </app-show-liberation>
 
-            </div>
-            <div class="p-col" *ngIf="!isLiberation"  >
- 
-                   <label for="firstname3" class="enLabel"  > مركز الإيقــــاف: <span
-                    class="d">{{residence?.etablissement?.libelle_etablissement}}</span></label>
-
-                    <label for="firstname3" class="enLabel"  > بتــــاريــــخ: <span
-                       dir="rtl"   class="d" > {{residence?.dateEntree}}</span></label>
-             
-              <label for="firstname3" class="enLabel"  > عــــدد الإيقــــاف : <span
-                    class="d" dir="rtl">{{residence?.numArrestation}}</span></label>
-           
-            </div>
-            <div class="p-col">
-                <img (click)="showImg()" *ngIf="enfantLocal.img" src="{{enfantLocal.img}}" class="profile-img-card2">
-                <h2  class="neons" *ngIf="isDeces" > <span>{{msg}}</span></h2>
-            </div>
-        </div>
-        
-        <p-footer>
-           
-
-        </p-footer>
-
-       
-        <ng-template pTemplate="footer">
-            <p-button label="Save" icon="pi pi-check"></p-button>
-
-        </ng-template>
-    </p-card>
-
-    <div class="card" *ngIf=" !isLiberation && !isMutation  && !isSaved"
+</div>
+    <div class="card" *ngIf=" !allowNewAddArrestation && !alerte"
     style="margin-top:20px ; border-radius:  0%;background-image: url(assets/layout/images/cart.jpg)">
     <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
 
@@ -106,7 +48,7 @@
               <td *ngIf="row.typeDocument == 'CJ'  || row.typeDocument == 'CJA' " style="color: #ff3434 !important;">مضمون حكم</td>
               <td *ngIf="row.typeDocument == 'T' " style="color: #0099ff !important;">إحالة</td>
               <td *ngIf="row.typeDocument == 'AE' " style="color: #0099ff !important;">طعن الطفل بالاستئناف</td>
-              <td *ngIf="row.typeDocument == 'AP' " style="color: #0099ff !important;">طعن النيابة بالاستئناف</td>
+              <td *ngIf="row.typeDocument == 'AP' " style="color: #ff3434 !important;">طعن النيابة بالاستئناف</td>
               <td *ngIf="row.typeDocument == 'CR' " style="color:  #ff3434 !important;">مراجعة</td>  
               <td *ngIf="row.typeDocument == 'CRR' " style="color:  #ff3434!important;">  رفض مراجعة  </td>
               <td *ngIf="row.typeDocument == 'AEX'" style="color: rgb(1, 151, 1) !important;  ">إيقاف تنفيذ الحكم
@@ -122,14 +64,26 @@
         </p-table>
         <div class="p-grid">
             <div class="p-col">
-        <label   class="enLabel" *ngIf="dateFin" > تـــاريخ الســـــــــــراح : 
-            <span class="date" dir="rtl"     > {{dateFin}}</span></label>  
+       
+        <div *ngIf="!ficheDeDetentionDto?.liberation && (arrestation?.etatJuridique=='juge' ||arrestation?.etatJuridique=='pasInsertionLiberable') ">
+           
+
+            <label for="firstname3" class="enLabel" *ngIf="ficheDeDetentionDto?.dateFin &&  ficheDeDetentionDto?.appelParquet"  >
+                تـــاريخ
+                الســـــــــــراح : <b dir="rtl"
+                    style="text-decoration: line-through  rgba(255, 0, 0, 0.650); text-decoration-style: double;">
+                    {{ficheDeDetentionDto?.dateFin}}</b></label>
+          
+        </div>
+        
+        
+       
             </div>
             <div class="p-col">
                  <label class="enLabel">الوضعية الجزائية :   
                     <b *ngIf="arrestation?.etatJuridique=='juge'" style=" text-align: center;" class="neons"> <span  >محكــــــــــــــوم </span>  </b>
                     <b *ngIf="arrestation?.etatJuridique=='arret'" style=" text-align: center;"  class="neons">  <span  >موقــــــــــــــوف</span> </b>
-                    <b *ngIf="arrestation?.etatJuridique=='isAEX'" style=" text-align: center;"  class="neons">  <span  >*** قــــــــــــــــــم بــــــــــــــــــإدراج الســــــــــــــــــراح ***</span> </b>
+                    <b *ngIf="arrestation?.etatJuridique=='pasInsertionLiberable'" style=" text-align: center;"  class="neons">  <span  >*** قــــــــــــــــــم بــــــــــــــــــإدراج الســــــــــــــــــراح ***</span> </b>
                
                     <!-- <b *ngIf="arrestation?.liberation" style=" text-align: center; color: green;">   {{arrestation?.liberation?.causeLiberation?.libelleCauseLiberation}}  <span dir="rtl"  style="color: rgb(124, 124, 124);"> ({{arrestationLocal?.liberation?.date}} )</span>  </b> -->
                     </label>
@@ -142,7 +96,7 @@
  
 
 </div>
-    <div class="card" *ngIf=" !isLiberation && !isMutation  && !isSaved"
+    <div   *ngIf=" !allowNewAddArrestation && !alerte"
         style="margin-top:20px ; border-radius:  0%;background-image: url(assets/layout/images/cart.jpg)">
         <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
 
@@ -209,7 +163,7 @@
 
         <div *ngIf="enfantLocal" style="text-align: center;">
 
-            <button *ngIf=" !isLiberation && !isMutation" pButton type="button" label="تسجيل " (click)="save()"
+            <button *ngIf=" !allowNewAddArrestation && !alerte" pButton type="button" label="تسجيل " (click)="save()"
                 style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;" class="ui-button-success"></button>
             
         </div>
@@ -217,7 +171,7 @@
     </div>
  
   
-    <div class="card"  *ngIf="isLiberation"
+    <div class="card"  *ngIf="arrestation?.liberation?.causeLiberation?.id==50 && !nextAdd"
       style="margin-top:20px ;
              border-radius:  0%;
              background-image: url(assets/layout/images/cart.jpg)">
@@ -231,15 +185,15 @@
                     <div class="p-field p-grid"> 
                         
                         <label for="firstname3" class="enLabel">تــاريخ الســراح: <span
-                            dir="rtl"    class="d">{{liberation?.date}}</span></label>
+                            dir="rtl"    class="d">{{arrestation?.liberation?.date}}</span></label>
                     </div>
                     
                     <div class="p-field p-grid">
                         <div class="p-col"> 
                         <label for="firstname3" class="enLabel"> مــوجب  الســراح: <span
-                            class="d">{{liberation?.causeLiberation?.libelleCauseLiberation}}</span>
-                            <span
-                            class="d">{{' إلى '+ liberation?.etabChangeManiere?.libelle_etabChangeManiere}}</span></label>
+                            class="d">{{arrestation?.liberation?.causeLiberation?.libelleCauseLiberation}}</span>
+                            <span 
+                            class="d">{{' إلى '+ arrestation?.liberation?.etabChangeManiere?.libelle_etabChangeManiere}}</span></label>
 
                           </div>
 
@@ -249,9 +203,11 @@
 
                             <div class="p-col" >
                               
-                          <a class="button" (click)="addResidence()" *ngIf="liberation?.causeLiberation?.id==50" > 
+                          <a class="button" (click)="addResidence()" *ngIf="arrestation?.liberation?.causeLiberation?.id==50" > 
                             <span  > إدراج إقـــامـة جـديـدة بالإيقــاف الســـابق؟</span>   </a>
                                 </div>
+
+                                
                     </div>
                    
                     
@@ -271,27 +227,20 @@
             </div>
 
     </div>
-
+ 
+    <div *ngIf="!isSaved && !nextAdd" style="text-align: center;">
     
-        <div style="text-align: center;"  >
-            <br>
-            <h1  class="neons"  *ngIf="isLiberation" > <span>{{msg}}</span></h1>
-            <!-- <button  *ngIf="isLiberation" 
-            style="background-color: white!important; margin-right: 15px;"   (click)="delete()"  mat-mini-fab  >
-               <i class="pi pi-trash" style="font-size: 30px; color: red;" > </i>
-
-           </button> -->
-            <h1  class="neons" *ngIf="isMutation" > <span>{{msg}}</span></h1>
-             
-            
-        </div>
+    
+        <h1 class="neons"> <span>{{msg}}</span></h1>
+    
+    
+    
+    
+    </div>
+         
  
  
-        <div *ngIf="isSaved">
-
-            <app-show-liberation [liberation]="liberation" [enfant]="enfantLocal"> </app-show-liberation>
         
-         </div>
      
 </div>
 

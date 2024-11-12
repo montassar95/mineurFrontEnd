@@ -22,7 +22,7 @@
 
 </div> -->
 
-<div class="Listcontainer" style="   width: 80%;   " *ngIf=" !(sizeFile==0 && click)">
+<div class="card" style="   width: 65%;   margin-bottom: 200px;" *ngIf=" !(sizeFile==0 && click)">
    <p-toast key="tst" [style]="{marginTop: '150px'}"></p-toast>
 
 
@@ -31,11 +31,11 @@
       طباعة قائمة شهري للأطفال المودعين بجميع مراكز الإصلاح خلال الشهر الحالي ( موقوفين، محكومين و سراحات )
       </h1>
    </button>   -->
-   <p-card [style]="{ 'height': 'auto',   'border-radius': '0%',   'margin-bottom':'1%' }">
+  
 
 
 
-      <div class=" p-grid" style="text-align: right;">
+      <div class=" p-grid court-document" style="text-align: right;">
 
          <!-- <div class="p-col-8">
 <h2> قائمة شهري للأطفال المودعين بجميع مراكز الإصلاح  ( موقوفين، محكومين و سراحات )</h2>
@@ -74,11 +74,13 @@
 
          <div class="p-col-9">
 
-
+ 
             <input id="input" style="margin-left: 10px;" class="title" readonly [(ngModel)]="accusationsToAddLabel"
                (click)="showListList()" type="text" pInputText />
 
          </div>
+
+        
          <!-- <div class="p-col-2">
 
 
@@ -103,7 +105,10 @@
                :العنــــــــوان </h2>
 
          </div>
-         <div class="p-col-9">
+
+
+        
+         <div class="p-col-9" >
 
             <p-autoComplete id="acAdvanced" [(ngModel)]="selectedEtablissements" [suggestions]="filteredEtablissements"
                (completeMethod)="filterEtablissements($event)" [size]="30" [minLength]="1" [dropdown]="true"
@@ -127,9 +132,14 @@
 
 
          </div>
+
+
          <div class="p-col-3" style="text-align: right;">
             <h2 for="acAdvanced"> إختيار المركز </h2>
          </div>
+
+
+         
          <!-- <div class="p-col-9" style="text-align: right;  ">
 
 
@@ -162,12 +172,12 @@
 
 
 
-   </p-card>
-   <p-card dir="rtl">
+    
+  
 
 
 
-      <div class=" p-grid">
+      <div class=" p-grid court-document" dir="rtl">
 
          <!--      
          <div class="p-col-2">
@@ -203,7 +213,7 @@
   <div class="p-col-4">
 
       <input #nom class="title"  id="input"  [(ngModel)]="centreLibelle" readonly (click)="showListCentre()"   type="text" pInputText /> 
-       <i class="pi pi-times" style="font-size: 22px;  color:   red;"  *ngIf="centreLibelle" (click)="deleteCentre()"></i>  
+       <i class="pi pi-times" style="font-size: 25px;  color:   red;"  *ngIf="centreLibelle" (click)="deleteCentre()"></i>  
   </div> -->
 
 
@@ -249,7 +259,7 @@
 
             <input id="input" readonly [(ngModel)]="causeLiberationLibelle" (click)="showListCauseLiberation()"
                type="text" pInputText />
-            <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="causeLiberationLibelle"
+            <i class="pi pi-times" style="font-size: 25px;  color:   red;" *ngIf="causeLiberationLibelle"
                (click)="deleteCauseLiberation()"></i>
          </div>
          <div class="p-col-6" *ngIf="accusationsToAddValue == 'libere' "></div>
@@ -262,7 +272,7 @@
 
             <input id="input" readonly [(ngModel)]="classePenaleLibelle" (click)="showListClassePenale()" type="text"
                pInputText />
-            <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="classePenaleLibelle"
+            <i class="pi pi-times" style="font-size: 25px;  color:   red;" *ngIf="classePenaleLibelle"
                (click)="deleteClassePenale()"></i>
          </div>
          <div class="p-col-2">
@@ -274,7 +284,7 @@
 
             <input id="input" readonly [(ngModel)]="typeAffaireLibelle" (click)="showListTypeAffaire()" type="text"
                pInputText />
-            <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="typeAffaireLibelle"
+            <i class="pi pi-times" style="font-size: 25px;  color:   red;" *ngIf="typeAffaireLibelle"
                (click)="deleteTypeAffaire()"></i>
 
          </div>
@@ -288,7 +298,7 @@
          <div class="p-col-4">
             <input id="input" readonly [(ngModel)]="typeTribunalLibelle" (click)="showListTypeTribunal()" type="text"
                pInputText />
-            <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="typeTribunalLibelle"
+            <i class="pi pi-times" style="font-size: 25px;  color:   red;" *ngIf="typeTribunalLibelle"
                (click)="deleteTypeTribunal()"></i>
          </div>
          <div class="p-col-2">
@@ -300,7 +310,7 @@
 
             <input id="input" readonly [(ngModel)]="gouvernoratTribunalLibelle" (click)="showListGouvernoratTribunal()"
                type="text" pInputText />
-            <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="gouvernoratTribunalLibelle"
+            <i class="pi pi-times" style="font-size: 25px;  color:   red;" *ngIf="gouvernoratTribunalLibelle"
                (click)="deleteGouvernoratTribunal()"></i>
 
          </div>
@@ -314,7 +324,7 @@
 
             <input id="input" readonly [(ngModel)]="typeJugeLibelle" (click)="showListTypeJuge()" type="text"
                pInputText />
-            <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="typeJugeLibelle"
+            <i class="pi pi-times" style="font-size: 25px;  color:   red;" *ngIf="typeJugeLibelle"
                (click)="deleteTypeJuge()"></i>
 
          </div>
@@ -390,11 +400,11 @@
 
 
 
-   </p-card>
-   <p-card dir="rtl" [style]="{ 'height': 'auto',   'border-radius': '0%',    'margin-top':'2%'  }">
+    
+    
 
 
-      <div class="p-grid">
+      <div class="p-grid court-document" dir="rtl">
 
          <div class="p-col-2">
             <h2>
@@ -405,7 +415,7 @@
 
             <input id="input" readonly [(ngModel)]="niveauEducatifLibelle" (click)="showListNiveauEducatif()"
                type="text" pInputText />
-            <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="niveauEducatifLibelle"
+            <i class="pi pi-times" style="font-size: 25px;  color:   red;" *ngIf="niveauEducatifLibelle"
                (click)="deleteNiveauEducatif()"></i>
          </div>
 
@@ -419,7 +429,7 @@
 
             <input id="input" readonly [(ngModel)]="gouvernoratLibelle" (click)="showListGouvernorat()" type="text"
                pInputText />
-            <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="gouvernoratLibelle"
+            <i class="pi pi-times" style="font-size: 25px;  color:   red;" *ngIf="gouvernoratLibelle"
                (click)="deleteGouvernorat()"></i>
          </div>
          <div class="p-col-2">
@@ -430,7 +440,7 @@
 
             <input id="input" type="text" readonly [(ngModel)]="situationFamilialeLibelle"
                (click)="showListSituationFamiliale()" pInputText />
-            <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="situationFamilialeLibelle"
+            <i class="pi pi-times" style="font-size: 25px;  color:   red;" *ngIf="situationFamilialeLibelle"
                (click)="deleteSituationFamiliale()"></i>
          </div>
 
@@ -443,7 +453,7 @@
 
             <input id="input" readonly [(ngModel)]="delegationLibelle" (click)="showListDelegation()" type="text"
                pInputText />
-            <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="delegationLibelle"
+            <i class="pi pi-times" style="font-size: 25px;  color:   red;" *ngIf="delegationLibelle"
                (click)="deleteDelegation()"></i>
          </div>
          <div class="p-col-2">
@@ -454,7 +464,7 @@
          <div class="p-col-4">
 
             <input id="input" readonly [(ngModel)]="metierLibelle" (click)="showListMetier()" type="text" pInputText />
-            <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="metierLibelle"
+            <i class="pi pi-times" style="font-size: 25px;  color:   red;" *ngIf="metierLibelle"
                (click)="deleteMetier()"></i>
          </div>
 
@@ -467,7 +477,7 @@
 
             <input id="input" readonly [(ngModel)]="situationSocialLibelle" (click)="showListSituationSocial()"
                type="text" pInputText />
-            <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="situationSocialLibelle"
+            <i class="pi pi-times" style="font-size: 25px;  color:   red;" *ngIf="situationSocialLibelle"
                (click)="deleteSituationSocial()"></i>
          </div>
          <div class="p-col-2">
@@ -479,7 +489,7 @@
 
             <input id="input" readonly [(ngModel)]="nationaliteLibelle" (click)="showListNationalite()" type="text"
                pInputText />
-            <i class="pi pi-times" style="font-size: 22px;  color:   red;" *ngIf="nationaliteLibelle"
+            <i class="pi pi-times" style="font-size: 25px;  color:   red;" *ngIf="nationaliteLibelle"
                (click)="deleteNationalite()"></i>
          </div>
 
@@ -501,7 +511,7 @@
 
          <div class="p-col-2">
 
-            <h2 style="color: rgb(231, 0, 231) ;"> حسب القضية الرئسية :</h2>
+            <h2 style="color: rgb(231, 0, 231) ;"> حسب القضية الرئسية  </h2>
 
 
          </div>
@@ -518,7 +528,7 @@
 
 
 
-   </p-card>
+    
    <div class="p-col-12" *ngIf="!(sizeFile==0 && click)" style="text-align: center;">
       <button mat-raised-button class="button-card3" (click)="print()"
          style="   background-color:   #206b64;  width:200px;vertical-align:middle;  ">

@@ -1,0 +1,86 @@
+.court-document {
+    
+    margin: 20px auto;
+    padding: 30px;
+    background: linear-gradient(to right, #ffffff, #e0e0e0);
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(204, 204, 204, 0.1);
+    font-family: 'Amiri', Times, serif;
+    max-width: 100%;
+}
+
+.court-header {
+    text-align: center;
+    border-bottom: 2px solid #007BFF;
+    margin-bottom: 15px;
+}
+
+.court-title {
+    font-family: 'Amiri', Times, serif;
+    font-size: 36px;
+    /* Agrandi la taille de la police */
+    color: #007BFF;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.court-content {
+    line-height: 1.6;
+    /* Augmente l'interligne pour plus de lisibilité */
+}
+
+.info-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    /* Augmente l'espace entre les sections d'information */
+}
+
+.info-label {
+    font-weight: bold;
+    color: #125c91;
+    font-size: 25px;
+    /* Agrandi la taille de la police */
+    flex: 1;
+}
+
+.info-data {
+    color: #2b2b2b;
+    font-size: 25px;
+    /* Agrandi la taille de la police */
+    flex: 2;
+    padding-left: 10px;
+    /* Augmente l'espace après le label */
+}
+
+.residence-section {
+    margin-top: 22;
+    /* Augmente l'espace au-dessus de cette section */
+    border-top: 1px solid #ccc;
+    padding-top: 15px;
+}
+
+.section-title {
+    font-family: 'Amiri', Times, serif;
+    font-size: 28px;
+    /* Agrandi la taille de la police */
+    color: #007BFF;
+    margin-bottom: 15px;
+    /* Augmente l'espace sous le titre de section */
+}
+
+.image-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.profile-img {
+    max-width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.profile-img:hover {
+    transform: scale(1.05);
+}

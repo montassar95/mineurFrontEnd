@@ -7,9 +7,9 @@
         <mat-tab>
             
             <ng-template mat-tab-label >
-                <div class="cardd"> 
-             <h1>  إدراج بطاقة إيواء  </h1>     
-            </div>
+               
+             <h1 class="tab-title-blue">  إدراج بطاقة إيواء  </h1>     
+             
             </ng-template>
        
             <app-carte-hebergement></app-carte-hebergement>
@@ -18,71 +18,14 @@
        
         <mat-tab>
             <ng-template mat-tab-label>
-                     
-               <div class="cardd"> 
-                <h1>  إسترشاد  </h1> 
-               </div>
+              
+                    <h1 class="tab-title-red"> التحييـــــن و الحـــــذف </h1>
+                
             </ng-template>
              
              
               
-            <div dir="rtl" style="margin-top: 20px; margin-left: 10%;margin-right:10%;">
-                <div class="p-grid layout-dashboard">
-                <div class="p-col-12 p-lg-12" dir="rtl" style="width: 500 px; text-align: center;">
-                    <div class="card download-files">
-                         
-                        <div class="p-grid p-nogutter">
-                          
-                             
-                        </div>
-            
-                        
-            
-            
-                        <ul>
-                            <li *ngFor="let document of documents">
-                                <div class="p-grid list-item">
-                                  
-                                    <div class="p-col-3">
-                                        
-                                        <div class="item" >العدد الرتبي :  <b>{{ document.documentId.numOrdinalDoc }} </b>  </div>
-                                       
-                                        <div class="item" >نوع الوثيقة : 
-                                            
-                                           
-                                            <b *ngIf="document.typeDocument == 'CP' " style="color: #0099ff !important;">  قرار تمديد </b>
-                                            <b *ngIf="document.typeDocument == 'CD' " style="color: #0099ff !important;">بطاقة إيداع</b>
-                                            <b *ngIf="document.typeDocument == 'CH' " style="color: #0099ff !important;">بطاقة إيواء</b>
-                                            <b *ngIf="document.typeDocument == 'CJ'  || document.typeDocument == 'CJA' " style="color: #ff3434 !important;">مضمون حكم</b>
-                                            <b *ngIf="document.typeDocument == 'T' " style="color: #0099ff !important;">إحالة</b>
-                                            <b *ngIf="document.typeDocument == 'AE' " style="color: #0099ff !important;">طعن الطفل بالاستئناف</b>
-                                            <b *ngIf="document.typeDocument == 'AP' " style="color: #0099ff !important;">طعن النيابة بالاستئناف</b>
-                                            <b *ngIf="document.typeDocument == 'CR' " style="color:  #ff3434 !important;">مراجعة</b>  </div>   
-                                  
-                                    </div>
-                                    
-                                    <div class="p-col-3">
-                                        <div class="item" >عددالقضية: <b>{{ document.affaire.affaireId.numAffaire }}</b>   </div>
-                                        <div class="item" > المحكمة: <b>{{ document.affaire.tribunal.nom_tribunal }} </b>  </div>
-                                    </div>
-                                    <div class="p-col-3">
-                                     
-                                        <div class="item" >العدد الرتبي للقضية: <b>{{ document.affaire.numOrdinalAffaire }}</b>  </div>
-                                        <div class="item" >نوع القضية: <b>{{ document.affaire.typeAffaire.libelle_typeAffaire }}</b>  </div>
-                                    </div>
-                                    <div class="p-col-3"> 
-                                        <div class="item">تاريخ الصدور: <b>{{ document.dateEmission }}</b>  </div>
-                                        <div class="item">تاريخ الإيداع:  <b>{{ document.dateDepotCarte }}</b> </div>
-                                    </div>
-                                </div>
-                            </li>
-                            
-                        </ul>
-                        <!-- <div class="list-effect"></div> -->
-                    </div>
-                </div>
-            </div>
-            </div>
+            <app-edit-document [idValide]="idValide"></app-edit-document>
     
     
         </mat-tab>

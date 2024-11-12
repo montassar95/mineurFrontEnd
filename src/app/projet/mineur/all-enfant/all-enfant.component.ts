@@ -25,6 +25,8 @@ import { DatePipe, ViewportScroller } from "@angular/common";
 import { Residence } from "src/app/domain/residence";
 import { TokenStorageService } from "src/app/_services/token-storage.service";
 import { Visite } from "src/app/domain/visite";
+import { DetentionService } from "src/app/demo/service/detention.service";
+import { DocumentService } from "src/app/demo/service/document.service";
 @Component({
   selector: "app-all-enfant",
   templateUrl: "./all-enfant.component.html",
@@ -35,7 +37,7 @@ import { Visite } from "src/app/domain/visite";
 export class AllEnfantComponent implements OnInit {
   selectedIndex;
   displayEdit: boolean;
-  displayMoreInfo: boolean;
+  
   enfantLocal: Enfant;
   enfants: Residence[] = [];
   path: string;
@@ -76,9 +78,15 @@ export class AllEnfantComponent implements OnInit {
   displayVisite: boolean;
 
   residenceVisite: Residence;
+  selectedTab: string; // Définit l'onglet par défaut
 
+  selectTab(tab: string) {
+    this.selectedTab = tab; // Met à jour l'onglet sélectionné
+  }
   constructor(
     private crudservice: CrudEnfantService,
+    private detentionService: DetentionService,
+    private documentService: DocumentService,
     private router: Router,
     private service: MessageService,
     private viewportscroller: ViewportScroller,
@@ -138,9 +146,6 @@ export class AllEnfantComponent implements OnInit {
     this.displayVisite = false;
   }
 
-
-
-
   goPath(event) {
     this.addBoolean = false;
 
@@ -189,8 +194,8 @@ export class AllEnfantComponent implements OnInit {
       );
     this.sexe = this.addForm1.get("sexe").value;
 
-    this.crudservice
-      .getEnfants(this.addForm1.value)
+    this.detentionService
+      .trouverResidencesParCriteresDetenu(this.addForm1.value)
 
       .subscribe((data) => {
         this.enfants = [];
@@ -213,17 +218,19 @@ export class AllEnfantComponent implements OnInit {
   //   }
   refreshTable(id: string) {
     if (id) {
-      this.crudservice.getoneInResidence(id).subscribe((data) => {
-        if (data.result) {
-          this.enfants = [];
-          console.log(data.result);
-          this.enfants.push(data.result);
-          this.displayEdit = false;
-        } else {
-          this.enfants = [];
-          this.displayEdit = false;
-        }
-      });
+      this.detentionService
+        .trouverDerniereResidenceParIdDetenu(id)
+        .subscribe((data) => {
+          if (data.result) {
+            this.enfants = [];
+            console.log(data.result);
+            this.enfants.push(data.result);
+            this.displayEdit = false;
+          } else {
+            this.enfants = [];
+            this.displayEdit = false;
+          }
+        });
     }
   }
   onSubmitId() {
@@ -232,34 +239,38 @@ export class AllEnfantComponent implements OnInit {
 
     if (this.selectedValue == "val1") {
       if (this.id) {
-        this.crudservice.getoneInResidence(this.id).subscribe((data) => {
-          console.log(data);
-          if (data.result) {
-            this.enfants = [];
-            console.log(data.result);
-            this.enfants.push(data.result);
-            this.searchBoolean = false;
-          } else {
-            this.enfants = [];
+        this.detentionService
+          .trouverDerniereResidenceParIdDetenu(this.id)
+          .subscribe((data) => {
+            console.log(data);
+            if (data.result) {
+              this.enfants = [];
+              console.log(data.result);
+              this.enfants.push(data.result);
+              this.searchBoolean = false;
+            } else {
+              this.enfants = [];
 
-            this.searchBoolean = false;
-          }
-        });
+              this.searchBoolean = false;
+            }
+          });
       }
     } else {
       if (this.numArr) {
-        this.crudservice.getResidenceByNum(this.numArr).subscribe((data) => {
-          if (data.result) {
-            this.enfants = [];
+        this.detentionService
+          .trouverResidencesParNumeroEcrou(this.numArr)
+          .subscribe((data) => {
+            if (data.result) {
+              this.enfants = [];
 
-            this.enfants = data.result;
-            this.searchBoolean = false;
-          } else {
-            this.enfants = [];
+              this.enfants = data.result;
+              this.searchBoolean = false;
+            } else {
+              this.enfants = [];
 
-            this.searchBoolean = false;
-          }
-        });
+              this.searchBoolean = false;
+            }
+          });
       }
     }
 
@@ -279,30 +290,21 @@ export class AllEnfantComponent implements OnInit {
     this.displayEdit = true;
   }
 
-  showEnfant(enfant) {
-    this.crudservice.getLigneById("enfant", enfant.id).subscribe((data) => {
-      if (data.result == null) {
-      } else {
-        this.enfantLocal = data.result;
-        this.search(this.enfantLocal);
-        this.displayMoreInfo = true;
-      }
-    });
-  }
+ 
 
   showFolderEnfant(enfant) {
-    window.localStorage.removeItem("idEnfantValide");
+    // window.localStorage.removeItem("idEnfantValide");
 
-    window.localStorage.setItem("idEnfantValide", enfant.id.toString());
-    this.router.navigate(["mineur/MoreInformaton"]);
+    // window.localStorage.setItem("idEnfantValide", enfant.id.toString());
+    // this.router.navigate(["mineur/MoreInformaton"]);
+    // Naviguer vers la page "MoreInformation" en passant l'ID en tant que paramètre
+    this.router.navigate(["/mineur/MoreInformation", enfant.id]);
   }
-  valide() {
-    this.displayMoreInfo = false;
-  }
+ 
 
   search(enfant) {
-    this.crudservice
-      .findByIdEnfantAndStatut0("arrestation", enfant.id)
+    this.detentionService
+      .trouverDerniereDetentionParIdDetenu("arrestation", enfant.id)
       .subscribe((data) => {
         if (data.result) {
           // this.service.add({ key: 'tst', severity: 'error', summary: '.   خطأ    ', detail: id+' إقامة مفتوحة  '  });
@@ -310,8 +312,8 @@ export class AllEnfantComponent implements OnInit {
 
           this.dateEntreLocal = data.result.date;
           this.numOrdinale = data.result.arrestationId.numOrdinale;
-          this.crudservice
-            .findResidenceByIdEnfantAndStatut0(
+          this.detentionService
+            .trouverDerniereResidenceParNumDetentionEtIdDetenu(
               "residence",
               data.result.arrestationId.idEnfant,
               data.result.arrestationId.numOrdinale

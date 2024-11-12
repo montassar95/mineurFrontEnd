@@ -1,10 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
-
-const AUTH_API = "http://192.168.160.61:8080/api/auth/";
- //const AUTH_API = "http://192.168.100.39:8085/mineur/api/auth/";
-
+import { environment } from "src/environments/environment";
 const httpOptions = {
   headers: new HttpHeaders({ "Content-Type": "application/json" }),
 };
@@ -17,7 +14,7 @@ export class AuthService {
 
   login(credentials): Observable<any> {
     return this.http.post(
-      AUTH_API + "signin",
+      environment.baseUrl + "auth/signin",
       {
         username: credentials.username,
         password: credentials.password,
@@ -28,12 +25,33 @@ export class AuthService {
 
   register(user): Observable<any> {
     return this.http.post(
-      AUTH_API + "signup",
+      environment.baseUrl + "auth/signup",
       {
         username: user.username,
         personelle: user.personelle,
         role: user.role,
         password: user.password,
+        nom: user.nom,
+        prenom: user.prenom,
+        numAdministratif: user.numAdministratif,
+        etablissement: user.etablissement,
+      },
+      httpOptions
+    );
+  }
+
+  updateUser(user, id): Observable<any> {
+    return this.http.post(
+      environment.baseUrl + "auth/update/" + id,
+      {
+        username: user.username,
+
+        role: user.role,
+        password: user.password,
+        nom: user.nom,
+        prenom: user.prenom,
+        numAdministratif: user.numAdministratif,
+        etablissement: user.etablissement,
       },
       httpOptions
     );

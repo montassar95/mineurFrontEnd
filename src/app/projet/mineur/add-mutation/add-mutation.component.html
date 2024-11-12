@@ -1,70 +1,15 @@
 <p-toast key="tst" [style]="{marginTop: '150px'}"></p-toast>
-<div class="card" dir="rtl" style="margin-top: 20px; margin-left: 5%;margin-right:5%;">
-   <!-- <p-card *ngIf="!enfantLocal" [style]="{ 'height': 'auto', 'width':'600px' ,   'margin-left': 'auto' , 'margin-right':'auto'  , 'margin-top': '100px' ,
-      '-moz-box-shadow': '0px 2px 2px #8a2225','margin-top': '5px',
-      '-webkit-box-shadow': '0px 2px 2px #8a2225',
-      'box-shadow':' 0px 2px 2px #8a2225','background-image': 'url(assets/layout/images/cart.jpg)' }">
-        <div class="p-grid" dir="rtl">
-           <div class="p-col-12 p-md-4">
-              <h1 style="font-family: 'Amiri', Times, serif;">معرف الطفل </h1>
-           </div>
-           <div class="p-col-12 p-md-8">
-             <input   [(ngModel)]="idEnfant"  type="number" min="10"  (keyup.enter)="changerEnfnt()"  pInputText> 
-           </div>
-         
-        </div>
-      </p-card> -->
-   <p-card *ngIf="enfantLocal && !isSaved"
-   [style]="{  'height': 'calc(100% + 10px)','text-align':'center',  'border-radius': '0%',
-   '-moz-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
-   '-webkit-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
-   'box-shadow':' 1px 1px 1px #919191,
-   1px 2px 1px #919191,
-   1px 3px 1px #919191,
-   1px 4px 1px #919191,
-   1px 5px 1px #919191,
-   1px 6px 1px #919191,
-   1px 7px 1px #919191,
-   1px 8px 1px #919191,
-   1px 9px 1px #919191,
-   1px 10px 1px #919191','background-image': 'url(assets/layout/images/cart.jpg)' }">
-   <p-header>
-   </p-header>
-   <div class="p-grid" style="text-align: right;">
-      <div class="p-col">
-      
-         <label for="firstname3" class="enLabel"> المعــــرف : <span
-            class="d" dir="rtl">{{enfantLocal?.id}}</span></label>   
-         <label class="enLabel">الهوية: <span class="d"> {{enfantLocal?.nom}} بن {{enfantLocal?.nomPere}} بن
-         {{enfantLocal?.nomGrandPere}} {{enfantLocal?.prenom}}</span> </label>
-         <label for="firstname3" class="enLabel"> هوية الأم: <span class="d">{{enfantLocal?.nomMere}}
-         {{enfantLocal?.prenomMere}}</span></label>
-         <label for="firstname3" class="enLabel"> تاريخ الولادة : <span
-            class="d" dir="rtl">{{enfantLocal?.dateNaissance}}</span></label>
-      </div>
-      <!-- *ngIf="!echapperOuLibre" -->
-      <div class="p-col"  >
-         <label for="firstname3" class="enLabel"> العدد الرتبي للإيقاف: <span
-            class="d">{{arrestation?.arrestationId?.numOrdinale}}</span></label>
-         <label for="firstname3" class="enLabel"> عدد الإيقاف : <span class="d" dir="rtl">{{residence?.numArrestation}}</span></label>
-      </div>
-      <!-- *ngIf="!echapperOuLibre" -->
-      <div class="p-col" >
-         <label for="firstname3" class="enLabel"> مركز الإيقاف: <span class="d">{{residence?.etablissement?.libelle_etablissement}}</span></label>
-         <label for="firstname3" class="enLabel"> بتاريخ: <span class="d" dir="rtl">{{arrestation?.date}}</span></label>
-      </div>
-      <div class="p-col">
-         <img (click)="showImg()" *ngIf="enfantLocal?.img" src="{{enfantLocal.img}}" class="profile-img-card2">
-      </div>
-   </div>
-   <p-footer>
-   </p-footer>
-   <ng-template pTemplate="footer">
-      <p-button label="Save" icon="pi pi-check"></p-button>
-   </ng-template>
-   </p-card>
-   <div *ngIf="!echapperOuLibre && !isSaved">
-      <div class="card" *ngIf="!isEncour"
+<div class="card"  *ngIf="enfantLocal " dir="rtl" style="margin-top: 20px; margin-left: 5%;margin-right:5%;">
+    
+    
+   
+      <app-details-enfant [enfantLocal]="enfantLocal" [arrestation]="arrestation" [residence]="residence" [msg]="msg"
+         [isSaved]="isSaved">
+      </app-details-enfant>
+   
+ 
+   <div  >
+      <div   *ngIf="(demande || displayEdit) && !isSaved"
          style="margin-top:20px ; border-radius:  0%;background-image: url(assets/layout/images/cart.jpg)">
          <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
          <div class="card">
@@ -75,9 +20,7 @@
                   <div class="p-field p-grid">
                      <label for="lastname3" class="p-col-fixed" style="width: 180px;">بتاريخ :</label>
                      <div class="p-col">
-                        <!-- <p-inputMask mask="9999/99/99" dir="rtl" slotChar="----/--/--" placeholder="يوم/شهر/سنة"
-                           [style]="{'font-weight': '500','font-size': '16px','color': 'black'}"
-                           ></p-inputMask> -->
+                      
                         <p-calendar   (change)="changeDate()" [(ngModel)]="dateMutation"    dir="rtl"   [readonlyInput]="false"
                         [style]="{'font-weight': '500','font-size': '18px','color': 'black'}"appendTo="body"
                         readonly ="true" [monthNavigator]="true"   dateFormat="yy/mm/dd"  [locale]="calendar_ar" placeholder="يوم/شهر/سنة"   >
@@ -117,7 +60,7 @@
             style="margin-bottom:10px; padding: 0.5em;margin-right: 10px;" class="ui-button-danger"></button>
          </div>
       </div>
-      <div class="card" *ngIf="isEncour"
+      <div class="card" *ngIf="accepte"
          style="margin-top:20px ; border-radius:  0%;background-image: url(assets/layout/images/cart.jpg)">
          <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
          <div class="card">
@@ -128,9 +71,7 @@
                   <div class="p-field p-grid">
                      <label for="lastname3" class="p-col-fixed" style="width: 180px;">تاريخ الإستقبال :</label>
                      <div class="p-col">
-                        <!-- <p-inputMask mask="9999/99/99" dir="rtl" slotChar="----/--/--" placeholder="يوم/شهر/سنة"
-                           [style]="{'font-weight': '500','font-size': '16px','color': 'black'}"
-                           [(ngModel)]="dateMutation"  ></p-inputMask> -->
+                       
                         <p-calendar    [(ngModel)]="dateMutation"   dir="rtl"   [readonlyInput]="false"
                         [style]="{'font-weight': '500','font-size': '18px','color': 'black'}"appendTo="body"
                         readonly ="true" [monthNavigator]="true"   dateFormat="yy/mm/dd"  [locale]="calendar_ar" placeholder="يوم/شهر/سنة"   >
@@ -164,7 +105,7 @@
             </div>
          </div>
          <div *ngIf="enfantLocal" style="text-align: center;">
-            <button *ngIf="isEncour" pButton type="button" label="تسجيل "  (click)="saveAccepterResidence()"
+            <button    pButton type="button" label="تسجيل "  (click)="saveAccepterResidence()"
             style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;" class="ui-button-success"></button>
          </div>
       </div>
@@ -173,19 +114,52 @@
       <app-show-mutation [residence]="residence" [enfant]="enfantLocal"> </app-show-mutation>
    </div>
 </div>
-<div style="text-align: center;" *ngIf="echapperOuLibre">
+
+
+
+<div style="text-align: center;"  >
    <br>
-   <h1  class="neons"  *ngIf="statEchappesOrlibre==0"> <span>{{msg}}</span></h1>
-   <h1 *ngIf="statEchappesOrlibre==1">  {{msg}} </h1>
-   <h1  class="neons"  *ngIf="statEchappesOrlibre==2">  <span>{{msg}}</span> 
-      <button *ngIf="update"      (click)="editMutation()" 
+   
+   <h1  class="neons"   >  <span>{{msg}}</span> 
+      <button  *ngIf="edit"       (click)="editMutation()" 
       style="background-color: white!important; margin-right: 15px;"   label="تحييـــن" mat-fab  >
-      <i class="pi pi-pencil" style="font-size: 30px; color: blue;" > </i>
+      <i  class="pi pi-pencil" style="font-size: 30px; color: blue;"  > </i>
       </button>
    </h1>
-   <h1  class="neons"  *ngIf="statEchappesOrlibre==3">  <span>{{msg}}</span> </h1>
-   <h1  class="neons"  *ngIf="statEchappesOrlibre==4">  <span>{{msg}}</span> </h1>
+   
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <p-dialog modal="true" *ngIf="enfantLocal" header="صورة: {{enfantLocal?.nom}} {{enfantLocal?.prenom}}  "
 [(visible)]="displayImg" showEffect="fade">
 <img src="{{enfantLocal?.img}}" class="profile-img-card">
@@ -285,10 +259,10 @@
 <p-header style="color: red; font-family: 'Amiri', Times, serif;"> هل ترغب في تأكيد التسجيل؟ الرجاء التثبث
    من المعطيات, أنت تضمن دقة البيانات المقدمة: 
 </p-header>
-<app-show-mutation [residence]="residence" [enfant]="enfantLocal"> </app-show-mutation>
+<app-show-mutation [residence]="residenceEncour" [enfant]="enfantLocal"> </app-show-mutation>
 <p-footer>
    <div style="text-align: center;">
-      <button (click)="confirmerAccepterResidence()" style="background-color: #28a745!important;" mat-fab>
+      <button (click)="confirmerAccepterResidence()" style="background-color: #28a745!important;" mat-fab>ffff
       <i class="pi pi-save" style="font-size: 30px; color: white;"> </i>
       </button>
       <button (click)="showMutationAccepterResidence = false"

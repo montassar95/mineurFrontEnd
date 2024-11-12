@@ -1,5 +1,5 @@
 import { DatePipe } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import { MessageService } from "primeng/api";
 import { CrudEnfantService } from "src/app/demo/service/crud-enfant.service";
@@ -25,7 +25,12 @@ import { CarteHeber } from "src/app/domain/carteHebergement";
 import { RefuseRevue } from "src/app/domain/refuseRevue";
 import { CartePropagation } from "src/app/domain/cartePropagation";
 import { ChangementLieu } from "src/app/domain/changementLieu";
-import { CalculeAffaireDto } from "src/app/domain/calculeAffaireDto";
+import { FicheDeDetentionDto } from "src/app/domain/ficheDeDetentionDto";
+import { ActivatedRoute } from "@angular/router";
+import { DetentionService } from "src/app/demo/service/detention.service";
+import { AffaireService } from "src/app/demo/service/affaire.service";
+import { DocumentService } from "src/app/demo/service/document.service";
+import { RapportService } from "src/app/demo/service/rapport.service";
 
 @Component({
   selector: "app-more-informaton",
@@ -33,13 +38,19 @@ import { CalculeAffaireDto } from "src/app/domain/calculeAffaireDto";
   styleUrls: ["./more-informaton.component.scss"],
 })
 export class MoreInformatonComponent implements OnInit {
+  currentUser: any;
   constructor(
     private crudservice: CrudEnfantService,
+    private detentionService: DetentionService,
+    private documentService: DocumentService,
+    private affaireService: AffaireService,
+    private rapportService: RapportService,
     private formBuilder: FormBuilder,
     private eventService: EventService,
     private token: TokenStorageService,
     public datepipe: DatePipe,
-    private nodeService: NodeService
+    private nodeService: NodeService,
+    private route: ActivatedRoute
   ) {}
 
   swipe() {
@@ -99,112 +110,140 @@ export class MoreInformatonComponent implements OnInit {
   myImgUrl: string = "assets/layout/images//inconnu.png";
   ageEnfant = "";
   ageCon = "";
-  calculeAffaireDto: CalculeAffaireDto;
+  ficheDeDetentionDto: FicheDeDetentionDto;
   affairePrincipale: Affaire | undefined;
   photo = "";
+
+  
+  loading: boolean = true;
+
   ngOnDestroy() {
     window.localStorage.removeItem("idEnfantValide");
   }
 
+  @Input()
+  idEnfant: string;
+
   ngOnInit(): void {
-    let idEnfantValide = window.localStorage.getItem("idEnfantValide");
-
-    if (idEnfantValide) {
-      this.search(idEnfantValide);
+    console.log(this.token.getUser());
+    this.currentUser = this.token.getUser();
+    if (this.idEnfant) {
+      this.search(this.idEnfant);
     }
+    // Récupérer le paramètre 'idEnfant' de l'URL
+    this.route.paramMap.subscribe((params) => {
+      this.idEnfant = params.get("id"); // Récupération du paramètre
+      if (this.idEnfant) {
+        this.search(this.idEnfant); // Appel de la méthode search si nécessaire
+      }
+    });
   }
+  // La variable qui contrôle l'affichage des informations supplémentaires
+  showMoreInfo = false;
 
+  // Fonction qui bascule la visibilité de la section
+  toggleMoreInfo() {
+    this.showMoreInfo = !this.showMoreInfo;
+  }
   returnListAffaire() {
     this.displayAffaire = true;
     this.displayAffaireDetails = false;
   }
 
   search(id: String) {
-    this.crudservice.chercherEnfantAvecVerification(id).subscribe((data) => {
-      this.enfantLocal = data.result.enfant;
-      this.msg = data.result.situation;
-      this.ageEnfant = " " + data.result.age + " ";
-      this.ageCon = data.result.adultDate;
-      this.arrestations = data.result.arrestations;
+    this.detentionService
+      .trouverDetenuAvecSonStatutActuel(
+        id,
+        this.token.getUser().etablissement.id
+      )
+      .subscribe((data) => {
+        this.enfantLocal = data.result.enfant;
+        this.msg = data.result.situation;
+        this.ageEnfant = " " + data.result.age + " ";
+        this.ageCon = data.result.adultDate;
+        this.arrestations = data.result.arrestations;
 
-      this.showArrestation(this.arrestations[0]);
+        this.showArrestation(this.arrestations[0]);
 
-      console.log(this.arrestations[0]);
-    });
+        console.log(this.arrestations[0]);
+      });
   }
   getPhotoById(idEnfant: any, numArr: any) {
     this.photo = "";
-    this.crudservice.getPhotoById(idEnfant, numArr).subscribe((data) => {
-      if (data.result == null) {
-      } else {
-        this.photo = data.result.img;
-      }
-    });
+    this.detentionService
+      .trouverPhotoByIdDetenuEtNumDetention(idEnfant, numArr)
+      .subscribe((data) => {
+        if (data.result == null) {
+        } else {
+          this.photo = data.result.img;
+        }
+      });
   }
 
-  getDocumentByAffaire(affaire: Affaire) {
+  getDocuments(affaire: Affaire, isConsult: boolean = false) {
     this.affaireLocal = affaire;
-    this.crudservice
-      .getDocumentByAffaire(
+
+    this.documentService
+      .trouverDocumentsJudiciairesParDetentionEtAffaire(
         "document",
         affaire.arrestation.arrestationId.idEnfant,
         affaire.arrestation.arrestationId.numOrdinale,
         affaire.numOrdinalAffaire
       )
-      .subscribe((data) => {
-        if (data.result == null) {
-        } else {
-          this.documents = data.result;
-          this.displayAffaire = false;
-          this.displayAffaireDetails = true;
-        }
+      .subscribe({
+        next: (data) => {
+          if (data.result) {
+            this.documents = data.result;
+            this.displayAffaire = isConsult;
+            this.displayAffaireDetails = !isConsult;
+            this.displayAffaireConsult = isConsult;
+          }
+        },
+        error: (err) => {
+          console.error("Error fetching documents:", err);
+          // Optionally, you can add error handling logic here (e.g., show a notification)
+        },
       });
+  }
+
+  // Usage
+  getDocumentByAffaire(affaire: Affaire) {
+    this.getDocuments(affaire);
   }
 
   getDocumentByAffaireConsult(affaire: Affaire) {
-    this.affaireLocal = affaire;
-    this.crudservice
-      .getDocumentByAffaire(
-        "document",
-        affaire.arrestation.arrestationId.idEnfant,
-        affaire.arrestation.arrestationId.numOrdinale,
-        affaire.numOrdinalAffaire
-      )
-      .subscribe((data) => {
-        if (data.result == null) {
-        } else {
-          this.documents = data.result;
-          this.displayAffaireConsult = true;
-        }
-      });
+    this.getDocuments(affaire, true);
   }
 
   showArrestation(arrestation: Arrestation) {
+    this.loading = true; // Début du chargement
     this.selectedIndex = 0;
     this.displayAllArrestation = false;
     this.arrestationLocal = arrestation;
-    this.crudservice
-      .calculerAffaire(
-        "affaire",
+    this.affaireService
+      .obtenirInformationsDeDetentionParIdDetention(
         arrestation.arrestationId.idEnfant,
         arrestation.arrestationId.numOrdinale
       )
       .subscribe((data) => {
-        this.calculeAffaireDto = data.result;
-        this.affaires = this.calculeAffaireDto.affaires;
-        this.arretProvisoires = this.calculeAffaireDto.arretProvisoires;
+        console.log(data.result);
+        this.ficheDeDetentionDto = data.result;
+
+        this.affaires = this.ficheDeDetentionDto.affaires;
+        this.arretProvisoires = this.ficheDeDetentionDto.arretProvisoires;
         this.affairePrincipale = this.trouverAffairePrincipale(this.affaires);
-        this.residences = this.calculeAffaireDto.residences;
+        this.residences = this.ficheDeDetentionDto.residences;
         this.getTitreAccusation(this.affairePrincipale);
-        this.getRecidence(this.calculeAffaireDto.residences[0]);
+        this.getRecidence(this.ficheDeDetentionDto.residences[0]);
         this.displayAffaire = true;
 
         console.log(
           " dateAppelEnfant " +
-            this.calculeAffaireDto.dateAppelEnfant +
+            this.ficheDeDetentionDto.dateAppelEnfant +
             "datDebut " +
-            this.calculeAffaireDto.dateDebut
+            this.ficheDeDetentionDto.dateDebut
         );
+        this.loading = false; // Fin du chargement
       });
 
     this.getPhotoById(
@@ -254,54 +293,46 @@ export class MoreInformatonComponent implements OnInit {
     this.pDFPenaleDTO.numOrdinale =
       this.arrestationLocal.arrestationId.numOrdinale;
 
-    this.crudservice.exportPdf(this.pDFPenaleDTO).subscribe((x) => {
-      const blob = new Blob([x], { type: "application/pdf" });
-      const data = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = data;
-      link.download = "enfant.pdf";
+    this.rapportService
+      .genererFicheDeDetentionPdf(this.pDFPenaleDTO)
+      .subscribe((x) => {
+        const blob = new Blob([x], { type: "application/pdf" });
+        const data = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = data;
+        link.download = "enfant.pdf";
 
-      window.open(
-        data,
-        "_blank",
-        "top=0,left=0,bottom= 0, right= 0,height=100%,width=auto"
-      );
-    });
+        window.open(
+          data,
+          "_blank",
+          "top=0,left=0,bottom= 0, right= 0,height=100%,width=auto"
+        );
+      });
   }
 
   showCarte(row) {
+    console.log("row");
+    console.log(row);
     if (row.typeDocumentActuelle == "CHL") {
       this.changementLieu = row;
       this.showChangementLieu = true;
     } else if (row.typeDocument == "CJ") {
       this.carteRecup = row;
-      this.crudservice.findByCarteRecup(this.carteRecup).subscribe((data) => {
-        this.carteRecup.entitiesAccusation = data.result;
-      });
-      this.crudservice
-        .findArretProvisoireByCarteRecup(this.carteRecup)
-        .subscribe((data) => {
-          this.carteRecup.entitiesArretProvisoire = data.result;
-        });
+      console.log("this.carteRecup");
+      console.log(this.carteRecup);
+
       this.showCarteRecup = true;
     } else if (row.typeDocument == "CD") {
       this.carteDepot = row;
-      this.crudservice
-        .findTitreAccusationbyCarteDepot(this.carteDepot)
-        .subscribe((data) => {
-          this.carteDepot.entitiesTitreAccusation = data.result;
-        });
+
       this.showCarteDepot = true;
     } else if (row.typeDocument == "CP") {
       this.cartePropagation = row;
+
       this.showCartePropagation = true;
     } else if (row.typeDocument == "CH") {
       this.carteHeber = row;
-      this.crudservice
-        .findTitreAccusationbyCarteHeber(this.carteHeber)
-        .subscribe((data) => {
-          this.carteHeber.entitiesTitreAccusation = data.result;
-        });
+
       this.showCarteHeber = true;
     } else if (row.typeDocument == "T") {
       this.transfert = row;

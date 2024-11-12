@@ -1,37 +1,35 @@
-h3{
+/* Styles pour le titre 1 : Dégradé Bleu */
+.tab-title-blue {
+  font-family: 'Amiri', Times, serif;
+  font-weight: bold;
+  font-size: 30px;
+  color: #fff;
+  /* Couleur du texte blanc */
+  background: linear-gradient(90deg, #007bff, #00c6ff);
+  /* Dégradé bleu */
+  padding: 20px;
+  border-radius: 12px;
+  /* Coins arrondis */
+  text-align: center;
+  margin: 0;
+  box-shadow: 0 4px 20px rgba(0, 123, 255, 0.5);
+  /* Ombre douce */
+}
 
-    font-size: 30px; /* Titres de 40 pixels */
-    
-    font-weight: bold;
-    width:200px; 
-     background-color:transparent ;
-  }
-  .example-button-toggle-label {
-    display: inline-block;
-    margin: 16px;
-  }
-  
-  [aria-label=primary] {
-    background-color: rgb(4, 0, 255);
-  }
-  
-  [aria-label=accent] {
-    background-color: aqua;
-  }
-  
-  h1{
-    color: #015ac7 !important;
-         font-family: 'Amiri', Times, serif;        
-     
-        font-weight: bold;
-  }
-  .item{
-    font-family: 'Amiri', Times, serif;
-          font-weight: bold;
-          font-size: 16px;
-          margin-top: 10px;
-          color: #4c566ad0;
-  }
-  b{
-      color: #4a59a3;
-  }
+/* Styles pour le titre 2 : Dégradé Rouge */
+.tab-title-red {
+  font-family: 'Amiri', Times, serif;
+  font-weight: bold;
+  font-size: 30px;
+  color: #fff;
+  /* Couleur du texte blanc */
+  background: linear-gradient(90deg, #ff5733, #ff8c69);
+  /* Dégradé rouge */
+  padding: 20px;
+  border-radius: 12px;
+  /* Coins arrondis */
+  text-align: center;
+  margin: 0;
+  box-shadow: 0 4px 20px rgba(255, 87, 51, 0.5);
+  /* Ombre douce */
+}

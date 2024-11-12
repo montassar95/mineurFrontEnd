@@ -9,60 +9,30 @@ import { TypeAffaire } from "./typeAffaire";
 import { TypeJuge } from "./typeJuge";
 import { Document } from "./document";
 import { Etablissement } from "./etablissement";
-import { Personelle } from "./personelle";
+ 
 import { TitreAccusation } from "./titreAccusation";
+import { User } from "./user";
 export class CarteHeber {
-    
-   
-   
-    documentId :DocumentId;
-    typeDocument :string;
-    dateEmission?:any;
-    dateDepotCarte?:any;
-     
-    textJugement?:any;
-  
+  documentId: DocumentId;
+  typeDocument: string;
+  dateEmission?: any;
+  dateDepotCarte?: any;
 
-    typeAffaire?:TypeAffaire;
-   
-    affaire?:Affaire;
+  textJugement?: any;
 
-   
+  typeAffaire?: TypeAffaire;
 
+  affaire?: Affaire;
 
+  numArrestation?: any;
 
+  etablissement: Etablissement;
+  user: User;
+  // personelle: Personelle;
 
+  dateInsertion?: any;
 
-   
-  
-    
-  numArrestation?:any;
+  entitiesTitreAccusation: TitreAccusation[] = [];
 
-	 
-
- 
- etablissement :Etablissement;
-
- personelle:Personelle;
- 
- dateInsertion?:any;
-  
- entitiesTitreAccusation: TitreAccusation[] = [];
-
-
-    
-    
+  titreAccusations: TitreAccusation[] = [];
 }
- 
- 
-
- 
- 
- 
- 
- 
- 
-
-
- 
-   

@@ -25,7 +25,7 @@
     
    </div>  
    
-   <mat-horizontal-stepper    style="background-color: transparent;"    linear  dir="rtl" #stepper>
+   <mat-horizontal-stepper    style="background-color: rgb(230, 229, 229);"    linear  dir="rtl" #stepper>
 
       
      
@@ -34,7 +34,11 @@
       <mat-step [stepControl]="addForm1"   >
          
          <form [formGroup]="addForm1" >
-           
+            <div *ngIf="enfantOld">
+              
+               <p>Nom: {{ enfantOld.nom }}</p>
+            
+            </div>
             <ng-template matStepLabel>الهوية</ng-template>
             <div class="p-grid">
                <div class="p-col-12 p-md-1">
@@ -346,7 +350,11 @@
    <div class="p-col-12 p-md-8">
       <p-inputMask formControlName="numArrestation" mask="999999" slotChar="------"
          [style]="{'font-weight': '600' ,'font-size': '16px','color': 'black'}" placeholder="عدد الإيقاف"
+         (change)="validerNumeroEcrou()"
          #numArrestationShow></p-inputMask>
+         <div *ngIf="errorMessage" style="color: red;">
+            {{ errorMessage }}
+         </div>
       <!-- <input formControlName="numArrestation" id="input" type="number" pInputText /> -->
    </div>
 
@@ -420,172 +428,192 @@
          </form>
 
 
+<h2 style="text-align: center;">
 
 
-         <h2 style="text-align: center;">
+</h2>
 
-
-         </h2>
-
-         <div>
-            <div style="text-align: center;">
-               <button mat-raised-button matStepperPrevious>
-                  <mat-icon> </mat-icon>رجوع
-               </button>
-               <!-- <button mat-raised-button (click)="stepper.reset()">إعادة ضبط البيانات
+<div>
+   <div style="text-align: center;">
+      <button mat-raised-button matStepperPrevious>
+         <mat-icon> </mat-icon>رجوع
+      </button>
+      <!-- <button mat-raised-button (click)="stepper.reset()">إعادة ضبط البيانات
                         <mat-icon>    </mat-icon></button> -->
-               <!-- <button mat-raised-button (click)="onSubmit()">تسجيل
+      <!-- <button mat-raised-button (click)="onSubmit()">تسجيل
                   <mat-icon>
                   </mat-icon>
                </button> -->
-                
-                  <button mat-raised-button matStepperNext [disabled]="taille/1024 > 100.00">التالى<mat-icon> 
-               </mat-icon></button>
-              
-            </div>
+
+      <button mat-raised-button matStepperNext [disabled]="(taille/1024 > 100.00) && 
+         (addForm3.get('numArrestation')?.invalid || addForm3.get('numArrestation')?.hasError('existing'))">التالى<mat-icon>
+         </mat-icon></button>
+
+   </div>
+
+</div>
+</mat-step>
+<mat-step>
+   <ng-template matStepLabel>
+      <p> التثبت </p>
+
+   </ng-template>
+
+   <div>
+      <!-- *ngIf="update && residenceEdit" -->
+
+      <div class="p-grid">
+
+         <div class="p-col-5">
+
+
+            <label class="enLabel" *ngIf=" residenceEdit">المعــــرف: <span class="d">
+                  {{residenceEdit.arrestation.enfant.id}} </span> </label>
+            <label class="enLabel">الهويــــة: <span class="d"> {{ nomShow.value}} بن {{ nomPereShow.value}} بن
+                  {{nomGrandPereShow.value}} {{ prenomShow.value}}</span> </label>
+
+            <label class="enLabel"> هويــــة الأم: <span class="d">{{ nomMereShow.value}}
+                  {{ prenomMereShow.value}}</span></label>
+            <label class="enLabel" dir="rtl"> تــــاريخ الــــولادة : <span dir="rtl" class="d">{{
+                  dateNaissanceShow.value}}</span></label>
+            <label class="enLabel"> مكان الولادة : <span class="d" dir="rtl">{{ lieuNaissanceShow.value
+                  }}</span></label>
+
+
+            <label class="enLabel"> عدد الأبناء : <span class="d" dir="rtl">{{ nbrEnfantShow.value }}</span></label>
+
+
+
+
+            <label class="enLabel"> الجنسية : <span class="d" dir="rtl">{{ nationaliteLibelleShow.value}}</span></label>
+            <label class="enLabel"> الجنس : <span class="d" dir="rtl">{{ sexeShow.value}}</span></label>
+            <label class="enLabel"> الحالة العائلية : <span class="d" dir="rtl">{{
+                  situationFamilialeLibelleShow.value}}</span></label>
+            <label class="enLabel"> المهنة : <span class="d" dir="rtl">{{ metierLibelleShow.value}}</span></label>
+
+
+
+
+
+
+
 
          </div>
-      </mat-step>
-      <mat-step  >
-         <ng-template  matStepLabel>  <p  > تسجيل </p>
-
-         </ng-template>
-         <div *ngIf="update && residenceEdit" style="margin-bottom: 10px;" >
-            <p-card
-            [style]="{ 'height': 'auto',   'border-radius': '0%',  'margin-left': '5%' , 'margin-right':'5%' ,
-         '-moz-box-shadow': '5px 5px 5px 5px rgba(0, 0, 0, 0.61)',
-         '-webkit-box-shadow': '5px 5px 5px 5px rgba(0, 0, 0, 0.61)',
-         'box-shadow':'5px 5px 5px 5px rgba(0, 0, 0, 0.61)' ,'background-image': 'url(assets/layout/images/cart.jpg)'   }">
-            <p-header>
-   
-              
-            </p-header>
-   
-            <div class="p-grid">
-               
-               <div class="p-col-5">
-              
-                     
-                  <label class="enLabel">المعــــرف: <span class="d"   > {{residenceEdit.arrestation.enfant.id}} </span> </label>
-                  <label class="enLabel">الهويــــة: <span class="d"> {{ nomShow.value}} بن {{ nomPereShow.value}} بن
-                        {{residenceEdit.arrestation.enfant.nomGrandPere}} {{ prenomShow.value}}</span> </label>
-   
-                  <label    class="enLabel"> هويــــة الأم: <span class="d">{{ nomMereShow.value}}
-                        {{ prenomMereShow.value}}</span></label>
-                  <label    class="enLabel" dir="rtl"> تــــاريخ الــــولادة : <span dir="rtl"
-                        class="d">{{ dateNaissanceShow.value}}</span></label>
-                  <label    class="enLabel"   > مكان الولادة : <span
-                           class="d" dir="rtl">{{ lieuNaissanceShow.value  }}</span></label>
+         <div class="p-col-4">
 
 
-                           <label class="enLabel"> عدد الأبناء : <span class="d" dir="rtl">{{ nbrEnfantShow.value }}</span></label>
-                           
+            <label class="enLabel"> عــــدد الإيقــــاف : <span class="d" dir="rtl">{{
+                  numArrestationShow.value}}</span></label>
+            <label class="enLabel" dir="rtl"> بتــــاريــــخ: <span dir="rtl" class="d"> {{ dateEntreLocalShow.value |
+                  date:'dd/MM/yyyy'}}</span></label>
+
+            <label class="enLabel"> الصنف الجزائي: <span dir="rtl" class="d"> {{
+                  classePenaleLibelleShow.value}}</span></label>
+
+            <label class="enLabel">المستوى الدراسي : <span class="d"
+                  dir="rtl">{{niveauEducatifLibelleShow.value}}</span></label>
+            <label class="enLabel"> مكان الإقامة قبل الإيقاف :
+               <span class="d" dir="rtl">
+                  {{adresseShow.value}} {{delegationLibelleShow.value}} {{gouvernoratLibelleShow.value}}
+               </span></label>
+
+
+            <label class="enLabel">شهر : <span class="d" dir="rtl">{{ aliasShow.value}}</span></label>
+
+            <label class="enLabel">الإسم المستعار : <span class="d" dir="rtl">{{ surnomShow.value}}</span></label>
 
 
 
-                 <label    class="enLabel"   > الجنسية : <span
-                              class="d" dir="rtl">{{ nationaliteLibelleShow.value}}</span></label>
-                <label    class="enLabel"   > الجنس : <span
-                              class="d" dir="rtl">{{ sexeShow.value}}</span></label>
-                <label    class="enLabel"   > الحالة العائلية : <span
-                                 class="d" dir="rtl">{{ situationFamilialeLibelleShow.value}}</span></label>
-                <label    class="enLabel"   >   المهنة : <span
-                                       class="d" dir="rtl">{{ metierLibelleShow.value}}</span></label>
-                                      
-                                    
-                                      
-         
+            <label class="enLabel">عدد الإخوة : <span class="d" dir="rtl">{{nombreFreresShow.value}}</span></label>
+
+
+            <label class="enLabel"> الحالة الإجتماعية : <span class="d" dir="rtl">{{
+                  situationSocialLibelleShow.value}}</span></label>
 
 
 
- 
-               </div>
-               <div class="p-col-4">
-   
-   
-                  <label    class="enLabel"   > عــــدد الإيقــــاف : <span
-                     class="d" dir="rtl">{{ numArrestationShow.value}}</span></label>
-                        <label    class="enLabel" dir="rtl"  > بتــــاريــــخ: <span
-                           dir="rtl"   class="d" > {{ dateEntreLocalShow.value  | date:'dd/MM/yyyy'}}</span></label>
-
-                           <label    class="enLabel"   > الصنف الجزائي: <span
-                              dir="rtl"   class="d" > {{ classePenaleLibelleShow.value}}</span></label>
-                 
-                              <label    class="enLabel"   >المستوى الدراسي : <span
-                                 class="d" dir="rtl">{{niveauEducatifLibelleShow.value}}</span></label>
-                                 <label    class="enLabel"   > مكان الإقامة قبل الإيقاف : 
-                                    <span  class="d" dir="rtl"  > 
-                                   {{adresseShow.value}}  {{delegationLibelleShow.value}}   {{gouvernoratLibelleShow.value}}
-                                 </span></label>
-                     
-                              
-                              <label    class="enLabel"   >شهر : <span
-                                 class="d" dir="rtl">{{ aliasShow.value}}</span></label>
-
-                                 <label    class="enLabel"   >الإسم المستعار : <span
-                                    class="d" dir="rtl">{{ surnomShow.value}}</span></label>
-   
+         </div>
+         <div class="p-col-3">
+            <img *ngIf="url" (click)="showImg()" src="{{url}}" class="profile-img-card">
+         </div>
 
 
-                                    <label    class="enLabel"   >عدد الإخوة  : <span
-                                       class="d" dir="rtl">{{nombreFreresShow.value}}</span></label>
-   
-
-                                       <label    class="enLabel"   > الحالة الإجتماعية   : <span
-                                          class="d" dir="rtl">{{ situationSocialLibelleShow.value}}</span></label>
- 
-                                       
- 
-               </div>
-               <div class="p-col-3">
-                  <img *ngIf="url" (click)="showImg()" src="{{url}}" class="profile-img-card">
-               </div>
-               
-               
-            </div>
-            <!-- <div class="button-container">
+      </div>
+      <!-- <div class="button-container">
                <button mat-raised-button color="primary" (click)="charger()">تسجيل</button>
             </div> -->
-             <div style="text-align: center;">
-               <button pButton type="button" label="تسجيــــــــــــــــــــــــــــــــــــــــــــــــــل  "  (click)="onUpdate() "
-               style="margin-bottom:10px; width: 50%;    font-size: large; font-size: 20px; font-family: 'Amiri', Times, serif;"
-               class="ui-button-success"></button>
-            </div>  
-   
-         </p-card>
-         </div>
-         <div  *ngIf="!update" style="  width: 50%; margin-left: auto; margin-right: auto;">
+      <!-- <div style="text-align: center;">
+         <button pButton type="button" label="تسجيــــــــــــــــــــــــــــــــــــــــــــــــــل  "
+            (click)="onUpdate() "
+            style="margin-bottom:10px; width: 50%;    font-size: large; font-size: 20px; font-family: 'Amiri', Times, serif;"
+            class="ui-button-success"></button>
+      </div> -->
+      <div>
+         <div style="text-align: center;">
+            <button mat-raised-button matStepperPrevious>
+               <mat-icon> </mat-icon>رجوع
+            </button>
+            <!-- <button mat-raised-button (click)="stepper.reset()">إعادة ضبط البيانات
+                        <mat-icon>    </mat-icon></button> -->
+            <!-- <button mat-raised-button (click)="onSubmit()">تسجيل
+                  <mat-icon>
+                  </mat-icon>
+               </button> -->
 
-            <button   pButton type="button" label="تسجيل مع إنشاء بطاقة إيواء"  (click)="onSubmit('mineur/Heber')"
-               style="margin-bottom:10px; width: 100%; padding: 0.5em;  font-size: large;"
-               class="ui-button-info" [disabled]="showBeforSave"></button>
-
-            <button   pButton type="button" label="تسجيل مع إنشاء بطاقة إيداع"  (click)="onSubmit('mineur/depot')"
-               style="margin-bottom:10px; width: 100%; padding: 0.5em;  font-size: large;"
-               class="ui-button-success" [disabled]="showBeforSave"></button>
-
-            <button   pButton type="button" label="تسجيل مع إنشاء مضمون حكم"  (click)="onSubmit('mineur/recup')"
-               style="margin-bottom:10px; width: 100%; padding: 0.5em;  font-size: large;"
-               class="ui-button-danger" [disabled]="showBeforSave"></button>
-
-            <button   pButton type="button" label="تسجيل فقط "  (click)="onSubmit('mineur/all')"
-               style="margin-bottom:10px; width: 100%; padding: 0.5em;  font-size: large;" class="ui-button-secondary"
-               (click)="cancel()" [disabled]="showBeforSave"></button>
-
+            <button mat-raised-button matStepperNext [disabled]="taille/1024 > 100.00">التالى<mat-icon>
+               </mat-icon></button>
 
          </div>
-         
-         <div>
-            <div style="text-align: center;">
-               <button mat-raised-button matStepperPrevious>
-                  <mat-icon> </mat-icon>رجوع
-               </button>
-            </div>
-             
 
-         </div>
-      </mat-step>
-   </mat-horizontal-stepper>
+      </div>
+
+   </div>
+</mat-step>
+<mat-step>
+   <ng-template matStepLabel>
+      <p> تسجيل </p>
+
+   </ng-template>
+
+   <div *ngIf="update" style="text-align: center;  width: 50%; margin-left: auto; margin-right: auto;">
+      <button pButton type="button" label="  تسجيــــــــــــــــــــــــــــــــــــــــــــــــــل     "
+         (click)="onUpdate()" style="margin-bottom:10px; width: 100%; padding: 0.5em;  font-size: large;"
+         class="ui-button-success" [disabled]="showBeforSave"></button>
+      <!-- [disabled]="showBeforSave" -->
+
+   </div>
+   <div *ngIf="!update" style="  width: 50%; margin-left: auto; margin-right: auto;">
+
+      <button pButton type="button" label="تسجيل مع إنشاء بطاقة إيواء" (click)="onSubmit('mineur/Heber')"
+         style="margin-bottom:10px; width: 100%; padding: 0.5em;  font-size: large;" class="ui-button-info"
+         [disabled]="showBeforSave"></button>
+
+      <button pButton type="button" label="تسجيل مع إنشاء بطاقة إيداع" (click)="onSubmit('mineur/depot')"
+         style="margin-bottom:10px; width: 100%; padding: 0.5em;  font-size: large;" class="ui-button-success"
+         [disabled]="showBeforSave"></button>
+
+      <button pButton type="button" label="تسجيل مع إنشاء مضمون حكم" (click)="onSubmit('mineur/recup')"
+         style="margin-bottom:10px; width: 100%; padding: 0.5em;  font-size: large;" class="ui-button-danger"
+         [disabled]="showBeforSave"></button>
+
+      <button pButton type="button" label="تسجيل فقط " (click)="onSubmit('mineur/all')"
+         style="margin-bottom:10px; width: 100%; padding: 0.5em;  font-size: large;" class="ui-button-secondary"
+         (click)="cancel()" [disabled]="showBeforSave"></button>
+
+
+   </div>
+
+   <div>
+      <div style="text-align: center;">
+         <button mat-raised-button matStepperPrevious>
+            <mat-icon> </mat-icon>رجوع
+         </button>
+      </div>
+
+
+   </div>
+</mat-step>
+</mat-horizontal-stepper>
 
    <!-- <h2 *ngIf="!(nom && prenom)" style="color: red; font-family: 'Amiri', Times, serif;text-align: center;"> الرجاء منكم  الإسترشاد عن الهوية  بالإسم واللقب قبل عملية الإدراج  </h2> -->
 </div>

@@ -1,0 +1,27 @@
+<div class=" p-grid">
+    
+    
+    <div class="p-col "   >
+        <b class="neons">
+            <span> إدراج وثيقـــــــــة أخـــــــــرى : </span>
+    </b>
+        <p-dropdown (onChange)="onChangeDir($event) " [style]="{'width':'300px'}" [options]="directions"
+            placeholder="    الوثائق" [filter]="true">
+        <ng-template let-gouv pTemplate="item">
+            <div class="item">
+        
+                <div>{{gouv.label }}</div>
+            </div>
+        </ng-template>
+        
+        
+        </p-dropdown>
+       
+
+            <button mat-mini-fab color="primary" style="background-color: white !important; color: green;"
+                 (click)="goTO()">
+                <i class="pi pi-pencil" style="font-size: 30px;"></i>
+            </button>
+             
+    </div>
+</div>

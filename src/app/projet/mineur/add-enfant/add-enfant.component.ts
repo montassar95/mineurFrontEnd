@@ -33,6 +33,8 @@ import { MAT_STEPPER_GLOBAL_OPTIONS } from "@angular/cdk/stepper";
 import { Metier } from "src/app/domain/metier";
 import { SituationSocial } from "src/app/domain/situationSocial";
 import { EnfantAddDTO } from "src/app/domain/enfantAddDTO";
+import { AppConfigService } from "../app-config.service";
+import { DetentionService } from "src/app/demo/service/detention.service";
 
 @Component({
   selector: "app-add-enfant",
@@ -111,8 +113,10 @@ export class AddEnfantComponent implements OnInit {
     private token: TokenStorageService,
     private router: Router,
     private crudservice: CrudEnfantService,
+    private detentionService: DetentionService,
     public datepipe: DatePipe,
-    private imageCompress: NgxImageCompressService
+    private imageCompress: NgxImageCompressService,
+    private appConfigService: AppConfigService
   ) {}
 
   refresh(value: string) {
@@ -132,99 +136,51 @@ export class AddEnfantComponent implements OnInit {
   @Input()
   prenomMere: any;
 
-  initialized = false;
+  @Input()
+  enfantOld: any;
+
+  errorMessage: string | null = null;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.enfantOld) {
+      console.log("ngOnChanges - enfantOld:", this.enfantOld);
+      this.patchForm1WithEnfantData(this.enfantOld);
+    }
+  }
 
   ngOnInit(): void {
-    this.initialized = true;
     this.currentUser = this.token.getUser();
+    this.loadEntities();
 
-    this.crudservice.getlistEntity("nationalite").subscribe((data) => {
-      this.entitiesNationalite = data.result;
-    });
+    this.setupCalendarConfig();
 
-    this.crudservice.getlistEntity("niveauEducatif").subscribe((data) => {
-      this.entitiesNiveauEducatif = data.result;
-    });
+    this.setupYearRange();
+    this.createForms();
+    console.log(this.update);
+    if (this.update) {
+      this.patchFormsWithExistingData(this.residenceEdit.arrestation.enfant);
+      this.fetchChildPhoto();
+      this.updateLocalChildData();
+      this.setStepperIndex();
+    }
+  }
 
-    this.crudservice.getlistEntity("situationFamiliale").subscribe((data) => {
-      this.entitiesSituationFamiliale = data.result;
-    });
+  private setupYearRange(): void {
+    const currentYear = new Date().getFullYear();
+    this.years = `${currentYear - 1}:${currentYear}`;
+  }
+  private setupCalendarConfig(): void {
+    this.calendar_ar = this.appConfigService.calendarConfig;
+  }
 
-    this.crudservice.getlistEntity("gouvernorat").subscribe((data) => {
-      this.entitiesGouvernorat = data.result;
-    });
+  private createForms(): void {
+    this.addForm1 = this.formBuilder.group(this.getForm1Controls());
+    this.addForm2 = this.formBuilder.group(this.getForm2Controls());
+    this.addForm3 = this.formBuilder.group(this.getForm3Controls());
+  }
 
-    this.crudservice.getlistEntity("classePenale").subscribe((data) => {
-      this.entitiesClassePenale = data.result;
-    });
-
-    this.crudservice.getlistEntity("situationSocial").subscribe((data) => {
-      this.entitiesSituationSocial = data.result;
-    });
-    this.crudservice.getlistEntity("metier").subscribe((data) => {
-      this.entitiesMetier = data.result;
-    });
-
-    this.calendar_ar = {
-      closeText: "Fermer",
-      prevText: "Précédent",
-      nextText: "Suivant",
-      currentText: "Aujourd'hui",
-      monthNames: [
-        "  جانفــــي  ",
-
-        "   فيفـــري   ",
-        "  مــــارس  ",
-        "  أفريــــل  ",
-        "  مــــاي  ",
-        "  جــــوان  ",
-        "  جويليــــة  ",
-        "  أوت  ",
-        "  سبتمبــــر  ",
-        "  أكتوبــــر  ",
-        "  نوفمبــــر  ",
-        "  ديسمبــــر  ",
-      ],
-      monthNamesShort: [
-        "janv.",
-        "févr.",
-        "mars",
-        "avr.",
-        "mai",
-        "juin",
-        "juil.",
-        "août",
-        "sept.",
-        "oct.",
-        "nov.",
-        "déc.",
-      ],
-      dayNames: [
-        "dimanche",
-        "lundi",
-        "mardi",
-        "mercredi",
-        "jeudi",
-        "vendredi",
-        "samedi",
-      ],
-      dayNamesShort: ["dim.", "lun.", "mar.", "mer.", "jeu.", "ven.", "sam."],
-      dayNamesMin: ["D", "L", "M", "M", "J", "V", "S"],
-      weekHeader: "Sem.",
-      dateFormat: "dd/mm/yy",
-      firstDay: 1,
-      isRTL: false,
-      showMonthAfterYear: true,
-      yearSuffix: "",
-    };
-
-    this.years =
-      this.years +
-      (new Date().getFullYear() - 5) +
-      ":" +
-      new Date().getFullYear();
-
-    this.addForm1 = this.formBuilder.group({
+  private getForm1Controls() {
+    return {
       nom: ["", Validators.required],
       prenom: ["", Validators.required],
       nomPere: ["", Validators.required],
@@ -236,401 +192,152 @@ export class AddEnfantComponent implements OnInit {
       nationaliteCode: ["", Validators.required],
       nationaliteLibelle: ["", Validators.required],
       sexe: ["", Validators.required],
-    });
-    this.addForm2 = this.formBuilder.group({
+    };
+  }
+
+  private getForm2Controls() {
+    return {
       niveauEducatifCode: ["", Validators.required],
       niveauEducatifLibelle: ["", Validators.required],
-
       situationFamilialeCode: ["", Validators.required],
       situationFamilialeLibelle: ["", Validators.required],
-
       nombreFreres: ["", Validators.required],
-
       gouvernoratCode: ["", Validators.required],
       gouvernoratLibelle: ["", Validators.required],
-
       metierCode: ["", Validators.required],
       metierLibelle: ["", Validators.required],
-
       delegationCode: ["", Validators.required],
       delegationLibelle: ["", Validators.required],
       adresse: ["", Validators.required],
       nbrEnfant: ["", Validators.required],
       situationSocialCode: ["", Validators.required],
       situationSocialLibelle: ["", Validators.required],
-    });
-    this.addForm3 = this.formBuilder.group({
+    };
+  }
+
+  private getForm3Controls() {
+    return {
       classePenaleCode: ["", Validators.required],
       classePenaleLibelle: ["", Validators.required],
-
       surnom: [""],
       alias: [""],
-
       numArrestation: ["", Validators.required],
       dateEntreLocal: ["", Validators.required],
+    };
+  }
+  private patchFormsWithExistingData(enfant: Enfant): void {
+    this.patchForm1WithEnfantData(enfant);
+    this.patchForm2WithEnfantData(enfant);
+    this.patchForm3WithEnfantData(enfant);
+  }
+
+  private patchForm1WithEnfantData(enfant: Enfant): void {
+    this.addForm1.patchValue({
+      nom: enfant.nom,
+      prenom: enfant.prenom,
+      nomPere: enfant.nomPere,
+      nomGrandPere: enfant.nomGrandPere,
+      nomMere: enfant.nomMere,
+      prenomMere: enfant.prenomMere,
+      dateNaissance: this.reglerDateSql(enfant.dateNaissance),
+      lieuNaissance: enfant.lieuNaissance,
+      nationaliteCode: enfant.nationalite.id,
+      nationaliteLibelle: enfant.nationalite.libelle_nationalite,
+      sexe: enfant.sexe,
     });
+  }
 
-    if (this.update) {
-      this.addForm1.patchValue({
-        nom: this.residenceEdit.arrestation.enfant.nom,
-        prenom: this.residenceEdit.arrestation.enfant.prenom,
+  private patchForm2WithEnfantData(enfant: Enfant): void {
+    this.addForm2.patchValue({
+      niveauEducatifCode: enfant.niveauEducatif.id,
+      niveauEducatifLibelle: enfant.niveauEducatif.libelle_niveau_educatif,
+      situationFamilialeCode: enfant.situationFamiliale.id,
+      situationFamilialeLibelle:
+        enfant.situationFamiliale.libelle_situation_familiale,
+      nombreFreres: enfant.nombreFreres,
+      gouvernoratCode: enfant.gouvernorat.id,
+      gouvernoratLibelle: enfant.gouvernorat.libelle_gouvernorat,
+      metierCode: enfant.metier.id,
+      metierLibelle: enfant.metier.libelle_metier,
+      delegationCode: enfant.delegation.id,
+      delegationLibelle: enfant.delegation.libelle_delegation,
+      adresse: enfant.adresse,
+      nbrEnfant: enfant.nbrEnfant,
+      situationSocialCode: enfant.situationSocial?.id,
+      situationSocialLibelle: enfant.situationSocial?.libelle_situation_social,
+    });
+  }
 
-        nomPere: this.residenceEdit.arrestation.enfant.nomPere,
-        nomGrandPere: this.residenceEdit.arrestation.enfant.nomGrandPere,
-        nomMere: this.residenceEdit.arrestation.enfant.nomMere,
-        prenomMere: this.residenceEdit.arrestation.enfant.prenomMere,
-        dateNaissance: this.reglerDateSql(
-          this.residenceEdit.arrestation.enfant.dateNaissance
-        ),
-        lieuNaissance: this.residenceEdit.arrestation.enfant.lieuNaissance,
-        nationaliteCode: this.residenceEdit.arrestation.enfant.nationalite.id,
-        nationaliteLibelle:
-          this.residenceEdit.arrestation.enfant.nationalite.libelle_nationalite,
-        sexe: this.residenceEdit.arrestation.enfant.sexe,
-      });
+  private patchForm3WithEnfantData(enfant: Enfant): void {
+    this.addForm3.patchValue({
+      classePenaleCode: enfant.classePenale.id,
+      classePenaleLibelle: enfant.classePenale.libelle_classe_penale,
+      surnom: enfant.surnom,
+      alias: enfant.alias,
+      numArrestation: this.residenceEdit.numArrestation,
+      dateEntreLocal: new Date(this.residenceEdit.dateEntree),
+    });
+  }
 
-      this.addForm2.patchValue({
-        niveauEducatifCode:
-          this.residenceEdit.arrestation.enfant.niveauEducatif.id,
-        niveauEducatifLibelle:
-          this.residenceEdit.arrestation.enfant.niveauEducatif
-            .libelle_niveau_educatif,
-
-        situationFamilialeCode:
-          this.residenceEdit.arrestation.enfant.situationFamiliale.id,
-        situationFamilialeLibelle:
-          this.residenceEdit.arrestation.enfant.situationFamiliale
-            .libelle_situation_familiale,
-
-        nombreFreres: this.residenceEdit.arrestation.enfant.nombreFreres,
-
-        metierCode: this.residenceEdit.arrestation.enfant?.metier?.id,
-        metierLibelle:
-          this.residenceEdit.arrestation.enfant?.metier?.libelle_metier,
-
-        gouvernoratCode: this.residenceEdit.arrestation.enfant.gouvernorat.id,
-        gouvernoratLibelle:
-          this.residenceEdit.arrestation.enfant.gouvernorat.libelle_gouvernorat,
-
-        delegationCode: this.residenceEdit.arrestation.enfant.delegation.id,
-        delegationLibelle:
-          this.residenceEdit.arrestation.enfant.delegation.libelle_delegation,
-        adresse: this.residenceEdit.arrestation.enfant.adresse,
-        nbrEnfant: this.residenceEdit.arrestation.enfant.nbrEnfant,
-        situationSocialCode:
-          this.residenceEdit.arrestation.enfant?.situationSocial?.id,
-        situationSocialLibelle:
-          this.residenceEdit.arrestation.enfant?.situationSocial
-            ?.libelle_situation_social,
-      });
-
-      this.addForm3.patchValue({
-        classePenaleCode: this.residenceEdit.arrestation.enfant.classePenale.id,
-        classePenaleLibelle:
-          this.residenceEdit.arrestation.enfant.classePenale
-            .libelle_classe_penale,
-
-        surnom: this.residenceEdit.arrestation.enfant.surnom,
-        alias: this.residenceEdit.arrestation.enfant.alias,
-
-        numArrestation: this.residenceEdit.numArrestation,
-        dateEntreLocal: new Date(this.residenceEdit.dateEntree),
-      });
-      //   this.url = this.residenceEdit.arrestation.enfant.img;
-      this.getPhotoById(
-        this.residenceEdit.arrestation.arrestationId.idEnfant,
-        this.residenceEdit.arrestation.arrestationId.numOrdinale
-      );
-      if (this.myStepper) {
-        this.myStepper.selectedIndex = 0;
-      }
-      this.enfantLocal.delegation =
-        this.residenceEdit.arrestation.enfant.delegation;
-      this.enfantLocal.gouvernorat =
-        this.residenceEdit.arrestation.enfant.gouvernorat;
-      this.enfantLocal.nationalite =
-        this.residenceEdit.arrestation.enfant.nationalite;
-      this.enfantLocal.niveauEducatif =
-        this.residenceEdit.arrestation.enfant.niveauEducatif;
-      this.enfantLocal.situationFamiliale =
-        this.residenceEdit.arrestation.enfant.situationFamiliale;
-      this.enfantLocal.classePenale =
-        this.residenceEdit.arrestation.enfant.classePenale;
-      this.enfantLocal.situationSocial =
-        this.residenceEdit.arrestation.enfant.situationSocial;
-      this.enfantLocal.metier = this.residenceEdit.arrestation.enfant.metier;
+  private fetchChildPhoto(): void {
+    this.getPhotoById(
+      this.residenceEdit.arrestation.arrestationId.idEnfant,
+      this.residenceEdit.arrestation.arrestationId.numOrdinale
+    );
+  }
+  private setStepperIndex(): void {
+    if (this.myStepper) {
+      this.myStepper.selectedIndex = 0;
     }
+  }
+  private updateLocalChildData(): void {
+    const enfant = this.residenceEdit.arrestation.enfant;
+
+    // Mettez à jour les propriétés de l'instance existante d'enfantLocal
+    this.enfantLocal.delegation = enfant.delegation;
+    this.enfantLocal.gouvernorat = enfant.gouvernorat;
+    this.enfantLocal.nationalite = enfant.nationalite;
+    this.enfantLocal.niveauEducatif = enfant.niveauEducatif;
+    this.enfantLocal.situationFamiliale = enfant.situationFamiliale;
+    this.enfantLocal.classePenale = enfant.classePenale;
+    this.enfantLocal.situationSocial = enfant.situationSocial;
+    this.enfantLocal.metier = enfant.metier;
   }
 
   cancel() {
     this.display = false;
   }
 
-  // ok(){
-
-  //   console.log(this.nom)
-  //       console.log(this.prenom)
-  //       console.log(this.nomPere)
-  //       console.log(this.nomGrandPere)
-  //       console.log(this.nomMere)
-  //       console.log(this.prenomMere)
-  //        this.addForm1.get('nom').setValue(this.nom);
-  //        this.addForm1.get('prenom').setValue(this.prenom);
-  //        this.addForm1.get('nomPere').setValue(this.nomPere);
-  //        this.addForm1.get('nomGrandPere').setValue(this.nomGrandPere);
-  //        this.addForm1.get('nomMere').setValue(this.nomMere);
-  //        this.addForm1.get('prenomMere').setValue(this.prenomMere);
-  // }
-
-  charger() {
-    let arrestation = new Arrestation();
-    let arrestationId = new ArrestationId();
-    let residenceId = new ResidenceId();
-    let residence = new Residence();
-    let enfantAddDTO = new EnfantAddDTO();
-
-    this.enfantSubmit = this.addForm1.value;
-    this.enfantSubmit.id = this.residenceEdit.arrestation.enfant.id;
-    console.log(
-      this.addForm1.get("dateNaissance").value +
-        " " +
-        "aaaazzzzzzzzzzzzzzzzzzzz"
-    );
-    this.enfantSubmit.dateNaissance = this.datepipe.transform(
-      this.reglerDate(this.addForm1.get("dateNaissance").value),
-      "yyyy-MM-dd"
-    );
-
-    this.enfantSubmit.nombreFreres = this.addForm2.get("nombreFreres").value;
-    this.enfantSubmit.adresse = this.addForm2.get("adresse").value;
-    this.enfantSubmit.surnom = this.addForm3.get("surnom").value;
-    this.enfantSubmit.alias = this.addForm3.get("alias").value;
-    this.enfantSubmit.delegation = this.enfantLocal.delegation;
-    this.enfantSubmit.gouvernorat = this.enfantLocal.gouvernorat;
-    this.enfantSubmit.nationalite = this.enfantLocal.nationalite;
-    this.enfantSubmit.niveauEducatif = this.enfantLocal.niveauEducatif;
-    this.enfantSubmit.situationFamiliale = this.enfantLocal.situationFamiliale;
-    this.enfantSubmit.classePenale = this.enfantLocal.classePenale;
-    this.enfantSubmit.situationSocial = this.enfantLocal.situationSocial;
-    this.enfantSubmit.metier = this.enfantLocal.metier;
-
-    enfantAddDTO.enfant = this.enfantSubmit;
-    if (this.url) {
-      this.enfantSubmit.img = this.url;
-    } else {
-      this.enfantSubmit.img = this.residenceEdit.arrestation.enfant.img;
+  validerNumeroEcrou() {
+    const numeroEcrou = this.addForm3.get("numArrestation")?.value;
+    const etablissementId =
+      this.token?.getUser()?.etablissement?.id;
+    if (this.update || !numeroEcrou || !etablissementId) {
+      return; // Sortir de la méthode
     }
-    console.log(this.enfantSubmit);
-    // this.currentUser.personelle.etablissement.id
 
-    if (this.enfantSubmit.img) {
-      this.crudservice.updateEnfantDTO(this.enfantSubmit).subscribe((data) => {
-        // this.enfantSubmit.img = this.imgResultAfterCompress;
-        console.log(data.message);
-
-        arrestationId = this.residenceEdit.arrestation.arrestationId;
-        arrestation.arrestationId = arrestationId;
-        console.log(this.addForm3.get("dateEntreLocal").value);
-        arrestation.date = this.datepipe.transform(
-          new Date(this.addForm3.get("dateEntreLocal").value),
-          "yyyy-MM-dd"
-        );
-
-        arrestation.enfant = data.result;
-
-        arrestation.numAffairePricipale =
-          this.residenceEdit.arrestation.numAffairePricipale;
-
-        residenceId = this.residenceEdit.residenceId;
-        residence.etablissement = this.residenceEdit.etablissement;
-        this.crudservice
-          .updateLigne("arrestation", arrestation)
-          .subscribe((data) => {
-            residence.residenceId = residenceId;
-            residence.arrestation = data.result;
-            residence.numArrestation =
-              this.addForm3.get("numArrestation").value;
-            residence.dateEntree = data.result.date;
-
-            this.dateEntreLocal = data.result.date;
-            this.numOrdinale = data.result.arrestationId.numOrdinale;
-
-            this.crudservice
-              .updateLigne("residence", residence)
-              .subscribe((data) => {
-                this.refresh(this.enfantSubmit.id);
-              });
-          });
-      });
-    } else {
-      alert("الرجاء إضافة صورة");
-    }
+    this.detentionService
+      .validerNumeroEcrou(numeroEcrou, etablissementId)
+      .subscribe(
+        (data) => {
+          if (data.result) {
+            this.addForm3.get("numArrestation")?.setErrors({ existing: true });
+            this.errorMessage = "هذا العدد موجود حاليا ."; // Message d'erreur
+          } else {
+            this.addForm3.get("numArrestation")?.setErrors(null); // Réinitialiser les erreurs
+            this.errorMessage = null; // Aucun message d'erreur
+          }
+        },
+        (error) => {
+          console.error("Erreur lors de la validation:", error);
+          this.errorMessage =
+            "Une erreur s'est produite lors de la validation.";
+        }
+      );
   }
 
-  // onSubmit(path) {
-  //   this.showBeforSave = true;
-
-  //   this.enfantSubmit = this.addForm1.value;
-  //   this.enfantSubmit.dateNaissance = this.datepipe.transform(
-  //     this.reglerDate(this.addForm1.get("dateNaissance").value),
-  //     "yyyy-MM-dd"
-  //   );
-  //   this.enfantSubmit.nombreFreres = this.addForm2.get("nombreFreres").value;
-  //   this.enfantSubmit.adresse = this.addForm2.get("adresse").value;
-  //   this.enfantSubmit.surnom = this.addForm3.get("surnom").value;
-  //   this.enfantSubmit.alias = this.addForm3.get("alias").value;
-  //   this.enfantSubmit.delegation = this.enfantLocal.delegation;
-  //   this.enfantSubmit.gouvernorat = this.enfantLocal.gouvernorat;
-  //   this.enfantSubmit.nationalite = this.enfantLocal.nationalite;
-  //   this.enfantSubmit.niveauEducatif = this.enfantLocal.niveauEducatif;
-  //   this.enfantSubmit.situationFamiliale = this.enfantLocal.situationFamiliale;
-  //   this.enfantSubmit.classePenale = this.enfantLocal.classePenale;
-  //   this.enfantSubmit.situationSocial = this.enfantLocal.situationSocial;
-  //   this.enfantSubmit.metier = this.enfantLocal.metier;
-  //   this.enfantSubmit.img = this.imgResultAfterCompress;
-
-  //   this.crudservice
-  //     .addEnfant(
-  //       this.currentUser.personelle.etablissement.id,
-  //       this.enfantSubmit
-  //     )
-  //     .subscribe((data) => {
-  //       if (data.result != null) {
-  //         this.enfantSubmit = data.result;
-  //         this.arrestationId.idEnfant = this.enfantSubmit.id;
-  //         this.arrestationId.numOrdinale = 1;
-
-  //         this.arrestation.arrestationId = this.arrestationId;
-  //         this.arrestation.date = this.datepipe.transform(
-  //           this.addForm3.get("dateEntreLocal").value,
-  //           "yyyy-MM-dd"
-  //         );
-  //         this.arrestation.enfant = this.enfantSubmit;
-  //         this.arrestation.numAffairePricipale = "0";
-
-  //         this.crudservice
-  //           .createLigne("arrestation", this.arrestation)
-  //           .subscribe((data) => {
-  //             if (data.result != null) {
-  //               this.arrestation = data.result;
-  //               this.residenceId.idEnfant = this.enfantSubmit.id;
-  //               this.residenceId.numOrdinaleArrestation =
-  //                 this.arrestation.arrestationId.numOrdinale;
-  //               this.residenceId.numOrdinaleResidence = 1;
-
-  //               this.residence.residenceId = this.residenceId;
-  //               this.residence.arrestation = this.arrestation;
-  //               this.residence.numArrestation =
-  //                 this.addForm3.get("numArrestation").value;
-  //               this.residence.dateEntree = this.arrestation.date;
-  //               this.residence.etablissement =
-  //                 this.currentUser.personelle.etablissement;
-  //               // this.residence.numArrestation = this.numArrestation;
-
-  //               this.dateEntreLocal = this.arrestation.date;
-  //               this.numOrdinale = this.arrestation.arrestationId.numOrdinale;
-  //               this.arrestationValide = this.arrestation;
-
-  //               this.crudservice
-  //                 .createLigne("residence", this.residence)
-  //                 .subscribe((data) => {
-  //                   if (data.result != null) {
-  //                     this.residence = data.result;
-  //                     this.centre =
-  //                       data.result.etablissement.libelle_etablissement;
-  //                     this.numArrestation = data.result.numArrestation;
-  //                     this.path = path;
-  //                     setTimeout(() => {
-  //                       if (
-  //                         data.result != null &&
-  //                         this.arrestationValide != null
-  //                       ) {
-  //                         this.display = true;
-  //                       } else {
-  //                         alert("Montassar");
-  //                       }
-  //                     }, 500);
-  //                   } else {
-  //                     console.error("errer save in spring residance");
-  //                   }
-  //                 });
-  //             } else {
-  //               console.error("errer save in spring arrestation");
-  //             }
-  //           });
-  //       } else {
-  //         console.error("errer save in spring enfant");
-  //       }
-  //     });
-  // }
-
-  // async onSubmit(path) {
-  //   let enfantAddDTO = new EnfantAddDTO();
-  //   // information pour l'enfant
-  //   this.enfantSubmit = this.addForm1.value;
-  //   this.enfantSubmit.dateNaissance = this.datepipe.transform(
-  //     this.reglerDate(this.addForm1.get("dateNaissance").value),
-  //     "yyyy-MM-dd"
-  //   );
-  //   this.enfantSubmit.nombreFreres = this.addForm2.get("nombreFreres").value;
-  //   this.enfantSubmit.adresse = this.addForm2.get("adresse").value;
-  //   this.enfantSubmit.surnom = this.addForm3.get("surnom").value;
-  //   this.enfantSubmit.alias = this.addForm3.get("alias").value;
-  //   this.enfantSubmit.delegation = this.enfantLocal.delegation;
-  //   this.enfantSubmit.gouvernorat = this.enfantLocal.gouvernorat;
-  //   this.enfantSubmit.nationalite = this.enfantLocal.nationalite;
-  //   this.enfantSubmit.niveauEducatif = this.enfantLocal.niveauEducatif;
-  //   this.enfantSubmit.situationFamiliale = this.enfantLocal.situationFamiliale;
-  //   this.enfantSubmit.classePenale = this.enfantLocal.classePenale;
-  //   this.enfantSubmit.situationSocial = this.enfantLocal.situationSocial;
-  //   this.enfantSubmit.metier = this.enfantLocal.metier;
-
-  //   enfantAddDTO.enfant = this.enfantSubmit;
-
-  //   // information pour l'image
-
-  //   enfantAddDTO.img = this.url;
-
-  //   // information pour l'arrestation
-
-  //   this.arrestation.arrestationId = this.arrestationId;
-  //   this.arrestation.date = this.datepipe.transform(
-  //     this.addForm3.get("dateEntreLocal").value,
-  //     "yyyy-MM-dd"
-  //   );
-  //   this.arrestation.numAffairePricipale = "0";
-
-  //   enfantAddDTO.arrestation = this.arrestation;
-  //   // information pour la residence
-  //   this.residence.numArrestation = this.addForm3.get("numArrestation").value;
-  //   this.residence.dateEntree = this.arrestation.date;
-  //   this.residence.etablissement = this.currentUser.personelle.etablissement;
-
-  //   enfantAddDTO.residence = this.residence;
-  //   enfantAddDTO.etablissement = this.currentUser.personelle.etablissement;
-
-  //   // console.log(this.residenceEdit);
-  //   //    enfantAddDTO.enfant.id =
-  //   //     this.residenceEdit.arrestation.enfant.id;
-  //   // enfantAddDTO.arrestation.arrestationId =
-  //   //   this.residenceEdit.arrestation.arrestationId;
-  //   // enfantAddDTO.arrestation.enfant = this.residenceEdit.arrestation.enfant;
-  //   // enfantAddDTO.residence.residenceId = this.residenceEdit.residenceId;
-
-  // //  this.crudservice.addEnfantDTO(enfantAddDTO).subscribe((data) => {
-  //     // if (data.result != null) {
-  //     //   console.log(data.result);
-  //     // } else {
-  //     //   this.service.add({
-  //     //     key: "tst",
-  //     //     severity: "error",
-  //     //     summary: ".   خطأ    ",
-  //     //     detail: "تثبت   رمز    ",
-  //     //   });
-  //     // }
-  //  // });
-  // }
   async creerEnfantAssDTO(): Promise<EnfantAddDTO> {
+    this.showBeforSave = true;
     let enfantAddDTO = new EnfantAddDTO();
 
     // Informations sur l'enfant
@@ -639,8 +346,6 @@ export class AddEnfantComponent implements OnInit {
       this.reglerDate(this.addForm1.get("dateNaissance").value),
       "yyyy-MM-dd"
     );
-
-    this.showBeforSave = true;
 
     this.enfantSubmit = this.addForm1.value;
     this.enfantSubmit.dateNaissance = this.datepipe.transform(
@@ -678,10 +383,10 @@ export class AddEnfantComponent implements OnInit {
     let residence = new Residence();
     residence.numArrestation = this.addForm3.get("numArrestation").value;
     residence.dateEntree = arrestation.date;
-    residence.etablissement = this.currentUser.personelle.etablissement;
+    residence.etablissement = this.currentUser.etablissement;
     enfantAddDTO.residence = residence;
 
-    enfantAddDTO.etablissement = this.currentUser.personelle.etablissement;
+    enfantAddDTO.etablissement = this.currentUser.etablissement;
     if (this.residenceEdit) {
       console.error(this.residenceEdit);
       enfantAddDTO.enfant.id = this.residenceEdit.arrestation.enfant.id;
@@ -708,19 +413,9 @@ export class AddEnfantComponent implements OnInit {
   }
   async sauvegarderEnfant(enfantAddDTO: EnfantAddDTO): Promise<void> {
     try {
-      const data = await this.crudservice
-        .addEnfantDTO(enfantAddDTO)
+      const data = await this.detentionService
+        .creerAdmissionDetenu(enfantAddDTO)
         .toPromise();
-      // if (data.result != null) {
-      //   console.log(data.result);
-      // } else {
-      //   this.service.add({
-      //     key: "tst",
-      //     severity: "error",
-      //     summary: ".   خطأ    ",
-      //     detail: "تثبت   رمز    ",
-      //   });
-      // }
 
       if (data.result != null) {
         this.residence = data.result;
@@ -738,13 +433,13 @@ export class AddEnfantComponent implements OnInit {
       } else {
         console.log(data);
         console.error(
-          "erreur lors de la sauvegarde de la résidence dans Spring"
+          "erreur lors de la sauvegarde de la résidence dans Spring 1 "
         );
       }
     } catch (error) {
       // Gérer les erreurs de sauvegarde
       console.error(
-        "Une erreur s'est produite lors de la sauvegarde de l'enfant :",
+        "Une erreur s'est produite lors de la sauvegarde de l'enfant : 2",
         error
       );
       // Afficher un message d'erreur à l'utilisateur si nécessaire
@@ -752,8 +447,8 @@ export class AddEnfantComponent implements OnInit {
   }
   async modifierEnfant(enfantAddDTO: EnfantAddDTO): Promise<void> {
     try {
-      const data = await this.crudservice
-        .updateEnfantDTO(enfantAddDTO)
+      const data = await this.detentionService
+        .mettreAJourAdmissionDetenu(enfantAddDTO)
         .toPromise();
 
       if (data.result != null) {
@@ -761,13 +456,13 @@ export class AddEnfantComponent implements OnInit {
       } else {
         console.log(data);
         console.error(
-          "erreur lors de la sauvegarde de la résidence dans Spring"
+          "erreur lors de la sauvegarde de la résidence dans Spring 3"
         );
       }
     } catch (error) {
       // Gérer les erreurs de sauvegarde
       console.error(
-        "Une erreur s'est produite lors de la sauvegarde de l'enfant :",
+        "Une erreur s'est produite lors de la sauvegarde de l'enfant : 4",
         error
       );
       // Afficher un message d'erreur à l'utilisateur si nécessaire
@@ -827,7 +522,7 @@ export class AddEnfantComponent implements OnInit {
             summary: ".   خطأ    ",
             detail: "تثبت من رمز الجنسية  ",
           });
-          this.addForm2.get("nationaliteLibelle").setValue("");
+          this.addForm1.get("nationaliteLibelle").setValue("");
         }
       });
   }
@@ -1035,7 +730,7 @@ export class AddEnfantComponent implements OnInit {
   }
   showListDelegation() {
     this.crudservice
-      .getDelegationByGouv(
+      .trouverDelegationsParGouvernorat(
         "delegation",
         this.addForm2.get("gouvernoratCode").value
       )
@@ -1046,7 +741,7 @@ export class AddEnfantComponent implements OnInit {
   }
   getDelegation() {
     this.crudservice
-      .findByGouvernorat(
+      .trouverDelegationParIdDelegationEtIdGouvernorat(
         "delegation",
         this.addForm2.get("gouvernoratCode").value,
         this.addForm2.get("delegationCode").value
@@ -1224,29 +919,7 @@ export class AddEnfantComponent implements OnInit {
   }
 
   img: string;
-  // onFileChanged(event) {
-  //   console.log(event.target.files);
-  //   this.files = event.target.files;
 
-  //   if (this.files.length === 0) {
-  //     return;
-  //   }
-
-  //   const mimeType = this.files[0].type;
-  //   if (mimeType.match(/image\/*/) == null) {
-  //     return;
-  //   }
-
-  //   const reader = new FileReader();
-  //   this.imagePath = this.files;
-  //   reader.readAsDataURL(this.files[0]);
-  //   reader.onload = async (_event) => {
-  //     this.url = reader.result;
-  //     const compressedImage = await this.compressFile(this.url);
-
-  //     console.log("compressedImage :", compressedImage);
-  //   };
-  // }
   reglerDate(date) {
     console.log(this.addForm1.get("dateNaissance").value);
     let words = date.split("/");
@@ -1378,33 +1051,30 @@ export class AddEnfantComponent implements OnInit {
   }
   getPhotoById(idEnfant: any, numArr: any) {
     this.url = "";
-    this.crudservice.getPhotoById(idEnfant, numArr).subscribe((data) => {
-      if (data.result == null) {
-      } else {
-        this.url = data.result.img;
-      }
-    });
+    this.detentionService
+      .trouverPhotoByIdDetenuEtNumDetention(idEnfant, numArr)
+      .subscribe((data) => {
+        if (data.result == null) {
+        } else {
+          this.url = data.result.img;
+        }
+      });
   }
-  // this.taille = image.length;
-  //   while (this.taille >= maxSizeInBytes) {
-  //     // Compresser l'image avec la qualité actuelle
-  //     compressedImage = await this.imageCompress.compressFile(
-  //       image,
-  //       -1,
-  //       roti,
-  //       quality
-  //     );
 
-  //     if (compressedImage) {
-  //       // Vérifier la taille de l'image compressée
-  //       this.taille = compressedImage.length;
-  //       // Réduire la qualité pour compresser davantage l'image
-  //       quality -= 10; // Réduire de 0.1 à chaque itération
-  //       roti -= 10;
-  //     } else {
-  //       // Gérer le cas où la compression échoue
-  //       console.error("La compression de l'image a échoué.");
-  //       return; // Sortir de la fonction ou gérer l'erreur selon le contexte de votre application
-  //     }
-  //   }
+  private loadEntities() {
+    this.appConfigService.getAllEntities().subscribe(
+      (entities) => {
+        this.entitiesNationalite = entities.nationalite;
+        this.entitiesNiveauEducatif = entities.niveauEducatif;
+        this.entitiesSituationFamiliale = entities.situationFamiliale;
+        this.entitiesGouvernorat = entities.gouvernorat;
+        this.entitiesClassePenale = entities.classePenale;
+        this.entitiesSituationSocial = entities.situationSocial;
+        this.entitiesMetier = entities.metier;
+      },
+      (error) => {
+        console.error("Erreur lors du chargement des entités:", error);
+      }
+    );
+  }
 }

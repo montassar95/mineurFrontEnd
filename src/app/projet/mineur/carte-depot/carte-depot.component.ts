@@ -34,6 +34,12 @@ import { AccusationCarteDepot } from "src/app/domain/accusationCarteDepot";
 import { Router } from "@angular/router";
 import { TypeTribunal } from "src/app/domain/typeTribunal";
 import { Gouvernorat } from "src/app/domain/gouvernorat";
+import { AffaireData } from "src/app/domain/affaireData";
+import { VerifierAffaire } from "src/app/domain/verifierAffaire";
+import { AppConfigService } from "../app-config.service";
+import { DocumentService } from "src/app/demo/service/document.service";
+import { AffaireService } from "src/app/demo/service/affaire.service";
+import { DetentionService } from "src/app/demo/service/detention.service";
 
 @Component({
   selector: "app-carte-depot",
@@ -44,8 +50,8 @@ import { Gouvernorat } from "src/app/domain/gouvernorat";
 export class CarteDepotComponent implements OnInit, OnDestroy {
   alertTypeAffaire = "";
   refresh() {
-    this.crudservice
-      .getDocumentByArrestation(
+    this.documentService
+      .calculerNombreDocumentsJudiciairesParDetention(
         this.arrestation.arrestationId.idEnfant,
         this.arrestation.arrestationId.numOrdinale
       )
@@ -130,31 +136,12 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
   typeTribunalSwich: SelectItem[];
   gouvernoratSwich: SelectItem[];
   typeAffaireSwich: SelectItem[];
-  directions = [
-    { label: "  بطاقات الإيواء    ", value: "/mineur/docHeber" },
-    { label: "    بطاقات الإيداع ", value: "/mineur/docDepot" },
-
-    { label: "     مضامين الأحكام    ", value: "/mineur/docRecup" },
-    { label: "     إحالة قضية    ", value: "/mineur/Transfert" },
-    { label: "       إيقاف تنفيذ  ", value: "/mineur/ArreterLexecution" },
-
-    {
-      label: "      طعن النيابة بالاستئناف       ",
-      value: "/mineur/AppelParquet",
-    },
-    { label: "         مراجعة     ", value: "/mineur/Revue" },
-    {
-      label: "          طعن الطفل بالاستئناف      ",
-      value: "/mineur/AppelEnfant",
-    },
-    { label: "   الفرارات   ", value: "/mineur/echappes" },
-    { label: "  النقل  ", value: "/mineur/mutation" },
-    { label: "   إجراءات السراح  ", value: "/mineur/liberation" },
-
-    { label: "  الوفاة  ", value: "/mineur/deces" },
-  ];
+  affaires: Affaire[];
   constructor(
     private crudservice: CrudEnfantService,
+    private documentService: DocumentService,
+    private affaireService: AffaireService,
+    private detentionService: DetentionService,
     private formBuilder: FormBuilder,
     private router: Router,
     private eventService: EventService,
@@ -162,7 +149,8 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
     private token: TokenStorageService,
     private nodeService: NodeService,
     private service: MessageService,
-    private breadcrumbService: BreadcrumbService
+    private breadcrumbService: BreadcrumbService,
+    private appConfigService: AppConfigService
   ) {
     this.breadcrumbService.setItems([
       { label: "الإستقبال", routerLink: ["/"] },
@@ -194,19 +182,11 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
       });
     });
 
-    this.crudservice
-      .findDocumentById(this.carteDepot.documentId)
+    this.documentService
+      .trouverDocumentJudiciaireParId(this.carteDepot.documentId)
       .subscribe((data) => {
-        console.log(
-          "======================================================================================="
-        );
-        console.log(data.result);
-
-        console.log(
-          "======================================================================================="
-        );
-
         this.carteDepot = data.result;
+        this.entitiesTitreAccusation = this.carteDepot.titreAccusations;
 
         this.numOrdinalDoc = this.carteDepot.documentId.numOrdinalDoc;
         this.numDocumentByAffaire =
@@ -228,8 +208,6 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
 
         this.tribunal1Objet = this.carteDepot.affaire.tribunal;
       });
-
-    //  this.entitiesTitreAccusation=[];
   }
   ngOnDestroy() {
     window.localStorage.removeItem("idValide");
@@ -266,58 +244,7 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
     this.showAllTypeTribunal();
     this.showAllTypeAffaire();
 
-    this.calendar_ar = {
-      closeText: "Fermer",
-      prevText: "Précédent",
-      nextText: "Suivant",
-      currentText: "Aujourd'hui",
-      monthNames: [
-        "  جانفــــي  ",
-
-        "   فيفـــري   ",
-        "  مــــارس  ",
-        "  أفريــــل  ",
-        "  مــــاي  ",
-        "  جــــوان  ",
-        "  جويليــــة  ",
-        "  أوت  ",
-        "  سبتمبــــر  ",
-        "  أكتوبــــر  ",
-        "  نوفمبــــر  ",
-        "  ديسمبــــر  ",
-      ],
-      monthNamesShort: [
-        "janv.",
-        "févr.",
-        "mars",
-        "avr.",
-        "mai",
-        "juin",
-        "juil.",
-        "août",
-        "sept.",
-        "oct.",
-        "nov.",
-        "déc.",
-      ],
-      dayNames: [
-        "dimanche",
-        "lundi",
-        "mardi",
-        "mercredi",
-        "jeudi",
-        "vendredi",
-        "samedi",
-      ],
-      dayNamesShort: ["dim.", "lun.", "mar.", "mer.", "jeu.", "ven.", "sam."],
-      dayNamesMin: ["D", "L", "M", "M", "J", "V", "S"],
-      weekHeader: "Sem.",
-      dateFormat: "dd/mm/yy",
-      firstDay: 1,
-      isRTL: false,
-      showMonthAfterYear: true,
-      yearSuffix: "",
-    };
+    this.calendar_ar = this.appConfigService.calendarConfig;
   }
   saveTitreAccusation(titreAccusation: TitreAccusation) {
     console.log(titreAccusation);
@@ -343,112 +270,132 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
 
     //window.location.reload();
   }
+  //------------------------------------------------------------enfant-----------------------------------------------------------------------------------------------
 
+  allowNewAddArrestation = false;
+  allowNewCarte = false;
+  alerte: boolean;
   search(id: String) {
-    this.crudservice.getLigneById("enfant", id).subscribe((data) => {
-      this.enfantLocal = data.result;
-      this.years = "";
-      this.years =
-        this.years +
-        (new Date(this.enfantLocal?.dateNaissance).getFullYear() + 13) +
-        ":" +
-        new Date().getFullYear();
-      this.crudservice
-        .getLigneById("deces", this.enfantLocal.id)
-        .subscribe((data) => {
-          if (data.result == null) {
-            this.crudservice
-              .findByIdEnfantAndResidenceTrouverNull("echappes", id)
-              .subscribe((data) => {
-                if (data.result == null) {
-                  this.crudservice
-                    .findByIdEnfantAndStatut0("arrestation", id)
-                    .subscribe((data) => {
-                      this.arrestation = data.result;
+    this.detentionService
+      .trouverDetenuAvecSonStatutActuel(
+        id,
+        this.token.getUser().etablissement.id
+      )
+      .subscribe((data) => {
+        this.enfantLocal = data.result.enfant;
+        this.msg = data.result.situation;
+        this.years = "";
+        this.years =
+          this.years +
+          (new Date(this.enfantLocal?.dateNaissance).getFullYear() + 13) +
+          ":" +
+          new Date().getFullYear();
+        this.allowNewAddArrestation = data.result.allowNewAddArrestation;
+        this.allowNewCarte = data.result.allowNewCarte;
+        this.alerte = data.result.alerte;
+        if (!this.alerte) {
+          this.arrestation = data.result.arrestations[0];
+          this.residence = data.result.residence;
 
-                      this.crudservice
-                        .getLiberationById(
-                          "liberation",
-                          this.arrestation.arrestationId.idEnfant,
-                          this.arrestation.arrestationId.numOrdinale
-                        )
-                        .subscribe((data) => {
-                          if (data.result != null) {
-                            this.isExist = false;
-                            this.msg = " طفل  في حالـــة ســراح ";
-                            this.statEchappesOrlibre = 1;
-                          } else {
-                            this.crudservice
-                              .findResidenceByIdEnfantAndStatut0(
-                                "residence",
-                                this.arrestation.arrestationId.idEnfant,
-                                this.arrestation.arrestationId.numOrdinale
-                              )
-                              .subscribe((data) => {
-                                this.residence = data.result;
-
-                                this.crudservice
-                                  .findByIdEnfantAndStatutEnCour(
-                                    "residence",
-                                    this.arrestation.arrestationId.idEnfant,
-                                    this.arrestation.arrestationId.numOrdinale
-                                  )
-                                  .subscribe((data) => {
-                                    if (data.result != null) {
-                                      this.isExist = false;
-                                      this.statEchappesOrlibre = 2;
-                                      this.msg =
-                                        "      نقلـــة جـــارية إلـــى مركــز    " +
-                                        data.result.etablissement
-                                          .libelle_etablissement;
-                                    }
-                                  });
-                                if (
-                                  data.result.etablissement.id !=
-                                  this.token.getUser().personelle.etablissement
-                                    .id
-                                ) {
-                                  this.isExist = false;
-                                  this.statEchappesOrlibre = 3;
-                                  this.msg =
-                                    "      طفــل مقيــم بمركــز     " +
-                                    data.result.etablissement
-                                      .libelle_etablissement;
-                                }
-                              });
-
-                            this.crudservice
-                              .getDocumentByArrestation(
-                                this.arrestation.arrestationId.idEnfant,
-                                this.arrestation.arrestationId.numOrdinale
-                              )
-                              .subscribe((data) => {
-                                if (this.numOrdinalDoc) {
-                                  this.update = false;
-                                  this.numOrdinalDoc = this.numOrdinalDoc;
-                                } else {
-                                  this.numOrdinalDoc = data.result + 1;
-                                }
-                              });
-
-                            this.isExist = true;
-                          }
-                        });
-                    });
-                } else {
-                  this.msg = "طفل في حالــــــة فـــرار";
-                  this.statEchappesOrlibre = 0;
-                }
-              });
-          } else {
-            this.statEchappesOrlibre = 4;
-
-            this.msg = "طفل فــي ذمــــــة اللـــه";
-          }
-        });
-    });
+          this.documentService
+            .calculerNombreDocumentsJudiciairesParDetention(
+              this.arrestation.arrestationId.idEnfant,
+              this.arrestation.arrestationId.numOrdinale
+            )
+            .subscribe((data) => {
+              if (this.numOrdinalDoc) {
+                this.update = false;
+                this.numOrdinalDoc = this.numOrdinalDoc;
+              } else {
+                this.numOrdinalDoc = data.result + 1;
+              }
+            });
+          this.affaireService
+            .trouverAffairesParAction(
+              "general",
+              this.arrestation.arrestationId.idEnfant,
+              this.arrestation.arrestationId.numOrdinale
+            )
+            .subscribe((data) => {
+              if (data.result == null) {
+              } else {
+                this.affaires = data.result;
+              }
+            });
+        }
+      });
   }
+  //------------------------------------------------------------enfant-----------------------------------------------------------------------------------------------
 
+  // allowNewAddArrestation = false;
+  // allowNewCarte = false;
+  // alerte: boolean;
+  // search(id: String) {
+  //   this.crudservice.trouverDetenuAvecSonStatutActuel(id,"").subscribe((data) => {
+  //     this.enfantLocal = data.result.enfant;
+  //     this.msg = data.result.situation;
+  //     this.years = "";
+  //     this.years =
+  //       this.years +
+  //       (new Date(this.enfantLocal?.dateNaissance).getFullYear() + 13) +
+  //       ":" +
+  //       new Date().getFullYear();
+  //     this.allowNewAddArrestation = data.result.allowNewAddArrestation;
+  //     this.allowNewCarte = data.result.allowNewCarte;
+  //     this.alerte = data.result.alerte;
+  //     this.arrestation = data.result.arrestations[0];
+  //     this.crudservice
+  //       .findResidenceByIdEnfantAndStatut0(
+  //         "residence",
+  //         this.arrestation.arrestationId.idEnfant,
+  //         this.arrestation.arrestationId.numOrdinale
+  //       )
+  //       .subscribe((data) => {
+  //         this.residence = data.result;
+
+  //         this.crudservice
+  //           .findByIdEnfantAndStatutEnCour(
+  //             "residence",
+  //             this.arrestation.arrestationId.idEnfant,
+  //             this.arrestation.arrestationId.numOrdinale
+  //           )
+  //           .subscribe((data) => {
+  //             if (data.result != null) {
+  //               this.allowNewCarte = false;
+  //               this.msg =
+  //                 "      نقلـــة جـــارية إلـــى مركــز    " +
+  //                 data.result.etablissement.libelle_etablissement;
+  //             }
+  //           });
+
+  //         if (
+  //           data.result.etablissement.id !=
+  //           this.token.getUser().personelle.etablissement.id
+  //         ) {
+  //           this.allowNewCarte = false;
+  //           this.msg =
+  //             "      طفــل مقيــم بمركــز     " +
+  //             data.result.etablissement.libelle_etablissement;
+  //         }
+
+  //         this.crudservice
+  //           .getDocumentByArrestation(
+  //             this.arrestation.arrestationId.idEnfant,
+  //             this.arrestation.arrestationId.numOrdinale
+  //           )
+  //           .subscribe((data) => {
+  //             if (this.numOrdinalDoc) {
+  //               this.update = false;
+  //               this.numOrdinalDoc = this.numOrdinalDoc;
+  //             } else {
+  //               this.numOrdinalDoc = data.result + 1;
+  //             }
+  //           });
+
+  //         this.isExist = true;
+  //       });
+  //   });
+  // }
   changeDate() {
     this.dateEntreLocal = this.datepipe.transform(
       this.dateEntreLocal,
@@ -514,8 +461,8 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
     this.centre =
       this.currentUser.personelle.etablissement.libelle_etablissement;
 
-    this.crudservice
-      .countByEnfant("arrestation", this.enfantLocal.id)
+    this.detentionService
+      .calculerNombreDetentionsParIdDetenu("arrestation", this.enfantLocal.id)
       .subscribe((data) => {
         this.numOrdinale = data.result + 1;
       });
@@ -654,6 +601,10 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
         }
       });
   }
+  //----------------------------------------------------------------------------------------------------------------
+  // verifierAffaire;
+
+  //AffaireData ;
 
   //--------------------------------------------------------------------------------------------------------------------------
   next() {
@@ -681,97 +632,36 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
       this.affaireOrigine.arrestation = this.arrestation;
       this.affaireOrigine.tribunal = this.tribunal1Objet;
       this.affaireOrigine.affaireId = this.affaireIdOrigine;
-      //---------------------------Chercher l'affaire origine existe  ou n'exist pas-------------------------------------------------------------------------------------
-      this.crudservice
-        .getLigneByAffaireId(
-          "affaire",
-          this.affaireIdOrigine.idEnfant,
-          this.affaireIdOrigine.numAffaire,
-          this.affaireIdOrigine.idTribunal,
-          this.arrestation.arrestationId.numOrdinale
-        )
-        .subscribe((data) => {
-          if (data.result) {
-            console.log(data.result);
-            //------------------- l'affaire origine existe -----------------------------------------------------------------------------------------
-            this.affaireOrigine = new Affaire();
-            this.affaireOrigine = data.result;
-            console.log("-----------------------------------------");
-            console.log(this.affaireOrigine);
 
-            //--------------------deja update -------------------------------------------------------------------------------------
+      let affaireData = new AffaireData();
+      let verifierAffaire: VerifierAffaire;
+      affaireData.idEnfant = this.enfantLocal.id;
+      affaireData.numAffaire1 = this.numAffaireT1;
+      affaireData.tribunal1 = this.tribunal1Objet;
+      affaireData.numAffaire2 = this.numAffaireT2;
+      affaireData.tribunal2 = this.tribunal2Objet;
+      affaireData.affaireOrigine = this.affaireOrigine;
+      affaireData.arrestation = this.arrestation;
 
-            if (this.update == false) {
-              this.nextBoolean = true;
-            } else {
-              //--------------------Chercher si l'affaire origine est un lien d'autre affaire ou n'est pas un lien d'une aucune affaire -------------------------------------------------------------------------------------
-              this.crudservice
-                .findAffaireByAffaireLien(
-                  "affaire",
-                  this.affaireIdOrigine.idEnfant,
-                  this.affaireIdOrigine.numAffaire,
-                  this.affaireIdOrigine.idTribunal
-                )
-                .subscribe((data) => {
-                  //-------------------- l'affaire origine est un lien d'autre affaire ------------------------ -------------------------------------------------------------------------------------
-                  if (data.result) {
-                    this.displayAlertAffaireOrigineLier = true;
-                  }
-                  //-------------------- l'affaire origine n'est pas un lien d'une aucune affaire ------------------------ --------------------------------------------------------------------------------------------
-                  else {
-                    //-------------------- Tester si l'affaire d'origine avoir un lien avec un autre affaire ou n'avoir pas un lien avec un  affaire  ------------------------ --------------------------------------------------------------------------------------------
-
-                    //-------------------- l'affaire d'origine avoir un lien avec un autre affaire  ------------------------ --------------------------------------------------------------------------------------------
-                    if (this.affaireOrigine.affaireLien) {
-                      //-------------------- Tester si les champs d'affaire de lien sont  remplis ou ne sont pas remplis  ------------------------ --------------------------------------------------------------------------------------------
-
-                      if (this.tribunal2Objet && this.numAffaireT2) {
-                        //--------------------  les champs d'affaire de lien sont  remplis  et l'affaire d'origine avoir un lien avec un autre affaire------------------- ------------------------ --------------------------------------------------------------------------------------------
-
-                        //-------------------- Tester si les champs d'affaire de lien à saisir sont les memes que l'affaire  de lien reel ou nn ------------------------ --------------------------------------------------------------------------------------------
-
-                        if (
-                          this.affaireOrigine.affaireLien.affaireId
-                            .idTribunal != this.tribunal2Objet.id ||
-                          this.affaireOrigine.affaireLien.affaireId
-                            .numAffaire != this.numAffaireT2
-                        ) {
-                          //--------------------   les champs d'affaire de lien à saisir sont les memes que l'affaire  de lien reel  ------------------------ --------------------------------------------------------------------------------------------
-
-                          this.displayAlertLienAutre = true;
-                        } else {
-                          //--------------------   les champs d'affaire de lien à saisir ne sont pas les memes que l'affaire  de lien reel  ------------------------ --------------------------------------------------------------------------------------------
-
-                          this.displayAlertLienMeme = true;
-                        }
-                      } else {
-                        //--------------------  les champs d'affaire de lien ne sont pas  remplis et l'affaire d'origine avoir un lien avec un autre affaire------------------- ------------------------ --------------------------------------------------------------------------------------------
-
-                        this.displayAlertOrigineExistAvecLien = true;
-                        //this.lien(); en view
-                      }
-                    }
-
-                    //-------------------- l'affaire d'origine n'avoir pas un lien avec un  affaire   ------------------------ --------------------------------------------------------------------------------------------
-                    else {
-                      this.displayAlertOrigineExistSansLien = true;
-
-                      if (this.tribunal2Objet && this.numAffaireT2) {
-                        this.lienException();
-                      } else {
-                        this.nextBoolean = true;
-                      }
-                      //this.lien(); en view
-                    }
-                  }
-                });
-            }
-          } else {
-            console.log(data.message);
-            //------------------- l'affaire origine n'exist pas-------------------------------------------------------------------------
-            this.lien();
-          }
-        });
+      this.affaireService.validerAffaire(affaireData).subscribe((data) => {
+        verifierAffaire = data.result;
+        this.affaireOrigine = verifierAffaire.affaire;
+        console.log(verifierAffaire.affaire.affaireId);
+        this.nextBoolean = verifierAffaire.nextBoolean;
+        this.displayAlertAffaireOrigineLier =
+          verifierAffaire.displayAlertAffaireOrigineLier;
+        this.displayAlertLienAutre = verifierAffaire.displayAlertLienAutre;
+        this.displayAlertLienMeme = verifierAffaire.displayAlertLienMeme;
+        this.displayAlertOrigineExistAvecLien =
+          verifierAffaire.displayAlertOrigineExistAvecLien;
+        this.displayAlertOrigineExistSansLien =
+          verifierAffaire.displayAlertOrigineExistSansLien;
+        this.displayAlertAffaireLienLier =
+          verifierAffaire.displayAlertAffaireLienLier;
+        this.displayAlertLienAutreArrestation =
+          verifierAffaire.displayAlertLienAutreArrestation;
+        this.displayNext = verifierAffaire.displayNext;
+      });
     }
   }
 
@@ -780,125 +670,6 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
     this.numAffaireT2 = null;
     this.tribunal2 = "";
     this.codeTribunal2 = "";
-  }
-
-  lien() {
-    //-------------------- assuerer que l'affaire d'origine avoir l'arrestation actuel ------------------------ --------------------------------------------------------------------------------------------
-    //this.affaireOrigine.arrestation = this.arrestation;
-
-    //-------------------- Tester si les champs d'affaire de lien sont  remplis ou ne sont pas remplis  ------------------------ --------------------------------------------------------------------------------------------
-
-    //-------------------- --les champs d'affaire de lien sont  remplis   ------------------------ --------------------------------------------------------------------------------------------
-
-    if (this.tribunal2Objet && this.numAffaireT2) {
-      this.affaireIdLien = new AffaireId();
-      this.affaireIdLien.idEnfant = this.enfantLocal.id;
-      this.affaireIdLien.idTribunal = this.tribunal2Objet.id;
-      this.affaireIdLien.numAffaire = this.numAffaireT2;
-
-      //-------------------- --Chercher l'affaire de lien exisit ou n'existe pas   ------------------------ --------------------------------------------------------------------------------------------
-      this.crudservice
-        .getLigneByAffaireId(
-          "affaire",
-          this.affaireIdLien.idEnfant,
-          this.affaireIdLien.numAffaire,
-          this.affaireIdLien.idTribunal,
-          this.arrestation.arrestationId.numOrdinale
-        )
-        .subscribe((data) => {
-          //	this.affaireLien   = data.result[0];
-
-          //-------------------- -l'affaire de lien exisit ------------------------ --------------------------------------------------------------------------------------------
-          if (data.result) {
-            this.affaireOrigine.affaireLien = data.result;
-
-            //--------------------Chercher si l'affaire de lien est un lien d'autre affaire ou n'est pas un lien d'une aucune affaire -------------------------------------------------------------------------------------
-            this.crudservice
-              .findAffaireByAffaireLien(
-                "affaire",
-                this.affaireIdLien.idEnfant,
-                this.affaireIdLien.numAffaire,
-                this.affaireIdLien.idTribunal
-              )
-              .subscribe((data) => {
-                //-------------------- l'affaire de lien est un lien d'autre affaire ------------------------ -------------------------------------------------------------------------------------
-
-                if (data.result) {
-                  this.displayAlertAffaireLienLier = true;
-                }
-
-                //-------------------- l'affaire de lien n'est pas un lien d'autre affaire ------------------------ -------------------------------------------------------------------------------------
-                else {
-                  this.crudservice
-                    .verifierNumOrdinalAffaire(
-                      "affaire",
-                      this.affaireOrigine,
-                      this.arrestation.arrestationId.numOrdinale
-                    )
-                    .subscribe((data) => {
-                      this.affaireOrigine = data.result;
-
-                      console.log(this.arrestation.arrestationId.numOrdinale);
-                      // if (this.affaireLien.arrestation.arrestationId.numOrdinale != this.arrestation.arrestationId.numOrdinale) {
-                      // 	this.displayAlertLienAutreArrestation = true;
-                      // }
-
-                      this.nextBoolean = true;
-                    });
-                }
-              });
-          }
-          //-------------------- --  l'affaire de lien  n'existe pas  ----------------------------------------------------------------------------------------------------------------------
-          else {
-            if (data.message == 1) {
-              this.displayAlertLienAutreArrestation = true;
-            } else {
-              this.displayNext = true;
-            }
-            //this.accepter()  en view
-          }
-        });
-    }
-
-    //--------------------  les champs d'affaire de lien   ne sont pas remplis  ------------------------ --------------------------------------------------------------------------------------------
-    else {
-      this.affaireOrigine.affaireLien = null;
-
-      this.crudservice
-        .verifierNumOrdinalAffaire(
-          "affaire",
-          this.affaireOrigine,
-          this.arrestation.arrestationId.numOrdinale
-        )
-        .subscribe((data) => {
-          this.affaireOrigine = data.result;
-        });
-      this.nextBoolean = true;
-    }
-  }
-
-  accepter() {
-    this.affaireLien = new Affaire();
-
-    this.affaireLien.tribunal = this.tribunal2Objet;
-    this.affaireLien.affaireId = this.affaireIdLien;
-    this.affaireLien.affaireId.numOrdinaleArrestation =
-      this.arrestation.arrestationId.numOrdinale;
-
-    this.affaireLien.arrestation = this.arrestation;
-    this.affaireOrigine.affaireLien = this.affaireLien;
-
-    this.crudservice
-      .verifierNumOrdinalAffaire(
-        "affaire",
-        this.affaireOrigine,
-        this.arrestation.arrestationId.numOrdinale
-      )
-      .subscribe((data) => {
-        this.affaireOrigine = data.result;
-      });
-    this.displayNext = false;
-    this.nextBoolean = true;
   }
 
   return() {
@@ -960,8 +731,8 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
           this.affaireOrigine.numOrdinalAffaire;
         this.documentId.numOrdinalDoc = this.numOrdinalDoc;
 
-        this.crudservice
-          .countDocumentByAffaire(
+        this.documentService
+          .calculerNombreDocumentsJudiciairesParAffaire(
             this.arrestation.arrestationId.idEnfant,
             this.arrestation.arrestationId.numOrdinale,
             this.affaireOrigine.numOrdinalAffaire
@@ -999,14 +770,13 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
 
             this.carteDepot.numArrestation = this.residence.numArrestation;
             this.carteDepot.etablissement = this.residence.etablissement;
-            this.carteDepot.personelle = this.token.getUser().personelle;
+            this.carteDepot.user = this.token.getUser() ;
 
             this.carteDepot.dateInsertion = this.datepipe.transform(
               new Date(),
               "yyyy-MM-dd"
             );
-            this.carteDepot.entitiesTitreAccusation =
-              this.entitiesTitreAccusation;
+            this.carteDepot.titreAccusations = this.entitiesTitreAccusation;
 
             this.showCarteDepot = true;
           });
@@ -1023,36 +793,7 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
   confirmer() {
     this.crudservice
       .createLigne("carteDepot", this.carteDepot)
-      .subscribe((data) => {
-        this.accusationCarteDepotId = new AccusationCarteDepotId();
-        this.accusationCarteDepotId.idEnfant = this.documentId.idEnfant;
-        this.accusationCarteDepotId.numOrdinalArrestation =
-          this.documentId.numOrdinalAffaire;
-        this.accusationCarteDepotId.numOrdinalAffaire =
-          this.documentId.numOrdinalAffaire;
-        this.accusationCarteDepotId.numOrdinalDoc =
-          this.documentId.numOrdinalDoc;
-        this.accusationCarteDepotId.numOrdinalDocByAffaire =
-          this.documentId.numOrdinalDocByAffaire;
-
-        for (var i = 0; i < this.entitiesTitreAccusation.length; i++) {
-          this.accusationCarteDepotId.idTitreAccusation =
-            this.entitiesTitreAccusation[i].id;
-          this.accusationCarteDepot = new AccusationCarteDepot();
-          this.accusationCarteDepot.accusationCarteDepotId =
-            this.accusationCarteDepotId;
-          this.accusationCarteDepot.carteDepot = data.result;
-          this.accusationCarteDepot.titreAccusation =
-            this.entitiesTitreAccusation[i];
-          console.log(this.accusationCarteDepotId);
-          console.log(this.accusationCarteDepot);
-          this.crudservice
-            .createLigne("accusationCarteDepot", this.accusationCarteDepot)
-            .subscribe((data) => {
-              console.log(data);
-            });
-        }
-      });
+      .subscribe((data) => {});
 
     this.showCarteDepot = false;
     this.isSaved = true;
@@ -1092,20 +833,6 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
         this.typeTribunalSwich = [];
       }
     });
-  }
-
-  nav;
-  onChangeDir(event) {
-    this.nav = event.value;
-  }
-  goTO() {
-    window.localStorage.removeItem("idValideNav");
-
-    window.localStorage.setItem("idValideNav", this.enfantLocal.id.toString());
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = "reload";
-
-    this.router.navigate([this.nav]);
   }
 
   // reglerDate(date){

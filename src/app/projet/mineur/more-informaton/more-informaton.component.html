@@ -1,22 +1,26 @@
-<div dir="rtl" *ngIf="arrestationLocal" class="container" style=" margin-bottom: 300px; ">
-   <div class="p-grid">
+
+<div dir="rtl" *ngIf="arrestationLocal" class="container" style=" margin-bottom: 200px; ">
+<div class="p-grid">
+   <div class="p-col-3">
+      <button mat-raised-button class="button-card3" (click)="displayAllArrestation = true"
+         style="   background-color:   white; width: 150px; ">
+         <span style="font-family: 'Amiri', Times, serif; font-size: 20px; color:   black;"> قائمة
+            الإيقافات
+         </span>
+         <i class="pi pi-cog" style="font-size: 35px;  color:   #214954;"></i>
+      </button>
    </div>
-   <div class="p-grid">
-      <div class="p-col-3">
-         <button mat-raised-button class="button-card3" (click)="displayAllArrestation = true"
-            style="   background-color:   white; width: 150px; ">
-            <span style="font-family: 'Amiri', Times, serif; font-size: 20px; color:   black;"> قائمة
-               الإيقافات
-            </span>
-            <i class="pi pi-cog" style="font-size: 35px;  color:   #214954;"></i>
-         </button>
-      </div>
-      <div class="p-col-6">
-        
-    
-          <h1 class="text"> {{enfantLocal?.nom}} بن {{enfantLocal?.nomPere}} بن
-               {{enfantLocal?.nomGrandPere}} {{enfantLocal.prenom}}</h1> 
-      </div>
+   <div class="p-col-5">
+
+
+      <h1 class="text"> {{enfantLocal?.nom}} بن {{enfantLocal?.nomPere}} بن
+         {{enfantLocal?.nomGrandPere}} {{enfantLocal.prenom}}</h1>
+
+   </div>
+   <div class="p-col-1">
+      <label class="neons cercle" *ngIf="affairePrincipale?.typeAffaire?.id==5"> <span>
+            {{affairePrincipale?.typeAffaire?.libelle_typeAffaire}}</span></label>
+   </div>
    <div class="p-col-3" style="display: flex; align-items: center;">
       <button mat-raised-button class="button-card3" (click)="print()">
          <span class="button-text">تحميل مذكرة</span>
@@ -35,119 +39,191 @@
          </div>
       </div>
    </div>
-
-      <div class="p-col-12">
-         <div>
-            <p-card [style]="{ 'height': 'auto',   'border-radius': '0%',  
-               '-moz-box-shadow': '5px 5px 5px 5px rgba(0, 0, 0, 0.4)',
-               '-webkit-box-shadow': '5px 5px 5px 5px rgba(0, 0, 0, 0.4)',
-               'box-shadow':'5px 5px 5px 5px rgba(0, 0, 0, 0.4)'    }">
-               <div class="p-grid">
-                  <div class="p-col-6">
-                     <label class="enLabel">المعــــرف الوحيد : <b
-                           style="color: #ff3434; font-size: 26px; font-weight: bold;"> {{enfantLocal?.id}} /
-                           <b>{{'0'+arrestationLocal?.arrestationId?.numOrdinale }}</b> </b> </label>
-                     <label style=" background-color: transparent;" *ngIf="msg" class="wrapper">
-                        <b>{{msg}} </b></label>
-                     <label class="enLabel"> السن الحالي : <b
-                           style="color: blueviolet;font-size: 22px; font-weight: bold; ">
-                           {{this.ageEnfant}} عــــام </b> </label>
-                     <label class="enLabel"> تـــاريخ بلـــوغ سن الرشـــد :
-                        <b style="color: blueviolet;font-size: 22px; font-weight: bold; "> {{ageCon}} </b> </label>
-                    
-                     <b *ngIf="calculeAffaireDto?.etatJuridique =='isAEX' && !calculeAffaireDto?.liberation"
-                        style=" text-align: center; font-size: 30px;" class="neons"> <span>*** قــــــــــــــــــم
-                           بــــــــــــــــــإدراج
-                           الســــــــــــــــــراح *** </span> </b>
-                     <div class="p-grid">
-                        <div class="p-col-4" *ngIf="calculeAffaireDto?.totaleRecidenceWithetabChangeManiere">
-                           <label for="firstname3" class="enLabel"> تغير وسيلة:
-                              <b>{{calculeAffaireDto?.totaleRecidenceWithetabChangeManiere}}</b></label>
-                        </div>
-                        <div class="p-col-4" *ngIf="calculeAffaireDto?.totaleRecidence">
-                           <label for="firstname3" class="enLabel"> عدد النقل:
-                              <b>{{calculeAffaireDto?.totaleRecidence}}</b></label>
-                        </div>
-                        <div class="p-col-4" *ngIf="calculeAffaireDto?.totaleEchappe">
-                           <label for="firstname3" class="enLabel"> عدد الفرارات :
-                              <b>{{calculeAffaireDto?.totaleEchappe}}</b></label>
-                        </div>
+</div>
+   <div class="p-grid"   >
+      
+ 
+      <div class="p-col-9 court-document "  >
+         
+            
+            <div class="p-grid court-content ">
+               <div class="p-col-6" >
+                  <label >
+                     المعــــرف الوحيد :
+                     <b style="color: #ff3434;  ; font-weight: bold;">
+                        {{enfantLocal?.id}}  
+                       
+                     </b>
+                  </label>
+                   <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+            
+                 
+                     <label>العدد الرتبــــي للإيقــــاف:
+                        <b style="color: #ff3434;  ; font-weight: bold;">{{'0' + arrestationLocal?.arrestationId?.numOrdinale }}</b>
+                     </label>
+                      <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                     
+                     <label>مركز الإيقــــاف : <b>{{centre}}</b></label>
+                      <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                     
+                     <label>عــــدد الإيقــــاف : <b dir="rtl">{{numArrestation}}</b></label>
+                      <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                     
+                  <div class="p-col-4" *ngIf="ficheDeDetentionDto?.totaleEchappe">
+                     <label for="firstname3">عدد الفرارات:
+                        <b>{{ficheDeDetentionDto?.totaleEchappe}}</b>
+                     </label>
+                      <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                  </div>
+                  <div class="p-grid">
+                     <div class="p-col-4" *ngIf="ficheDeDetentionDto?.totaleRecidenceWithetabChangeManiere">
+                        <label for="firstname3">تغير وسيلة:
+                           <b>{{ficheDeDetentionDto?.totaleRecidenceWithetabChangeManiere}}</b>
+                        </label>
+                         <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                     </div>
+                     <div class="p-col-4" *ngIf="ficheDeDetentionDto?.totaleRecidence">
+                        <label for="firstname3">عدد النقل:
+                           <b>{{ficheDeDetentionDto?.totaleRecidence}}</b>
+                        </label>
+                         <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
                      </div>
                   </div>
-                  <div class="p-col-3">
-                     <label class="enLabel"> العدد الرتبــــي للإيقــــاف:
-                        <b>{{arrestationLocal?.arrestationId?.numOrdinale}}</b> </label>
-                     <label class="enLabel"> مركز الإيقــــاف : <b>{{centre}} </b></label>
-                     <label class="enLabel">عــــدد الإيقــــاف : <b dir="rtl">{{numArrestation}}</b> </label>
-                     <label for="firstname3" class="enLabel"> تــاريخ الإيـداع بالمركز : <b
-                           dir="rtl">{{arrestationLocal?.date}}</b></label>
-                     <label class="enLabel">العقوبات السابقة : <b> {{enfantLocal?.classePenale?.libelle_classe_penale}}
-                        </b> </label>
-                  </div>
-                  <div class="p-col-3">
-                     <img (click)=" swipe()" style="margin-right:  30%;" *ngIf="photo"
-                        [src]="photo" class="profile-img-card3" />  
-                        <img (click)=" swipe()" style="margin-right:  30%;"  *ngIf="!photo" 
-                         [src]="photo ? photo : 'assets/layout/images/cameraa.png'" 
-                         class="profile-img-card3" />
-                       
-                  </div>
+                  
+                  
+
+            
+                  
+               </div>
+            
+               <div class="p-col-6">
+                  <label for="firstname3">تــاريخ الإيـداع بالمركز :
+                     <b dir="rtl">{{arrestationLocal?.date}}</b>
+                  </label>
+                   <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                  <label>العقوبات السابقة :
+                     <b *ngIf="numArrestation > 1">عــائــد</b>
+                     <b *ngIf="numArrestation == 1">{{enfantLocal?.classePenale?.libelle_classe_penale}}</b>
+                  
+                  </label>
+                   <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                     <label for="firstname3">تــــاريخ الــــولادة : <b dir="rtl"
+                           style="color: blueviolet;">{{enfantLocal?.dateNaissance}}</b></label>
+                      <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                  <label>
+                     السن الحالي :
+                     <b style="color: blueviolet; font-size: 22px; font-weight: lighter;">
+                        {{this.ageEnfant}} عــــام
+                     </b>
+                  </label>
+                   
+                  <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                  
+
+                  <label>
+                     تـــاريخ بلـــوغ سن الرشـــد :
+                     <b style="color: blueviolet; font-size: 22px; font-weight: lighter;">
+                        {{ageCon}}
+                     </b>
+                  </label>
+                  <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                  
                  
                </div>
-            </p-card>
-         </div>
-      </div>
-   </div>
-   <div class="p-grid" style="margin-top: 10px;">
-      <div class="p-col-12">
-         <p-card [style]="{   'height': 'auto',     'margin-bottom': '15px' , 
-            '-moz-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
-            '-webkit-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
-            'box-shadow':'5px 5px 5px 5px rgba(0, 0, 0, 0.4)' 
-            }">
-            <p-header>
-            </p-header>
-            <div class="p-grid">
-               <div class="p-col-4">
-                  <label for="firstname3" class="enLabel"> هويــــة الأم: <b>{{enfantLocal?.nomMere}}
-                        {{enfantLocal?.prenomMere}}</b></label>
-                  <hr style="      border:0.1px solid rgba(0, 0, 0, 0.4);">
-                  <label class="enLabel">المهنــة : <b> {{enfantLocal?.metier?.libelle_metier}} </b> </label>
-                  <hr style="      border:0.1px solid rgba(0, 0, 0, 0.40);">
-                  <label for="firstname3" class="enLabel"> الجنسية: <b>{{enfantLocal.nationalite.libelle_nationalite}}
-                     </b></label>
+               <div class="p-col-12">
+                  <label style="font-size: 25px; font-weight: bold; ">
+                     <a href="javascript:void(0)"   (click)="toggleMoreInfo()" style="color: #007bff; text-decoration: none;">
+                        <u>عرض المزيد من التفاصيل </u>
+                     </a>
+                  </label>
+               
+               </div> 
+               <div class="p-col-6" *ngIf="showMoreInfo">
+                  <label for="firstname3">هويــــة الأم: <b>{{enfantLocal?.nomMere}} {{enfantLocal?.prenomMere}}</b></label>
+                   <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+               
+                  <label for="firstname3">مكان الولادة : <b>{{enfantLocal?.lieuNaissance}}</b></label>
+                   <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                  <label>المهنــة : <b>{{enfantLocal?.metier?.libelle_metier}}</b></label>
+                   <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+               
+                  <label for="firstname3">الجنسية: <b>{{enfantLocal.nationalite.libelle_nationalite}}</b></label>
+                   <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
                </div>
-               <div class="p-col-4">
-                  <label for="firstname3" class="enLabel">تــــاريخ الــــولادة : <b dir="rtl"
-                        style="color: blueviolet;">{{enfantLocal?.dateNaissance}}</b></label>
-                  <hr style="      border:0.1px solid rgba(0, 0, 0, 0.40);">
-                  <label for="firstname3" class="enLabel"> مكان الولادة : <b>{{enfantLocal?.lieuNaissance}}</b></label>
-                  <hr style="      border:0.1px solid rgba(0, 0, 0, 0.40);">
-                  <label for="firstname3" class="enLabel"> الجنس : <b>{{enfantLocal?.sexe}}</b></label>
+               
+               <div class="p-col-6"  *ngIf="showMoreInfo">
+               
+               
+                  <label for="firstname3">الجنس : <b>{{enfantLocal?.sexe}}</b></label>
+                   <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                  <label for="firstname3">الحالة العائلية :
+                     <b>{{enfantLocal?.situationFamiliale?.libelle_situation_familiale}}</b>
+                  </label>
+                   <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+               
+                  <label for="firstname3">المستوى الدراسي :
+                     <b>{{enfantLocal?.niveauEducatif?.libelle_niveau_educatif}}</b>
+                  </label>
+                   <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+               
+                  <label for="firstname3">القاطن (ة):
+                     <b style="line-height: 1.2;">
+                        {{enfantLocal?.adresse + ' '}}
+                        {{enfantLocal?.delegation?.libelle_delegation + ' '}}
+                        {{enfantLocal?.delegation?.gouvernorat?.libelle_gouvernorat}}
+                     </b>
+                  </label>
+                   <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
                </div>
-               <div class="p-col-4">
-                  <label for="firstname3" class="enLabel"> الحالة العائلية :
-                     <b>{{enfantLocal?.situationFamiliale?.libelle_situation_familiale}}</b></label>
-                  <hr style="      border:0.1px solid rgba(0, 0, 0, 0.40);">
-                  <label for="firstname3" class="enLabel"> المستوى الدراسي :
-                     <b>{{enfantLocal?.niveauEducatif?.libelle_niveau_educatif}}</b></label>
-                  <hr style="      border:0.1px solid rgba(0, 0, 0, 0.40);">
-                  <label for="firstname3" class="enLabel"> مكان الإقامة قبل الإيقاف : <b>{{enfantLocal?.adresse +' '}}
-                        {{enfantLocal?.delegation?.libelle_delegation+' '}}
-                        {{enfantLocal?.delegation?.gouvernorat?.libelle_gouvernorat}}</b></label>
-               </div>
+            
+            <!-- <div class="p-col-12">
+               <label style="font-size: 25px; font-weight: bold; ">
+                  <a href="javascript:void(0)" (click)="toggleMoreInfo()" style="color: #007bff; text-decoration: none;">
+                     <u>عرض المزيد من التفاصيل؟</u>
+                  </a>
+               </label>
+              
+            </div> -->
+            
+              
+            
+                
             </div>
-         </p-card>
+
+
+            
+
+          
       </div>
      
-      <div *ngIf="calculeAffaireDto?.sansAffaire"
-         style="width: 100%; height: auto; margin-top: 20px; text-align: center;">
-         <b style=" text-align: center;" class="neons"> <span>الرجـــاء إدراج وثيقـــة قضـــائية </span> </b>
+      <div class="p-col-3">
+         <img (click)="swipe()" style="margin-right: 20%;" *ngIf="photo" [src]="photo" class="profile-img-card3" />
+         <img (click)="swipe()" style="margin-right: 20%;" *ngIf="!photo"
+            [src]="photo ? photo : 'assets/layout/images/cameraa.png'" class="profile-img-card3" />
+         <label style="background-color: transparent; margin-right: 20%;" *ngIf="msg" class="wrapper">
+            <b>{{msg}}</b>
+      
+            <b *ngIf="ficheDeDetentionDto?.etatJuridique == 'pasInsertionLiberable' && !ficheDeDetentionDto?.liberation"
+               style="text-align: center; font-size: 30px;" class="neons">
+               <span>*** قــــــــــــــــــم بــــــــــــــــــإدراج الســــــــــــــــــراح ***</span>
+            </b>
+         </label>
       </div>
-      <div *ngIf="!calculeAffaireDto?.sansAffaire" style="width: 100%; height: auto;  
-         -moz-box-shadow :  5px 5px 5px 5px rgba(0, 0, 0, 0.4) ;
-         -webkit-box-shadow :  5px 5px 5px 5px rgba(0, 0, 0, 0.4) ;
-         box-shadow : 5px 5px 5px 5px rgba(0, 0, 0, 0.4) ; ">
+      <!-- <div class="p-col-12 court-document"  >
+<div class="p-grid court-content">
+
+   
+</div>
+      </div> -->
+      
+
+      
+   <ng-template #loadingTemplate>
+      <!-- Afficher un message de chargement ou un spinner -->
+      <div class="spinner"></div>
+   </ng-template>
+       
+      <div  style="width: 100%; " class="court-document"  *ngIf="ficheDeDetentionDto; else loadingTemplate">
          <mat-tab-group mat-align-tabs="center" [(selectedIndex)]="selectedIndex" animationDuration="600ms">
             <mat-tab>
                <ng-template mat-tab-label>
@@ -155,130 +231,145 @@
                   <span style="font-family: 'Amiri', Times, serif; font-size: 20px;     ">معطيات </span>
                </ng-template>
                <!-- <p-card [style]="{  'background-image': 'url(assets/layout/images/fond.jpg)'   }"> -->
-           <p-card> 
+           <p-card > 
                   <!-- <hr style="      border:0.1px solid rgba(0, 0, 0, 0.060);"> -->
                   <div class="p-grid" style=" text-align: center;">
                      <div class="p-col-12">
-                        <b *ngIf="calculeAffaireDto?.changementLieuCh" style=" text-align: center;" class="neons">
+                        <b *ngIf="ficheDeDetentionDto?.changementLieuCh" style=" text-align: center;" class="neons">
                            <span> ***لم يتم تفعيل قرار تغير مكان الإيداع ( تغير وسيلة )*** </span> </b>
-                        <b *ngIf="calculeAffaireDto?.changementLieuMu" style=" text-align: center;" class="neons">
+                        <b *ngIf="ficheDeDetentionDto?.changementLieuMu" style=" text-align: center;" class="neons">
                            <span> ***لم يتم تفعيل قرار تغير مكان الإيداع ( نقلة )*** </span> </b>
                      </div>
-                     <div class="p-col-12" *ngIf="calculeAffaireDto?.appelParquet || calculeAffaireDto?.appelEnfant">
-                        <b *ngIf="calculeAffaireDto?.appelParquet" style=" text-align: center;" class="neons"  > <span  >
+                     <div class="p-col-12" *ngIf="ficheDeDetentionDto?.appelParquet || ficheDeDetentionDto?.appelEnfant">
+                        <b *ngIf="ficheDeDetentionDto?.appelParquet" style=" text-align: center;" class="neons"  > <span  >
                               طعـــــن النيابـــــة بالاستئنـــــاف 
-                              {{calculeAffaireDto?.dateAppelParquet | date:'dd-MM-yyyy'}} </span> </b>
-                        <b *ngIf="calculeAffaireDto?.appelEnfant && !calculeAffaireDto?.appelParquet" style=" text-align: center;"
+                              {{ficheDeDetentionDto?.dateAppelParquet | date:'dd-MM-yyyy'}} </span> </b>
+                        <b *ngIf="ficheDeDetentionDto?.appelEnfant && !ficheDeDetentionDto?.appelParquet" style=" text-align: center;"
                            class="neons"> <span  > طعـــــن الطفــــــــل بالاستئنـــــاف
-                              {{calculeAffaireDto?.dateAppelEnfant | date:'dd-MM-yyyy' }} </span> </b>
+                              {{ficheDeDetentionDto?.dateAppelEnfant | date:'dd-MM-yyyy' }} </span> </b>
+                     </div>
+                     <div *ngIf="!ficheDeDetentionDto?.affaires" style="width: 100%; height: auto; margin-top: 20px; text-align: center;">
+                        <b style=" text-align: center;" class="neons"> <span>الرجـــاء التثبت من الوثائــق القضـــائية </span> </b>
                      </div>
                   
                   </div>
                   <!-- <hr style="      border:0.1px solid rgba(0, 0, 0, 0.060);"> -->
-                  <div class="p-grid">
+                  <div class="p-grid" *ngIf="ficheDeDetentionDto?.affaires">
                      <div class="p-col-3">
-                        <label class="enLabel">عــــ<b style="color: #ff3434; font-size: 25px;">{{'
-                              '+calculeAffaireDto?.nbrAffaires+' '}}</b>ـــدد القضية : <b
+                        <label  >عــــ<b style="color: #ff3434; font-size: 25px;">{{'
+                              '+ficheDeDetentionDto?.affaires?.length +' '}}</b>ـــدد القضية : <b
                               dir="rtl">{{affairePrincipale?.affaireId.numAffaire}}</b> </label>
-                        <label for="firstname3" class="enLabel"> لـــدى :
+                              <hr style="      border:0.1px solid rgba(175, 175, 175, 0.4); ">
+                        <label for="firstname3"  > لـــدى :
                            <b>{{affairePrincipale?.tribunal?.nom_tribunal}}</b></label>
-                        <label class="enLabel" *ngIf="calculeAffaireDto?.dateJuge">تاريخ الحكـــــــــــــــــم : <b
+                           <hr style="      border:0.1px solid rgba(175, 175, 175, 0.4); ">
+                        <label   *ngIf="ficheDeDetentionDto?.dateJuge">تاريخ الحكـــــــــــــــــم : <b
                               dir="rtl">
-                              {{calculeAffaireDto?.dateJugementPrincipale}} </b> </label>
-                        <label class="enLabel" *ngIf="!calculeAffaireDto?.dateJuge">تاريخ صدور البطاقة : <b dir="rtl">
-                              {{calculeAffaireDto?.dateJugementPrincipale}} </b> </label>
-                        <!-- <hr style="      border:0.1px solid rgba(0, 0, 0, 0.40);"> -->
+                              {{ficheDeDetentionDto?.dateJugementPrincipale}} </b> </label>
+                              <hr *ngIf="ficheDeDetentionDto?.dateJuge" style="      border:0.1px solid rgba(175, 175, 175, 0.4); ">
+                        <label   *ngIf="!ficheDeDetentionDto?.dateJuge">تاريخ صدور البطاقة : <b dir="rtl">
+                              {{ficheDeDetentionDto?.dateJugementPrincipale}} </b> </label>
+                              <hr *ngIf="!ficheDeDetentionDto?.dateJuge" style="      border:0.1px solid rgba(175, 175, 175, 0.4); ">
+                        <!-- <hr style="      border:0.1px solid rgba(175, 175, 175, 0.40);"> -->
                      </div>
                      <div class="p-col-6" style="text-align: center;">
-                        <label class="enLabel">الوضعية الجزائية :
-                           <b *ngIf="calculeAffaireDto?.etatJuridique=='juge'" style=" text-align: center;" class="neons">
-                              <span>محكــــــــــــــوم </span> </b>
-                           <b *ngIf="calculeAffaireDto?.etatJuridique=='arret'" style=" text-align: center; " class="neons">
-                              <span>موقــــــــــــــوف</span> </b>
-                           <b *ngIf="calculeAffaireDto?.liberation"
+                         <!-- الوضعية الجزائية : -->
+                        <label [ngClass]="{ 'zoom-in': zoomIn, 'zoom-out': zoomOut }" > 
+                           <b *ngIf="ficheDeDetentionDto?.etatJuridique=='juge'" style=" text-align: center;"  >
+                              <span style="color: #ff3434;">محكــــــــــــــوم </span> </b>
+                           <b *ngIf="ficheDeDetentionDto?.etatJuridique=='arret'" style=" text-align: center; " >
+                              <span style="color: #ff3434;">موقــــــــــــــوف</span> </b>
+                           <b *ngIf="ficheDeDetentionDto?.liberation"
                               style=" text-align: center; color: green; font-size: 26px; font-weight: bold;">
-                              {{calculeAffaireDto?.liberation?.causeLiberation?.libelleCauseLiberation}}
-                              <span dir="rtl" style="color: rgb(0, 0, 0);">
-                                 {{calculeAffaireDto?.liberation?.etabChangeManiere?.libelle_etabChangeManiere}} </span>
-                              <span dir="rtl" style="color: rgb(65, 64, 64);"> ({{calculeAffaireDto.liberation.date}}
-                                 )</span>
+                              {{ficheDeDetentionDto?.liberation?.causeLiberation?.libelleCauseLiberation}}
+                              <b dir="rtl" style="color: rgb(0, 0, 0);">
+                                 {{ficheDeDetentionDto?.liberation?.etabChangeManiere?.libelle_etabChangeManiere}} </b>
+                              <b dir="rtl" style="color: rgb(65, 64, 64);"> ({{ficheDeDetentionDto.liberation.date}}
+                                 )</b>
                            </b>
                         </label>
-                        <hr style="      border:0.1px solid rgba(0, 0, 0, 0.05);">
-                        <label [ngClass]="{ 'zoom-in': zoomIn, 'zoom-out': zoomOut }" for="firstname3" class="enLabel"> قضــايــــا : <b
-                              style="color: #ff3434;font-size: 28px; font-weight: bold;">
-                              {{affairePrincipale?.typeAffaire?.libelle_typeAffaire}}</b></label>
+                        <hr style="      border:0.1px solid rgba(175, 175, 175, 0.4);">
+                        <label  for="firstname3" class="neons"> قضــايــــا : <span
+                              >
+                              {{affairePrincipale?.typeAffaire?.libelle_typeAffaire}}</span></label>
 
-                              <hr style="      border:0.1px solid rgba(0, 0, 0, 0.05);">
-                        <label class="enLabel">
+                              <hr style="      border:0.1px solid rgba(175, 175, 175, 0.4);">
+                        <label  >
                            التهمة :
-                           <b> {{titreAcc}}</b>
+                           <b style="  line-height: 1.2;"> {{titreAcc}}</b>
                         </label>
+                        <hr style="      border:0.1px solid rgba(175, 175, 175, 0.4);">
                      </div>
                      <div class="p-col-3">
-                        <label for="firstname3" class="enLabel"> الحكـــــــــــــم : <b
+                        <label for="firstname3"  > الحكـــــــــــــم : <b
                               style="font-size: 24px; font-weight: bold; color: rgb(255, 100, 0);">
-                              <span *ngIf="calculeAffaireDto?.ageAdulte "> إلى بلوغ سن الرشد </span>
-                              <span *ngIf="calculeAffaireDto?.anneePenal">{{calculeAffaireDto?.anneePenal}} سنة</span>
+                              <span *ngIf="ficheDeDetentionDto?.ageAdulte "> إلى بلوغ سن الرشد </span>
+                              <span *ngIf="ficheDeDetentionDto?.anneePenal">{{ficheDeDetentionDto?.anneePenal}} سنة</span>
                               <span
-                                 *ngIf="calculeAffaireDto?.anneePenal && calculeAffaireDto?.jourPenal && !calculeAffaireDto?.moisPenal">
+                                 *ngIf="ficheDeDetentionDto?.anneePenal && ficheDeDetentionDto?.jourPenal && !ficheDeDetentionDto?.moisPenal">
                                  و
                               </span>
-                              <span *ngIf="calculeAffaireDto?.anneePenal && calculeAffaireDto?.moisPenal"> و </span>
-                              <span *ngIf="calculeAffaireDto?.moisPenal">{{calculeAffaireDto?.moisPenal}} شهر </span>
-                              <span *ngIf="calculeAffaireDto?.jourPenal && calculeAffaireDto?.moisPenal"> و </span>
-                              <span *ngIf="calculeAffaireDto?.jourPenal">{{calculeAffaireDto?.jourPenal}} يوم </span>
+                              <span *ngIf="ficheDeDetentionDto?.anneePenal && ficheDeDetentionDto?.moisPenal"> و </span>
+                              <span *ngIf="ficheDeDetentionDto?.moisPenal">{{ficheDeDetentionDto?.moisPenal}} شهر </span>
+                              <span *ngIf="ficheDeDetentionDto?.jourPenal && ficheDeDetentionDto?.moisPenal"> و </span>
+                              <span *ngIf="ficheDeDetentionDto?.jourPenal">{{ficheDeDetentionDto?.jourPenal}} يوم </span>
                               <span
-                                 *ngIf="!calculeAffaireDto?.jourPenal && !calculeAffaireDto?.moisPenal && !calculeAffaireDto?.anneePenal && !calculeAffaireDto?.ageAdulte">
+                                 *ngIf="!ficheDeDetentionDto?.jourPenal && !ficheDeDetentionDto?.moisPenal && !ficheDeDetentionDto?.anneePenal && !ficheDeDetentionDto?.ageAdulte">
                                  لا يوجد </span>
                            </b></label>
-                        <label for="firstname3" class="enLabel" *ngIf="calculeAffaireDto?.dateDebut"> تــاريخ بــداية
+                           <hr style="      border:0.1px solid rgba(175, 175, 175, 0.4);">
+                        <label for="firstname3"   *ngIf="ficheDeDetentionDto?.dateDebut"> تــاريخ بــداية
                            العقــاب : <b dir="rtl" style="text-decoration: underline  rgba(255, 0, 0, 0.650) ;">
-                              {{calculeAffaireDto?.dateDebut}}</b></label>
+                              {{ficheDeDetentionDto?.dateDebut}}</b></label>
                            
-                        <!-- <hr style="      border:0.1px solid rgba(0, 0, 0, 0.40);"> -->
-                        <div *ngIf="!calculeAffaireDto?.liberation">
-                           <label for="firstname3" class="enLabel"
-                              *ngIf="calculeAffaireDto?.dateFin && !calculeAffaireDto?.appelParquet"> تـــاريخ
+                        <hr  *ngIf="ficheDeDetentionDto?.dateDebut" style="      border:0.1px solid rgba(175, 175, 175, 0.4);">
+                        <div *ngIf="!ficheDeDetentionDto?.liberation">
+                           <label for="firstname3"  
+                              *ngIf="ficheDeDetentionDto?.dateFin && !ficheDeDetentionDto?.appelParquet"> تـــاريخ
                               الســـــــــــراح : <b dir="rtl"
                                  style="text-decoration: underline  rgba(255, 0, 0, 0.650);">
-                                 {{calculeAffaireDto?.dateFin}}</b></label>
-                           <label for="firstname3" class="enLabel"
-                              *ngIf="calculeAffaireDto?.dateFin && calculeAffaireDto?.appelParquet"> تـــاريخ
+                                 {{ficheDeDetentionDto?.dateFin}}</b></label>
+                                 <hr *ngIf="ficheDeDetentionDto?.dateFin && !ficheDeDetentionDto?.appelParquet" style="      border:0.1px solid rgba(175, 175, 175, 0.4);">
+                           <label for="firstname3"  
+                              *ngIf="ficheDeDetentionDto?.dateFin && ficheDeDetentionDto?.appelParquet"> تـــاريخ
                               الســـــــــــراح : <b dir="rtl"
                                  style="text-decoration: line-through  rgba(255, 0, 0, 0.650); text-decoration-style: double;">
-                                 {{calculeAffaireDto?.dateFin}}</b></label>
+                                 {{ficheDeDetentionDto?.dateFin}}</b></label>
+                                 <hr *ngIf="ficheDeDetentionDto?.dateFin && ficheDeDetentionDto?.appelParquet" style=" border:0.1px solid rgba(0, 0, 0,
+                                    0.4);">
                         </div>
-                        <div *ngIf="calculeAffaireDto?.dateFin && calculeAffaireDto?.liberation">
-                           <label for="firstname3" class="enLabel"
-                              *ngIf="calculeAffaireDto?.dateFin == calculeAffaireDto?.liberation?.date"> تـــاريخ
+                        <div *ngIf="ficheDeDetentionDto?.dateFin && ficheDeDetentionDto?.liberation"> 
+                           <label for="firstname3"  
+                              *ngIf="ficheDeDetentionDto?.dateFin == ficheDeDetentionDto?.liberation?.date"> تـــاريخ
                               الســـــــــــراح : <b dir="rtl"
                                  style="text-decoration: underline  rgba(255, 0, 0, 0.650);">
-                                 {{calculeAffaireDto?.dateFin}}</b></label>
-                           <label for="firstname3" class="enLabel"
-                              *ngIf="calculeAffaireDto?.dateFin > calculeAffaireDto?.liberation?.date"> تـــاريخ
+                                 {{ficheDeDetentionDto?.dateFin}}</b></label>
+                                 <hr *ngIf="ficheDeDetentionDto?.dateFin == ficheDeDetentionDto?.liberation?.date" style=" border:0.1px solid rgba(175, 175, 175, 0.4);">
+                           <label for="firstname3"  
+                              *ngIf="ficheDeDetentionDto?.dateFin > ficheDeDetentionDto?.liberation?.date"> تـــاريخ
                               الســـــــــــراح : <b dir="rtl"
                                  style="text-decoration: line-through  rgba(255, 0, 0, 0.650); text-decoration-style: double;">
-                                 {{calculeAffaireDto?.dateFin}}</b></label>
+                                 {{ficheDeDetentionDto?.dateFin}}</b></label>
+                                 <hr *ngIf="ficheDeDetentionDto?.dateFin > ficheDeDetentionDto?.liberation?.date" style=" border:0.1px solid rgba(175, 175, 175, 0.4);">
                         </div>
-                        <label class="enLabel">
+                        <label  >
                            إيقاف تحفظي:
                            <b>
                               <span
-                                 *ngIf="!calculeAffaireDto?.jourArret && !calculeAffaireDto?.moisArret && !calculeAffaireDto?.anneeArret">
+                                 *ngIf="!ficheDeDetentionDto?.jourArret && !ficheDeDetentionDto?.moisArret && !ficheDeDetentionDto?.anneeArret">
                                  لا يوجد </span>
-                              <span *ngIf="calculeAffaireDto?.jourArret">{{calculeAffaireDto?.jourArret}} يوم </span>
-                              <span *ngIf="calculeAffaireDto?.jourArret && calculeAffaireDto?.moisArret"> و </span>
-                              <span *ngIf="calculeAffaireDto?.moisArret">{{calculeAffaireDto?.moisArret}} شهر </span>
-                              <span *ngIf="calculeAffaireDto?.anneeArret && calculeAffaireDto?.moisArret"> و </span>
+                              <span *ngIf="ficheDeDetentionDto?.jourArret">{{ficheDeDetentionDto?.jourArret}} يوم </span>
+                              <span *ngIf="ficheDeDetentionDto?.jourArret && ficheDeDetentionDto?.moisArret"> و </span>
+                              <span *ngIf="ficheDeDetentionDto?.moisArret">{{ficheDeDetentionDto?.moisArret}} شهر </span>
+                              <span *ngIf="ficheDeDetentionDto?.anneeArret && ficheDeDetentionDto?.moisArret"> و </span>
                               <span
-                                 *ngIf="calculeAffaireDto?.anneeArret && calculeAffaireDto?.jourArret && !calculeAffaireDto?.moisArret">
+                                 *ngIf="ficheDeDetentionDto?.anneeArret && ficheDeDetentionDto?.jourArret && !ficheDeDetentionDto?.moisArret">
                                  و
                               </span>
-                              <span *ngIf="calculeAffaireDto?.anneeArret">{{calculeAffaireDto?.anneeArret}} سنة</span>
+                              <span *ngIf="ficheDeDetentionDto?.anneeArret">{{ficheDeDetentionDto?.anneeArret}} سنة</span>
                               <ul
-                                 *ngIf="calculeAffaireDto?.jourArret || calculeAffaireDto?.moisArret || calculeAffaireDto?.anneeArret">
-                                 <li *ngFor="let arretProvisoire of  this.arretProvisoires">
+                                 *ngIf="ficheDeDetentionDto?.jourArret || ficheDeDetentionDto?.moisArret || ficheDeDetentionDto?.anneeArret">
+                                 <li *ngFor="let arretProvisoire of  ficheDeDetentionDto?.arretProvisoires">
                                     <span style="color: grey;"> من </span> <b dir="rtl"> {{arretProvisoire?.dateDebut}}
                                     </b> <span style="color: grey;"> إلى </span> <b dir="rtl">
                                        {{arretProvisoire.dateFin}}</b>
@@ -286,12 +377,13 @@
                               </ul>
                            </b>
                         </label>
+                        <hr  style=" border:0.1px solid rgba(175, 175, 175, 0.4);">
                      </div>
                   </div>
                   <!-- <div class="box"  >
                   <div   style="text-align: center; padding: 20px;">
                   
-                     <label   class="enLabel">
+                     <label    >
                         التهمة  :
                         <b> {{titreAcc}}</b>
                         
@@ -311,21 +403,22 @@
                   <i class="pi pi-copy" style="font-size: 25px;   "></i>
                   <span style="font-family: 'Amiri', Times, serif; font-size: 20px;    ">قائمة القضايا </span>
                </ng-template>
-               <p-table *ngIf="displayAffaire" [value]="calculeAffaireDto?.affaires" #dt dataKey="numOrdinale"
+               <p-table *ngIf="displayAffaire" [value]="ficheDeDetentionDto?.affaires" #dt dataKey="numOrdinale"
+               [style]="{ 'background-color': 'white'   }"
                   selectionMode="single" [paginator]="true" [rows]="10" [globalFilterFields]="['type']">
                   <ng-template pTemplate="header">
                      <tr  >
                         <th style="width:  3em;"> ع.ر </th>
-                        <th style="width: 10%;">عدد القضية</th>
-                        <th style="width: 10%;"> تاريخ الحكم </th>
+                        <th style="width: 11%;">عدد القضية</th>
+                        <th style="width: 11%;"> تاريخ الحكم </th>
                         <th style="width: 20%;">المحكمة</th>
-                        <th style="width: 27%;">التهمة </th>
-                        <th style="width: 23%;">نص الحكم </th>
-                        <th style="width: 10%;">الوثيقة الجارية</th>
-                        <th style="width: 4em;">
+                        <th style="width: 25%;">التهمة </th>
+                        <th style="width: 20%;">نص الحكم </th>
+                        <th style="width: 13%;">الوثيقة الجارية</th>
+                        <th style="width: 3em;">
                            كشف
                         </th>
-                        <th style="width: 4em;">
+                        <th style="width: 3em;">
                            الملف
                         </th>
                      </tr>
@@ -459,12 +552,8 @@
                         <div class="ui-helper-clearfix" dir="rtl">
                            <div class="p-grid">
                               <div class="p-col-12 p-md-10" style="text-align:center; ">
-                                 <p-card *ngIf="calculeAffaireDto.displayArrestation" [style]="{ 
-                           'border-radius': '1%', ' background-color':' white !important',
-                           '-moz-box-shadow': '0px 1px 1px rgba(0, 0, 0, 0.966)', 'font-family': 'Times New Roman', 'font-size': '18px',  'font-weight': 'bold' ,
-                           '-webkit-box-shadow': '0px 1px 1px rgba(0, 0, 0, 0.966)',
-                           'box-shadow':' 0px 1px 1px rgba(0, 0, 0, 0.966)'  }">
-                                    <div class="p-grid" style="text-align:center">
+                                
+                                    <div class="p-grid" style="text-align:center" *ngIf="affaireLocal">
                                        <div class="p-col-12 p-md-1" style="text-align:right">
                                           <label style="color: #2b2b2bda;" class="neonsBlack"> ع.ر : <b>
                                                 {{affaireLocal?.numOrdinalAffaire}} </b> </label>
@@ -478,7 +567,7 @@
                                                 {{affaireLocal?.tribunal?.nom_tribunal }} </b> </label>
                                        </div>
                                     </div>
-                                 </p-card>
+                                  
                               </div>
                               <div class="p-col-12 p-md-2" style="text-align:left" *ngIf="displayAffaireDetails">
                                  <button mat-mini-fab color="primary"
@@ -569,35 +658,35 @@
                   <span style="font-family: 'Amiri', Times, serif; font-size: 20px;    "> قائمة الإقامات
                   </span>
                </ng-template>
-               <div style="margin-left: 1%;margin-right: 1%;">
+               <div style="margin-left: 1%;margin-right: 1%; background-color: white;">
                   <div>
-                     <div class="p-grid layout-dashboard">
+                     <div class="p-grid court-content">
                         <div class="p-col-12 p-lg-12" dir="rtl" style="width: 500 px; text-align: right;">
                            <div class=" download-files">
                               <ul>
-                                 <li *ngFor="let residence of this.calculeAffaireDto?.residences">
+                                 <li *ngFor="let residence of this.ficheDeDetentionDto?.residences">
                                     <div class="p-grid list-item">
                                        <div class="p-col-4">
-                                          <label class="enLabel">العدد الرتبي للإقامة : <b>{{
+                                          <label  >العدد الرتبي للإقامة : <b>{{
                                                 residence?.residenceId?.numOrdinaleResidence }} </b> </label>
-                                          <label class="enLabel" *ngIf=" residence?.numArrestation">عدد الإيقاف: <b
+                                          <label   *ngIf=" residence?.numArrestation">عدد الإيقاف: <b
                                                 dir="rtl">{{ residence?.numArrestation }}</b> </label>
-                                          <label class="enLabel" *ngIf="residence?.nombreEchappes"> عدد الفررات : <b>{{
+                                          <label   *ngIf="residence?.nombreEchappes"> عدد الفررات : <b>{{
                                                 residence?.nombreEchappes }} </b> </label>
                                        </div>
                                        <div class="p-col-4">
-                                          <label class="enLabel" *ngIf="residence?.causeMutation"> أسباب النقلة : <b>{{
+                                          <label   *ngIf="residence?.causeMutation"> أسباب النقلة : <b>{{
                                                 residence?.causeMutation?.libelle_causeMutation }} </b> </label>
-                                          <label class="enLabel"> مركز : <b>{{
+                                          <label  > مركز : <b>{{
                                                 residence?.etablissement?.libelle_etablissement }} </b> </label>
                                        </div>
                                        <div class="p-col-4" *ngIf="residence?.statut != 2">
-                                          <label class="enLabel" *ngIf="residence?.etabChangeManiere"> تغير وسيلة :
+                                          <label   *ngIf="residence?.etabChangeManiere"> تغير وسيلة :
                                              <b>{{ residence?.etabChangeManiere?.libelle_etabChangeManiere }}</b>
                                           </label>
-                                          <label class="enLabel" *ngIf="residence?.dateSortie">تاريخ المغادرة: <b
+                                          <label   *ngIf="residence?.dateSortie">تاريخ المغادرة: <b
                                                 dir="rtl">{{ residence?.dateSortie }}</b> </label>
-                                          <label class="enLabel" *ngIf="residence?.dateEntree">تاريخ الإستقبال: <b
+                                          <label   *ngIf="residence?.dateEntree">تاريخ الإستقبال: <b
                                                 dir="rtl">{{ residence?.dateEntree }}</b> </label>
                                        </div>
                                        <div class="p-col-4" *ngIf="residence?.statut == 2">
@@ -673,14 +762,9 @@
       </div>
    </p-dialog>
    <p-dialog *ngIf="carteRecup"
-      [style]="{width: '80vw', height: '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+       [style]="{width: '80%', height: '90%', maxHeight: '100%', overflow: 'auto'}" 
       [closable]="false" [(visible)]="showCarteRecup" modal="true">
-      <p-header>
-         <label class="d">
-            {{carteRecup?.documentId?.numOrdinalDocByAffaire}}/
-            <span style="color: #ff3434 !important;">مضمون حكم</span>
-         </label>
-      </p-header>
+      
       <app-show-carte-recup [carteRecup]="carteRecup"></app-show-carte-recup>
       <p-footer>
          <div style="text-align: center;">
@@ -689,32 +773,28 @@
          </div>
       </p-footer>
    </p-dialog>
-   <p-dialog *ngIf="carteDepot"
-      [style]="{width: '80vw', height: '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
-      [closable]="false" [(visible)]="showCarteDepot" modal="true">
-      <p-header>
-         <label class="d">
-            {{carteDepot?.documentId?.numOrdinalDocByAffaire}}/
-            <span style="color: #0099ff !important;">بطاقة إيداع</span>
-         </label>
-      </p-header>
+
+   <p-dialog *ngIf="carteDepot" 
+    [style]="{width: '80%', height: '90%', maxHeight: '100%', overflow: 'auto'}" 
+    [closable]="true" 
+    [(visible)]="showCarteDepot" 
+    modal="true" 
+    [baseZIndex]="1000">
+   
       <app-show-carte-depot [carteDepot]="carteDepot"></app-show-carte-depot>
       <p-footer>
          <div style="text-align: center;">
-            <button pButton type="button" label="واضح" style="margin-right: 2px;" class="ui-button-danger"
-               (click)="showCarteDepot = false"></button>
+            <button pButton type="button" label="واضح" style="margin-right: 2px;"  class="ui-button-danger"  (click)="showCarteDepot = false"></button>
          </div>
       </p-footer>
    </p-dialog>
+
+
+   
    <p-dialog *ngIf="cartePropagation"
-      [style]="{width: '80vw', height: '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+       [style]="{width: '80%', height: '90%', maxHeight: '100%', overflow: 'auto'}" 
       [closable]="false" [(visible)]="showCartePropagation" modal="true">
-      <p-header>
-         <label class="d">
-            {{cartePropagation?.documentId?.numOrdinalDocByAffaire}}/
-            <span style="color: #0099ff !important;"> قرار تمديد </span>
-         </label>
-      </p-header>
+      
       <app-show-carte-propagation [cartePropagation]="cartePropagation"></app-show-carte-propagation>
       <p-footer>
          <div style="text-align: center;">
@@ -724,14 +804,9 @@
       </p-footer>
    </p-dialog>
    <p-dialog *ngIf="carteHeber"
-      [style]="{width: '80vw', height: '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+       [style]="{width: '80%', height: '90%', maxHeight: '100%', overflow: 'auto'}" 
       [closable]="false" [(visible)]="showCarteHeber" modal="true">
-      <p-header>
-         <label class="d">
-            {{carteHeber?.documentId?.numOrdinalDocByAffaire}}/
-            <span style="color: #0099ff !important;">بطاقة إيواء</span>
-         </label>
-      </p-header>
+      
       <app-show-carte-hebergement [carteHeber]="carteHeber"></app-show-carte-hebergement>
       <p-footer>
          <div style="text-align: center;">
@@ -741,39 +816,24 @@
       </p-footer>
    </p-dialog>
    <p-dialog *ngIf="transfert"
-      [style]="{width: '80vw', height: '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
-      [closable]="false" [(visible)]="showTransfert" modal="true">
-      <p-header>
-         <label class="d">
-            {{transfert?.documentId?.numOrdinalDocByAffaire}}/
-            <span style="color: #0099ff !important;" *ngIf=" (transfert?.typeFile=='T' ||  !transfert?.typeFile) ">
-               إحــــــالة
-            </span>
-            <span style="color: #0099ff !important;" *ngIf="(transfert?.typeFile=='A')">
-               تخلــــــي
-            </span>
-            <span style="color: #0099ff !important;" *ngIf=" (transfert?.typeFile=='G')">
-               تعهــــــد
-            </span>
-         </label>
-      </p-header>
+        [style]="{width: '80%', height: '90%', maxHeight: '100%', overflow: 'auto'}"  
+    [closable]="true" 
+    [(visible)]="showTransfert" 
+    modal="true" 
+    [baseZIndex]="1000">
+      
       <app-show-transfert [transfert]="transfert"></app-show-transfert>
       <p-footer>
          <div style="text-align: center;">
-            <button pButton type="button" label="واضح" style="margin-right: 2px;" class="ui-button-danger"
+            <button pButton type="button" label="واضح" class="ui-button-danger"
                (click)="showTransfert = false"></button>
          </div>
       </p-footer>
    </p-dialog>
    <p-dialog *ngIf="appelEnfant"
-      [style]="{width: '80vw', height: '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+       [style]="{width: '80%', height: '90%', maxHeight: '100%', overflow: 'auto'}" 
       [closable]="false" [(visible)]="showAppelEnfant" modal="true">
-      <p-header>
-         <label class="d">
-            {{appelEnfant?.documentId?.numOrdinalDocByAffaire}}/
-            <span style="color:  #0099ff !important;"> إستناف الطفل </span>
-         </label>
-      </p-header>
+      
       <app-show-appel-enfant [appelEnfant]="appelEnfant"></app-show-appel-enfant>
       <p-footer>
          <div style="text-align: center;">
@@ -783,14 +843,9 @@
       </p-footer>
    </p-dialog>
    <p-dialog *ngIf="appelParquet"
-      [style]="{width: '80vw', height: '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+       [style]="{width: '80%', height: '90%', maxHeight: '100%', overflow: 'auto'}" 
       [closable]="false" [(visible)]="showAppelParquet" modal="true">
-      <p-header>
-         <label class="d">
-            {{appelParquet?.documentId?.numOrdinalDocByAffaire}}/
-            <span style="color:  #0099ff !important;"> إستناف النيابة </span>
-         </label>
-      </p-header>
+     
       <app-show-appel-parquet [appelParquet]="appelParquet"></app-show-appel-parquet>
       <p-footer>
          <div style="text-align: center;">
@@ -800,14 +855,9 @@
       </p-footer>
    </p-dialog>
    <p-dialog *ngIf="revue"
-      [style]="{width: '80vw', height: '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+       [style]="{width: '80%', height: '90%', maxHeight: '100%', overflow: 'auto'}" 
       [closable]="false" [(visible)]="showRevue" modal="true">
-      <p-header>
-         <label class="d">
-            {{revue?.documentId?.numOrdinalDocByAffaire}}/
-            <span style="color: #ff3434 !important;"> مراجعة</span>
-         </label>
-      </p-header>
+       
       <app-show-revue [revue]="revue"></app-show-revue>
       <p-footer>
          <div style="text-align: center;">
@@ -817,14 +867,9 @@
       </p-footer>
    </p-dialog>
    <p-dialog *ngIf="refuseRevue"
-      [style]="{width: '80vw', height: '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+       [style]="{width: '80%', height: '90%', maxHeight: '100%', overflow: 'auto'}" 
       [closable]="false" [(visible)]="showRefuseRevue" modal="true">
-      <p-header>
-         <label class="d">
-            {{refuseRevue?.documentId?.numOrdinalDocByAffaire}}/
-            <span style="color: #ff3434 !important;"> رفض مراجعة </span>
-         </label>
-      </p-header>
+      
       <app-show-refuse-revue [refuseRevue]="refuseRevue"></app-show-refuse-revue>
       <p-footer>
          <div style="text-align: center;">
@@ -834,21 +879,9 @@
       </p-footer>
    </p-dialog>
    <p-dialog *ngIf="arreterlexecution"
-      [style]="{width: '80vw', height: '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+       [style]="{width: '80%', height: '90%', maxHeight: '100%', overflow: 'auto'}" 
       [closable]="false" [(visible)]="showArreterlexecution" modal="true">
-      <p-header>
-         <label class="d">
-            {{arreterlexecution?.documentId?.numOrdinalDocByAffaire}}/
-            <span style="color: rgb(1, 151, 1) !important;"
-               *ngIf="arreterlexecution.typeDocument == 'AEX' && (arreterlexecution?.typeFile=='AEX' ||  !arreterlexecution?.typeFile) ">
-               إيقاف تنفيذ الحكم
-            </span>
-            <span style="color: rgb(1, 151, 1) !important;"
-               *ngIf="arreterlexecution.typeDocument == 'AEX' && (arreterlexecution?.typeFile=='L')">
-               ســــــــــــراح
-            </span>
-         </label>
-      </p-header>
+   
       <app-show-arreter-lexecution [arreterlexecution]="arreterlexecution"></app-show-arreter-lexecution>
       <p-footer>
          <div style="text-align: center;">
@@ -858,14 +891,9 @@
       </p-footer>
    </p-dialog>
    <p-dialog *ngIf="changementLieu"
-      [style]="{width: '80vw', height: '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+       [style]="{width: '80%', height: '90%', maxHeight: '100%', overflow: 'auto'}" 
       [closable]="false" [(visible)]="showChangementLieu" modal="true">
-      <p-header>
-         <label class="d">
-            {{changementLieu?.documentId?.numOrdinalDocByAffaire}}/
-            <span style="color:rgb(1, 151, 1) !important;"> قرار تغير مكان الإيداع</span>
-         </label>
-      </p-header>
+      
       <app-show-changement-lieu [changementLieu]="changementLieu"></app-show-changement-lieu>
       <p-footer>
          <div style="text-align: center;">
@@ -875,44 +903,33 @@
       </p-footer>
    </p-dialog>
    <p-dialog
-      [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+      [style]="{'width': '60vw', 'max-height': '40vw' , 'background-color': 'white' }"
       [closable]="false" [(visible)]="displayAffaireConsult" modal="true">
       <p-header>
-         <div class="p-col-12 " style="text-align:center;">
+         
+          
             <div class="p-grid" style="text-align:center;">
                <div class="p-col-12 p-md-1" style="text-align:right">
-                  <label style="color: #2b2b2bda;" class="neonsBlack"> ع.ر : <b style="color: #2b2b2bda;">
+                  <label   class="neonsBlack"> ع.ر : <b  >
                         {{affaireLocal?.numOrdinalAffaire}} </b> </label>
                </div>
                <div class="p-col-12 p-md-4">
-                  <label style="color: #2b2b2bda;" class="neonsBlack"> عدد القضية : <b dir="rtl"
-                        style="color: #2b2b2bda;"> {{affaireLocal?.affaireId?.numAffaire }} </b> </label>
+                  <label   class="neonsBlack"> عدد القضية : <b dir="rtl"
+                        > {{affaireLocal?.affaireId?.numAffaire }} </b> </label>
                </div>
                <div class="p-col-12 p-md-7">
-                  <label style="color: #2b2b2bda;" class="neonsBlack"> محكمة : <b style="color: #2b2b2bda;">
+                  <label   class="neonsBlack"> محكمة : <b  >
                         {{affaireLocal?.tribunal?.nom_tribunal }} </b> </label>
                </div>
             </div>
-         </div>
+          
       </p-header>
       <p-dataView dir="rtl" *ngIf="displayAffaireConsult" [value]="documents">
+         
          <ng-template let-row pTemplate="listItem">
-            <div class="p-col-12">
-               <p-card [style]="{ 'height': 'auto',   
-            'font-family': 'Times New Roman',  
-            '-moz-box-shadow': '0px 1px 1px rgba(0, 0, 0, 0.966)',
-            '-webkit-box-shadow': '0px 1px 1px rgba(0, 0, 0, 0.966)',
-            'box-shadow':'1px 1px 1px #919191,
-            1px 1px 1px #919191,
-            1px 1px 1px #919191,
-            1px 1px 1px #919191,
-            1px 1px 1px #919191,
-            1px 1px 1px #919191,
-            1px 1px 1px #919191,
-            1px 1px 1px #919191,
-            1px 1px 1px #919191,
-            1px 1px 1px #919191'  }">
-                  <div class="p-grid">
+            <div class="p-col-12 "> 
+              
+                  <div class="p-grid court-document">
                      <div class="p-col-4">
                         <div class="item">العدد الرتبي للوثيقة: <b style=" color: rgb(74, 89, 163);">
                               {{row?.documentId?.numOrdinalDocByAffaire}}</b></div>
@@ -1036,7 +1053,7 @@
                               {{row?.dateFinPunition}}</b> </div>
                      </div>
                   </div>
-               </p-card>
+              
             </div>
          </ng-template>
       </p-dataView>

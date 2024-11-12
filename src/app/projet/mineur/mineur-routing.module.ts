@@ -71,6 +71,7 @@ import { TransfertComponent } from "./transfert/transfert.component";
 import { StatistiqueSpecComponent } from "./statistique-spec/statistique-spec.component";
 import { AddEnfantComponent } from "./add-enfant/add-enfant.component";
 import { MensuelComponent } from "./mensuel/mensuel.component";
+import { ModifyPasswordComponent } from "./modify-password/modify-password.component";
 
 const routes: Routes = [
   {
@@ -81,7 +82,14 @@ const routes: Routes = [
       { path: "test1", component: Test1Component },
       { path: "", component: AccueilComponent },
 
-      { path: "MoreInformaton", component: MoreInformatonComponent },
+      {
+        path: "MoreInformation/:id",
+        component: MoreInformatonComponent,
+      },
+      {
+        path: "ModifyPassword",
+        component: ModifyPasswordComponent,
+      },
 
       { path: "StatistiqueSpec", component: StatistiqueSpecComponent },
 
@@ -158,7 +166,7 @@ const routes: Routes = [
 
       { path: "Juge", component: JugeComponent },
 
-      { path: "mensuel", component: MensuelComponent  },
+      { path: "mensuel", component: MensuelComponent },
 
       { path: "ListPenale", component: ListPenaleComponent },
 

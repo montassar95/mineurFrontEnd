@@ -4,323 +4,248 @@
 <div dir="rtl" style="margin-bottom: 100px;"   >
    
 
+<p-toast key="tst" [style]="{marginTop: '150px'}"></p-toast>
 
-    <p-toast key="tst" [style]="{marginTop: '150px'}"></p-toast>
-    <div *ngIf="existBoolean" class="ui-messages ui-widget ui-corner-all ui-messages-warn"
-    style="margin: 0 0 1em 0; display: block">
-   <ul>
-       <li>
-        {{currentUser.personelle.etablissement.statut}}
-           <span class="ui-messages-summary" style="font-size:16px; font-family: 'Amiri', Times, serif; font-size: 20px;">لا يوجد أي هوية بهذه المعطيات   <span class="ui-messages-icon pi pi-ban" style="font-size: 45px; color: red;" ></span>
-            <span *ngIf="currentUser.personelle.etablissement.statut == 0" >  يمكنك إدراج هوية جديدة.</span></span>
-        <!-- *ngIf="currentUser.personelle.etablissement.statut == 0" -->
-           <button  (click)="showAdd()"
-           style="background-color: #28a745!important;" mat-fab  >
-              <i class="pi pi-plus" style="font-size: 25px;"> </i>
-           </button>
+<div *ngIf="existBoolean" class="ui-messages ui-widget ui-corner-all ui-messages-warn" style="margin: 0 0 1em 0;">
+    <ul>
+        <li>
+            {{currentUser?.etablissement.statut}}
+            <span class="ui-messages-summary"
+                style="font-size:16px; font-family: 'Amiri', Times, serif; font-size: 20px;">
+                لا يوجد أي هوية بهذه المعطيات
+                <span class="ui-messages-icon pi pi-ban" style="font-size: 45px; color: red;"></span>
+                <span *ngIf="currentUser.roles[0] == 'ROLE_USER'">
+                    يمكنك إدراج هوية جديدة.
+                </span>
+            </span>
+            <button *ngIf="currentUser.roles[0] == 'ROLE_USER'" (click)="showAdd()"
+                style="background-color: #28a745!important;" mat-fab>
+                <i class="pi pi-plus" style="font-size: 25px;"></i>
+            </button>
         </li>
-   </ul>
+    </ul>
 </div>
-<div class="p-grid" style="width: 100%;" >
-    
-    <div class="p-col-2 " *ngIf="!selectedIndex"  >
-        
 
-        
-<p-card [style]="{
-        'border-radius': '3%',
-        'height': 'auto',
-        'margin-bottom': '15px',
-        '-moz-box-shadow': '0px 1px 1px rgba(0, 0, 0, 0.4)',
-        '-webkit-box-shadow': '0px 1px 1px rgba(0, 0, 0, 0.4)',
-        'box-shadow':'2px 2px 2px 2px rgba(0, 0, 0, 0.4)'
-    }">
+<div class="p-grid" style="width: 100%;">
+    <div class="p-col-3" *ngIf="!selectedIndex">
+        <div class="court-document" style="width: 70%;">
 
-    <p-tabView>
-       
-        <p-tabPanel header="المعرف الجزائي"  >
-            <div class="p-grid " style="width: 100%; height: 100%; margin-top: 50px;  "   >
-                
-                <div class="p-col-5"  >
-                 
-                    
-                    <h2>معرف الطفل </h2>
-                
-            </div>
-                <div class="p-col-1" style="margin-top: 7px;"  >
-                 
-                        <p-radioButton name="groupname" value="val1" [(ngModel)]="selectedValue" (click)="show()"></p-radioButton>
-                    
-                       
-                </div>
-                <div class="p-col-6">
-                  
-                   
-                   
-                    <p-inputMask  *ngIf="selectedValue == 'val1'" [style]="{'font-weight': '400' , 'width': '100%' ,'font-size': '18px','color': 'black' , 'margin-bottom': '10px'}"
-                    dir="rtl"    [(ngModel)]="id" mask="99999999" slotChar="----------"
-                    (keyup.enter)="onSubmitId()"  placeholder=" معرف  ">
-                    </p-inputMask>
-                </div>
-                <div class="p-col-5">
-                   
-                    <h2>عدد الإيقاف</h2>
-        
-                </div>
-                 <div class="p-col-1" style="margin-top: 5px;"  >
-                    <p-radioButton name="groupname" value="val2" [(ngModel)]="selectedValue" (click)="show()"></p-radioButton>
-                  
-        
-                </div>
-                <div class="p-col-6">
-        
-                    <p-inputMask  *ngIf="selectedValue == 'val2'" [style]="{'font-weight': '400' ,'font-size': '18px','color': 'black'}"
-                    dir="rtl"   [(ngModel)]="numArr"  mask="999999" slotChar="------"
-                    (keyup.enter)="onSubmitId()"   placeholder=" عدد  ">                            
-                    </p-inputMask>
-                </div>  
-             
-                 
-                 
-                 
-            </div>
-            <br>
-           
-            
-           <div class="p-col-12 p-md-12" style="text-align: center;">
-                <button   (click)="onSubmitId()" style="background-color: #28a745!important;" mat-fab  aria-label="Example icon button with a home icon">
-                
-                   <i class="pi pi-search" style="font-size: 25px;"></i>
-                 </button>
-           </div>
-        </p-tabPanel>
-        <p-tabPanel header="الهوية العربية">
-            <form [formGroup]="addForm1" >
-                <div class="p-grid"   style="width: 100%;"   >
-                  
-                    <div class="p-col-4">
-                        <h2>الإسم </h2>
-         
-                    </div>
-                    <div class="p-col-8">
-            
-                        <input #nom  id="input" formControlName="nom" type="text" pInputText />
-                    </div>
-                    <div class="p-col-4">
-                        <h2>اللقب </h2>
-            
-                    </div>
-                    <div class="p-col-8">
-            
-                        <input id="input" formControlName="prenom" type="text" pInputText />
-                    </div>
-                    <div class="p-col-4">
-                        <h2>إسم الأب</h2>
-            
-                    </div>
-                    <div class="p-col-8">
-            
-                        <input id="input" formControlName="nomPere" type="text" pInputText />
-                    </div>
-                    <div class="p-col-4">
-                        <h2>إسم الجد</h2>
-            
-                    </div>
-                    <div class="p-col-8">
-            
-                        <input id="input" formControlName="nomGrandPere" type="text" pInputText />
-                    </div>
-                    <div class="p-col-4">
-                        <h2>إسم الأم</h2>
-            
-                    </div>
-                    <div class="p-col-8">
-            
-                        <input id="input" formControlName="nomMere" type="text" pInputText />
-                    </div>
-                    <div class="p-col-4">
-                        <h2>لقبها</h2>
-            
-                    </div>
-                    <div class="p-col-8">
-            
-                        <input id="input" formControlName="prenomMere"  type="text" pInputText />
-                    </div>
-                    <div class="p-col-5">
-                        <h2>تاريخ الولادة</h2>
-            
-                    </div>
-                    <div class="p-col-7"   >
-                        <p-inputMask formControlName="dateNaissance"  required mask="9999/99/99"   [style]="{  'font-weight': '500','font-size': '16px','color': 'black'}"
-                        slotChar="----/--/--" placeholder="يوم/شهر/سنة"></p-inputMask>
-                       
-                    </div>
-                    <div class="p-col-4">
-                       <h2> الجنس </h2> 
-      
-                     </div>
-                     <div class="p-col-8">
-                    <div   class="p-grid">
-                        <div class="p-col-6">
-                           <h2>
-                              <p-radioButton name="rg" formControlName="sexe"  value="ذكر">
-      
-                              </p-radioButton>
-                              ذكر
-                           </h2>
+            <p-tabView>
+
+                <!-- Tab Panel: المعرّف الجزائي -->
+                <p-tabPanel header="المعرف الجزائي">
+
+                    <div class="p-grid" style="width: 100%; height: 100%; margin-top: 50px;">
+
+                        <!-- Identifiant de l'enfant -->
+                        <div class="p-col-5">
+                            <h2>معرف الطفل</h2>
                         </div>
-                         
-                        <div class="p-col-6">
-                           <h2>
-                              <p-radioButton name="rg" formControlName="sexe" value="أنثى">
-      
-                              </p-radioButton>
-                              أنثى
-                           </h2>
+                        <div class="p-col-1" style="margin-top: 7px;">
+                            <p-radioButton name="groupname" value="val1" [(ngModel)]="selectedValue"
+                                (click)="show()"></p-radioButton>
                         </div>
-      
-                     </div>
+                        <div class="p-col-6">
+                            <p-inputMask *ngIf="selectedValue == 'val1'"
+                                [style]="{'font-weight': '400', 'width': '100%', 'font-size': '18px', 'color': 'black', 'margin-bottom': '10px'}"
+                                dir="rtl" [(ngModel)]="id" mask="99999999" slotChar="----------"
+                                (keyup.enter)="onSubmitId()" placeholder="معرف"></p-inputMask>
+                        </div>
+
+                        <!-- Nombre d'arrêts -->
+                        <div class="p-col-5">
+                            <h2>عدد الإيقاف</h2>
+                        </div>
+                        <div class="p-col-1" style="margin-top: 5px;">
+                            <p-radioButton name="groupname" value="val2" [(ngModel)]="selectedValue"
+                                (click)="show()"></p-radioButton>
+                        </div>
+                        <div class="p-col-6">
+                            <p-inputMask *ngIf="selectedValue == 'val2'"
+                                [style]="{'font-weight': '400', 'font-size': '18px', 'color': 'black'}" dir="rtl"
+                                [(ngModel)]="numArr" mask="999999" slotChar="------" (keyup.enter)="onSubmitId()"
+                                placeholder="عدد"></p-inputMask>
+                        </div>
+
                     </div>
-                     
+
                     <div class="p-col-12 p-md-12" style="text-align: center;">
-                       
-                        <button  (click)=" onSubmitAddForm1()" style="background-color: #28a745!important;" mat-fab  aria-label="Example icon button with a home icon">
+                        <button (click)="onSubmitId()" style="background-color: #28a745!important;" mat-fab>
                             <i class="pi pi-search" style="font-size: 25px;"></i>
-                          </button>
-                     </div>
-                </div>
-            </form>
-        </p-tabPanel>
-    </p-tabView>
-     
- </p-card >
-    </div>
-    <div class="p-col-10"  >
-    
-                    
-            <div class="p-grid" style="background-color: white;" >
-                
-               
-                    <p-table   [value]="enfants"  *ngIf="enfants.length"
-            
-     id="dt" #dt dataKey="numOrdinale"
-                   
-                      paginatorPosition="bottom" [rowsPerPageOptions]="[4,10,20,50]"     [rows]="4"
-                         [paginator]="true"   [globalFilterFields]="['arrestation.enfant.nom']">
-                         <ng-template pTemplate="caption">
-                            <div class="p-d-flex p-ai-center p-jc-between">
-                         
-                             <!-- <h1  style="text-align: right;"  >  إسترشــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــاد :
-                                 
-                             
-                             </h1>   -->
-                            <input type="text" pInputText size="50" placeholder="  كلمــــــــــة مفتــــــــــاح"
-                                (input)="dt.filterGlobal($event.target.value, 'contains')"
-                                style="width:250px;
-                                                                                                                                                                         font-weight: bold;
-                                                                                                                                                                         font-size: 16px;">
-                            
+                        </button>
+                    </div>
+
+                </p-tabPanel>
+
+                <!-- Tab Panel: الهوية العربية -->
+                <p-tabPanel header="الهوية العربية">
+                    <form [formGroup]="addForm1">
+
+                        <div class="p-grid" style="width: 100%;">
+
+                            <!-- Form Fields -->
+                            <div class="p-col-4">
+                                <h2>الإسم</h2>
                             </div>
-                         </ng-template>   
-                      <ng-template pTemplate="header"  >
-                         <tr > 
-                             <!-- <th style="width: 7%;">صورة     </th>  -->
-                             <th style="width: 10%;" pSortableColumn="residence.arrestation.enfant.id" >  المعرف   
-                                <p-sortIcon field="residence.arrestation.enfant.id"></p-sortIcon>
-                            
-                            </th>
-                               <th style="width: 20%;" >الهوية    </th>  
-                             <th style="width: 10%;" >هوية الأم  </th> 
-                             <th style="width: 20%;" >تاريخ و مكان الولادة  </th> 
-                             <th style="width: 20%;" >عدد الإيقاف </th> 
-                             
-                             <th style="width: 20%;" >
-                                <button  *ngIf="currentUser.personelle.etablissement.statut == 0"  (click)="showAdd()"
-                                style="background-color: #28a745!important;" mat-fab  >
-                                   <i class="pi pi-plus" style="font-size: 25px;"> </i>
-   
-                                   
-                               </button> 
-                            </th>
-                            
-                         </tr>
-                     </ng-template>
-          
-                      <ng-template pTemplate="body" let-residence>
-                         <tr>
-                            
-                            <!-- <td><img *ngIf ="residence?.arrestation?.enfant?.img"  [src]="residence?.arrestation?.enfant?.img" class="profile-img-card2"></td> -->
-                             <td> {{residence?.arrestation?.enfant?.id}} </td>
-                             <td>{{residence?.arrestation?.enfant?.nom}}   بن    {{residence?.arrestation?.enfant?.nomPere}}   بن     {{residence?.arrestation?.enfant?.nomGrandPere}} {{residence?.arrestation?.enfant?.prenom}} </td>
-                             <td>{{residence?.arrestation?.enfant?.nomMere}} {{residence?.arrestation?.enfant?.prenomMere}}</td>
-                             <td>{{residence?.arrestation?.enfant?.dateNaissance  +'   بـــــ'+ residence?.arrestation?.enfant?.lieuNaissance}}</td>
-                            
-                             <td  *ngIf="residence?.statut != 2">{{residence?.dateEntree  +' '+ residence?.etablissement?.libelle_etablissement +' '+ residence?.numArrestation}}</td>
-                             <td style="color:red ;" *ngIf="residence?.statut == 2">{{ 'نقلة جارية  إلى '+' '+ residence?.etablissement?.libelle_etablissement +' ' }}</td>
-                           
-                             <td>
-                                 
-                                <div class="example-button-container">
-                                        <button (click)="showFolderEnfant(residence.arrestation.enfant)" mat-mini-fab color="primary" aria-label="Example icon button with a home icon">
-                                        <i class="pi pi-folder-open" style="font-size: 25px;"></i>
-                                    </button>
-                               
-                                    <button  *ngIf="residence?.statut==0 && currentUser?.personelle?.etablissement?.id == residence?.etablissement?.id"
-                                    style="background-color: white!important; margin-right: 15px;"   (click)="showEdit(residence)"  mat-mini-fab  >
-                                       <i class="pi pi-pencil" style="font-size: 30px; color: blue;" > </i>
+                            <div class="p-col-8">
+                                <input id="input" formControlName="nom" type="text" pInputText />
+                            </div>
 
-                                   </button>
+                            <div class="p-col-4">
+                                <h2>اللقب</h2>
+                            </div>
+                            <div class="p-col-8">
+                                <input id="input" formControlName="prenom" type="text" pInputText />
+                            </div>
 
-                                <button *ngIf="residence?.statut==0 && currentUser?.personelle?.etablissement?.id == residence?.etablissement?.id"
-                                    style="background-color: white!important; margin-right: 15px;" (click)="showEdit(residence)" mat-mini-fab>
-                                    <i class="pi pi-image" style="font-size: 30px; color: gray;"> </i>
-                                
-                                </button> 
+                            <div class="p-col-4">
+                                <h2>إسم الأب</h2>
+                            </div>
+                            <div class="p-col-8">
+                                <input id="input" formControlName="nomPere" type="text" pInputText />
+                            </div>
 
-                                <button *ngIf="residence?.statut==0 && currentUser?.personelle?.etablissement?.id == residence?.etablissement?.id"
-                                    style="background-color: white!important; margin-right: 15px;" (click)="showVisite(residence)"   mat-mini-fab>
-                                    <i class="pi pi-home" style="font-size: 30px; color: brown;"> </i>
-                                
+                            <div class="p-col-4">
+                                <h2>إسم الجد</h2>
+                            </div>
+                            <div class="p-col-8">
+                                <input id="input" formControlName="nomGrandPere" type="text" pInputText />
+                            </div>
+
+                            <div class="p-col-4">
+                                <h2>إسم الأم</h2>
+                            </div>
+                            <div class="p-col-8">
+                                <input id="input" formControlName="nomMere" type="text" pInputText />
+                            </div>
+
+                            <div class="p-col-4">
+                                <h2>لقبها</h2>
+                            </div>
+                            <div class="p-col-8">
+                                <input id="input" formControlName="prenomMere" type="text" pInputText />
+                            </div>
+
+                            <div class="p-col-5">
+                                <h2>تاريخ الولادة</h2>
+                            </div>
+                            <div class="p-col-7">
+                                <p-inputMask formControlName="dateNaissance" required mask="9999/99/99"
+                                    [style]="{'font-weight': '500', 'font-size': '16px', 'color': 'black'}"
+                                    slotChar="----/--/--" placeholder="يوم/شهر/سنة"></p-inputMask>
+                            </div>
+
+                            <div class="p-col-4">
+                                <h2>الجنس</h2>
+                            </div>
+                            <div class="p-col-8">
+                                <div class="p-grid">
+                                    <div class="p-col-6">
+                                        <h2>
+                                            <p-radioButton name="rg" formControlName="sexe" value="ذكر"></p-radioButton>
+                                            ذكر
+                                        </h2>
+                                    </div>
+                                    <div class="p-col-6">
+                                        <h2>
+                                            <p-radioButton name="rg" formControlName="sexe"
+                                                value="أنثى"></p-radioButton>
+                                            أنثى
+                                        </h2>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="p-col-12 p-md-12" style="text-align: center;">
+                            <button (click)="onSubmitAddForm1()" style="background-color: #28a745!important;" mat-fab>
+                                <i class="pi pi-search" style="font-size: 25px;"></i>
+                            </button>
+                        </div>
+
+                    </form>
+                </p-tabPanel>
+
+            </p-tabView>
+
+        </div>
+    </div>
+
+    <!-- Table Section -->
+    <div class="p-col-9">
+        <div class="p-grid" style="background-color: white;">
+            <p-table [value]="enfants" *ngIf="enfants.length" id="dt" #dt dataKey="numOrdinale"
+                paginatorPosition="bottom" [rowsPerPageOptions]="[4,10,20,50]" [rows]="4" [paginator]="true"
+                [globalFilterFields]="['arrestation.enfant.nom']">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        <input type="text" pInputText size="50" placeholder="  كلمــــــــــة مفتــــــــــاح"
+                            (input)="dt.filterGlobal($event.target.value, 'contains')"
+                            style="width:250px; font-weight: bold; font-size: 16px;">
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 10%;" pSortableColumn="residence.arrestation.enfant.id">المعرف
+                            <p-sortIcon field="residence.arrestation.enfant.id"></p-sortIcon>
+                        </th>
+                        <th style="width: 20%;">الهوية</th>
+                        <th style="width: 10%;">هوية الأم</th>
+                        <th style="width: 20%;">تاريخ و مكان الولادة</th>
+                        <th style="width: 20%;">عدد الإيقاف</th>
+                        <th style="width: 20%;">
+                            <button *ngIf="currentUser?.etablissement.statut == 0" (click)="showAdd()"
+                                style="background-color: #28a745!important;" mat-fab>
+                                <i class="pi pi-plus" style="font-size: 25px;"></i>
+                            </button>
+                        </th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-residence>
+                    <tr>
+                        <td style="color: blueviolet; font-weight: bold;">{{ residence?.arrestation?.enfant?.id }}</td>
+                        <td>{{ residence?.arrestation?.enfant?.nom }} بن {{ residence?.arrestation?.enfant?.nomPere }}
+                            بن
+                            {{ residence?.arrestation?.enfant?.nomGrandPere }} {{ residence?.arrestation?.enfant?.prenom
+                            }}</td>
+                        <td>{{ residence?.arrestation?.enfant?.nomMere }} {{ residence?.arrestation?.enfant?.prenomMere
+                            }}</td>
+                        <td>{{ residence?.arrestation?.enfant?.dateNaissance + ' بـــــ' +
+                            residence?.arrestation?.enfant?.lieuNaissance }}</td>
+                        <td *ngIf="residence?.statut != 2">{{ residence?.dateEntree + ' ' +
+                            residence?.etablissement?.libelle_etablissement + ' ' + residence?.numArrestation }}</td>
+                        <td style="color:red;" *ngIf="residence?.statut == 2">
+                            {{ 'نقلة جارية إلى ' + residence?.etablissement?.libelle_etablissement }}
+                        </td>
+                        <td>
+                            <div class="example-button-container">
+                                <button (click)="showFolderEnfant(residence.arrestation.enfant)" mat-mini-fab
+                                    color="primary" aria-label="Example icon button with a home icon">
+                                    <i class="pi pi-folder-open" style="font-size: 25px;"></i>
                                 </button>
-                                  </div>  
-                                  
-                                
-                                 </td>
-                         </tr>
-                     </ng-template>
-                 
-                   </p-table>
-          
-               
-            </div>
-          
-                   
-          
-          
-          
-          
-            
-          
-              
-          
-          
-          
-        
-    
-     
+                                <button
+                                    *ngIf="residence?.statut==0 && currentUser?.personelle?.etablissement?.id == residence?.etablissement?.id"
+                                    style="background-color: white!important; margin-right: 15px;"
+                                    (click)="showEdit(residence)" mat-mini-fab>
+                                    <i class="pi pi-pencil" style="font-size: 30px; color: blue;"></i>
+                                </button>
+                                <button
+                                    *ngIf="residence?.statut==0 && currentUser?.personelle?.etablissement?.id == residence?.etablissement?.id"
+                                    style="background-color: white!important; margin-right: 15px;"
+                                    (click)="showVisite(residence)" mat-mini-fab>
+                                    <i class="pi pi-home" style="font-size: 30px; color: brown;"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
     </div>
-    </div>
-    </div>
-
-
-
-
-
-
-
-
-
-
+</div>
 
 
 
@@ -662,126 +587,12 @@
                 [nomMere]="nomMere" [prenomMere]="prenomMere" (pathEvent)="goPath($event)"  ></app-add-enfant> 
         </div> 
     </p-dialog>
-     <!-- <p-dialog  dir="rtl"  [(visible)]="addBoolean"      (onHide)="direction()"
-    [modal]="true"  [closable]="false"     >
-    <p-header>
-
-        <div class="p-grid " style="background-color: white;"  >
-          
-            <div class="p-col-6" >
-                <div class="p-grid "  style="  margin-top: 10px; margin-right: 60%;  " >
-    
-                   
-                        <label style=" color: green; font-size: 26px;" >
-                                                                                                                             
-                             إدراج هويــــــة جديــــــدة    
-                          
-                            </label> 
-                       
-                       
-                  </div>
-                 
-                  
-            </div>
-    
-            <div class="p-col-6" >
-                <i   class="pi pi-power-off"  (click)="addBoolean = false" 
-                style="font-size: 30px; color: white; background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 90%;" > </i> 
-            
-            </div>
-    
-    
-        </div>
-        
-         
-          
-          
-         
-         
-         
-              
-              
-            
-        
-    </p-header> 
-   
-      <app-add-enfant 
-      [nom]="nomEnfant" 
-      [prenom]="prenom" 
-      [nomPere]="nomPere"
-      [nomGrandPere]="nomGrandPere" 
-      [nomMere]="nomMere" 
-      [prenomMere]="prenomMere"  (pathEvent)="goPath($event)"
-></app-add-enfant>
- 
-    </p-dialog>  -->
- 
-<p-dialog  dir="rtl"  [(visible)]="displayMoreInfo"  
-[modal]="true"     >
-<p-header>
-      
-  <span style="font-family: 'Amiri', Times, serif; font-size: 20px;  "> هوية الطفل(ة)  </span>             
-</p-header> 
-<div   style="text-align: center;"  >
-                   
-    <img  *ngIf="msg==0" src=" assets/layout/images/alerte.gif " style=" width: 30px;
-    height: auto;  " >    
-    <h2 *ngIf="msg==0" style="color: red;"> مقيـم بمركز   {{centre}}  </h2>     
-      
-       
-        
-    <img *ngIf="msg==1" src=" assets/layout/images/vert.gif " style=" width: 30px;
-    height: auto; " >
-    <h2 *ngIf="msg==1" style="color: rgba(0, 128, 0, 0.733);">  في حالـــة ســراح   </h2>
-    
-       
-  
-    
-</div>
-<p-card *ngIf="enfantLocal" [style]="{ 'border-radius': '0%','width': '400px',
-              '-moz-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
-              '-webkit-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
-              'box-shadow':' 0px 2px 2px rgba(0, 0, 0, 0.966)','background-image': 'url(assets/layout/images/cart.jpg)' }">
-               
- 
-                 <img   *ngIf="enfantLocal.img" src="{{enfantLocal.img}}" class="profile-img-card">
      
-                 
-                 <label  class="enLabel"  >المعرف: <span class="d"> {{enfantLocal.id}}  </span> </label>
-                 <label  class="enLabel"  >الهوية: <span class="d"> {{enfantLocal.nom}}   بن    {{enfantLocal.nomPere}}   بن     {{enfantLocal.nomGrandPere}} {{enfantLocal.prenom}}</span> </label>
-               
-                 <label   class="enLabel">  هوية الأم:  <span class="d">{{enfantLocal.nomMere}} {{enfantLocal.prenomMere}}</span></label>
-                 <label   class="enLabel">    تاريخ الولادة :  <span class="d">{{enfantLocal.dateNaissance}}</span></label>
-                 <!-- <label for="firstname3" class="enLabel">      الجنس :  <span class="d">{{enfantLocal.sexe}}</span></label>
-                 -->
-                 <label   class="enLabel" *ngIf="isReadOnly">    العدد  الرتبي للإيقاف:  <span class="d">{{numOrdinale}}</span></label>
-                 <label  class="enLabel" *ngIf="isReadOnly">     عدد الإيقاف :  <span class="d" dir="rtl">{{numArrestation}}</span></label>
-                 <!-- <label for="firstname3" class="enLabel" *ngIf="isReadOnly">  مركز الإيقاف:  <span class="d">{{centre}}</span></label> -->
-                 <label   class="enLabel"  *ngIf="isReadOnly">  بتاريخ:  <span class="d">{{dateEntreLocal}}</span></label>
-                   
-                 <label   class="enLabel"  *ngIf="isReadOnly">  الوضعية :  <span class="d">{{enfantLocal.etat}}</span></label>
-               
-                 <ng-template pTemplate="footer">
-                     <p-button label="Save" icon="pi pi-check"></p-button>
-                
-                 </ng-template>
-             </p-card>
-  
-             <p-footer>
-            
-                <div   style="text-align: center;"  >
-                   
-                    
-                         <p-button  (click)="valide( )"  label="موافق" icon="pi pi-check" styleClass="p-button-text"></p-button> 
-                   
-                     
-              </div>
-            </p-footer> 
-</p-dialog> 
+ 
+ 
 
 
-<p-dialog dir="rtl" [(visible)]="displayEdit" [closable]="false" [modal]="true" *ngIf="residenceEdit"
-  >
+<p-dialog dir="rtl" [(visible)]="displayEdit" [closable]="false" [modal]="true" *ngIf="residenceEdit"  >
     <p-header>
         <div class="dialog-header">
             <div class="dialog-title" style="color: red;">
@@ -795,59 +606,14 @@
         </div>
     </p-header>
     <div class="dialog-content">
-        <!-- <div class="child-info">
-            <span class="info-label">رقم الطفل:</span>
-            <span class="info-value">{{ residenceEdit.arrestation.enfant.id }}</span>
-        </div> -->
+        
         <app-add-enfant (refreshEvent)="refreshTable($event)" [update]="update"
             [residenceEdit]="residenceEdit"></app-add-enfant>
     </div>
     <p-footer></p-footer>
 </p-dialog>
 
-
-<!-- <p-dialog  dir="rtl"  [(visible)]="displayEdit"    [closable]="false" 
-[modal]="true"    *ngIf="residenceEdit" >
-<p-header>
-
-    <div class="p-grid " style="background-color: white;"  >
-      
-        <div class="p-col-6" >
-            <div class="p-grid "  style="  margin-top: 10px; margin-right: 50%;  " >
-
-               
-                    <label class="neons"    >
-                                                                                                                         
-                        <span    style=" color: red;"  >تحييـــن هوية الطفل عدد    </span>
-                      
-                        </label> 
-                   
-                    <div class="idEnfant"  >
-                          {{residenceEdit.arrestation.enfant.id}} 
-                    </div>
-              </div>
-             
-              
-        </div>
-
-        <div class="p-col-6" >
-            <i   class="pi pi-power-off"  (click)="displayEdit = false" 
-            style="font-size: 30px; color: white; background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 90%;" > </i> 
-        
-        </div>
-
-
-    </div>
-    
-  </p-header> 
  
-<app-add-enfant (refreshEvent)="refreshTable($event)" [update]="update" [residenceEdit]="residenceEdit" ></app-add-enfant>
-  
-             <p-footer>
-            
-               
-            </p-footer> 
-</p-dialog>  -->
 
 
 

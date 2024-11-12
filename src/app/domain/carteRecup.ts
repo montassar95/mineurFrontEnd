@@ -9,62 +9,49 @@ import { TypeAffaire } from "./typeAffaire";
 import { TypeJuge } from "./typeJuge";
 import { Document } from "./document";
 import { Etablissement } from "./etablissement";
-import { Personelle } from "./personelle";
+ 
+import { AccusationCarteRecup } from "./accusationCarteRecup";
+import { User } from "./user";
 export class CarteRecup {
-    
-   
-    documentId :DocumentId;
-    typeDocument :string;
-    dateEmission?:any;
-    dateDepotCarte?:any;
-     
-    textJugement?:any;
-  
+  documentId: DocumentId;
+  typeDocument: string;
+  dateEmission?: any;
+  dateDepotCarte?: any;
 
-    typeAffaire?:TypeAffaire;
-    typeJuge?:TypeJuge;
-    affaire?:Affaire;
+  textJugement?: any;
 
- //   arretProvisoires: ArretProvisoire[] ;
-    daysDiffJuge:any;
-    jour:any;
-    mois:any;
-   annee:any;
+  typeAffaire?: TypeAffaire;
+  typeJuge?: TypeJuge;
+  affaire?: Affaire;
 
-   daysDiffArretProvisoire:any;
-   jourArretProvisoire:any;
-   moisArretProvisoire:any;
-   anneeArretProvisoire:any;
+  //   arretProvisoires: ArretProvisoire[] ;
+  daysDiffJuge: any;
+  jour: any;
+  mois: any;
+  annee: any;
 
+  daysDiffArretProvisoire: any;
+  jourArretProvisoire: any;
+  moisArretProvisoire: any;
+  anneeArretProvisoire: any;
 
-   
-//	accusations: Accusation[];
-    
-  numArrestation?:any;
+  //	accusations: Accusation[];
 
-	 
- dateDebutPunition?:any;
+  numArrestation?: any;
 
-   dateFinPunition?:any;
- 
- etablissement :Etablissement;
+  dateDebutPunition?: any;
 
- personelle:Personelle;
- 
- dateInsertion?:any;
- entitiesArretProvisoire: ArretProvisoire[] = [];
- entitiesAccusation: Accusation[] = [];
+  dateFinPunition?: any;
+
+  etablissement: Etablissement;
+  user: User;
+  // personelle: Personelle;
+
+  dateInsertion?: any;
+
+  entitiesAccusation: Accusation[] = [];
+
+  // entitiesArretProvisoire: ArretProvisoire[] = [];
+  arretProvisoires: ArretProvisoire[] = [];
+  accusationCarteRecups: AccusationCarteRecup[] = [];
 }
- 
- 
-
- 
- 
- 
- 
- 
- 
-
-
- 
-   

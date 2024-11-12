@@ -5,7 +5,7 @@ import { Residence } from "./residence";
 import { Tribunal } from "./tribunal";
 import { TypeAffaire } from "./typeAffaire";
 
-export class CalculeAffaireDto {
+export class FicheDeDetentionDto {
   jourPenal: number;
   moisPenal: number;
   anneePenal: number;
@@ -21,13 +21,12 @@ export class CalculeAffaireDto {
   sansAffaire: boolean;
   nbrAffaires: number;
   displayArrestation: boolean;
- 
+
   isChangementLieuMu: boolean;
   isChangementLieuCh: boolean;
   isAgeAdulte: boolean;
   etatJuridique: string;
 
- 
   affaires: Affaire[] = [];
   liberation: Liberation;
 

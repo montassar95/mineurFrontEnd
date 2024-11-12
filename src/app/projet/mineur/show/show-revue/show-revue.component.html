@@ -1,171 +1,97 @@
+ 
 
  
- 
-    <div dir="rtl" *ngIf="revue">
-        <div  style=" margin-left: 5%; margin-right: 5%;    background-image: url(assets/layout/images/bg.png)" >
-            <div class="p-grid"  >
-                <div class="p-col-2">
-                    <label style="background-color: rgb(241, 241, 241);">
-                        الهوية:
-                         
-                    </label>
-                    </div>
-                    <div class="p-col-10">
-                        <label>
-                          
-                            <span>
 
 
-                                {{ revue.affaire.arrestation.enfant.nom }} بن {{ revue.affaire.arrestation.enfant.nomPere }} بن {{ revue.affaire.arrestation.enfant.nomGrandPere }} {{ revue.affaire.arrestation.enfant.prenom }}
-                            </span>
-                             
-                        </label>
-                    </div>
-                    </div>
-            
-                    <div class="p-grid"  >
-                        <div class="p-col-2">
-                            <label style="background-color: rgb(241, 241, 241);">
-                                عدد الإيقاف :
-                                 
-                            </label>
-                            </div>
-                            <div class="p-col-10">
-                                <label>
-                                  
-                                    <span dir="rtl">
-        
-        
-                                        {{ revue.numArrestation }}
-                                    </span>
-                                     
-                                </label>
-                            </div>
-                            </div>
-                            <div class="p-grid"  >
-                                <div class="p-col-2">
-                                    <label style="background-color: rgb(241, 241, 241);">
-                                        المركز :
-                                         
-                                    </label>
-                                    </div>
-                                    <div class="p-col-10">
-                                        <label>
-                                          
-                                            <span>
-                
-                
-                                                {{ revue?.etablissement?.libelle_etablissement }}
-                                            </span>
-                                             
-                                        </label>
-                                    </div>
-                                    </div>
-          
-                                
-            
-            
-                                            <div class="p-grid" *ngIf="revue?.affaire" >
-                                                
-                                                <div class="p-col-2">
-                                                    <label   style="background-color: rgb(241, 241, 241);">
-                                                              قضية  المراجعة :
-                                                       
-                                                    </label>
-                                                 
-                                                    </div>
-                                                    <div class="p-col-10">
-                                                        <label>
-                                                          
-                                                            <span> {{ revue.affaire.affaireId.numAffaire }}</span>
-                                                            <span> {{ revue.affaire.tribunal.nom_tribunal }}</span>
-                                                             
-                                                        </label>
-                                                    </div>
-                                                    </div>
-<!-- 
-
-                                                    <div class="p-grid" *ngIf="revue?.affaire && revue?.refuse=='yes'" >
-                                                        <div class="p-col-2" *ngIf="revue.affaire.affaireLien">
-                                                            <label style="background-color: rgb(241, 241, 241);" >
-                                                                قضية  الربط         :
-                                                               
-                                                            </label>
-                                                            </div>
-                                                            <div class="p-col-10">
-                                                                <label>
-                                                                  
-                                                                    <span *ngIf="revue.affaire.affaireLien"> {{ revue.affaire.affaireLien.affaireId.numAffaire }}</span>
-                                                                    <span *ngIf="revue.affaire.affaireLien"> {{ revue.affaire.affaireLien.tribunal.nom_tribunal }}</span>
-                                                                   
-                                                                     
-                                                                </label>
-                                                            </div>
-                                                            </div>       -->
-                                                    
-            
-        
-                                                                    <!-- <div class="p-grid"   >
-                                                                        <div class="p-col-2">
-                                                                            <label style="background-color: rgb(241, 241, 241);">
-                                                                                تاريخ صدور البطاقة
-                                                                               
-                                                                            </label>
-                                                                            </div>
-                                                                            <div class="p-col-10">
-                                                                                <label>
-                                                                                  
-                                                                                    <span dir="rtl">{{ revue.dateEmission }}</span>
-                                                                                </label>
-                                                                            </div>
-                                                                            </div> -->
-                                                                            <div class="p-grid"   >
-                                                                                <div class="p-col-2">
-                                                                                    <label  style="background-color: rgb(241, 241, 241);">
-                                                                                        تاريخ المراجعة:
-                                                                                        
-                                                                                    </label>
-                                                                                  
-                                                                                       </div>
-                                                                                    <div class="p-col-10">
-                                                                                        <label>
-                                                                                          
-                                                                                            <span dir="rtl">{{ revue.dateDepotCarte }}</span>
-                                                                                        </label>
-                                                                                    </div>
-                                                                                    </div>
-
-
-                                                                                    <div class="p-grid"   >
-                                                                                        <div class="p-col-2">
-                                                                                            <label style="background-color: rgb(241, 241, 241);" >
-                                                                                                نص المراجعة :
-                                                                                               
-                                                                                            </label>
-                                                                                            </div>
-                                                                                            <div class="p-col-10">
-                                                                                                <label>
-                                                                                                  
-                                                                                                    <span dir="rtl">{{ revue.textJugement }}</span>
-                                                                                                </label>
-                                                                                            </div>
-                                                                                            </div>
-                                                                                 
-                                                                                                                                                             
-           
-                                                                                                   
-            
-
-          
-        <label style="margin-top: 30px;">
-            المدرج    :
-            <span>{{ revue?.personelle?.nom +' '+ revue?.personelle?.prenom +'    '}}</span>
-            بتاريخ  :
-            <span dir="rtl">{{ revue.dateInsertion}}</span>
-        </label>
+    <div dir="rtl" *ngIf="revue" class="judicial-document">
+        <div class="document-header">
+            <div class="header-left">
+                <h1>الجمهورية التونسية</h1>
+                <h2>وزارة العدل</h2>
+                <h3>{{  revue?.affaire?.tribunal?.nom_tribunal }}</h3>
+            </div>
+    
+            <div class="header-center">
+                <h1 class="document-title">
+                    <b>   مــراجعــة </b>
+    
+                </h1>
+            </div>
+    
+            <div class="header-right">
+                <h3>
+                    <b>{{  revue?.affaire?.tribunal?.gouvernorat?.libelle_gouvernorat}}</b>
+                    <b> في {{  revue?.dateEmission | date:'yyyy/MM/dd' }}</b>
+                </h3>
+            </div>
         </div>
-         
+    
+        <div class="content">
+            <div class="p-grid">
+                <div class="p-col-2">
+                    <label>الهوية:</label>
+                </div>
+                <div class="p-col-10">
+                    <ul>
+                        <li style="font-weight: bold;">
+                            {{  revue?.affaire?.arrestation?.enfant?.nom }} بن
+                            {{  revue?.affaire?.arrestation?.enfant?.nomPere }} بن
+                            {{  revue?.affaire?.arrestation?.enfant?.nomGrandPere }}
+                            {{  revue?.affaire?.arrestation?.enfant?.prenom }}
+                            <br>
+                            إبن
+                            {{  revue?.affaire?.arrestation?.enfant?.nomMere + ' ' +
+                             revue?.affaire?.arrestation?.enfant?.prenomMere }}
+                        </li>
+                        <li style="color: red;">
+                            البلغ (ة) من العمر: XX سنة
+    
+                            و المولود (ة) بــــ:
+                            {{  revue?.affaire?.arrestation?.enfant?.lieuNaissance }}
+                            {{  revue?.affaire?.arrestation?.enfant?.dateNaissance | date:'yyyy/MM/dd' }}
+                        </li>
+                        <li>
+                            القاطن (ة):
+                            {{  revue?.affaire?.arrestation?.enfant?.adresse + ' ' }}
+                            {{  revue?.affaire?.arrestation?.enfant?.delegation?.libelle_delegation + ' ' }}
+                            {{  revue?.affaire?.arrestation?.enfant?.delegation?.gouvernorat?.libelle_gouvernorat }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+    
+            <div class="p-grid" *ngIf=" revue?.affaire">
+                <div class="p-col-2">
+                    <label>قضية المراجعة:</label>
+                </div>
+                <div class="p-col-10">
+                    <span *ngIf=" revue?.affaire">{{  revue?.affaire?.affaireId?.numAffaire
+                        }} - {{  revue?.affaire?.tribunal?.nom_tribunal }}</span>
+                </div>
+            </div>
+    
+    
+    
+    
+    
+            <div class="p-grid">
+                <div class="p-col-2">
+                    <label>تاريخ المراجعة:</label>
+                </div>
+                <div class="p-col-10">
+                    <span>{{  revue?.dateEmission | date:'yyyy/MM/dd'}}</span>
+                </div>
+            </div>
+    
+            <div class="footer">
+                <label>المدرج: <span>{{  revue?.personelle?.nom +' '+  revue?.personelle?.prenom }}</span>
+                    <p>{{  revue?.etablissement?.libelle_etablissement }} في {{  revue?.dateInsertion |
+                        date:'yyyy/MM/dd' }} </p>
+                </label>
+            </div>
+        </div>
     </div>
- 
 
- 
+
+
+    

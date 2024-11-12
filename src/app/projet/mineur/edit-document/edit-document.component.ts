@@ -19,6 +19,9 @@ import { TokenStorageService } from "src/app/_services/token-storage.service";
 import { RefuseRevue } from "src/app/domain/refuseRevue";
 import { CartePropagation } from "src/app/domain/cartePropagation";
 import { ChangementLieu } from "src/app/domain/changementLieu";
+import { DocumentService } from "src/app/demo/service/document.service";
+import { DetentionService } from "src/app/demo/service/detention.service";
+import { AffaireService } from "src/app/demo/service/affaire.service";
 
 @Component({
   selector: "app-edit-document",
@@ -34,6 +37,7 @@ export class EditDocumentComponent implements OnInit {
 
   editCarteRecup = false;
   editCarteDepot = false;
+  editCarteHeber = false;
   editTransfert = false;
   editAppelEnfant = false;
   editAppelParquet = false;
@@ -77,6 +81,9 @@ export class EditDocumentComponent implements OnInit {
 
   constructor(
     private crudservice: CrudEnfantService,
+    private documentService: DocumentService,
+    private detentionService: DetentionService,
+    private affaireService: AffaireService,
     private breadcrumbService: BreadcrumbService,
     private router: Router,
     private token: TokenStorageService
@@ -115,16 +122,16 @@ export class EditDocumentComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {}
 
   charge() {
-    this.crudservice
-      .findByIdEnfantAndStatut0("arrestation", this.idValide)
+    this.detentionService
+      .trouverDerniereDetentionParIdDetenu("arrestation", this.idValide)
       .subscribe((data) => {
         if (data.result == null) {
           console.log("1111111");
         } else {
           console.log("2222222");
           this.arrestation = data.result;
-          this.crudservice
-            .findByIdEnfantAndMaxResidence(
+          this.detentionService
+            .trouverDerniereResidenceParNumDetentionEtIdDetenu(
               "residence",
               this.arrestation.arrestationId.idEnfant,
               this.arrestation.arrestationId.numOrdinale
@@ -138,9 +145,9 @@ export class EditDocumentComponent implements OnInit {
               }
             });
 
-          this.crudservice
-            .findByArrestation(
-              "affaire",
+          this.affaireService
+            .trouverAffairesParAction(
+              "general",
               this.arrestation.arrestationId.idEnfant,
               this.arrestation.arrestationId.numOrdinale
             )
@@ -159,8 +166,8 @@ export class EditDocumentComponent implements OnInit {
   }
 
   getDocumentByAffaire(affaire: Affaire) {
-    this.crudservice
-      .getDocumentByAffaire(
+    this.documentService
+      .trouverDocumentsJudiciairesParDetentionEtAffaire(
         "document",
         affaire.arrestation.arrestationId.idEnfant,
         affaire.arrestation.arrestationId.numOrdinale,
@@ -186,81 +193,53 @@ export class EditDocumentComponent implements OnInit {
     if (row.documentId.numOrdinalDocByAffaire == index) {
       this.showDelet = true;
     }
-    this.crudservice.findDocumentById(row.documentId).subscribe((data) => {
-      row = data.result;
-         if (row.typeDocumentActuelle == "CHL") {
-        this.changementLieu = row;
 
-        this.showChangementLieu = true;
-      }
-      else if (row.typeDocument == "CJ") {
-        this.carteRecup = row;
+    if (row.typeDocumentActuelle == "CHL") {
+      this.changementLieu = row;
 
-        this.crudservice.findByCarteRecup(this.carteRecup).subscribe((data) => {
-          console.log("data.result");
-          console.log(data.result);
-          this.carteRecup.entitiesAccusation = data.result;
-        });
-        this.crudservice
-          .findArretProvisoireByCarteRecup(this.carteRecup)
-          .subscribe((data) => {
-            console.log("data.result");
-            console.log(data.result);
-            this.carteRecup.entitiesArretProvisoire = data.result;
-          });
-        this.showCarteRecup = true;
-      } else if (row.typeDocument == "CD") {
-        this.carteDepot = row;
-        this.crudservice
-          .findTitreAccusationbyCarteDepot(this.carteDepot)
-          .subscribe((data) => {
-            console.log("data.result");
-            console.log(data.result);
-            this.carteDepot.entitiesTitreAccusation = data.result;
-          });
+      this.showChangementLieu = true;
+    } else if (row.typeDocument == "CJ" || row.typeDocument == "CJA") {
+      this.carteRecup = row;
+      this.showCarteRecup = true;
+    } else if (row.typeDocument == "CD") {
+      this.carteDepot = row;
 
-        this.showCarteDepot = true;
-      } else if (row.typeDocument == "CH") {
-        this.carteHeber = row;
-        this.crudservice
-          .findTitreAccusationbyCarteHeber(this.carteHeber)
-          .subscribe((data) => {
-            console.log("data.result");
-            console.log(data.result);
-            this.carteHeber.entitiesTitreAccusation = data.result;
-          });
+      this.showCarteDepot = true;
+    } else if (row.typeDocument == "CH") {
+      this.carteHeber = row;
 
-        this.showCarteHeber = true;
-      } else if (row.typeDocument == "T") {
-        this.transfert = row;
+      this.showCarteHeber = true;
+    } else if (row.typeDocument == "T") {
+      this.transfert = row;
 
-        this.showTransfert = true;
-      } else if (row.typeDocument == "AE") {
-        this.appelEnfant = row;
+      this.showTransfert = true;
+    } else if (row.typeDocument == "AE") {
+      this.appelEnfant = row;
 
-        this.showAppelEnfant = true;
-      } else if (row.typeDocument == "AP") {
-        this.appelParquet = row;
+      this.showAppelEnfant = true;
+    } else if (row.typeDocument == "AP") {
+      this.appelParquet = row;
 
-        this.showAppelParquet = true;
-      } else if (row.typeDocument == "CR") {
-        this.revue = row;
+      this.showAppelParquet = true;
+    } else if (row.typeDocument == "CR") {
+      this.revue = row;
 
-        this.showRevue = true;
-      } else if (row.typeDocument == "CRR") {
-        this.refuseRevue = row;
+      this.showRevue = true;
+    } else if (row.typeDocument == "CRR") {
+      this.refuseRevue = row;
 
-        this.showRefuseRevue = true;
-      } else if (row.typeDocument == "AEX") {
-        this.arreterlexecution = row;
+      this.showRefuseRevue = true;
+    } else if (row.typeDocument == "AEX") {
+      this.arreterlexecution = row;
 
-        this.showArreterlexecution = true;
-      } else if (row.typeDocument == "CP") {
-        this.cartePropagation = row;
+      this.showArreterlexecution = true;
+    } else if (row.typeDocument == "CP") {
+      this.cartePropagation = row;
 
-        this.showPropagation = true;
-      }
-    });
+      this.showPropagation = true;
+    } else {
+      alert("erruer");
+    }
   }
 
   closeShow() {
@@ -287,62 +266,48 @@ export class EditDocumentComponent implements OnInit {
   }
 
   editCarte(row) {
-    this.crudservice.findDocumentById(row.documentId).subscribe((data) => {
-      row = data.result;
- if (row.typeDocumentActuelle == "CHL") {
-   this.changementLieu = row;
+    this.documentService
+      .trouverDocumentJudiciaireParId(row.documentId)
+      .subscribe((data) => {
+        row = data.result;
+        if (row.typeDocumentActuelle == "CHL") {
+          this.changementLieu = row;
 
-   this.showChangementLieu = true;
- } else if (row.typeDocument == "CJ") {
-   this.carteRecup = row;
+          this.showChangementLieu = true;
+        } else if (row.typeDocument == "CJ") {
+          this.carteRecup = row;
 
-   console.log(this.carteRecup);
-   this.crudservice.findByCarteRecup(this.carteRecup).subscribe((data) => {
-     console.log("++++++++++++++++++++++++++++++++++++++++++++");
-     console.log("data.result");
-     console.log(data.result);
-     this.carteRecup.entitiesAccusation = data.result;
-   });
-   this.crudservice
-     .findArretProvisoireByCarteRecup(this.carteRecup)
-     .subscribe((data) => {
-       console.log("data.result");
-       console.log(data.result);
-       this.carteRecup.entitiesArretProvisoire = data.result;
-     });
-   this.editCarteRecup = true;
- } else if (row.typeDocument == "T") {
-   this.transfert = row;
+          this.editCarteRecup = true;
+        } else if (row.typeDocument == "T") {
+          this.transfert = row;
 
-   this.editTransfert = true;
- } else if (row.typeDocument == "CD") {
-   this.carteDepot = row;
-   this.crudservice
-     .findTitreAccusationbyCarteDepot(this.carteDepot)
-     .subscribe((data) => {
-       console.log("data.result");
-       console.log(data.result);
-       this.carteDepot.entitiesTitreAccusation = data.result;
-     });
-   this.editCarteDepot = true;
- } else if (row.typeDocument == "AEX") {
-   this.arreterlexecution = row;
+          this.editTransfert = true;
+        } else if (row.typeDocument == "CH") {
+          this.carteHeber = row;
 
-   this.editArreterlexecution = true;
- } else if (row.typeDocument == "AE") {
-   this.appelEnfant = row;
+          this.editCarteHeber = true;
+        } else if (row.typeDocument == "CD") {
+          this.carteDepot = row;
 
-   this.editAppelEnfant = true;
- } else if (row.typeDocument == "AP") {
-   this.appelParquet = row;
+          this.editCarteDepot = true;
+        } else if (row.typeDocument == "AEX") {
+          this.arreterlexecution = row;
 
-   this.editAppelParquet = true;
- } else if (row.typeDocument == "CR") {
-   this.revue = row;
+          this.editArreterlexecution = true;
+        } else if (row.typeDocument == "AE") {
+          this.appelEnfant = row;
 
-   this.editRevue = true;
- }  
-    });
+          this.editAppelEnfant = true;
+        } else if (row.typeDocument == "AP") {
+          this.appelParquet = row;
+
+          this.editAppelParquet = true;
+        } else if (row.typeDocument == "CR") {
+          this.revue = row;
+
+          this.editRevue = true;
+        }
+      });
   }
 
   yesDelet() {
@@ -358,9 +323,9 @@ export class EditDocumentComponent implements OnInit {
             (u) => u !== this.document
           );
         } else {
-          this.crudservice
-            .findByArrestation(
-              "affaire",
+          this.affaireService
+            .trouverAffairesParAction(
+              "general",
               this.arrestation.arrestationId.idEnfant,
               this.arrestation.arrestationId.numOrdinale
             )

@@ -31,7 +31,8 @@ body .ui-widget-content {
   font-size: 14px;
 }
 body .ui-widget-header {
-  background: #5e99ff;
+  background: linear-gradient(to right, #fcfcfc, #c0c0c0);
+  /* background: #5e99ff; */
   color: #292B2C;
   border: 1px solid #dddddd;
   font-weight: bold;

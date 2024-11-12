@@ -195,7 +195,10 @@ import { HighchartsChartComponent } from "highcharts-angular";
 import { StatistiqueSpecComponent } from "./statistique-spec/statistique-spec.component";
 import { AddVisiteComponent } from "./add-visite/add-visite.component";
 import { AddEnfantComponent } from "./add-enfant/add-enfant.component";
-import { MensuelComponent } from './mensuel/mensuel.component';
+import { MensuelComponent } from "./mensuel/mensuel.component";
+import { NextDocumentComponent } from "./next-document/next-document.component";
+import { DetailsEnfantComponent } from "./details-enfant/details-enfant.component";
+import { ModifyPasswordComponent } from './modify-password/modify-password.component';
 
 @NgModule({
   declarations: [
@@ -298,6 +301,9 @@ import { MensuelComponent } from './mensuel/mensuel.component';
     StatistiqueSpecComponent,
     AddVisiteComponent,
     MensuelComponent,
+    NextDocumentComponent,
+    DetailsEnfantComponent,
+    ModifyPasswordComponent,
   ],
   imports: [
     CommonModule,
@@ -388,7 +394,9 @@ import { MensuelComponent } from './mensuel/mensuel.component';
     MatButtonToggleModule,
     MatMenuModule,
   ],
-
+  exports: [
+    AddUserComponent, // Exportez le composant pour qu'il soit accessible dans d'autres modules
+  ],
   //    providers: [   BreadcrumbService
   // ],
 })

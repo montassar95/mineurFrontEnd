@@ -2,59 +2,44 @@
 
 <p-toast key="tst" [style]="{marginTop: '150px'}"></p-toast>
 
-<div class="wrapper" >
+<div class="wrapper" style=" margin-bottom: 60px;" >
 
 
     <div class="card">
+        <label for="card5" class="titre" aria-hidden="true">
+            إيقاف تنفيذ/ سراح
+        </label>
         <input type="checkbox" id="card5" class="more">
         <div class="content">
             <div class="front"  >
                 <div class="inner">
                    
-                    <img src="assets/layout/images/dashboard/icon-design.svg"  style="width: 100px; margin-top: 30px;" />
-                    <label for="card5" class="button" aria-hidden="true">
-                        إيقاف تنفيذ/ سراح
-                    </label>
-                </div>
-            </div>
-            <div class="back"   >
-                <div class="inner" >
                     
                   
-                    <div  class="p-grid"  dir="rtl" style="margin-top: 50px;" >
-                        
-                       
-            
-                            <h1 class="info">    معرف الطفل : </h1>
-             
-                           <!-- <input   type="number" min="10" [(ngModel)]="idArreterLexecution" (keyup.enter)="dirArreterLexecution()" pInputText>    -->
-                           <!-- <button  dir="rtl" style="background-color: #8a2225;" type="button" icon="pi pi-check" pButton></button> -->
-                         
-                           <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black'}"
-                           dir="rtl"    [(ngModel)]="idArreterLexecution" mask="99999999" slotChar="--------"
-                           (keyup.enter)="dirArreterLexecution()"      placeholder=" عدد  ">
-                           </p-inputMask>
-                    </div>
-                    
-                     
-                    <label for="card5" class="button return" aria-hidden="true">
-                       
-                        <i class="pi pi-arrow-left"> إيقاف تنفيذ/ سراح</i>
-                    </label>
+                    <img src="assets/layout/images/dashboard/icon-design.svg" class="image-adjust" />
+                    <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black' , 'margin-top': '15px' }" dir="rtl"
+                        [(ngModel)]="idArreterLexecution" mask="99999999" slotChar="--------" (keyup.enter)="dirArreterLexecution()"
+                        placeholder="  معرف الطفل  ">
+                    </p-inputMask>
                 </div>
             </div>
+             
         </div>
     </div>
     
     <div class="card">
+        <label for="card1" class="titre" aria-hidden="true">
+            إحالة / تخلي/ تعهد
+        </label>
         <input type="checkbox" id="card1" class="more" aria-hidden="true">
         <div class="content"  >
          
             <div class="front"  >
                 <div class="inner"   >
-                     
-                    <svg class="i" version="1.1" id="Calque_1"   x="0px" y="0px" width="175px"   
-                    height="175px" viewBox="0 0 575.969 536.137" 
+                   
+                    
+                    <svg class="i" version="1.1" id="Calque_1"   x="0px" y="0px" width="130px"   
+                    height="130px" viewBox="0 0 575.969 536.137" 
                    enable-background="new 0 0 575.969 536.137" xml:space="preserve">
                        <g>
                            <g>
@@ -522,179 +507,74 @@
                            </g>
                        </g>
                        </svg>
-                    <label for="card1" class="button" aria-hidden="true">
-                        إحالة / تخلي/ تعهد
-                    </label>
+                  
+                        <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black' , 'margin-top': '15px' }" dir="rtl" [(ngModel)]="idTansfert"
+                            mask="99999999" slotChar="----------" (keyup.enter)="dirTansfert()" placeholder="  معرف الطفل   ">
+                        </p-inputMask>
                 </div>
             </div>
-            <div class="back"   >
-                <div class="inner">
-                    <div  class="p-grid"  dir="rtl" style="margin-top: 50px;" >
-                        
-                       
-            
-                        <h1 class="info">    معرف الطفل : </h1>
-         
-                       <!-- <input   type="number" min="10"  [(ngModel)]="idTansfert"   (keyup.enter)="dirTansfert()"  pInputText>  -->
-                     
-                     
-                       <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black'}"
-                       dir="rtl"    [(ngModel)]="idTansfert" mask="99999999" slotChar="----------"
-                       (keyup.enter)="dirTansfert()"      placeholder=" عدد  ">
-                       </p-inputMask>
-        
-                    
-        
-        
-        
-                </div>
-                
-                 
-                <label for="card1" class="button return" aria-hidden="true">
-                   
-                    <i class="pi pi-arrow-left"  >  إحالة قضية</i>
-                </label>
-                     
-                </div>
-            </div>
+             
         </div>
     </div>
     <div class="card">
+        <label for="card2" class="titre" aria-hidden="true">
+            مضامين الأحكام
+        </label>
         <input type="checkbox" id="card2" class="more">
         <div class="content">
             <div class="front"  >
                 <div class="inner">
-                   
-                    
-                        <img src="assets/layout/images/compliant.png"  style="width: 55%; margin-top: 15px;" />
-                     
-                    <label for="card2" class="button" aria-hidden="true">
-                          مضامين الأحكام
-                    </label>
-                </div>
-            </div>
-            <div class="back">
-                <div class="inner">
-                    
-                    <div  class="p-grid"  dir="rtl" style="margin-top: 50px;" >
-                        
-                       
-            
-                        <h1 class="info">    معرف الطفل : </h1>
-         
-                       <!-- <input   type="number" min="10" [(ngModel)]="idCarteRecup"  (keyup.enter)="dirCarteRecup()"  pInputText>  -->
-                       <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black'}"
-                                 dir="rtl"    [(ngModel)]="idCarteRecup" mask="99999999" slotChar="----------"
-                                 (keyup.enter)="dirCarteRecup()"      placeholder=" عدد  ">
-                                 </p-inputMask>
-                     
-                    
-        
-                    
-        
-        
-        
-                </div>
                 
-                 
-                <label for="card2" class="button return" aria-hidden="true">
-                   
-                    <i class="pi pi-arrow-left"  >   مضامين الأحكام</i>
-                </label>
+                    
+                        <img src="assets/layout/images/compliant.png"  class="image-adjust " />
+                        <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black' , 'margin-top': '15px' }" dir="rtl" [(ngModel)]="idCarteRecup"
+                            mask="99999999" slotChar="----------" (keyup.enter)="dirCarteRecup()" placeholder=" معرف الطفل   ">
+                        </p-inputMask>
                      
+                    
                 </div>
             </div>
+            
         </div>
     </div>
     <div class="card">
+        <label for="card3" class="titre" aria-hidden="true">
+            بطاقات الإيداع
+        </label>
         <input type="checkbox" id="card3" class="more">
         <div class="content">
             <div class="front"  >
                 <div class="inner">
-                   
-                    <img src="assets/layout/images/jugeIcon.png"  style="width: 55%; margin-top: 15px;"  />
-                    
-                    <label for="card3" class="button" aria-hidden="true">
-                          بطاقات الإيداع
-                    </label>
-                </div>
-            </div>
-            <div class="back">
-
-
-                <div class="inner" >
-                    
                   
-                    <div  class="p-grid"  dir="rtl" style="margin-top: 50px;" >
-                        
-                       
-            
-                            <h1 class="info">    معرف الطفل : </h1>
-             
-                           <!-- <input   type="number" min="10" [(ngModel)]="idCarteDepot"   (keyup.enter)="dirCarteDepot()" pInputText>  -->
-                         
-                           <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black'}"
-                           dir="rtl"    [(ngModel)]="idCarteDepot" mask="99999999" slotChar="----------"
-                           (keyup.enter)="dirCarteDepot()"      placeholder=" عدد  ">
-                           </p-inputMask>
-                        
-            
-                        
-            
-            
-            
-                    </div>
+                    <img src="assets/layout/images/jugeIcon.png"  class="image-adjust" />
                     
-                     
-                    <label for="card3" class="button return" aria-hidden="true">
-                       
-                        <i class="pi pi-arrow-left"  >   بطاقات الإيداع</i>
-                    </label>
+                   
+                    <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black' , 'margin-top': '15px' }" dir="rtl" [(ngModel)]="idCarteDepot"
+                        mask="99999999" slotChar="----------" (keyup.enter)="dirCarteDepot()" placeholder=" معرف الطفل   ">
+                    </p-inputMask>
                 </div>
-               
             </div>
+            
         </div>
     </div>
 
     <div class="card">
+        <label for="card4" class="titre" aria-hidden="true">
+            بطاقات الإيواء
+        </label>
         <input type="checkbox" id="card4" class="more">
         <div class="content">
             <div class="front"  >
                 <div class="inner">
-                   
-                    <img src="assets/layout/images/depIcon.png"  style="width: 55%; margin-top: 15px;"  />
-                    <label for="card4" class="button" aria-hidden="true">
-                          بطاقات الإيواء
-                    </label>
-                </div>
-            </div>
-            <div class="back"   >
-                <div class="inner" >
                     
+                    <img src="assets/layout/images/depIcon.png"  class="image-adjust "  />
+                    <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black' , 'margin-top': '15px' }" dir="rtl" [(ngModel)]="idHeber"
+                        mask="99999999" slotChar="----------" (keyup.enter)="dirHeber()" placeholder=" معرف الطفل   ">
+                    </p-inputMask>
                   
-                    <div  class="p-grid"  dir="rtl" style="margin-top: 50px;" >
-                        
-                       
-            
-                            <h1 class="info">    معرف الطفل : </h1>
-             
-                           <!-- <input   type="number" min="10" [(ngModel)]="idHeber" (keyup.enter)="dirHeber()" pInputText>    -->
-                           <!-- <button  dir="rtl" style="background-color: #8a2225;" type="button" icon="pi pi-check" pButton></button> -->
-                         
-                           <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black'}"
-                           dir="rtl"    [(ngModel)]="idHeber" mask="99999999" slotChar="----------"
-                           (keyup.enter)="dirHeber()"      placeholder=" عدد  ">
-                           </p-inputMask>
-                       
-                    </div>
-                    
-                     
-                    <label for="card4" class="button return" aria-hidden="true">
-                       
-                        <i class="pi pi-arrow-left">    بطاقات الإيواء</i>
-                    </label>
                 </div>
             </div>
+             
         </div>
     </div>
 

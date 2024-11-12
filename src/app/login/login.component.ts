@@ -2,7 +2,8 @@ import { Component, NgZone, OnInit } from "@angular/core";
 import { AuthService } from "../_services/auth.service";
 import { TokenStorageService } from "../_services/token-storage.service";
 import { Router } from "@angular/router";
-import { Personelle } from "../domain/personelle";
+
+import { User } from "../domain/user";
 
 @Component({
   selector: "app-login",
@@ -42,7 +43,7 @@ export class LoginComponent implements OnInit {
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.chekBlock(this.tokenStorage.getUser().personelle);
+        this.chekBlock(this.tokenStorage.getUser() );
       },
       (err) => {
         this.errorMessage = "يرجى التحقق من  إسم المستعمل و كلمة السر  ";
@@ -50,8 +51,8 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-  chekBlock(personelle: Personelle) {
-    if (personelle.block == 1) {
+  chekBlock(user: User) {
+    if (user.block == 1) {
       this.router.navigate(["404"]);
       setTimeout(() => {
         this.router.navigate(["geo/logoutpage"]);

@@ -9,56 +9,36 @@ import { TypeAffaire } from "./typeAffaire";
 import { TypeJuge } from "./typeJuge";
 import { Document } from "./document";
 import { Etablissement } from "./etablissement";
-import { Personelle } from "./personelle";
+ 
 import { MotifArreterlexecution } from "./motifArreterlexecution";
 import { EtabChangeManiere } from "./etabChangeManiere";
-export class ChangementLieu  {
-    
-   
-    documentId :DocumentId;
-    typeDocument :string;
-    dateEmission?:any;
-    dateDepotCarte?:any;
-      
-    affaire?:Affaire;
+import { User } from "./user";
+export class ChangementLieu {
+  documentId: DocumentId;
+  typeDocument: string;
+  dateEmission?: any;
+  dateDepotCarte?: any;
 
-    typeAffaire?:TypeAffaire;
+  affaire?: Affaire;
 
-    dateInsertion?:any;
-    numArrestation?:any;
- 
-    etablissementtMutation:Etablissement;
-	
-	 
-	 etabChangeManiere:EtabChangeManiere;
-	
-	
-     jour:any;
-     mois:any;
-     annee:any;
-	
-	  type: string;
+  typeAffaire?: TypeAffaire;
 
+  dateInsertion?: any;
+  numArrestation?: any;
 
+  etablissementMutation: Etablissement;
 
-    etablissement :Etablissement;
-   
-    personelle:Personelle;
-    
-     motifArreterlexecution : MotifArreterlexecution;
+  etabChangeManiere: EtabChangeManiere;
 
+  jour: any;
+  mois: any;
+  annee: any;
 
+  type: string;
+
+  etablissement: Etablissement;
+  user: User;
+  //personelle: Personelle;
+
+  motifArreterlexecution: MotifArreterlexecution;
 }
- 
- 
-
- 
- 
- 
- 
- 
- 
-
-
- 
-   

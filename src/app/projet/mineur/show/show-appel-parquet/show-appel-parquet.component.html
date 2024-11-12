@@ -1,136 +1,91 @@
-
  
  
-    <div dir="rtl" *ngIf="appelParquet">
-        <div  style=" margin-left: 5%; margin-right: 5%;    background-image: url(assets/layout/images/bg.png)" >
-            <div class="p-grid"  >
-                <div class="p-col-2">
-                    <label style="background-color: rgb(241, 241, 241);">
-                        الهوية:
-                         
-                    </label>
-                    </div>
-                    <div class="p-col-10">
-                        <label>
-                          
-                            <span>
 
-
-                                {{ appelParquet.affaire.arrestation.enfant.nom }} بن {{ appelParquet.affaire.arrestation.enfant.nomPere }} بن {{ appelParquet.affaire.arrestation.enfant.nomGrandPere }} {{ appelParquet.affaire.arrestation.enfant.prenom }}
-                            </span>
-                             
-                        </label>
-                    </div>
-                    </div>
-            
-                    <div class="p-grid"  >
-                        <div class="p-col-2">
-                            <label style="background-color: rgb(241, 241, 241);">
-                                عدد الإيقاف :
-                                 
-                            </label>
-                            </div>
-                            <div class="p-col-10">
-                                <label>
-                                  
-                                    <span dir="rtl">
-        
-        
-                                        {{ appelParquet.numArrestation }}
-                                    </span>
-                                     
-                                </label>
-                            </div>
-                            </div>
-                            <div class="p-grid"  >
-                                <div class="p-col-2">
-                                    <label style="background-color: rgb(241, 241, 241);">
-                                        المركز :
-                                         
-                                    </label>
-                                    </div>
-                                    <div class="p-col-10">
-                                        <label>
-                                          
-                                            <span>
-                
-                
-                                                {{ appelParquet.etablissement.libelle_etablissement }}
-                                            </span>
-                                             
-                                        </label>
-                                    </div>
-                                    </div>
-          
-                                
-            
-            
-                                            <div class="p-grid" *ngIf="appelParquet.affaire" >
-                                                <div class="p-col-2">
-                                                    <label style="background-color: rgb(241, 241, 241);">
-                                                        قضية  الإستئناف :
-                                                       
-                                                    </label>
-                                                    </div>
-                                                    <div class="p-col-10">
-                                                        <label>
-                                                          
-                                                            <span> {{ appelParquet.affaire.affaireId.numAffaire }}</span>
-                                                            <span> {{ appelParquet.affaire.tribunal.nom_tribunal }}</span>
-                                                             
-                                                        </label>
-                                                    </div>
-                                                    </div>
-
-
-                                                    
-                                                    
-            
-        
-                                                                    <div class="p-grid"   >
-                                                                        <div class="p-col-2">
-                                                                            <label style="background-color: rgb(241, 241, 241);" >
-                                                                               تاريخ الإستئناف :
-                                                                               
-                                                                            </label>
-                                                                            </div>
-                                                                            <div class="p-col-10">
-                                                                                <label>
-                                                                                  
-                                                                                    <span dir="rtl">{{ appelParquet.dateEmission }}</span>
-                                                                                </label>
-                                                                            </div>
-                                                                            </div>
-                                                                            <!-- <div class="p-grid"   >
-                                                                                <div class="p-col-2">
-                                                                                    <label style="background-color: rgb(241, 241, 241);" >
-                                                                                        تاريخ الحكم  :
-                                                                                       
-                                                                                    </label>
-                                                                                    </div>
-                                                                                    <div class="p-col-10">
-                                                                                        <label>
-                                                                                          
-                                                                                            <span dir="rtl">{{ appelParquet.dateDepotCarte }}</span>
-                                                                                        </label>
-                                                                                    </div>
-                                                                                    </div> -->
-                                                                                 
-                                                                                                                                                             
-           
-                                                                                                   
-            
-
-          
-        <label style="margin-top: 30px;">
-            المدرج    :
-            <span>{{ appelParquet.personelle.nom +' '+ appelParquet.personelle.prenom +'    '}}</span>
-            بتاريخ  :
-            <span dir="rtl">{{ appelParquet.dateInsertion}}</span>
-        </label>
+<div dir="rtl" *ngIf=" appelParquet" class="judicial-document">
+    <div class="document-header">
+        <div class="header-left">
+            <h1>الجمهورية التونسية</h1>
+            <h2>وزارة العدل</h2>
+            <h3>{{ appelParquet?.affaire?.tribunal?.nom_tribunal }}</h3>
         </div>
-         
-    </div>
- 
 
- 
+        <div class="header-center">
+            <h1 class="document-title">
+                <b> إستئنـــاف النيـابة </b>
+
+            </h1>
+        </div>
+
+        <div class="header-right">
+            <h3>
+                <b>{{  appelParquet?.affaire?.tribunal?.gouvernorat?.libelle_gouvernorat}}</b>
+                <b> في {{  appelParquet?.dateEmission | date:'yyyy/MM/dd' }}</b>
+            </h3>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="p-grid">
+            <div class="p-col-2">
+                <label>الهوية:</label>
+            </div>
+            <div class="p-col-10">
+                <ul>
+                    <li style="font-weight: bold;">
+                        {{  appelParquet?.affaire?.arrestation?.enfant?.nom }} بن
+                        {{  appelParquet?.affaire?.arrestation?.enfant?.nomPere }} بن
+                        {{  appelParquet?.affaire?.arrestation?.enfant?.nomGrandPere }}
+                        {{  appelParquet?.affaire?.arrestation?.enfant?.prenom }}
+                        <br>
+                        إبن
+                        {{  appelParquet?.affaire?.arrestation?.enfant?.nomMere + ' ' +
+                         appelParquet?.affaire?.arrestation?.enfant?.prenomMere }}
+                    </li>
+                    <li style="color: red;">
+                        البلغ (ة) من العمر: XX سنة
+
+                        و المولود (ة) بــــ:
+                        {{  appelParquet?.affaire?.arrestation?.enfant?.lieuNaissance }}
+                        {{  appelParquet?.affaire?.arrestation?.enfant?.dateNaissance | date:'yyyy/MM/dd' }}
+                    </li>
+                    <li>
+                        القاطن (ة):
+                        {{  appelParquet?.affaire?.arrestation?.enfant?.adresse + ' ' }}
+                        {{  appelParquet?.affaire?.arrestation?.enfant?.delegation?.libelle_delegation + ' ' }}
+                        {{  appelParquet?.affaire?.arrestation?.enfant?.delegation?.gouvernorat?.libelle_gouvernorat }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="p-grid" *ngIf=" appelParquet?.affaire">
+            <div class="p-col-2">
+                <label>قضية الإستئناف:</label>
+            </div>
+            <div class="p-col-10">
+                <span *ngIf=" appelParquet?.affaire">{{  appelParquet?.affaire?.affaireId?.numAffaire
+                    }} - {{  appelParquet?.affaire?.tribunal?.nom_tribunal }}</span>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="p-grid">
+            <div class="p-col-2">
+                <label>تاريخ الإستئناف:</label>
+            </div>
+            <div class="p-col-10">
+                <span>{{  appelParquet?.dateEmission | date:'yyyy/MM/dd'}}</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            <label>المدرج: <span>{{  appelParquet?.personelle?.nom +' '+  appelParquet?.personelle?.prenom }}</span>
+                <p>{{  appelParquet?.etablissement?.libelle_etablissement }} في {{  appelParquet?.dateInsertion |
+                    date:'yyyy/MM/dd' }} </p>
+            </label>
+        </div>
+    </div>
+</div>

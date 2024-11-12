@@ -1,201 +1,133 @@
-
- 
- 
-    <div dir="rtl" *ngIf="carteDepot">
-        <div  style=" margin-left: 5%; margin-right: 5%;    background-image: url(assets/layout/images/bg.png)" >
-            <div class="p-grid"  >
-                <div class="p-col-2">
-                    <label  style="background-color: rgb(241, 241, 241);">
-                        الهوية:
-                         
-                    </label>
-                    </div>
-                    <div class="p-col-10">
-                        <label>
-                          
-                            <span>
-
-
-                                {{ carteDepot?.affaire?.arrestation?.enfant?.nom }} بن {{ carteDepot?.affaire?.arrestation?.enfant?.nomPere }} بن {{ carteDepot?.affaire?.arrestation?.enfant?.nomGrandPere }} {{ carteDepot?.affaire?.arrestation?.enfant?.prenom }}
-                            </span>
-                             
-                        </label>
-                    </div>
-                    </div>
-            
-                    <div class="p-grid"  >
-                        <div class="p-col-2">
-                            <label  style="background-color: rgb(241, 241, 241);">
-                                عدد الإيقاف :
-                                 
-                            </label>
-                            </div>
-                            <div class="p-col-10">
-                                <label>
-                                  
-                                    <span dir="rtl">
-        
-        
-                                        {{ carteDepot?.numArrestation }}
-                                    </span>
-                                     
-                                </label>
-                            </div>
-                            </div>
-                            <div class="p-grid"  >
-                                <div class="p-col-2">
-                                    <label  style="background-color: rgb(241, 241, 241);">
-                                        المركز :
-                                         
-                                    </label>
-                                    </div>
-                                    <div class="p-col-10">
-                                        <label>
-                                          
-                                            <span>
-                
-                
-                                                {{ carteDepot?.etablissement?.libelle_etablissement }}
-                                            </span>
-                                             
-                                        </label>
-                                    </div>
-                                    </div>
-          
-                                
-            
-            
-                                            <div class="p-grid" *ngIf="carteDepot.affaire" >
-                                                <div class="p-col-2">
-                                                    <label  style="background-color: rgb(241, 241, 241);" >
-                                                        القضية:
-                                                       
-                                                    </label>
-                                                    </div>
-                                                    <div class="p-col-10">
-                                                        <label>
-                                                          
-                                                            <span> {{ carteDepot?.affaire?.affaireId?.numAffaire }}</span>
-                                                            <span> {{ carteDepot?.affaire?.tribunal?.nom_tribunal }}</span>
-                                                             
-                                                        </label>
-                                                    </div>
-                                                    </div>
-
-
-                                                    <div class="p-grid" *ngIf="carteDepot.affaire" >
-                                                        <div class="p-col-2">
-                                                            <label  style="background-color: rgb(241, 241, 241);" >
-                                                                قضية الربط :
-                                                               
-                                                            </label>
-                                                            </div>
-                                                            <div class="p-col-10">
-                                                                <label>
-                                                                  
-                                                                    <span *ngIf="carteDepot.affaire.affaireLien"> {{ carteDepot?.affaire?.affaireLien?.affaireId?.numAffaire }}</span>
-                                                                    <span *ngIf="carteDepot.affaire.affaireLien"> {{ carteDepot?.affaire?.affaireLien?.tribunal?.nom_tribunal }}</span>
-                                                                    <span *ngIf="!carteDepot.affaire.affaireLien"> غير موجودة</span>
-                                                                     
-                                                                </label>
-                                                            </div>
-                                                            </div>
-            
-                                                    
-            
-        
-                                                                    <div class="p-grid"   >
-                                                                        <div class="p-col-2">
-                                                                            <label  style="background-color: rgb(241, 241, 241);" >
-                                                                                تاريخ صدور البطاقة
-                                                                               
-                                                                            </label>
-                                                                            </div>
-                                                                            <div class="p-col-10">
-                                                                                <label>
-                                                                                  
-                                                                                    <span dir="rtl">{{ carteDepot?.dateEmission }}</span>
-                                                                                </label>
-                                                                            </div>
-                                                                            </div>
-                                                                            <div class="p-grid"   >
-                                                                                <div class="p-col-2">
-                                                                                    <label   style="background-color: rgb(241, 241, 241);">
-                                                                                        تاريخ إيداع البطاقة :
-                                                                                       
-                                                                                    </label>
-                                                                                    </div>
-                                                                                    <div class="p-col-10">
-                                                                                        <label>
-                                                                                          
-                                                                                            <span dir="rtl">{{ carteDepot?.dateDepotCarte }}</span>
-                                                                                        </label>
-                                                                                    </div>
-                                                                                    </div>
-                                                                                    <div class="p-grid"   >
-                                                                                        <div class="p-col-2">
-                                                                                            <label   style="background-color: rgb(241, 241, 241);">
-                                                                                                نوع القضية: 
-                                                                                               
-                                                                                            </label>
-                                                                                            </div>
-                                                                                            <div class="p-col-10">
-                                                                                                <label>
-                                                                                                  
-                                                                                                    <span>{{ carteDepot?.typeAffaire?.libelle_typeAffaire }}</span>
-                                                                                                </label>
-                                                                                            </div>
-                                                                                            </div> 
-                                                                                                                                                             
-           
-                                                                                                   
-            
-
-            <label class="enLabel"  style="margin-top: 50px; ">     <b> 
-
-                <p-table [value]="this.carteDepot.entitiesTitreAccusation" >
-                    
-                    <ng-template pTemplate="header">
-                        
-                          
-                         
-                        <th style="width:10%;"  style="background-color: rgb(241, 241, 241);" >عدد </th>
-                        <th  style="width:50%;"  style="background-color: rgb(241, 241, 241);" >التهمة</th>
-                        
-                             
-                           
-                        
-                        
-                     </ng-template>
-                    <ng-template pTemplate="body" let-row let-rowIndex="rowIndex">
-                       <tr    class="table" >
-                        <td>
-                           {{rowIndex + 1}} 
-                             </td>  
-                         
-                          <td style="word-break:break-all"> {{row?.titreAccusation }} </td>
- 
-                       
-                          
-                         
-                       </tr>
-                    </ng-template>
-
-                   
-                 </p-table>
-             
-            
-            </b> 
-        </label>
-        <label style="margin-top: 100px;  background-color: rgb(253, 253, 253);">
-            المدرج    :
-            <span>{{ carteDepot?.personelle?.nom +' '+ carteDepot?.personelle?.prenom +'    '}}</span>
-            بتاريخ  :
-            <span dir="rtl">{{ carteDepot.dateInsertion}}</span>
-        </label>
+<div dir="rtl" *ngIf="carteDepot" class="judicial-document">
+    <div class="document-header">
+        <div class="header-left">
+            <h1>الجمهورية التونسية</h1>
+            <h2>وزارة العدل</h2>
+            <h3>{{ carteDepot?.affaire?.tribunal?.nom_tribunal }}</h3>
         </div>
-         
+
+        <div class="header-center">
+            <h1 class="document-title"><b>بطــــاقـــة إيــــداع</b></h1>
+        </div>
+
+        <div class="header-right">
+            <h3>
+                <b>{{ carteDepot?.affaire?.tribunal?.gouvernorat?.libelle_gouvernorat }}</b>
+                <b> في {{ carteDepot?.dateEmission | date:'yyyy/MM/dd' }}</b>
+            </h3>
+        </div>
     </div>
+
+    <div class="p-grid">
+        <div class="p-col-2">
+            <label>الهوية:</label>
+        </div>
+        <div class="p-col-10">
+            <ul  >
+                <li style="font-weight: bold;">
+                     {{ carteDepot?.affaire?.arrestation?.enfant?.nom }} بن
+                    {{ carteDepot?.affaire?.arrestation?.enfant?.nomPere }} بن
+                    {{ carteDepot?.affaire?.arrestation?.enfant?.nomGrandPere }}
+                    {{ carteDepot?.affaire?.arrestation?.enfant?.prenom  }}
+                 <br>
+                     إبن  
+                    {{ carteDepot?.affaire?.arrestation?.enfant?.nomMere + ' ' +
+                    carteDepot?.affaire?.arrestation?.enfant?.prenomMere }}
+                </li>
+                <li style="color: red;">
+                     البلغ (ة) من العمر: XX سنة
+                     
+                    و المولود (ة) بــــ:
+                    {{ carteDepot?.affaire?.arrestation?.enfant?.lieuNaissance }}
+                    {{ carteDepot?.affaire?.arrestation?.enfant?.dateNaissance | date:'yyyy/MM/dd' }}
+                </li>
+                <li>
+                     القاطن (ة):
+                    {{ carteDepot?.affaire?.arrestation?.enfant?.adresse + ' ' }}
+                    {{ carteDepot?.affaire?.arrestation?.enfant?.delegation?.libelle_delegation + ' ' }}
+                    {{ carteDepot?.affaire?.arrestation?.enfant?.delegation?.gouvernorat?.libelle_gouvernorat }}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+   
  
 
- 
+     
+
+    <div class="p-grid" *ngIf="carteDepot.affaire">
+        <div class="p-col-2">
+            <label>القضية:</label>
+        </div>
+        <div class="p-col-10">
+            <span>{{ carteDepot?.affaire?.affaireId?.numAffaire + ' ' }}</span>
+            <span>{{ carteDepot?.affaire?.tribunal?.nom_tribunal }}</span>
+        </div>
+    </div>
+
+    <div class="p-grid" *ngIf="carteDepot.affaire">
+        <div class="p-col-2">
+            <label>قضية الربط:</label>
+        </div>
+        <div class="p-col-10">
+            <span *ngIf="carteDepot.affaire.affaireLien">{{ carteDepot?.affaire?.affaireLien?.affaireId?.numAffaire
+                }}</span>
+            <span *ngIf="carteDepot.affaire.affaireLien">{{ carteDepot?.affaire?.affaireLien?.tribunal?.nom_tribunal
+                }}</span>
+            <span *ngIf="!carteDepot.affaire.affaireLien">غير موجودة</span>
+        </div>
+    </div>
+
+    <div class="p-grid">
+        <div class="p-col-2">
+            <label>تاريخ صدور البطاقة:</label>
+        </div>
+        <div class="p-col-10">
+            <span dir="rtl">{{ carteDepot?.dateEmission }}</span>
+        </div>
+    </div>
+
+    <div class="p-grid">
+        <div class="p-col-2">
+            <label>تاريخ إيداع البطاقة:</label>
+        </div>
+        <div class="p-col-10">
+            <span dir="rtl">{{ carteDepot?.dateDepotCarte }}</span>
+        </div>
+    </div>
+
+    <div class="p-grid">
+        <div class="p-col-2">
+            <label>نوع القضية:</label>
+        </div>
+        <div class="p-col-10">
+            <span>{{ carteDepot?.typeAffaire?.libelle_typeAffaire }}</span>
+        </div>
+    </div>
+<div class="p-grid">
+    <div class="p-col-2">
+        <label><b>المتهم (ة) بــــ :</b></label>
+    </div>
+    <div class="p-col-10">
+    <div  >
+    
+        <p>
+            <span *ngFor="let row of carteDepot.titreAccusations; let rowIndex = index">
+                {{ row?.titreAccusation }}<span *ngIf="rowIndex < carteDepot.titreAccusations.length - 1"> و </span>
+            </span>
+            .
+        </p>
+    </div>
+    </div>
+</div>
+    
+
+    <div class="footer">
+        <label>المدرج: <span>{{ carteDepot?.personelle?.nom + ' ' + carteDepot?.personelle?.prenom }}</span>
+        <p>{{ carteDepot?.etablissement?.libelle_etablissement }} في {{ carteDepot?.dateInsertion | date:'yyyy/MM/dd' }}
+        </p>
+        </label>
+    </div>
+</div>

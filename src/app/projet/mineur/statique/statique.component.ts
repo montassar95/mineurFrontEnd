@@ -31,7 +31,7 @@ export class StatiqueComponent implements OnInit {
     this.centre = centre;
     this.centreLibelle = this.centre?.libelle_etablissement;
     this.displayCentre = false;
-    this.crudservice.getStatistcs(this.centre.id).subscribe((data) => {
+    this.crudservice.calculerStatistiques(this.centre.id).subscribe((data) => {
       if (data.result !== null) {
         this.valid = true;
         this.statisticsDTO = data.result;
@@ -295,13 +295,15 @@ export class StatiqueComponent implements OnInit {
 
   ngOnInit() {
     this.saveCentre(this.token?.getUser()?.personelle?.etablissement);
-    this.crudservice.getAllCentre("etablissement").subscribe((data) => {
-      this.entitiesEtablissement = data.result;
-      let e = new Etablissement();
-      e.libelle_etablissement = "جميع مراكز الإصلاح";
-      e.id = 0;
-      this.entitiesEtablissement.push(e);
-    });
+    this.crudservice
+      .trouverEtablissementsActifs("etablissement")
+      .subscribe((data) => {
+        this.entitiesEtablissement = data.result;
+        let e = new Etablissement();
+        e.libelle_etablissement = "جميع مراكز الإصلاح";
+        e.id = 0;
+        this.entitiesEtablissement.push(e);
+      });
   }
 
   arretOuJuge(

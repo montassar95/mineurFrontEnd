@@ -32,7 +32,7 @@ html, body {  min-height: 90%;   }
 body { margin: 0; font-family: 'Amiri', Times, serif, "Helvetica Neue", sans-serif; }
 label
 {
-    font-size: 20px; /* Titres de 40 pixels 
+    font-size: 23px; /* Titres de 40 pixels 
     font-family:Arial Black ; Titres de 40 pixels */
     font-weight: bold;
     font-family: 'Amiri', Times, serif
@@ -126,3 +126,178 @@ input[type=number] {
   -webkit-border-radius: 50%;
   border-radius: 50%;
 }
+.court-document {
+
+  margin: 10px auto;
+  padding: 30px;
+  background: linear-gradient(to right, #ffffff, #e0e0e0);
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(39, 39, 39, 0.1);
+  font-family: 'Amiri', Times, serif;
+  max-width: 100%;
+}
+
+.info-section {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  /* Augmente l'espace entre les sections d'information */
+}
+
+.info-label {
+  font-weight: bold;
+  color: #104368;
+  font-size: 25px;
+  /* Agrandi la taille de la police */
+  flex: 1;
+}
+
+.info-data {
+  color: #2b2b2b;
+  font-size: 25px;
+  /* Agrandi la taille de la police */
+  flex: 2;
+  padding-left: 10px;
+  /* Augmente l'espace après le label */
+}
+/* styles.css (ou styles.scss) */
+
+
+/* neons css  */
+.neons {
+  padding: 15px;
+  text-align: center;
+
+}
+
+.neons span {
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'Amiri', Times, serif;
+  animation: glow2 0.5s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow2 {
+  from {
+    color: rgb(228, 228, 228);
+  }
+
+  to {
+    color: #ffffff;
+  }
+}
+
+@keyframes glow2 {
+  from {
+    color: rgb(255, 255, 255);
+  }
+
+  to {
+    //  color:#2448ff
+    color: blue;
+  }
+}
+
+ .item {
+   text-align: right;
+   font-family: 'Amiri', Times, serif;
+   font-size: 17px;
+   font-weight: bold;
+   line-height: 1.0;
+ }
+
+ /* Global Styles */
+ * {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+ }
+
+ body {
+   font-family: 'Amiri', Times, serif;
+   font-size: 16px;
+   background-color: #f4f4f4;
+ }
+
+ .container {
+   margin: 2rem;
+ }
+
+ .table-header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-bottom: 1rem;
+ }
+
+ table {
+   width: 100%;
+   border-collapse: collapse;
+   /* background: url('assets/layout/images/111.jpg') no-repeat center center; */
+   background-size: cover;
+   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+ }
+
+ th,
+ td {
+   text-align: center;
+   padding: 12px;
+   font-size: 22px;
+   color: #333;
+ }
+
+ th {
+   font-weight: bold;
+   background-color: #eaeaea;
+ }
+
+ td {
+   font-weight: lighter;
+   background-color: #fff;
+ }
+
+ button.add-btn,
+ button.edit-btn {
+   background-color: transparent;
+   border: none;
+   cursor: pointer;
+ }
+
+ button.add-btn i,
+ button.edit-btn i {
+   font-size: 30px;
+   color: #007bff;
+ }
+
+ button.add-btn:hover,
+ button.edit-btn:hover {
+   color: #0056b3;
+ }
+
+ /* Input and Sorting */
+ input {
+   font-weight: bold;
+   font-size: 16px;
+   padding: 0.5rem;
+   border-radius: 8px;
+   border: 1px solid #ccc;
+   width: 250px;
+ }
+
+ input:focus {
+   outline: none;
+   border-color: #007bff;
+ }
+
+ /* Dialog Styles */
+ .p-dialog .p-header {
+   background-color: #eaeaea;
+   text-align: center;
+   font-size: 18px;
+   color: #333;
+ }
+
+ .p-dialog .p-header span {
+   color: #28a745;
+   font-weight: bold;
+ }

@@ -8,7 +8,7 @@
                
             </a> -->
                 <a href="#" class="layout-topbar-logo">
-                    <img id="logo-topbar" src="assets/layout/images/logo-topbar.png" alt="mirage-layout"/>
+                    <img id="logo-topbar" src="assets/layout/images/cgprr.png" alt="mirage-layout"/>
                    
                 </a>
                 
@@ -30,38 +30,35 @@
                     </a>
                 </li> 
 
-                <li style="margin-left: 100px; " #profile class="topbar-item profile-item" [ngClass]="{'active-topmenuitem': app.activeTopbarItem === profile}">
+                <li #profile class="topbar-item profile-item" [ngClass]="{'active-topmenuitem': app.activeTopbarItem === profile}">
                     <a href="#" (click)="app.onTopbarItemClick($event,profile)">
                     <span class="profile-image-wrapper">
                         <!-- [src]="img" -->
                         <img src="assets/layout/images/police.png"  class="profile-img" alt="mirage-layout" />
                     </span>
                         <span class="profile-info-wrapper">
-                        <h3 style="color: #cfd1d4;"> {{currentUser.personelle.nom +' '+ currentUser.personelle.prenom}}</h3>
+                        <h3 style="color: #cfd1d4;"> {{currentUser?.nom +' '+ currentUser?.prenom}}</h3>
                         <span  style="color: #cfd1d4;">جزائية</span>
                     </span>
                     </a>
-                    <ul  class="profile-item-submenu fadeInDown">
-                        <li class="profile-submenu-header">
+                    <ul  class="profile-item-submenu fadeInDown" >
+                        <li class="profile-submenu-header" >
                             <div class="performance">
-                                <span style="font-weight: bold;">{{currentUser.personelle.nom +' '+ currentUser.personelle.prenom}}</span>
+                                <span style="font-weight: bold;">{{currentUser.nom +' '+ currentUser.prenom}}</span>
                              
                             </div>
                             <div class="profile">
                                 
-                                <h1>{{currentUser.personelle.etablissement.libelle_etablissement }}</h1>
+                                <h1>{{currentUser.etablissement.libelle_etablissement }}</h1>
                                 <span>جزائية</span>
                             </div>
                         </li>
                       
                       
-                        <li class="layout-submenu-item">
+                        <li class="layout-submenu-footer">
                             <i class="pi pi-users icon icon-3"></i>
-                            <div class="menu-text">
-                                <p> تغير كلمة السر  </p>
-                                 
-                            </div>
-                            <i class="pi pi-angle-left"></i>
+                           
+                            <button class="signout-button"  (click)="changerPwd()"> <i class="pi pi-angle-left" style="color: green;  font-weight: bold;"> تغير كلمة السر</i></button>
                         </li>
                         <li class="layout-submenu-footer">
                             <button class="signout-button"     (click)="signout()"    > <i class="pi pi-fw pi-power-off" style="color: red; background-color:
@@ -79,3 +76,31 @@
          
     </div>
 </div>
+
+
+<p-dialog dir="rtl" [(visible)]="displayUpdateUser" [closable]="false" [modal]="true">
+    <p-header>
+
+        <div class="p-grid " style="background-color: rgb(214, 214, 214);">
+
+            <span style=" color: green;">إدراج مستعمل جديد </span>
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+    </p-header>
+
+     <!-- <app-add-user (closeEvent)="close($event)"></app-add-user> -->
+
+
+</p-dialog>

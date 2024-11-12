@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { MessageService } from "primeng";
 import { TokenStorageService } from "src/app/_services/token-storage.service";
 import { CrudEnfantService } from "src/app/demo/service/crud-enfant.service";
+import { DetentionService } from "src/app/demo/service/detention.service";
 import { EventService } from "src/app/demo/service/eventservice";
 import { NodeService } from "src/app/demo/service/nodeservice";
 import { Enfant } from "src/app/domain/enfant";
@@ -48,6 +49,7 @@ export class AddVisiteComponent implements OnInit {
 
   constructor(
     private crudservice: CrudEnfantService,
+    private detentionService: DetentionService,
     private formBuilder: FormBuilder,
     private eventService: EventService,
     private token: TokenStorageService,
@@ -85,8 +87,8 @@ export class AddVisiteComponent implements OnInit {
 
   verifierVisite() {
     console.log(this.selectedMonth);
-    this.crudservice
-      .getVisite(
+    this.detentionService
+      .trouverVisitesParIdDetenuEtMoisEtAnnee(
         this.residence.arrestation.enfant.id,
         this.currentYear,
         this.selectedMonth

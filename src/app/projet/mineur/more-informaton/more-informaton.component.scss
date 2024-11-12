@@ -1,15 +1,6 @@
  
  
  
-//  @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@700&display=swap');
-  
-//  filter: invert(1);
-//     color: white;
-//     width: 1.25rem;
-//     overflow: hidden;
-//     -webkit-animation: jump 1.5s ease 0s infinite normal;
-//     animation: jump 1.5s ease 0s infinite normal;
- 
 .button-card3 {
   background-color: white;
   width: 150px;
@@ -79,19 +70,7 @@
   font-weight: 700;
 }
 
-// /* Styles for the active tab label */
-// .mat-tab-label.mat-tab-label-active {
-//   min-width: 25px !important;
-//   padding: 5px;
-//   background-color: transparent;
-//   color: red;
-//   font-weight: 700;
-// }
-
-// /* Styles for the ink bar */
-// .mat-ink-bar {
-//   background-color: green;
-// }
+ 
     
   .profile-img-card {
     width: 350px;
@@ -113,9 +92,10 @@ color: black;}
     .profile-img-card3{
       
         width: 230px;
-        height: 270px;
+        height: auto;
+        max-height: 350px;
         // margin: 0 auto 10px;
-        /* margin-top: 10px; */
+        //   margin-top: 20px;  
         display: block;
         -moz-border-radius: 50%;
         -webkit-border-radius: 50%;
@@ -136,8 +116,9 @@ color: black;}
         border-radius: 5%;
       }
       .enLabel{
-        margin-top: 20px;
+        margin-top: 18px;
         color: #0f0f0fe3;
+        
       
        
       }
@@ -158,35 +139,10 @@ color: black;}
       tr{
         font-family: 'Amiri', Times, serif;
         font-weight: bold;
-        font-size: 16px;
+        font-size: 20px;
      }
 
-     .neons {
-      margin-top: 10px;
-      text-align: center;
-   }
-   
-   .neons span {
-     font-size:30px;
      
-      font-weight: bold;
-    
-      font-family: 'Amiri', Times, serif;
-     animation: glow2 0.5s ease-in-out infinite alternate;
-     
-   }
-
-     @-webkit-keyframes glow2 {
-      from {
-       color: #ff3434;
-     
-           }
-   
-   to {
-      color: white;
-   
-   }
-  }
 
 
   .neonsBlack b {
@@ -194,7 +150,7 @@ color: black;}
     text-align: center;
      font-weight: bold;
    
-    animation: glow3 1s ease-in-out infinite alternate;
+    
   }
 
     @-webkit-keyframes glow3 {
@@ -221,10 +177,7 @@ color: black;}
   .filter-container {
     text-align: center;
 }
-
- b{
-  line-height: norma
- }
+ 
  
  
 
@@ -249,9 +202,7 @@ color: black;}
         color: #4c566ad0;
 }
   
-b{
-  color: #000;
-}
+ 
 
 
  
@@ -307,6 +258,7 @@ b{
  
 
 th {
+  
   background-color: #dfdfdf;
   /* Couleur de fond */
   color: #333;
@@ -331,76 +283,25 @@ th:last-child {
   /* Coin supérieur droit arrondi */
 }
 
-/*
-.card {
-  margin: 30px auto;
-  width: 300px;
-  height: 300px;
-  border-radius: 40px;
-  background-image: url('https://i.redd.it/b3esnz5ra34y.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-repeat: no-repeat;
-box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.22);
-  transition: 0.4s;
-}
-*/
-// .container {
-//   max-width:90%;   
-//   background: white;
-//   margin: 0px auto 0px; 
-  
-//   border-radius: 0px;  
-//   padding: 50px;
-//   border-style :  solid ;
-// //  border-color :  #257471 ;
-//    box-shadow :
-//   //   1px 1px 1px #257471,
-//   // 1px 2px 1px #257471,
-//   // 1px 3px 1px #257471,
-//   // 1px 4px 1px #257471,
-//   1px 5px 1px #9c9c9c,
-//   1px 6px 1px #9c9c9c,
-//   1px 7px 1px #9c9c9c,
-//   1px 8px 1px #9c9c9c,
-//   1px 9px 1px #9c9c9c,
-//   1px 10px 1px #9c9c9c  ;
-
-
-
  
 
-  
-// //   box-shadow : 1px 1px 1px 1px #bebebe,
-// //  1px 2px 1px 1px #bebebe,
-// //  1px 3px 1px 1px #bebebe,
-// //  1px 4px 1px 1px #bebebe,
-// //  1px 5px 1px 1px #bebebe,
-// //  1px 6px 1px 1px #bebebe,
-// //  1px 7px 1px 1px #bebebe,
-// //  1px 8px 1px 1px #bebebe,
-// //  1px 9px 1px 1px #bebebe,
-// //  1px 10px 1px 1px #bebebe ;
-// }
-
 .container {
-  max-width: 90%;
+  max-width: 80%;
   background: #ffffff;
-  margin: 20px auto;
+  margin:  0px auto;
   /* Ajoute un espace autour du conteneur */
   border-radius: 10px;
   /* Coins arrondis */
-  padding: 30px;
+    padding: 20px;
   /* Espacement interne */
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   /* Ombre douce */
-  border: 1px solid #e0e0e0;
+  border: 5px solid #cfcfcf;
   /* Bordure légère */
 }
  .li {
   margin: .5em 0;
-  line-height: 1.15;
+  line-height: 1.3;
 }
 .dateDocument{
   color: #525252 !important;
@@ -455,7 +356,10 @@ h1{
         margin-top: 15px;
 }
 b{
-    color: #2448ff;
+    color: #0f4983;
+    font-weight: 900;
+    line-height: norma;
+    padding-right: 5px;
 }
 
 
@@ -750,23 +654,20 @@ b{
     /* Convertir en majuscules */
     text-align: center;
    
-  text-shadow:
-    1px 1px 1px #919191,
-    1px 1px 1px #919191,
-    1px 1px 1px #919191,
-    1px 1px 1px #919191,
-    1px 1px 1px #919191,
-    1px 1px 1px #919191,
-    1px 1px 1px #919191,
-    1px 1px 1px #919191,
-    1px 1px 1px #919191,
-    1px 1px 1px #919191,
-    1px 2px 2px rgba(16, 16, 16, 0.4),
-    1px 2px 2px rgba(16, 16, 16, 0.2),
-    1px 2px 2px rgba(16, 16, 16, 0.2),
-    1px 2px 2px rgba(16, 16, 16, 0.4);
+ 
   /* Ombre du texte */
 }
+
+
+
+
+
+
+
+
+
+
+
 // .text {
 // color: #ff3434;
 //     font-size: 40px;
@@ -832,7 +733,7 @@ b{
 
 @keyframes textclip {
   to {
-    background-position: 800% center;
+    background-position: 400% center;
   }
 }
 .zoom-in {
@@ -840,6 +741,7 @@ b{
 }
 
 .zoom-out {
+  
   animation: zoom-out 1s infinite alternate;
 }
 
@@ -871,11 +773,12 @@ b{
      color: #fff;
      font-size: 30px;
      text-transform: uppercase;
-     font-weight: 700;
-     padding: 13px;
-    //  margin-top: 10px;
+     font-weight: lighter;
+     padding: 10px;
+       margin-top: 10px;
 
-     background: linear-gradient(to right, #f22121 10%, #25abe8 50%, #216b64 60%);
+     background: linear-gradient(to right, rgb(156, 155, 155) 10%,   
+      rgb(2, 58, 2) 90%);
      background-size: auto auto;
      background-clip: border-box;
      background-size: 200% auto;
@@ -884,7 +787,156 @@ b{
 
      -webkit-background-clip: text;
      -webkit-text-fill-color: transparent;
-     animation: textclip 10s linear infinite;
+     animation: textclip 2s linear infinite;
      display: inline-block;
    }
  }
+
+.cercle {
+  text-align: center;
+  display: inline-block;
+  /* Permet d'ajuster la taille */
+  // padding: 10px 20px;
+  /* Ajustez le padding selon vos besoins */
+  border-radius: 40%;
+  /* Rend le label sphérique */
+  color: white;
+  /* Couleur du texte */
+  text-align: center;
+  /* Centrer le texte */
+  font-weight: bold;
+  /* Met le texte en gras */
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+background-color: red;
+  /* Ombre pour un effet néon */
+}
+
+ .neons {
+       padding: 15px;
+    text-align: center;
+    
+ }
+
+ .neons span {
+   font-size: 30px;
+   font-weight: bold;
+   font-family: 'Amiri', Times, serif;
+   animation: glow2 0.5s ease-in-out infinite alternate;
+ }
+
+ @-webkit-keyframes glow2 {
+   from {
+       color: rgb(228, 228, 228);
+   }
+
+   to {
+       color:#ffffff  ;
+   }
+ }
+
+ @keyframes glow2 {
+   from {
+       color: rgb(255, 255, 255);
+   }
+
+   to {
+      //  color:#2448ff
+      color: red;
+   }
+ }
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+ .court-document {
+
+   margin: 5px auto;
+   padding: 30px;
+   background: linear-gradient(to right, #ffffff, #e0e0e0);
+   border-radius: 10px;
+   box-shadow: 0 4px 20px rgba(204, 204, 204, 0.1);
+   font-family: 'Amiri', Times, serif;
+   max-width: 100%;
+ }
+ 
+ .court-content {
+   line-height: 1.3;
+   /* Augmente l'interligne pour plus de lisibilité */
+ }
+
+    /* Spinner CSS */
+    .spinner {
+      border: 4px solid #f3f3f3;
+      /* Light grey */
+      border-top: 4px solid #3498db;
+      /* Blue */
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin: auto;
+      display: block;
+    }
+  
+    /* Animation pour le spinner */
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+  
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Style pour le label */
+.more-info-label {
+  font-size: 18px; /* Taille plus lisible */
+  font-weight: bold; /* Mettre le texte en gras */
+  margin: 10px 0; /* Espacement vertical autour de l'élément */
+  display: block; /* S'assurer que le label prend toute la largeur disponible */
+  text-align: center; /* Centrer le texte */
+  color: #333; /* Couleur texte douce mais contrastée */
+}
+
+/* Style pour le lien */
+.more-info-link {
+  color: #007bff; /* Bleu primaire */
+  text-decoration: none; /* Enlever la ligne sous le texte */
+  font-size: 20px; /* Taille de police plus grande */
+  font-weight: 600; /* Poids de la police pour un effet de texte plus marqué */
+  transition: all 0.3s ease-in-out; /* Transition fluide pour les changements d'état */
+  display: inline-block; /* Afin que les marges s'appliquent correctement */
+  padding: 5px 10px; /* Ajout de padding pour rendre le lien cliquable plus large */
+  border-radius: 5px; /* Coins arrondis pour un effet plus doux */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ajout d'ombre douce */
+}
+
+.more-info-link:hover {
+  color: #0056b3; /* Changer la couleur au survol */
+  background-color: rgba(0, 123, 255, 0.1); /* Fond bleu clair au survol */
+  transform: translateY(-2px); /* Effet d'élévation au survol */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Ombre plus marquée */
+}
+
+/* Pour mobile ou petits écrans, vous pouvez ajuster la taille de police */
+@media (max-width: 768px) {
+  .more-info-label {
+    font-size: 16px;
+  }
+
+  .more-info-link {
+    font-size: 18px;
+    padding: 4px 8px;
+  }
+}

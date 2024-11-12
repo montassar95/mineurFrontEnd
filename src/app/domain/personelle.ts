@@ -1,45 +1,34 @@
- 
- 
- 
-
-
-import { Etablissement } from './etablissement';
-import { Situation } from './situation';
- 
- 
- 
- 
+import { Etablissement } from "./etablissement";
+import { Situation } from "./situation";
 
 export class Personelle {
-//     id?;
-//     matricule?;
-//     nom	: string; 
-//     prenom: string;
-//     phone	: string; 
-//     adress: string;
-//     mail: string;
-//     situation:Situation;
-      block?;
-//     com:any;
-//     etablissement:Etablissement;
-//    // img?:any;
-   
- id;
+  //     id?;
+  //     matricule?;
+  //     nom	: string;
+  //     prenom: string;
+  //     phone	: string;
+  //     adress: string;
+  //     mail: string;
+  //     situation:Situation;
+  block?;
+  //     com:any;
+  //     etablissement:Etablissement;
+  //    // img?:any;
+
+  id;
   matricule;
- cnrps;
- nom;
- prenom;
- nom_pere;
+  cnrps;
+  nom;
+  prenom;
+  nom_pere;
 
-    grade;
+  grade;
 
-  etablissement:Etablissement;
+  etablissement: Etablissement;
 
   fonction;
 
- situation;
-
+  situation;
 
   img;
-                              
 }

@@ -1,22 +1,22 @@
-<div style="height: 500px ; width: auto;">
+<div style="height: 500px ; width: 500px;">
 
 
 
 <div class="p-field p-grid">
-    <label for="lastname3" class="p-col-fixed" style="width: 180px;">المعرف   :</label>
+    <label for="lastname3" class="p-col-fixed" style="width: 180px;">رقـــم الإداري   :</label>
     <div class="p-col">
         <input         [(ngModel)]="id"   type="number" pInputText>
     </div>
 </div>
 
 <div class="p-field p-grid">
-    <label for="lastname3" class="p-col-fixed " style="width: 180px;">  الإسم     :</label>
+    <label for="lastname3" class="p-col-fixed " style="width: 180px;">  الإســـم     :</label>
     <div class="p-col">
         <input   [(ngModel)]="nom"  type="text" pInputText>
     </div>
 </div>
 <div class="p-field p-grid">
-    <label for="lastname3" class="p-col-fixed" style="width: 180px;">اللقب    :</label>
+    <label for="lastname3" class="p-col-fixed" style="width: 180px;">اللقــب    :</label>
     <div class="p-col">
         <input   [(ngModel)]="prenom"    type="text" pInputText>
     </div>
@@ -24,32 +24,59 @@
 
  
 <div class="p-field p-grid">
-    <label   class="p-col-fixed" style="width:180px">  المؤسسة    :  </label>
+    <label   class="p-col-fixed" style="width:180px">  المـــؤسسة    :  </label>
     <div class="p-col">
-        <p-dropdown    (onChange)="onChangeEta($event) " [options]="etablissements" placeholder="المؤسسات  "   [filter]="true" id="etablissement"  
-                  [style]="{'width':'300px'}"   name="etablissement"></p-dropdown>
+        <p-dropdown  [(ngModel)]="etablissementLocal"   [options]="etablissements" placeholder=" المـــؤسسة  "   [filter]="true" id="etablissement"  
+                  [style]="{'width':'220px', 'min-height' : '10px' }"   name="etablissement">
+                
+        <ng-template let-eta pTemplate="item">
+            <div class="item">
+        
+                <div>{{eta.label }}</div>
+            </div>
+        </ng-template>
+    </p-dropdown>
     </div>
  </div>
 
  <div class="p-field p-grid">
-    <label   class="p-col-fixed" style="width:180px">  الوظيفة    :  </label>
+    <label   class="p-col-fixed" style="width:180px"> المهــــام  :  </label>
     <div class="p-col">
-        <p-dropdown   (onChange)="onChange($event) "  [style]="{'width':'300px'}" [options]="roles" placeholder="  المهام  (متصرف)" [filter]="true" id="role"
-        name="role"></p-dropdown>
+        <p-dropdown   [(ngModel)]="role"   [options]="roles" placeholder="  المهــــام "  [filter]="true" id="role"
+          [style]="{'width':'220px'}" name="role">
+    <ng-template let-role pTemplate="item">
+        <div class="item">
+    
+            <div>{{role.label }}</div>
+        </div>
+    </ng-template>
+    
+    </p-dropdown>
     </div>
  </div>
 
-<div class="p-field p-grid">
-    <label for="lastname3" class="p-col-fixed " style="width: 180px;">  إسم المستعمل   :</label>
+<div class="p-field p-grid"  >
+    <label for="lastname3" class="p-col-fixed " style="width: 180px;">  إســـم المستعمـــل   :</label>
     <div class="p-col">
         <input    [(ngModel)]="login"   type="text" pInputText>
     </div>
 </div>
-<div class="p-field p-grid">
-    <label for="lastname3" class="p-col-fixed" style="width: 180px;">كلمة السر      :</label>
-    <div class="p-col">
+<div class="p-field p-grid" >
+    <label *ngIf="!update" for="lastname3" class="p-col-fixed" style="width: 180px;">كلمة السر      :</label>
+    <label *ngIf="update" for="lastname3" class="p-col-fixed" style="width: 180px;"> تغير كلمة السر :</label>
+   
+    <div class="p-col" *ngIf="showPwd">
         <input      [(ngModel)]="pwd"     type="text" pInputText>
     </div>
+    <button *ngIf="update && !showPwd" (click)="toggleUpdatePassword()" style="background-color: white; " mat-fab>
+        <i class="pi pi-lock" style="font-size: 35px; color: #007bff;"></i>
+    
+    </button>
+    <button *ngIf="update && showPwd && pwd === '' " (click)="toggleUpdatePassword()" style="background-color: white;"
+        mat-fab>
+        <i class="pi pi-lock-open" style="font-size: 35px; color: #007bff;"></i>
+    
+    </button>
 </div>
  
 

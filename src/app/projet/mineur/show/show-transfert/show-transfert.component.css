@@ -1,36 +1,133 @@
-p{
+.judicial-document {
+    /* width: 3000px; */
+    margin: 20px auto;
+    padding: 40px; /* Augmenté */
+    background: linear-gradient(to right, #e0e0e0, #ffffff);
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15); /* Ombre plus douce */
     font-family: 'Amiri', Times, serif;
-}
-label{
-    line-height: 2.4;
-    color: rgb(58, 58, 58);
-    border: 0.5px solid rgb(206, 205, 205);
-    border: white;
-}
-span{
-    color: #000;
- 
-     
-}
-  
-.line {
-    text-decoration: line-through gray;
+    line-height: 1.6;
+      max-width: 1300px; 
     
-  }
-  .table{
-   
-    /* font-weight: 500; */
-    font-size: 16px;
-    color: black;
-    font-family: 'Amiri', Times, serif;
-   
 }
-    
-th{
-    color: black;
+
+.document-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px; /* Augmenté */
+    border-bottom: 3px solid #007BFF; /* Épaissi */
+    padding-bottom: 20px;
+    color: #343a40;
+}
+
+.header-left,
+.header-center,
+.header-right {
+    flex: 1;
+}
+
+.header-left {
+    text-align: right;
+}
+
+.header-center {
+    text-align: center;
+}
+
+.header-right {
+    text-align: left;
+}
+
+.document-title {
+    font-size: 40px; /* Plus grand */
+    color: #007BFF;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px; /* Espacement accru */
+}
+
+h1,
+h2,
+h3 {
+    margin: 0;
     font-family: 'Amiri', Times, serif;
 }
 
-td{
- background-color: white;
+h1 {
+    font-size: 32px; /* Plus grand */
+    color: #2C3E50;
 }
+
+h2 {
+    font-size: 28px; /* Plus grand */
+    color: #34495E;
+}
+
+h3 {
+    font-size: 24px; /* Plus grand */
+    color: #636363;
+}
+
+.p-grid {
+    display: flex;
+/*  margin-bottom: 10px; Augmenté */
+}
+
+.p-col-2 {
+    flex: 0 0 25%;
+    font-weight: bold;
+    color: #333;
+    font-size: 22px; /* Plus grand */
+}
+
+.p-col-10 {
+    flex: 0 0 75%;
+    font-size: 22px; /* Plus grand */
+}
+
+label {
+    background-color: #f8f9fa;
+    display: block;
+    font-size: 22px; /* Plus grand */
+/*   padding: 10px; Ajusté */
+}
+
+span {
+    color: #000;
+    font-size: 22px; /* Plus grand */
+}
+
+.note {
+    color: #e74c3c;
+    font-weight: bold;
+    font-size: 22px; /* Plus grand */
+}
+
+.footer {
+    margin-top: 40px; /* Augmenté */
+    border-top: 1px solid #aaa;
+    padding-top: 10px;
+    font-weight: bold;
+    text-align: left;
+    font-size: 22px; /* Plus grand */
+}
+
+.footer label {
+    display: block;
+    /* margin-top: 5px; */
+}
+ ul {
+     margin: 0;
+     /* Remove default margin */
+     padding: 0;
+     /* Remove default padding */
+ }
+
+ li {
+     margin-bottom: 5px;
+     /* Space between list items */
+     line-height: 1.5;
+     /* Adjust line height for readability */
+ }

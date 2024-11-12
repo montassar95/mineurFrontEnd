@@ -1,347 +1,350 @@
-
  
  
-    <div dir="rtl" *ngIf="carteRecup">
-        <div  style=" margin-left: 5%; margin-right: 5%;    background-image: url(assets/layout/images/bg.png)" >
-     
-            <div class="p-grid"  >
-                <div class="p-col-4">
-                    <label style="background-color: rgb(241, 241, 241);">
-                        الهويــــة:
-                         
-                    </label>
-                    </div>
-                    <div class="p-col-8">
-                        <label>
-                          
-                            <span>
+
+<div dir="rtl" *ngIf="carteRecup" class="judicial-document">
+    <div class="document-header">
+        <div class="header-left">
+            <h1>الجمهورية التونسية</h1>
+            <h2>وزارة العدل</h2>
+            <h3>{{ carteRecup?.affaire?.tribunal?.nom_tribunal }}</h3>
+        </div>
+
+        <div class="header-center">
+            <h1 class="document-title"><b>  مضمــــون حكــــم</b></h1>
+        </div>
+
+        <div class="header-right">
+            <h3>
+                <b>{{ carteRecup?.affaire?.tribunal?.gouvernorat?.libelle_gouvernorat }}</b>
+                <b> في {{ carteRecup?.dateEmission | date:'yyyy/MM/dd' }}</b>
+            </h3>
+        </div>
+    </div>
+
+    <div class="p-grid">
+        <div class="p-col-2">
+            <label>الهوية:</label>
+        </div>
+        <div class="p-col-10">
+            <ul>
+                <li style="font-weight: bold;">
+                    {{ carteRecup?.affaire?.arrestation?.enfant?.nom }} بن
+                    {{ carteRecup?.affaire?.arrestation?.enfant?.nomPere }} بن
+                    {{ carteRecup?.affaire?.arrestation?.enfant?.nomGrandPere }}
+                    {{ carteRecup?.affaire?.arrestation?.enfant?.prenom }}
+                    <br>
+                    إبن
+                    {{ carteRecup?.affaire?.arrestation?.enfant?.nomMere + ' ' +
+                    carteRecup?.affaire?.arrestation?.enfant?.prenomMere }}
+                </li>
+                <li style="color: red;">
+                    البلغ (ة) من العمر: XX سنة
+
+                    و المولود (ة) بــــ:
+                    {{ carteRecup?.affaire?.arrestation?.enfant?.lieuNaissance }}
+                    {{ carteRecup?.affaire?.arrestation?.enfant?.dateNaissance | date:'yyyy/MM/dd' }}
+                </li>
+                <li>
+                    القاطن (ة):
+                    {{ carteRecup?.affaire?.arrestation?.enfant?.adresse + ' ' }}
+                    {{ carteRecup?.affaire?.arrestation?.enfant?.delegation?.libelle_delegation + ' ' }}
+                    {{ carteRecup?.affaire?.arrestation?.enfant?.delegation?.gouvernorat?.libelle_gouvernorat }}
+                </li>
+            </ul>
+        </div>
+    </div>
 
 
-                                {{ carteRecup?.affaire?.arrestation?.enfant?.nom }} بن {{ carteRecup?.affaire?.arrestation?.enfant?.nomPere }} بن {{ carteRecup?.affaire?.arrestation?.enfant?.nomGrandPere }} {{ carteRecup?.affaire?.arrestation?.enfant?.prenom }}
-                            </span>
-                             
-                        </label>
-                    </div>
-                    </div>
-            
-                    <div class="p-grid"  >
+
+
+
+
+                    <div class="p-grid" *ngIf="carteRecup?.affaire">
                         <div class="p-col-4">
                             <label style="background-color: rgb(241, 241, 241);">
-                                عــــدد الإيقــــاف :
-                                 
-                            </label>
-                            </div>
-                            <div class="p-col-8">
-                                <label>
-                                  
-                                    <span dir="rtl">
-        
-        
-                                        {{ carteRecup?.numArrestation }}
-                                    </span>
-                                     
-                                </label>
-                            </div>
-                            </div>
-                            <div class="p-grid"  >
-                                <div class="p-col-4">
-                                    <label style="background-color: rgb(241, 241, 241);">
-                                        المركــــز :
-                                         
-                                    </label>
-                                    </div>
-                                    <div class="p-col-8">
-                                        <label>
-                                          
-                                            <span>
-                
-                
-                                                {{ carteRecup?.etablissement?.libelle_etablissement }}
-                                            </span>
-                                             
-                                        </label>
-                                    </div>
-                                    </div>
-          
-                                
-            
-            
-                                            <div class="p-grid" *ngIf="carteRecup?.affaire" >
-                                                <div class="p-col-4">
-                                                    <label  style="background-color: rgb(241, 241, 241);">
-                                                        القضيــــة:
-                                                       
-                                                    </label>
-                                                    </div>
-                                                    <div class="p-col-8">
-                                                        <label>
-                                                          
-                                                            <span> {{ carteRecup?.affaire?.affaireId?.numAffaire }}</span>
-                                                            <span> {{ carteRecup?.affaire?.tribunal?.nom_tribunal }}</span>
-                                                             
-                                                        </label>
-                                                    </div>
-                                                    </div>
-
-
-                                                    <div class="p-grid" *ngIf="carteRecup?.affaire" >
-                                                        <div class="p-col-4">
-                                                            <label style="background-color: rgb(241, 241, 241);">
-                                                                قضيــــة الربــــط :
-                                                               
-                                                            </label>
-                                                            </div>
-                                                            <div class="p-col-8">
-                                                                <label>
-                                                                  
-                                                                    <span *ngIf="carteRecup?.affaire?.affaireLien"> {{ carteRecup?.affaire?.affaireLien?.affaireId?.numAffaire }}</span>
-                                                                    <span *ngIf="carteRecup?.affaire?.affaireLien"> {{ carteRecup?.affaire?.affaireLien?.tribunal?.nom_tribunal }}</span>
-                                                                    <span *ngIf="!carteRecup?.affaire?.affaireLien"> غيــــر موجــــودة</span>
-                                                                     
-                                                                </label>
-                                                            </div>
-                                                            </div>
-            
-                                                            <div class="p-grid" *ngIf="carteRecup.affaire" >
-                                                                <div class="p-col-4">
-                                                                    <label  style="background-color: rgb(241, 241, 241);">
-                                                                        قضيــــة الضــــم: 
-                                                                       
-                                                                    </label>
-                                                                    </div>
-                                                                    <div class="p-col-8">
-                                                                        <label>
-                                                                            <span *ngIf="carteRecup.affaire.affaireAffecter"> {{ carteRecup?.affaire.affaireAffecter?.affaireId?.numAffaire }}</span>
-                                                                            <span *ngIf="carteRecup.affaire.affaireAffecter"> {{ carteRecup?.affaire.affaireAffecter?.tribunal?.nom_tribunal }}</span>
-                                                                            <span *ngIf="!carteRecup.affaire.affaireAffecter"> غيــــر موجــــودة</span>
-                                                                          
-                                                                        </label>
-                                                                    </div>
-                                                                    </div>
-            
-        
-                                                                    <div class="p-grid"   >
-                                                                        <div class="p-col-4">
-                                                                            <label style="background-color: rgb(241, 241, 241);">
-                                                                                تــــاريخ الحكــــم
-                                                                               
-                                                                            </label>
-                                                                            </div>
-                                                                            <div class="p-col-8">
-                                                                                <label>
-                                                                                  
-                                                                                    <span dir="rtl">{{ carteRecup?.dateEmission }}</span>
-                                                                                </label>
-                                                                            </div>
-                                                                            </div>
-                                                                            <div class="p-grid"   >
-                                                                                <div class="p-col-4">
-                                                                                    <label style="background-color: rgb(241, 241, 241);">
-                                                                                        تــــاريخ إيــــداع البطاقــــة :
-                                                                                       
-                                                                                    </label>
-                                                                                    </div>
-                                                                                    <div class="p-col-8">
-                                                                                        <label>
-                                                                                          
-                                                                                            <span dir="rtl">{{ carteRecup?.dateDepotCarte }}</span>
-                                                                                        </label>
-                                                                                    </div>
-                                                                                    </div>
-                                                                                    <div class="p-grid"   >
-                                                                                        <div class="p-col-4">
-                                                                                            <label style="background-color: rgb(241, 241, 241);">
-                                                                                                نــــوع القضيــــة: 
-                                                                                               
-                                                                                            </label>
-                                                                                            </div>
-                                                                                            <div class="p-col-8">
-                                                                                                <label>
-                                                                                                  
-                                                                                                    <span>{{ carteRecup?.typeAffaire?.libelle_typeAffaire }}</span>
-                                                                                                </label>
-                                                                                            </div>
-                                                                                            </div> 
-                                                                                            <div class="p-grid"   >
-                                                                                                <div class="p-col-4">
-                                                                                                    <label style="background-color: rgb(241, 241, 241);">
-                                                                                                        نــــوع الحكــــم:
-                                                                                                       
-                                                                                                    </label>
-                                                                                                    </div>
-                                                                                                    <div class="p-col-8">
-                                                                                                        <label>
-                                                                                                          
-                                                                                                            <span>{{ carteRecup?.typeJuge?.libelle_typeJuge }}</span>
-                                                                                                        </label>
-                                                                                                    </div>
-                                                                                                    </div>      
-                                                                                                    
-                                                                                                    
-                                                                                                    <div class="p-grid"   >
-                                                                                                        <div class="p-col-4">
-                                                                                                            <label style="background-color: rgb(241, 241, 241);">
-                                                                                                                تــــاريخ بــــداية العقــــاب :
-                                                                                                                 
-                                                                                                               
-                                                                                                            </label>
-                                                                                                            </div>
-                                                                                                            <div class="p-col-8">
-                                                                                                                <label>
-                                                                                                                  
-                                                                                                                    <span>{{ carteRecup?.dateDebutPunition }}</span>
-                                                                                                                </label>
-                                                                                                            </div>
-                                                                                                            </div>
-
-                                                                                                            <div class="p-grid"   >
-                                                                                                                <div class="p-col-4">
-                                                                                                                    <label style="background-color: rgb(241, 241, 241);">
-                                                                                                                        تــــاريخ نهــــاية  العقوبــــة :
-                                                                                                                         
-                                                                                                                       
-                                                                                                                    </label>
-                                                                                                                    </div>
-                                                                                                                    <div class="p-col-8">
-                                                                                                                        <label>
-                                                                                                                          
-                                                                                                                            <span style="color: red;">{{ carteRecup?.dateFinPunition }}</span>
-                                                                                                                        </label>
-                                                                                                                    </div>
-                                                                                                                    </div>
-
-
-
-
-                                                                                                    <div class="p-grid"   >
-                                                                                                        <div class="p-col-4">
-                                                                                                            <label style="background-color: rgb(241, 241, 241);" >
-                                                                                                                إيقــــاف تحفظــــي:
-                                                                                                               
-                                                                                                            </label>
-                                                                                                            </div>
-
-                                                                                                            <div class="p-col-4">
-                                                                                                                <label >
-                                                                                                             <b>
-    
-                                                                                                                <span *ngIf="carteRecup?.jourArretProvisoire">{{carteRecup?.jourArretProvisoire}} يوم </span>
-                                                                                                                <span *ngIf="carteRecup?.jourArretProvisoire && carteRecup?.moisArretProvisoire"> و </span>
-                                                                                                                <span *ngIf="carteRecup?.moisArretProvisoire">{{carteRecup?.moisArretProvisoire}} شهر </span>
-                                                                                                                <span *ngIf="carteRecup?.anneeArretProvisoire && carteRecup?.moisArretProvisoire"> و </span>
-                                                                                                                <span *ngIf="carteRecup?.anneeArretProvisoire && carteRecup?.jourArretProvisoire && !carteRecup?.moisArretProvisoire"> و
-                                                                                                                </span>
-                                                                                                                <span *ngIf="carteRecup.anneeArretProvisoire">{{carteRecup?.anneeArretProvisoire}} سنة</span>
-                                                                                                            
-                                                                                                             </b> 
-                                                                                                                </label>
-                                                                                                                </div>
-                                                                                                            <div class="p-col-4">
-                                                                                                                <label>
-                                                                                                                <ul >
-                                                                                                                    <li *ngFor="let arretProvisoire of  this.carteRecup?.entitiesArretProvisoire">
-                                                                                                                        <b>  <span style="color: grey;"> مــــن </span>  
-                                                                                                                             <span dir="rtl"> {{arretProvisoire?.dateDebut}} </span> 
-                                                                                                                              <span  style="color: grey;"> إلــــى</span> 
-                                                                                                                              <span dir="rtl"> {{arretProvisoire?.dateFin}} </span>
-                                                                                                                         </b>
-                                                                                                                </li>
-                                                                                                                </ul>
-                                                                                                            </label>
-                                                                                                            </div>
-                                                                                                            </div>   
-            
-
-            <label class="enLabel" style="margin-top: 50px; ">     <b> 
-
-                <p-table [value]="this.carteRecup.entitiesAccusation"
-                   >
+                                القضيــــة:
                     
-                    <ng-template pTemplate="header">
-                        
-                          <tr style="background-color: rgb(241, 241, 241);">
-                           <th style="width:10%;"  >عــــدد </th>
-                           <th  style="width:50%;" >التهمــــة</th>
-
-                        
-                        
+                            </label>
+                        </div>
+                        <div class="p-col-8">
+                            
+                    
+                                <span> {{ carteRecup?.affaire?.affaireId?.numAffaire }}</span>
+                                <span> {{ carteRecup?.affaire?.tribunal?.nom_tribunal }}</span>
+                    
                              
-                          
-                           <th style="width:10%;">يوم </th>
-                           <th style="width:10%;"> شهر </th>
-                           <th style="width:10%;"> سنة  </th>
-
-                           <th  style="width:10%;">بداية مــــن</th>
-                           <th style="width:10%;">إلــــى </th>
-                        </tr>
-                     </ng-template>
-                    <ng-template pTemplate="body" let-row let-rowIndex="rowIndex">
-                       <tr    class="table" >
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="p-grid" *ngIf="carteRecup?.affaire">
+                        <div class="p-col-4">
+                            <label style="background-color: rgb(241, 241, 241);">
+                                قضيــــة الربــــط :
+                    
+                            </label>
+                        </div>
+                        <div class="p-col-8">
+                            
+                    
+                                <span *ngIf="carteRecup?.affaire?.affaireLien"> {{ carteRecup?.affaire?.affaireLien?.affaireId?.numAffaire
+                                    }}</span>
+                                <span *ngIf="carteRecup?.affaire?.affaireLien"> {{ carteRecup?.affaire?.affaireLien?.tribunal?.nom_tribunal
+                                    }}</span>
+                                <span *ngIf="!carteRecup?.affaire?.affaireLien"> غيــــر موجــــودة</span>
+                    
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="p-grid" *ngIf="carteRecup.affaire">
+                        <div class="p-col-4">
+                            <label style="background-color: rgb(241, 241, 241);">
+                                قضيــــة الضــــم:
+                    
+                            </label>
+                        </div>
+                        <div class="p-col-8">
+                            
+                                <span *ngIf="carteRecup.affaire.affaireAffecter"> {{
+                                    carteRecup?.affaire.affaireAffecter?.affaireId?.numAffaire }}</span>
+                                <span *ngIf="carteRecup.affaire.affaireAffecter"> {{
+                                    carteRecup?.affaire.affaireAffecter?.tribunal?.nom_tribunal }}</span>
+                                <span *ngIf="!carteRecup.affaire.affaireAffecter"> غيــــر موجــــودة</span>
+                    
+                            
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="p-grid">
+                        <div class="p-col-4">
+                            <label style="background-color: rgb(241, 241, 241);">
+                                تــــاريخ الحكــــم
+                    
+                            </label>
+                        </div>
+                        <div class="p-col-8">
+                            
+                    
+                                <span dir="rtl">{{ carteRecup?.dateEmission }}</span>
+                            
+                        </div>
+                    </div>
+                    <div class="p-grid">
+                        <div class="p-col-4">
+                            <label style="background-color: rgb(241, 241, 241);">
+                                تــــاريخ إيــــداع البطاقــــة :
+                    
+                            </label>
+                        </div>
+                        <div class="p-col-8">
+                            
+                    
+                                <span dir="rtl">{{ carteRecup?.dateDepotCarte }}</span>
+                            
+                        </div>
+                    </div>
+                    <div class="p-grid">
+                        <div class="p-col-4">
+                            <label style="background-color: rgb(241, 241, 241);">
+                                نــــوع القضيــــة:
+                    
+                            </label>
+                        </div>
+                        <div class="p-col-8">
+                            
+                    
+                                <span>{{ carteRecup?.typeAffaire?.libelle_typeAffaire }}</span>
+                            
+                        </div>
+                    </div>
+                    <div class="p-grid">
+                        <div class="p-col-4">
+                            <label style="background-color: rgb(241, 241, 241);">
+                                نــــوع الحكــــم:
+                    
+                            </label>
+                        </div>
+                        <div class="p-col-8">
                            
-                          <td>
-                             <!-- {{rowIndex + 1}} -->
-                             <span>{{row.numOridinel}} </span>  <span *ngIf="row.numOridinelLiee" style="color: rgba(255, 0, 0, 0.712);"> ( ضم إلى  تهمة {{row.numOridinelLiee}})</span>
-                          </td>
-                          <td style="word-break:break-all"> {{row.titreAccusation.titreAccusation}} </td>
+                    
+                                <span>{{ carteRecup?.typeJuge?.libelle_typeJuge }}</span>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="p-grid">
+                        <div class="p-col-4">
+                            <label style="background-color: rgb(241, 241, 241);">
+                                تــــاريخ بــــداية العقــــاب :
+                    
+                    
+                            </label>
+                        </div>
+                        <div class="p-col-8">
+                             
+                    
+                                <span>{{ carteRecup?.dateDebutPunition }}</span>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="p-grid">
+                        <div class="p-col-4">
+                            <label style="background-color: rgb(241, 241, 241);">
+                                تــــاريخ نهــــاية العقوبــــة :
+                    
+                    
+                            </label>
+                        </div>
+                        <div class="p-col-8">
+                            
+                    
+                                <span style="color: red;">{{ carteRecup?.dateFinPunition }}</span>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
+                    <div class="p-grid">
+                        <div class="p-col-4">
+                            <label style="background-color: rgb(241, 241, 241);">
+                                إيقــــاف تحفظــــي:
+                    
+                            </label>
+                        </div>
+                    
+                        <div class="p-col-4">
+                           
+                                <b>
+                    
+                                    <span *ngIf="carteRecup?.jourArretProvisoire">{{carteRecup?.jourArretProvisoire}} يوم </span>
+                                    <span *ngIf="carteRecup?.jourArretProvisoire && carteRecup?.moisArretProvisoire"> و </span>
+                                    <span *ngIf="carteRecup?.moisArretProvisoire">{{carteRecup?.moisArretProvisoire}} شهر </span>
+                                    <span *ngIf="carteRecup?.anneeArretProvisoire && carteRecup?.moisArretProvisoire"> و </span>
+                                    <span
+                                        *ngIf="carteRecup?.anneeArretProvisoire && carteRecup?.jourArretProvisoire && !carteRecup?.moisArretProvisoire">
+                                        و
+                                    </span>
+                                    <span *ngIf="carteRecup.anneeArretProvisoire">{{carteRecup?.anneeArretProvisoire}} سنة</span>
+                    
+                                </b>
+                             
+                        </div>
+                        <div class="p-col-4">
+                            
+                                <ul>
+                                    <li *ngFor="let arretProvisoire of  carteRecup?.arretProvisoires">
+                                        <b> <span style="color: grey;"> مــــن </span>
+                                            <span dir="rtl"> {{arretProvisoire?.dateDebut}} </span>
+                                            <span style="color: grey;"> إلــــى</span>
+                                            <span dir="rtl"> {{arretProvisoire?.dateFin}} </span>
+                                        </b>
+                                    </li>
+                                </ul>
+                             
+                        </div>
+                    </div>
+                    
+                    
+                     
+                    
+                            <p-table [value]="carteRecup.accusationCarteRecups">
+                                <!-- Table Header -->
+                                <ng-template pTemplate="header">
+                                    <tr style="background-color: rgb(241, 241, 241); font-size: 22px;">
+                                        <th style="width: 10%;">عــــدد</th>
+                                        <th style="width: 50%;">المتهم (ة) بــــ</th>
+                                        <th style="width: 10%;">يوم</th>
+                                        <th style="width: 10%;">شهر</th>
+                                        <th style="width: 10%;">سنة</th>
+                                        <th style="width: 10%;">بداية مــــن</th>
+                                        <th style="width: 10%;">إلــــى</th>
+                                    </tr>
+                                </ng-template>
+                            
+                                <!-- Table Body -->
+                                <ng-template pTemplate="body" let-row let-rowIndex="rowIndex">
+                                    <tr>
+                                        <!-- Accusation Number and Linked Accusation -->
+                                        <td>
+                                            <span>{{ row.numOridinel }}</span>
+                                            <span *ngIf="row.numOridinelLiee" style="color: rgba(255, 0, 0, 0.712);">
+                                                (ضم إلى تهمة {{ row.numOridinelLiee }})
+                                            </span>
+                                        </td>
+                            
+                                        <!-- Accusation Title -->
+                                        <td style="word-break: break-word;">
+                                            <span>
+                                            {{ row.titreAccusation?.titreAccusation || 'غير محدد' }}
 
+                                            </span>
+                                           
+                                        
+                                        </td>
+                            
+                                        <!-- Day Column -->
+                                        <td *ngIf="row.jour" [ngClass]="{'line': row.numOridinelLiee}">
+                                        <span>    {{ row.jour }} </span>
+                                        </td>
+                                        <td *ngIf="!row.jour">
+                                        <span>  <i class="pi pi-minus-circle" style="color: gray;"></i> </span>
+                                        </td>
+                            
+                                        <!-- Month Column -->
+                                        <td *ngIf="row.mois" [ngClass]="{'line': row.numOridinelLiee}">
+                                            <span>  {{ row.mois }} </span>
+                                        </td>
+                                        <td *ngIf="!row.mois">
+                                        <span>   <i class="pi pi-minus-circle" style="color: gray;"></i> </span>
+                                        </td>
+                            
+                                        <!-- Year Column -->
+                                        <td *ngIf="row.annee" [ngClass]="{'line': row.numOridinelLiee}">
+                                        <span>  {{ row.annee }} </span>
+                                        </td>
+                                        <td *ngIf="!row.annee">
+                                        <span>   <i class="pi pi-minus-circle" style="color: gray;"></i> </span>
+                                        </td>
+                            
+                                        <!-- Start Date -->
+                                        <td>
+                                    
+                                            <span
+                                                [ngClass]="{'line': row.dateDebut === row.dateFin || carteRecup?.typeJuge?.situation === 'nonCal'}"
+                                                style="color: rgb(37, 37, 37);">
+                                                {{ row.dateDebut || 'غير محدد' }}
+                                            </span>
+                                        </td>
+                            
+                                        <!-- End Date -->
+                                        <td>
+                                            <span
+                                                [ngClass]="{'line': row.dateDebut === row.dateFin || carteRecup?.typeJuge?.situation === 'nonCal'}"
+                                                style="color: rgb(37, 37, 37);">
+                                                {{ row.dateFin || 'غير محدد' }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
 
-                          <td *ngIf="row.jour"    [ngClass]="{'line': row.numOridinelLiee  }" >{{row.jour}}
-
-                          </td>
-                          <td  *ngIf="!row.jour"><i class="pi pi-minus-circle" style="color: gray;"></i></td>
-
-                          <td *ngIf="row.mois" [ngClass]="{'line': row.numOridinelLiee  }">{{row.mois}}
-
-                          </td>
-                          <td  *ngIf="!row.mois"><i class="pi pi-minus-circle" style="color: gray;"></i></td>
-
-                          <td *ngIf="row.annee" [ngClass]="{'line': row.numOridinelLiee  }">{{row.annee}}
-                          
-                          </td>
-
-                          <td  *ngIf="!row.annee"><i class="pi pi-minus-circle" style="color: gray;"></i></td>
-
-
+                             
+                    
                        
-                          <td >
-                             <span [ngClass]="{'line': row.dateDebut ===row.dateFin ||  carteRecup?.typeJuge?.situation == 'nonCal'  }" style="color: rgb(37, 37, 37);">  {{row.dateDebut}}</span>
-                           
+                    
 
-                              </td>
-                          <td>
-                             <span  [ngClass]="{'line': row.dateDebut ===row.dateFin ||  carteRecup?.typeJuge?.situation == 'nonCal' }" style="color: rgb(37, 37, 37);">  {{row.dateFin}}</span>
-                          
 
-                                </td>
-                       </tr>
-                    </ng-template>
-
-                   
-                 </p-table>
-                <!-- <ul >
-                    <li *ngFor="let accusation of  this.carteRecup.entitiesAccusation">
-                       <span>{{accusation.titreAccusation.titreAccusation}}</span> 
-                       <span *ngIf="accusation.jour">{{accusation.jour}} يوم </span>
-                                 <span *ngIf="accusation.jour && accusation.mois"> و </span>
-                                       <span *ngIf="accusation.mois">{{accusation.mois}} شهر </span>
-                                       <span *ngIf="accusation.annee && accusation.mois"> و </span>
-                                       <span *ngIf="accusation.annee && accusation.jour && !accusation.mois"> و </span>
-                                       <span *ngIf="accusation.annee">{{accusation.annee}} سنة</span>
-                        <b>  <span style="color: grey;">من</span>  {{accusation.dateDebut}} <span  style="color: grey;">إلى</span>  {{accusation.dateFin}}</b>
-                </li>
-                </ul> -->
-            
-            </b> 
+    <div class="footer">
+        <label>المدرج: <span>{{ carteRecup?.personelle?.nom + ' ' + carteRecup?.personelle?.prenom }}</span>
+            <p>{{ carteRecup?.etablissement?.libelle_etablissement }} في {{ carteRecup?.dateInsertion |
+                date:'yyyy/MM/dd' }}
+            </p>
         </label>
-        <label style="margin-top: 100px; background-color: rgb(253, 253, 253); ">
-            المــــدرج    :
-            <span>{{ carteRecup?.personelle?.nom +' '+ carteRecup?.personelle?.prenom +'    '}}</span>
-            بتاريــــخ  :
-            <span dir="rtl">{{ carteRecup?.dateInsertion}}</span>
-        </label>
-        </div>
-         
     </div>
- 
-
- 
+</div>

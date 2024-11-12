@@ -17,6 +17,9 @@ export class AccusationCarteRecup {
      accusationCarteRecupId: AccusationCarteRecupId;
      
      carteRecup: CarteRecup;
+
+
+     
      titreAccusation: TitreAccusation;
      numOridinel:any;
      numOridinelLiee:any;

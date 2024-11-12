@@ -3,31 +3,27 @@ import { Affaire } from "./affaire";
  
 import { DocumentId } from "./documentId";
 import { Etablissement } from "./etablissement";
-import { Personelle } from "./personelle";
+ 
 import { TypeAffaire } from "./typeAffaire";
+import { User } from "./user";
  
 export class Revue {
-    
-   
-    documentId :DocumentId;
-    typeDocument :string;
-    dateEmission?:any;
-    dateDepotCarte?:any;
-     
-    affaire?:Affaire;
-    textJugement?:any;
-    
-    typeAffaire?:TypeAffaire;
+  documentId: DocumentId;
+  typeDocument: string;
+  dateEmission?: any;
+  dateDepotCarte?: any;
 
-    dateInsertion?:any;
-    numArrestation?:any;
-    
-	 
+  affaire?: Affaire;
+  textJugement?: any;
 
- 
-    etablissement :Etablissement;
-   
-    personelle:Personelle;
+  typeAffaire?: TypeAffaire;
+
+  dateInsertion?: any;
+  numArrestation?: any;
+
+  etablissement: Etablissement;
+  user: User;
+//   personelle: Personelle;
 }
  
  

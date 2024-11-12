@@ -38,6 +38,6 @@ export class Enfant {
   situationSocial = new SituationSocial();
 
   metier = new Metier();
-  etat?: any;
+
   nbrEnfant?: number;
 }

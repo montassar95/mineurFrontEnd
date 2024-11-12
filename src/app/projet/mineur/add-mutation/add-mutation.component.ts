@@ -16,6 +16,8 @@ import { ResidenceId } from "src/app/domain/residanceId";
 import { Residence } from "src/app/domain/residence";
 import { BreadcrumbService } from "src/app/shared/breadcrumb/breadcrumb.service";
 import { TokenStorageService } from "src/app/_services/token-storage.service";
+import { AppConfigService } from "../app-config.service";
+import { DetentionService } from "src/app/demo/service/detention.service";
 
 @Component({
   selector: "app-add-mutation",
@@ -66,6 +68,7 @@ export class AddMutationComponent implements OnInit, OnDestroy {
   calendar_ar: any;
   constructor(
     private crudservice: CrudEnfantService,
+    private detentionService: DetentionService,
     private formBuilder: FormBuilder,
     private eventService: EventService,
     private token: TokenStorageService,
@@ -73,7 +76,8 @@ export class AddMutationComponent implements OnInit, OnDestroy {
     private nodeService: NodeService,
     private service: MessageService,
     private breadcrumbService: BreadcrumbService,
-    private router: Router
+    private router: Router,
+    private appConfigService: AppConfigService
   ) {}
   ngOnDestroy() {
     window.localStorage.removeItem("idValide");
@@ -88,60 +92,9 @@ export class AddMutationComponent implements OnInit, OnDestroy {
     } else {
       this.router.navigate(["/mineur/Changement"]);
     }
+    this.calendar_ar = this.calendar_ar = this.appConfigService.calendarConfig;
 
-    this.calendar_ar = {
-      closeText: "Fermer",
-      prevText: "Précédent",
-      nextText: "Suivant",
-      currentText: "Aujourd'hui",
-      monthNames: [
-        "  جانفــــي  ",
-
-        "   فيفـــري   ",
-        "  مــــارس  ",
-        "  أفريــــل  ",
-        "  مــــاي  ",
-        "  جــــوان  ",
-        "  جويليــــة  ",
-        "  أوت  ",
-        "  سبتمبــــر  ",
-        "  أكتوبــــر  ",
-        "  نوفمبــــر  ",
-        "  ديسمبــــر  ",
-      ],
-      monthNamesShort: [
-        "janv.",
-        "févr.",
-        "mars",
-        "avr.",
-        "mai",
-        "juin",
-        "juil.",
-        "août",
-        "sept.",
-        "oct.",
-        "nov.",
-        "déc.",
-      ],
-      dayNames: [
-        "dimanche",
-        "lundi",
-        "mardi",
-        "mercredi",
-        "jeudi",
-        "vendredi",
-        "samedi",
-      ],
-      dayNamesShort: ["dim.", "lun.", "mar.", "mer.", "jeu.", "ven.", "sam."],
-      dayNamesMin: ["D", "L", "M", "M", "J", "V", "S"],
-      weekHeader: "Sem.",
-      dateFormat: "dd/mm/yy",
-      firstDay: 1,
-      isRTL: false,
-      showMonthAfterYear: true,
-      yearSuffix: "",
-    };
-    console.log(this.currentUser.personelle.etablissement);
+    console.log(this.currentUser.etablissement);
 
     this.crudservice.getlistEntity("etablissement").subscribe((data) => {
       console.log(data);
@@ -157,143 +110,45 @@ export class AddMutationComponent implements OnInit, OnDestroy {
     });
   }
 
-
+  allowNewAddArrestation = false;
+  allowNewCarte = false;
+  alerte: boolean;
+  demande = false;
+  accepte = false;
+  edit = false;
   search(id: String) {
-    this.crudservice.getLigneById("enfant", id).subscribe((data) => {
-      this.enfantLocal = data.result;
+    this.detentionService
+      .trouverDetenuAvecSonStatutActuel(
+        id,
+        this.token.getUser().etablissement.id
+      )
+      .subscribe((data) => {
+        this.enfantLocal = data.result.enfant;
+        this.msg = data.result.situation;
 
-      this.crudservice
-        .getLigneById("deces", this.enfantLocal.id)
-        .subscribe((data) => {
-          if (data.result == null) {
-            this.crudservice
-              .findByIdEnfantAndResidenceTrouverNull("echappes", id)
-              .subscribe((data) => {
-                if (data.result == null) {
-                  this.crudservice
-                    .findByIdEnfantAndStatut0("arrestation", id)
-                    .subscribe((data) => {
-                      this.arrestation = data.result;
-                      this.crudservice
-                        .getLiberationById(
-                          "liberation",
-                          this.arrestation.arrestationId.idEnfant,
-                          this.arrestation.arrestationId.numOrdinale
-                        )
-                        .subscribe((data) => {
-                          if (data.result != null) {
-                            this.msg = "في حالـــة ســراح";
-                            this.statEchappesOrlibre = 1;
+        this.allowNewAddArrestation = data.result.allowNewAddArrestation;
+        this.allowNewCarte = data.result.allowNewCarte;
+        this.alerte = data.result.alerte;
 
-                            this.echapperOuLibre = true;
-                          } else {
-                            this.crudservice
-                              .findResidenceByIdEnfantAndStatut0(
-                                "residence",
-                                this.arrestation.arrestationId.idEnfant,
-                                this.arrestation.arrestationId.numOrdinale
-                              )
-                              .subscribe((data) => {
-                                this.residence = data.result;
-                                console.log("eeeeeeeeeeeeeeeeeeeeeeeeee");
-                                console.log(this.residence);
-                                this.crudservice
-                                  .findByIdEnfantAndStatutEnCour(
-                                    "residence",
-                                    this.arrestation.arrestationId.idEnfant,
-                                    this.arrestation.arrestationId.numOrdinale
-                                  )
-                                  .subscribe((data) => {
-                                    this.residenceEncour = data.result;
-
-                                    if (data.result == null) {
-                                      if (
-                                        this.residence.etablissement.id !=
-                                        this.token.getUser().personelle
-                                          .etablissement.id
-                                      ) {
-                                        this.echapperOuLibre = true;
-                                        this.statEchappesOrlibre = 3;
-                                        this.msg =
-                                          "      طفــل مقيــم بمركــز     " +
-                                          this.residence.etablissement
-                                            .libelle_etablissement;
-                                      }
-                                    } else {
-                                      if (
-                                        this.residenceEncour.etablissement.id ==
-                                        this.token.getUser().personelle
-                                          .etablissement.id
-                                      ) {
-                                        this.isEncour = true;
-                                      } else if (
-                                        this.residenceEncour.etablissement.id !=
-                                        this.token.getUser().personelle
-                                          .etablissement.id
-                                      ) {
-                                        //  && this.residence.etablissement.id == this.token.getUser().personelle.etablissement.id
-
-                                        this.echapperOuLibre = true;
-                                        this.statEchappesOrlibre = 2;
-                                        this.msg =
-                                          "      نقلـــة جـــارية إلـــى مركــز    " +
-                                          data.result.etablissement
-                                            .libelle_etablissement;
-
-                                        if (
-                                          this.residence.etablissement.id ==
-                                          this.token.getUser().personelle
-                                            .etablissement.id
-                                        ) {
-                                          this.crudservice
-                                            .findByIdEnfantAndStatutArrestation0(
-                                              "residence",
-                                              this.residence.residenceId
-                                                .idEnfant
-                                            )
-                                            .subscribe((data) => {
-                                              //all list residence
-                                              if (data.result) {
-                                                if (
-                                                  data.result[1].etablissement
-                                                    .id ==
-                                                  this.token.getUser()
-                                                    .personelle.etablissement.id
-                                                ) {
-                                                  this.update = true;
-                                                }
-                                              }
-                                            });
-                                        }
-                                      } else {
-                                        this.echapperOuLibre = true;
-                                        this.statEchappesOrlibre = 3;
-                                        this.msg =
-                                          "      طفــل مقيــم بمركــز     " +
-                                          this.residence.etablissement
-                                            .libelle_etablissement;
-                                      }
-                                    }
-                                  });
-                              });
-                          }
-                        });
-                    });
-                } else {
-                  this.msg = "طفل في حالــــــة فـــرار";
-                  this.statEchappesOrlibre = 0;
-                  this.echapperOuLibre = true;
-                }
-              });
-          } else {
-            this.msg = "طفل فــي ذمــــــة اللـــه";
-            this.statEchappesOrlibre = 4;
-            this.echapperOuLibre = true;
-          }
-        });
-    });
+        if (
+          data.result?.residenceEncour?.etablissement.id ==
+          this.token.getUser().etablissement.id
+        ) {
+          this.accepte = true;
+        } else if (
+          data.result?.residenceEncour?.etablissementEntree.id ==
+          this.token.getUser().etablissement.id
+        ) {
+          this.edit = true;
+        }
+        if (!this.alerte) {
+          this.demande = true;
+        }
+        this.arrestation = data.result.arrestations[0];
+        this.residence = data.result.residence;
+        this.residenceEncour = data.result?.residenceEncour;
+      });
   }
-
 
   saveAccepterResidence() {
     if (this.dateMutation && this.numArrestation) {
@@ -301,11 +156,11 @@ export class AddMutationComponent implements OnInit, OnDestroy {
         this.dateMutation,
         "yyyy-MM-dd"
       );
+
       this.residenceEncour.numArrestation = this.numArrestation;
       this.residenceEncour.dateEntree = this.dateMutation;
-
+      console.log(this.residenceEncour);
       this.showMutationAccepterResidence = true;
-      this.residence = this.residenceEncour;
     } else {
       this.service.add({
         key: "tst",
@@ -317,18 +172,19 @@ export class AddMutationComponent implements OnInit, OnDestroy {
   }
 
   confirmerAccepterResidence() {
-    this.crudservice
-      .accepterResidence(this.residenceEncour)
+    this.detentionService
+      .accepterDemandeMutation(this.residenceEncour)
       .subscribe((data) => {
         this.showMutationAccepterResidence = false;
         this.isSaved = true;
+        this.accepte = false;
         console.log(data.result);
       });
   }
 
   save() {
     // && this.centre
-    if (this.dateMutation && this.centre ) {
+    if (this.dateMutation && this.centre) {
       let residenceId = new ResidenceId();
 
       residenceId.idEnfant = this.arrestation.arrestationId.idEnfant;
@@ -343,7 +199,7 @@ export class AddMutationComponent implements OnInit, OnDestroy {
       this.residence.causeMutation = this.causeMutationLocal;
       this.residence.remarqueMutation = this.remarqueMutation;
       this.residence.etablissement = this.etablissementLocal;
-    
+
       this.dateMutation = this.datepipe.transform(
         this.dateMutation,
         "yyyy-MM-dd"
@@ -362,6 +218,8 @@ export class AddMutationComponent implements OnInit, OnDestroy {
   }
 
   confirmer() {
+    console.log(" i'm here ");
+    console.log(this.residence);
     this.crudservice
       .createLigne("residence", this.residence)
       .subscribe((data) => {
@@ -370,7 +228,6 @@ export class AddMutationComponent implements OnInit, OnDestroy {
         console.log("-----------------------------------");
       });
   }
-
 
   refresh() {
     this.echapperOuLibre = false;

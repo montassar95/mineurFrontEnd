@@ -9,29 +9,24 @@ import { TypeAffaire } from "./typeAffaire";
 import { TypeJuge } from "./typeJuge";
 import { Document } from "./document";
 import { Etablissement } from "./etablissement";
-import { Personelle } from "./personelle";
-export class AppelParquet {
-    
-   
-    documentId :DocumentId;
-    typeDocument :string;
-    dateEmission?:any;
-    dateDepotCarte?:any;
-      
-    affaire?:Affaire;
-   
-    typeAffaire?:TypeAffaire;
-
-    dateInsertion?:any;
-    numArrestation?:any;
-
-	 
-
  
-    etablissement :Etablissement;
-   
-    personelle:Personelle;
-    
+import { User } from "./user";
+export class AppelParquet {
+  documentId: DocumentId;
+  typeDocument: string;
+  dateEmission?: any;
+  dateDepotCarte?: any;
+
+  affaire?: Affaire;
+
+  typeAffaire?: TypeAffaire;
+
+  dateInsertion?: any;
+  numArrestation?: any;
+
+  etablissement: Etablissement;
+  user: User;
+  // personelle:Personelle;
 }
  
  

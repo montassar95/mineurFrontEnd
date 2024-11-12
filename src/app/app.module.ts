@@ -141,6 +141,7 @@ import {
   HighchartsChartComponent,
   HighchartsChartModule,
 } from "highcharts-angular";
+import { MineurModule } from "./projet/mineur/mineur.module";
 
 @NgModule({
   imports: [
@@ -228,6 +229,8 @@ import {
     MatIconModule,
     MatFormFieldModule,
     MatSelectModule,
+    // MineurModule,
+
     // HighchartsChartModule,
   ],
   declarations: [
@@ -258,8 +261,10 @@ import {
 
     LoginComponent,
     LogoutpageComponent,
+
     // HighchartsChartComponent,
   ],
+
   providers: [
     authInterceptorProviders,
     DatePipe,

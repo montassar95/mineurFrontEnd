@@ -107,8 +107,37 @@ export class AppMenuComponent implements OnInit {
             ],
           },
         ];
+      } else if (this.roles.some((item) => item == "ROLE_DIRECTEUR")) {
+        this.model = [
+          { label: "الهويــة", routerLink: ["/mineur/all"] },
+
+          //   {label: 'الوضعيات الجزائية' , routerLink: ['/mineur/dashboard/coordinador']},
+          {
+            label: "الاحصائيات ",
+            routerLink: ["/mineur/Statique"],
+            // items: [
+            //   {
+            //     label: "   عـــامة    ",
+            //     routerLink: ["/mineur/Statique"],
+            //   },
+            //   {
+            //     label: " خـــاصة     ",
+            //     routerLink: ["/mineur/StatistiqueSpec"],
+            //   },
+            // ],
+          },
+          {
+            label: "القائمات",
+
+            items: [
+              { label: "  الحالية", routerLink: ["/mineur/ListPenale"] },
+              { label: "الشهرية", routerLink: ["/mineur/mensuel"] },
+            ],
+          },
+        ];
       } else if (this.roles.some((item) => item == "ROLE_MODERATOR")) {
         this.model = [
+          { label: "الهويــة", routerLink: ["/mineur/all"] },
           {
             label: "رموز الموظفين  ",
 
@@ -169,7 +198,7 @@ export class AppMenuComponent implements OnInit {
                 routerLink: ["/mineur/TypeTribunal"],
               },
               { label: " المحاكم    ", routerLink: ["/mineur/Tribunal"] },
-              { label: " القضاة      ", routerLink: ["/mineur/Juge"] },
+              // { label: " القضاة      ", routerLink: ["/mineur/Juge"] },
               {
                 label: " نتائج الإحالة    ",
                 routerLink: ["/mineur/ResultatTransfert"],

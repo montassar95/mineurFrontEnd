@@ -22,6 +22,8 @@ import { TokenStorageService } from "src/app/_services/token-storage.service";
 import { TypeJuge } from "src/app/domain/typeJuge";
 import { CauseLiberation } from "src/app/domain/causeLiberation";
 import { Nationalite } from "src/app/domain/nationalite";
+import { AppConfigService } from "../../app-config.service";
+import { RapportService } from "src/app/demo/service/rapport.service";
 
 @Component({
   selector: "app-list-penale",
@@ -124,6 +126,7 @@ export class ListPenaleComponent implements OnInit {
   isShow: boolean;
   dateDebutGlobale: any;
   dateFinGlobale: any;
+
   datePrintAllCentre: any;
   checkEtranger: String;
   checkUniqueAff: String;
@@ -135,9 +138,11 @@ export class ListPenaleComponent implements OnInit {
     private breadcrumbService: BreadcrumbService,
     private router: Router,
     private crudservice: CrudEnfantService,
+    private rapportService : RapportService,
     public datepipe: DatePipe,
     private imageCompress: NgxImageCompressService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private appConfigService: AppConfigService
   ) {
     this.breadcrumbService.setItems([
       { label: "الإستقبال", routerLink: ["/"] },
@@ -152,25 +157,25 @@ export class ListPenaleComponent implements OnInit {
       { label: "الموقوفين ", value: "arret" },
       { label: "المحكومين", value: "juge" },
       { label: "السراحات", value: "libere" },
-       { label: "المفرج عنهم", value: "seraLibere" },
-       { label: " داخلون  ", value: "entreReelle" },
+      { label: "المفرج عنهم", value: "seraLibere" },
+      { label: " داخلون  ", value: "entreReelle" },
 
-       { label: " جلسات   ", value: "audience" },
+      { label: " جلسات   ", value: "audience" },
 
-       { label: "الواقع نقلتهم إلى مراكز إصلاح", value: "sortieMutation" },
-       { label: "الوافدون من مراكز إصلاح", value: "entreeMutation" },
-       { label: "البالغين لسن الرشد ", value: "devenuMajeur" },
-       { label: "الموقوفين ( إحالة ) ", value: "attetT" },
-       { label: "الموقوفين ( إستئناف النيابة )", value: "attetAP" },
-       { label: "الموقوفين ( إستئناف الطفل )", value: "attetAE" },
-       { label: "المحكومين ( مراجعة )", value: "jugeR" },
+      { label: "الواقع نقلتهم إلى مراكز إصلاح", value: "sortieMutation" },
+      { label: "الوافدون من مراكز إصلاح", value: "entreeMutation" },
+      { label: "البالغين لسن الرشد ", value: "devenuMajeur" },
+      { label: "الموقوفين ( إحالة ) ", value: "attetT" },
+      { label: "الموقوفين ( إستئناف النيابة )", value: "attetAP" },
+      { label: "الموقوفين ( إستئناف الطفل )", value: "attetAE" },
+      { label: "المحكومين ( مراجعة )", value: "jugeR" },
 
-       { label: "المقيمين دون قضايا", value: "nonAff" },
+      { label: "المقيمين دون قضايا", value: "nonAff" },
 
-       {
-         label: "  شهرية  ( موقوفين، محكومين و سراحات )",
-         value: "AllofAll",
-       },
+      {
+        label: "  شهرية  ( موقوفين، محكومين و سراحات )",
+        value: "AllofAll",
+      },
     ];
     this.ageToAdd1 = [
       { label: "empty", value: 0 },
@@ -188,58 +193,7 @@ export class ListPenaleComponent implements OnInit {
       { label: "16 عام ", value: "16" },
       { label: "17 عام ", value: "17" },
     ];
-    this.calendar_ar = {
-      closeText: "Fermer",
-      prevText: "Précédent",
-      nextText: "Suivant",
-      currentText: "Aujourd'hui",
-      monthNames: [
-        "  جانفــــي  ",
-
-        "   فيفـــري   ",
-        "  مــــارس  ",
-        "  أفريــــل  ",
-        "  مــــاي  ",
-        "  جــــوان  ",
-        "  جويليــــة  ",
-        "  أوت  ",
-        "  سبتمبــــر  ",
-        "  أكتوبــــر  ",
-        "  نوفمبــــر  ",
-        "  ديسمبــــر  ",
-      ],
-      monthNamesShort: [
-        "janv.",
-        "févr.",
-        "mars",
-        "avr.",
-        "mai",
-        "juin",
-        "juil.",
-        "août",
-        "sept.",
-        "oct.",
-        "nov.",
-        "déc.",
-      ],
-      dayNames: [
-        "dimanche",
-        "lundi",
-        "mardi",
-        "mercredi",
-        "jeudi",
-        "vendredi",
-        "samedi",
-      ],
-      dayNamesShort: ["dim.", "lun.", "mar.", "mer.", "jeu.", "ven.", "sam."],
-      dayNamesMin: ["D", "L", "M", "M", "J", "V", "S"],
-      weekHeader: "Sem.",
-      dateFormat: "dd/mm/yy",
-      firstDay: 1,
-      isRTL: false,
-      showMonthAfterYear: true,
-      yearSuffix: "",
-    };
+    this.calendar_ar = this.calendar_ar = this.appConfigService.calendarConfig;
     this.years =
       this.years +
       (new Date().getFullYear() - 5) +
@@ -280,10 +234,12 @@ export class ListPenaleComponent implements OnInit {
       this.entitiesMetier = data.result;
     });
 
-    this.crudservice.getAllCentre("etablissement").subscribe((data) => {
-      this.entitiesEtablissement = data.result;
-      this.entitiesEtablissement.push(null);
-    });
+    this.crudservice
+      .trouverEtablissementsActifs("etablissement")
+      .subscribe((data) => {
+        this.entitiesEtablissement = data.result;
+        this.entitiesEtablissement.push(null);
+      });
 
     this.crudservice.getlistEntity("typeTribunal").subscribe((data) => {
       this.entitiesTypeTribunal = data.result;
@@ -292,7 +248,7 @@ export class ListPenaleComponent implements OnInit {
       this.entitiesTypeAffaire = data.result;
     });
 
-    this.centre = this.token?.getUser()?.personelle?.etablissement;
+    this.centre = this.token?.getUser()?.etablissement;
     this.centreLibelle =
       this.token?.getUser()?.personelle?.etablissement.libelle_etablissement;
 
@@ -330,7 +286,7 @@ export class ListPenaleComponent implements OnInit {
   showListDelegation() {
     if (this.gouvernorat) {
       this.crudservice
-        .getDelegationByGouv("delegation", this.gouvernorat.id)
+        .trouverDelegationsParGouvernorat("delegation", this.gouvernorat.id)
         .subscribe((data) => {
           this.entitiesDelegation = data.result;
         });
@@ -384,7 +340,8 @@ export class ListPenaleComponent implements OnInit {
       this.accusationsToAddValue == "audience" ||
       this.accusationsToAddValue == "sortieMutation" ||
       this.accusationsToAddValue == "entreeMutation" ||
-      this.accusationsToAddValue == "devenuMajeur"
+      this.accusationsToAddValue == "devenuMajeur" ||
+      this.accusationsToAddValue == "arret"
     ) {
       this.isShow = true;
     } else {
@@ -555,6 +512,7 @@ export class ListPenaleComponent implements OnInit {
 
   print() {
     let pDFListExistDTO = new PDFListExistDTO();
+
     console.log(this.checkUniqueAff);
     console.log(this.checkEtranger);
     if (
@@ -691,7 +649,9 @@ export class ListPenaleComponent implements OnInit {
             } else {
               pDFListExistDTO.etatJuridiue = "all";
             }
-            this.crudservice.exportEtatPdf(pDFListExistDTO).subscribe((x) => {
+            this.rapportService.genererRapportPdfActuel(
+              pDFListExistDTO
+            ).subscribe((x) => {
               // this.crudservice.exportAllEtat(pDFListExistDTO).subscribe((x) => {
               this.sizeFile = x.size;
               console.log(this.sizeFile);
@@ -762,23 +722,25 @@ export class ListPenaleComponent implements OnInit {
     );
     this.click = true;
     // this.crudservice.exportEtatPdf(pDFListExistDTO).subscribe((x) => {
-    this.crudservice.exportAllEtat(pDFListExistDTO).subscribe((x) => {
-      this.sizeFile = x.size;
-      console.log(this.sizeFile);
+    this.rapportService.genererRapportPdfMensuel(pDFListExistDTO).subscribe(
+      (x) => {
+        this.sizeFile = x.size;
+        console.log(this.sizeFile);
 
-      const blob = new Blob([x], { type: "application/pdf" });
-      const data = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = data;
-      link.download = "enfant.pdf";
+        const blob = new Blob([x], { type: "application/pdf" });
+        const data = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = data;
+        link.download = "enfant.pdf";
 
-      if (blob) {
-        this.sizeFile = 0;
-        this.click = false;
+        if (blob) {
+          this.sizeFile = 0;
+          this.click = false;
+        }
+
+        this.openPDFInNewTab(data);
       }
-
-      this.openPDFInNewTab(data);
-    });
+    );
   }
 
   openPDFInNewTab(data) {

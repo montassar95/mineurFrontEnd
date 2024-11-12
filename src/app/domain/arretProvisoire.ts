@@ -2,7 +2,7 @@ import { ArretProvisoireId } from "./arretProvisoireId";
 import { CarteRecup } from "./carteRecup";
 
 export class ArretProvisoire {
-    arretProvisoireId:ArretProvisoireId;
+    // arretProvisoireId:ArretProvisoireId;
     jour:number;
 	mois :number;
 	annee :number;
@@ -10,5 +10,5 @@ export class ArretProvisoire {
     dateFin?:any;
     daysDiff?:any;
 
-     carteRecup:CarteRecup;
+    //  carteRecup:CarteRecup;
 }

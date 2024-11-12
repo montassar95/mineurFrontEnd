@@ -750,15 +750,13 @@
     
     
      
-      <app-carte-recup
+       <app-carte-recup
       
       
-            [carteRecup] = "carteRecup"
-            [entitiesArretProvisoire] = "carteRecup.entitiesArretProvisoire"
-            [entitiesAccusation] = "carteRecup.entitiesAccusation" > 
+            [carteRecup] = "carteRecup" > 
     
          
-    </app-carte-recup>                                                
+    </app-carte-recup>                                                 
      
     </p-dialog>
     
@@ -775,7 +773,7 @@
                                                                     <p-header >   
                                                                            
                                                                                  
-                                                                        <label class="neons" *ngIf="carteDepot"  >
+                                                                        <label   *ngIf="carteDepot"  >
                                                                                                                              
                                                                               <span    style="color: red;"  >تحييـــن   بطاقة إيداع عدد {{carteDepot.documentId.numOrdinalDocByAffaire}}
                                                                             
@@ -798,8 +796,7 @@
     
      
        <app-carte-depot 
-      [carteDepot] = "carteDepot" 
-      [entitiesTitreAccusation] = "carteDepot.entitiesTitreAccusation" >    
+      [carteDepot] = "carteDepot"  >    
     </app-carte-depot>                                                 
      
     </p-dialog>
@@ -809,7 +806,39 @@
     
     
     
+    <p-dialog
+      [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+      appendTo="body" [closable]="false" *ngIf="carteHeber" [(visible)]="editCarteHeber" modal="true">
+      <p-header>
     
+    
+        <label   *ngIf="carteHeber">
+    
+          <span style="color: rgb(47, 0, 255);">تحييـــن بطاقة  إيواء عدد {{carteHeber.documentId.numOrdinalDocByAffaire}}
+    
+    
+    
+          </span>
+    
+    
+          <i (click)="editCarteHeber = false" class="pi pi-power-off"
+            style="font-size: 30px; color: white; background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 90%;">
+          </i>
+    
+        </label>
+    
+    
+    
+    
+      </p-header>
+    
+    
+    
+    
+      <app-carte-hebergement [carteHeber]="carteHeber" >
+      </app-carte-hebergement>
+    
+    </p-dialog>
     
     
     

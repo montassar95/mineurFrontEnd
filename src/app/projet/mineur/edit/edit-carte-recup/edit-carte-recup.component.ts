@@ -28,6 +28,9 @@ import { TypeJuge } from "src/app/domain/typeJuge";
 import { TypeTribunal } from "src/app/domain/typeTribunal";
 import { BreadcrumbService } from "src/app/shared/breadcrumb/breadcrumb.service";
 import { TokenStorageService } from "src/app/_services/token-storage.service";
+import { DocumentService } from "src/app/demo/service/document.service";
+import { AffaireService } from "src/app/demo/service/affaire.service";
+import { DetentionService } from "src/app/demo/service/detention.service";
 
 @Component({
   selector: "app-edit-carte-recup",
@@ -175,10 +178,13 @@ export class EditCarteRecupComponent implements OnInit {
 
     { label: "  الوفاة  ", value: "/mineur/deces" },
   ];
-numOrd=0;
+  numOrd = 0;
   //--------------------------------------------------------------------------------------------------------------------------
   constructor(
     private crudservice: CrudEnfantService,
+    private affaireService: AffaireService,
+    private detentionService: DetentionService,
+    private documentService: DocumentService,
     private formBuilder: FormBuilder,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
@@ -225,8 +231,8 @@ numOrd=0;
       // );
     });
 
-    this.crudservice
-      .findDocumentById(this.carteRecup.documentId)
+    this.documentService
+      .trouverDocumentJudiciaireParId(this.carteRecup.documentId)
       .subscribe((data) => {
         console.log(
           "======================================================================================="
@@ -238,7 +244,7 @@ numOrd=0;
         );
 
         this.carteRecup = data.result;
-        this.numOrd=this.carteRecup.affaire.numOrdinalAffaire;
+        this.numOrd = this.carteRecup.affaire.numOrdinalAffaire;
         this.numOrdinalDoc = this.carteRecup.documentId.numOrdinalDoc;
 
         this.numOrdinalDocByAffaire =
@@ -268,18 +274,13 @@ numOrd=0;
 
         this.entitiesAccusation = [];
 
-        this.crudservice.findByCarteRecup(this.carteRecup).subscribe((data) => {
-          console.log("data.result");
-          console.log(data.result);
-          this.entitiesAccusation = data.result;
-        });
-        this.crudservice
-          .findArretProvisoireByCarteRecup(this.carteRecup)
-          .subscribe((data) => {
-            console.log("data.result");
-            console.log(data.result);
-            this.entitiesArretProvisoire = data.result;
-          });
+        // this.documentService
+        //   .trouverArretsProvisoiresParContenuDeJugement(this.carteRecup)
+        //   .subscribe((data) => {
+        //     console.log("data.result");
+        //     console.log(data.result);
+        //     this.entitiesArretProvisoire = data.result;
+        //   });
 
         // this.entitiesArretProvisoire = this.carteRecup.entitiesArretProvisoire
 
@@ -395,114 +396,114 @@ numOrd=0;
   search(id: String) {
     this.crudservice.getLigneById("enfant", id).subscribe((data) => {
       this.enfantLocal = data.result;
-      this.crudservice
-        .getLigneById("deces", this.enfantLocal.id)
-        .subscribe((data) => {
-          if (data.result == null) {
-            this.crudservice
-              .findByIdEnfantAndResidenceTrouverNull("echappes", id)
-              .subscribe((data) => {
-                if (data.result == null) {
-                  this.crudservice
-                    .findByIdEnfantAndStatut0("arrestation", id)
-                    .subscribe((data) => {
-                      this.arrestation = data.result;
-                      this.crudservice
-                        .getLiberationById(
-                          "liberation",
-                          this.arrestation.arrestationId.idEnfant,
-                          this.arrestation.arrestationId.numOrdinale
-                        )
-                        .subscribe((data) => {
-                          if (data.result != null) {
-                            this.isExist = false;
-                            this.msg = " طفل  في حالـــة ســراح ";
-                            this.statEchappesOrlibre = 1;
-                          } else {
-                            this.crudservice
-                              .findResidenceByIdEnfantAndStatut0(
-                                "residence",
-                                this.arrestation.arrestationId.idEnfant,
-                                this.arrestation.arrestationId.numOrdinale
-                              )
-                              .subscribe((data) => {
-                                this.residence = data.result;
+      // this.crudservice
+      //   .getLigneById("deces", this.enfantLocal.id)
+      //   .subscribe((data) => {
+      //     if (data.result == null) {
+      //       this.detentionService
+      //         .trouverEchappeNonApprehende("echappes", id)
+      //         .subscribe((data) => {
+      //           if (data.result == null) {
+      //             this.detentionService
+      //               .trouverDerniereDetentionParIdDetenu("arrestation", id)
+      //               .subscribe((data) => {
+      //                 this.arrestation = data.result;
+      //                 // this.detentionService
+      //                 //   .getLiberationById(
+      //                 //     "liberation",
+      //                 //     this.arrestation.arrestationId.idEnfant,
+      //                 //     this.arrestation.arrestationId.numOrdinale
+      //                 //   )
+      //                 //   .subscribe((data) => {
+      //                 //     if (data.result != null) {
+      //                 //       this.isExist = false;
+      //                 //       this.msg = " طفل  في حالـــة ســراح ";
+      //                 //       this.statEchappesOrlibre = 1;
+      //                 //     } else {
+      //                 //       this.detentionService
+      //                 //         .trouverDerniereResidenceParNumDetentionEtIdDetenu(
+      //                 //           "residence",
+      //                 //           this.arrestation.arrestationId.idEnfant,
+      //                 //           this.arrestation.arrestationId.numOrdinale
+      //                 //         )
+      //                 //         .subscribe((data) => {
+      //                 //           this.residence = data.result;
 
-                                this.crudservice
-                                  .findByIdEnfantAndStatutEnCour(
-                                    "residence",
-                                    this.arrestation.arrestationId.idEnfant,
-                                    this.arrestation.arrestationId.numOrdinale
-                                  )
-                                  .subscribe((data) => {
-                                    if (data.result != null) {
-                                      this.isExist = false;
-                                      this.statEchappesOrlibre = 2;
-                                      this.msg =
-                                        "      نقلـــة جـــارية إلـــى مركــز    " +
-                                        data.result.etablissement
-                                          .libelle_etablissement;
-                                    }
-                                  });
-                                if (
-                                  data.result.etablissement.id !=
-                                  this.token.getUser().personelle.etablissement
-                                    .id
-                                ) {
-                                  this.isExist = false;
-                                  this.statEchappesOrlibre = 3;
-                                  this.msg =
-                                    "      طفــل مقيــم بمركــز     " +
-                                    data.result.etablissement
-                                      .libelle_etablissement;
-                                }
-                              });
+      //                 //           // this.detentionService
+      //                 //           //   .findByIdEnfantAndStatutEnCour(
+      //                 //           //     "residence",
+      //                 //           //     this.arrestation.arrestationId.idEnfant,
+      //                 //           //     this.arrestation.arrestationId.numOrdinale
+      //                 //           //   )
+      //                 //           //   .subscribe((data) => {
+      //                 //           //     if (data.result != null) {
+      //                 //           //       this.isExist = false;
+      //                 //           //       this.statEchappesOrlibre = 2;
+      //                 //           //       this.msg =
+      //                 //           //         "      نقلـــة جـــارية إلـــى مركــز    " +
+      //                 //           //         data.result.etablissement
+      //                 //           //           .libelle_etablissement;
+      //                 //           //     }
+      //                 //           //   });
+      //                 //           if (
+      //                 //             data.result.etablissement.id !=
+      //                 //             this.token.getUser().personelle.etablissement
+      //                 //               .id
+      //                 //           ) {
+      //                 //             this.isExist = false;
+      //                 //             this.statEchappesOrlibre = 3;
+      //                 //             this.msg =
+      //                 //               "      طفــل مقيــم بمركــز     " +
+      //                 //               data.result.etablissement
+      //                 //                 .libelle_etablissement;
+      //                 //           }
+      //                 //         });
 
-                            this.crudservice
-                              .getDocumentByArrestation(
-                                this.arrestation.arrestationId.idEnfant,
-                                this.arrestation.arrestationId.numOrdinale
-                              )
-                              .subscribe((data) => {
-                                if (this.numOrdinalDoc) {
-                                  this.update = false;
-                                  this.numOrdinalDoc = this.numOrdinalDoc;
-                                } else {
-                                  this.numOrdinalDoc = data.result + 1;
-                                }
-                              });
+      //                 //       this.documentService
+      //                 //         .getDocumentByArrestation(
+      //                 //           this.arrestation.arrestationId.idEnfant,
+      //                 //           this.arrestation.arrestationId.numOrdinale
+      //                 //         )
+      //                 //         .subscribe((data) => {
+      //                 //           if (this.numOrdinalDoc) {
+      //                 //             this.update = false;
+      //                 //             this.numOrdinalDoc = this.numOrdinalDoc;
+      //                 //           } else {
+      //                 //             this.numOrdinalDoc = data.result + 1;
+      //                 //           }
+      //                 //         });
 
-                            //-----------------------------------------ici -------------------------------------------------------------------------------------------------------
-                            this.crudservice
-                              .findByArrestation(
-                                "affaire",
-                                this.arrestation.arrestationId.idEnfant,
-                                this.arrestation.arrestationId.numOrdinale
-                              )
-                              .subscribe((data) => {
-                                if (data.result == null) {
-                                } else {
-                                  this.affaires = data.result;
-                                  console.log("ici ");
-                                  console.log(this.affaires);
-                                }
-                              });
+      //                 //       //-----------------------------------------ici -------------------------------------------------------------------------------------------------------
+      //                 //       this.affaireService
+      //                 //         .findByArrestation(
+      //                 //           "affaire",
+      //                 //           this.arrestation.arrestationId.idEnfant,
+      //                 //           this.arrestation.arrestationId.numOrdinale
+      //                 //         )
+      //                 //         .subscribe((data) => {
+      //                 //           if (data.result == null) {
+      //                 //           } else {
+      //                 //             this.affaires = data.result;
+      //                 //             console.log("ici ");
+      //                 //             console.log(this.affaires);
+      //                 //           }
+      //                 //         });
 
-                            this.isExist = true;
-                          }
-                        });
-                    });
-                } else {
-                  this.msg = "طفل في حالــــــة فـــرار";
-                  this.statEchappesOrlibre = 0;
-                }
-              });
-          } else {
-            this.statEchappesOrlibre = 4;
+      //                 //       this.isExist = true;
+      //                 //     }
+      //                 //   });
+      //               });
+      //           } else {
+      //             this.msg = "طفل في حالــــــة فـــرار";
+      //             this.statEchappesOrlibre = 0;
+      //           }
+      //         });
+      //     } else {
+      //       this.statEchappesOrlibre = 4;
 
-            this.msg = "طفل فــي ذمــــــة اللـــه";
-          }
-        });
+      //       this.msg = "طفل فــي ذمــــــة اللـــه";
+      //     }
+      // });
     });
   }
   changeDate() {
@@ -511,11 +512,6 @@ numOrd=0;
       "yyyy-MM-dd"
     );
   }
-  
-
-  
-
-  
 
   showImg() {
     this.displayImg = true;
@@ -731,7 +727,7 @@ numOrd=0;
   findTitreAccusationByIdTypeAffaire(id: number) {
     this.entitiesTitreAccusation = [];
     this.crudservice
-      .findTitreAccusationByIdTypeAffaire(id)
+      .trouverTitresAccusationsParIdTypeAffaire(id)
       .subscribe((data) => {
         this.entitiesTitreAccusation = data.result;
       });
@@ -1033,8 +1029,8 @@ numOrd=0;
           );
         }
 
-        this.crudservice
-          .calcule(this.dateDebutGlobale + "", this.daysDiffJuge)
+        this.affaireService
+          .calculerDateFin(this.dateDebutGlobale + "", this.daysDiffJuge)
           .subscribe((data) => {
             if (data.result != null) {
               this.dateFinGlobale = data.result;
@@ -1120,8 +1116,8 @@ numOrd=0;
       this.anneePenal = this.anneePenal + Math.floor(this.moisPenal / 12);
       this.moisPenal = this.moisPenal - Math.floor(this.moisPenal / 12) * 12;
 
-      this.crudservice
-        .calcule(this.dateDebutGlobale + "", this.daysDiffJuge)
+      this.affaireService
+        .calculerDateFin(this.dateDebutGlobale + "", this.daysDiffJuge)
         .subscribe((data) => {
           if (data.result != null) {
             this.dateFinGlobale = data.result;
@@ -1160,8 +1156,8 @@ numOrd=0;
       this.arrestation.arrestationId.numOrdinale;
     this.documentId.numOrdinalAffaire = this.affaireOrigine.numOrdinalAffaire;
     this.documentId.numOrdinalDoc = this.numOrdinalDoc;
-    this.crudservice
-      .countDocumentByAffaire(
+    this.documentService
+      .calculerNombreDocumentsJudiciairesParAffaire(
         this.arrestation.arrestationId.idEnfant,
         this.arrestation.arrestationId.numOrdinale,
         this.affaireOrigine.numOrdinalAffaire
@@ -1179,8 +1175,14 @@ numOrd=0;
 
         this.carteRecup.affaire = this.affaireOrigine;
 
-        this.carteRecup.dateDepotCarte = this.datepipe.transform(this.reglerDateSql(this.dateDepotCarte), 'yyyy-MM-dd');;
-        this.carteRecup.dateEmission = this.datepipe.transform(this.reglerDateSql(this.dateEmission), 'yyyy-MM-dd');;
+        this.carteRecup.dateDepotCarte = this.datepipe.transform(
+          this.reglerDateSql(this.dateDepotCarte),
+          "yyyy-MM-dd"
+        );
+        this.carteRecup.dateEmission = this.datepipe.transform(
+          this.reglerDateSql(this.dateEmission),
+          "yyyy-MM-dd"
+        );
         this.carteRecup.textJugement = this.textJugement;
 
         this.carteRecup.typeAffaire = this.typeAffaireObjet;
@@ -1198,18 +1200,18 @@ numOrd=0;
 
         this.carteRecup.numArrestation = this.residence.numArrestation;
         this.carteRecup.etablissement = this.residence.etablissement;
-        this.carteRecup.personelle = this.token.getUser().personelle;
+        this.carteRecup.user = this.token.getUser();
 
         this.carteRecup.dateInsertion = this.datepipe.transform(
           new Date(),
           "yyyy-MM-dd"
         );
-        this.carteRecup.entitiesArretProvisoire = this.entitiesArretProvisoire;
+        // this.carteRecup.entitiesArretProvisoire = this.entitiesArretProvisoire;
         this.carteRecup.entitiesAccusation = this.entitiesAccusation;
 
         this.carteRecup.dateDebutPunition = this.dateDebutGlobale;
-        this.crudservice
-          .calcule(
+        this.affaireService
+          .calculerDateFin(
             this.dateDebutGlobale + "",
             this.daysDiffJuge - this.daysDiffArretProvisoire
           )
@@ -1246,107 +1248,111 @@ numOrd=0;
       });
   }
   confirmer() {
-
-
     this.crudservice
-    .delete("document",  "CJ", this.carteRecup.documentId )
-    .subscribe((data) => {
-      console.log(data);
-     console.log(data.result);
-      if(data.result){
-        this.crudservice
-        .createLigne("carteRecup", this.carteRecup)
-        .subscribe((data) => {
-          this.arretProvisoireId = new ArretProvisoireId();
-          this.arretProvisoireId.idEnfant = this.documentId.idEnfant;
-          this.arretProvisoireId.numOrdinalArrestation =
-            this.documentId.numOrdinalArrestation;
-          this.arretProvisoireId.numOrdinalAffaire =this.numOrd;
-         //   this.documentId.numOrdinalAffaire;
-          this.arretProvisoireId.numOrdinalDoc = this.documentId.numOrdinalDoc;
-          this.arretProvisoireId.numOrdinalDocByAffaire =
-            this.documentId.numOrdinalDocByAffaire;
-  
-          for (var i = 0; i < this.entitiesArretProvisoire.length; i++) {
-            this.arretProvisoire = new ArretProvisoire();
-            this.arretProvisoire.arretProvisoireId = new ArretProvisoireId();
-            this.arretProvisoire.arretProvisoireId = this.arretProvisoireId;
-  
-            this.arretProvisoire.arretProvisoireId.numOrdinalArret = i + 1;
-  
-            this.arretProvisoire.carteRecup = this.carteRecup;
-  
-            this.arretProvisoire.jour = this.entitiesArretProvisoire[i].jour;
-            this.arretProvisoire.mois = this.entitiesArretProvisoire[i].mois;
-            this.arretProvisoire.annee = this.entitiesArretProvisoire[i].annee;
-            this.arretProvisoire.dateDebut =
-              this.entitiesArretProvisoire[i].dateDebut;
-            this.arretProvisoire.dateFin =
-              this.entitiesArretProvisoire[i].dateFin;
-            this.arretProvisoire.daysDiff =
-              this.entitiesArretProvisoire[i].daysDiff;
-            this.crudservice
-              .createLigne("arretProvisoire", this.arretProvisoire)
-              .subscribe((data) => {
-                console.log(data);
-              });
-          }
-  
-          this.accusationCarteRecupId = new AccusationCarteRecupId();
-          this.accusationCarteRecupId.idEnfant = this.documentId.idEnfant;
-          this.accusationCarteRecupId.numOrdinalArrestation =
-            this.documentId.numOrdinalArrestation;
-          this.accusationCarteRecupId.numOrdinalAffaire =this.numOrd;
-            // this.documentId.numOrdinalAffaire;
-          this.accusationCarteRecupId.numOrdinalDoc =
-            this.documentId.numOrdinalDoc;
-          this.accusationCarteRecupId.numOrdinalDocByAffaire =
-            this.documentId.numOrdinalDocByAffaire;
-  
-          for (var i = 0; i < this.entitiesAccusation.length; i++) {
-            this.accusationCarteRecup = new AccusationCarteRecup();
-            this.accusationCarteRecup.accusationCarteRecupId =
-              new AccusationCarteRecupId();
-            this.accusationCarteRecup.accusationCarteRecupId =
-              this.accusationCarteRecupId;
-  
-            this.accusationCarteRecup.accusationCarteRecupId.idTitreAccusation =
-              this.entitiesAccusation[i].titreAccusation.id;
-            this.accusationCarteRecup.annee = this.entitiesAccusation[i].annee;
-            this.accusationCarteRecup.mois = this.entitiesAccusation[i].mois;
-            this.accusationCarteRecup.jour = this.entitiesAccusation[i].jour;
-            this.accusationCarteRecup.dateDebut =
-              this.entitiesAccusation[i].dateDebut;
-            this.accusationCarteRecup.dateFin =
-              this.entitiesAccusation[i].dateFin;
-            this.accusationCarteRecup.textAccusation =
-              this.entitiesAccusation[i].textAccusation;
-            this.accusationCarteRecup.titreAccusation =
-              this.entitiesAccusation[i].titreAccusation;
-            this.accusationCarteRecup.carteRecup = data.result;
-            this.accusationCarteRecup.numOridinel =
-              this.entitiesAccusation[i].numOridinel;
-            this.accusationCarteRecup.numOridinelLiee =
-              this.entitiesAccusation[i].numOridinelLiee;
-  
-            this.crudservice
-              .createLigne("accusationCarteRecup", this.accusationCarteRecup)
-              .subscribe((data) => {
-                console.log(data);
-              });
-          }
-        });
-  
-      this.isSaved = true;
-      this.isExist = false;
-      this.showCarteRecup = false;
-        
-      }
-    
-    });
+      .delete("document", "CJ", this.carteRecup.documentId)
+      .subscribe((data) => {
+        console.log(data);
+        console.log(data.result);
+        if (data.result) {
+          this.crudservice
+            .createLigne("carteRecup", this.carteRecup)
+            .subscribe((data) => {
+              this.arretProvisoireId = new ArretProvisoireId();
+              this.arretProvisoireId.idEnfant = this.documentId.idEnfant;
+              this.arretProvisoireId.numOrdinalArrestation =
+                this.documentId.numOrdinalArrestation;
+              this.arretProvisoireId.numOrdinalAffaire = this.numOrd;
+              //   this.documentId.numOrdinalAffaire;
+              this.arretProvisoireId.numOrdinalDoc =
+                this.documentId.numOrdinalDoc;
+              this.arretProvisoireId.numOrdinalDocByAffaire =
+                this.documentId.numOrdinalDocByAffaire;
 
+              for (var i = 0; i < this.entitiesArretProvisoire.length; i++) {
+                this.arretProvisoire = new ArretProvisoire();
+                // this.arretProvisoire.arretProvisoireId =
+                //   new ArretProvisoireId();
+                // this.arretProvisoire.arretProvisoireId = this.arretProvisoireId;
 
-    
+                // this.arretProvisoire.arretProvisoireId.numOrdinalArret = i + 1;
+
+                // this.arretProvisoire.carteRecup = this.carteRecup;
+
+                this.arretProvisoire.jour =
+                  this.entitiesArretProvisoire[i].jour;
+                this.arretProvisoire.mois =
+                  this.entitiesArretProvisoire[i].mois;
+                this.arretProvisoire.annee =
+                  this.entitiesArretProvisoire[i].annee;
+                this.arretProvisoire.dateDebut =
+                  this.entitiesArretProvisoire[i].dateDebut;
+                this.arretProvisoire.dateFin =
+                  this.entitiesArretProvisoire[i].dateFin;
+                this.arretProvisoire.daysDiff =
+                  this.entitiesArretProvisoire[i].daysDiff;
+                this.crudservice
+                  .createLigne("arretProvisoire", this.arretProvisoire)
+                  .subscribe((data) => {
+                    console.log(data);
+                  });
+              }
+
+              this.accusationCarteRecupId = new AccusationCarteRecupId();
+              this.accusationCarteRecupId.idEnfant = this.documentId.idEnfant;
+              this.accusationCarteRecupId.numOrdinalArrestation =
+                this.documentId.numOrdinalArrestation;
+              this.accusationCarteRecupId.numOrdinalAffaire = this.numOrd;
+              // this.documentId.numOrdinalAffaire;
+              this.accusationCarteRecupId.numOrdinalDoc =
+                this.documentId.numOrdinalDoc;
+              this.accusationCarteRecupId.numOrdinalDocByAffaire =
+                this.documentId.numOrdinalDocByAffaire;
+
+              for (var i = 0; i < this.entitiesAccusation.length; i++) {
+                this.accusationCarteRecup = new AccusationCarteRecup();
+                this.accusationCarteRecup.accusationCarteRecupId =
+                  new AccusationCarteRecupId();
+                this.accusationCarteRecup.accusationCarteRecupId =
+                  this.accusationCarteRecupId;
+
+                this.accusationCarteRecup.accusationCarteRecupId.idTitreAccusation =
+                  this.entitiesAccusation[i].titreAccusation.id;
+                this.accusationCarteRecup.annee =
+                  this.entitiesAccusation[i].annee;
+                this.accusationCarteRecup.mois =
+                  this.entitiesAccusation[i].mois;
+                this.accusationCarteRecup.jour =
+                  this.entitiesAccusation[i].jour;
+                this.accusationCarteRecup.dateDebut =
+                  this.entitiesAccusation[i].dateDebut;
+                this.accusationCarteRecup.dateFin =
+                  this.entitiesAccusation[i].dateFin;
+                this.accusationCarteRecup.textAccusation =
+                  this.entitiesAccusation[i].textAccusation;
+                this.accusationCarteRecup.titreAccusation =
+                  this.entitiesAccusation[i].titreAccusation;
+                this.accusationCarteRecup.carteRecup = data.result;
+                this.accusationCarteRecup.numOridinel =
+                  this.entitiesAccusation[i].numOridinel;
+                this.accusationCarteRecup.numOridinelLiee =
+                  this.entitiesAccusation[i].numOridinelLiee;
+
+                this.crudservice
+                  .createLigne(
+                    "accusationCarteRecup",
+                    this.accusationCarteRecup
+                  )
+                  .subscribe((data) => {
+                    console.log(data);
+                  });
+              }
+            });
+
+          this.isSaved = true;
+          this.isExist = false;
+          this.showCarteRecup = false;
+        }
+      });
   }
   next() {
     this.affaireIdOrigine = new AffaireId();
@@ -1366,121 +1372,108 @@ numOrd=0;
     }
 
     //---------------------------Chercher l'affaire origine existe  ou n'exist pas-------------------------------------------------------------------------------------
-    this.crudservice
-      .getLigneByAffaireId(
-        "affaire",
-        this.affaireIdOrigine.idEnfant,
-        this.affaireIdOrigine.numAffaire,
-        this.affaireIdOrigine.idTribunal,
-        this.arrestation.arrestationId.numOrdinale
-      )
-      .subscribe((data) => {
-        if (data.result) {
-          console.log(data.result);
-          //------------------- l'affaire origine existe -----------------------------------------------------------------------------------------
-          this.affaireOrigine = new Affaire();
-          this.affaireOrigine = data.result;
-          console.log("-------------------af----------------------");
-          console.log(this.affaireOrigine);
+    // this.affaireService
+    //   .trouverAffaireParId(
+    //     this.affaireIdOrigine.idEnfant,
+    //     this.affaireIdOrigine.numAffaire,
+    //     this.affaireIdOrigine.idTribunal,
+    //     this.arrestation.arrestationId.numOrdinale
+    //   )
+    //   .subscribe((data) => {
+    //     if (data.result) {
+    //       console.log(data.result);
+    //       //------------------- l'affaire origine existe -----------------------------------------------------------------------------------------
+    //       this.affaireOrigine = new Affaire();
+    //       this.affaireOrigine = data.result;
+    //       console.log("-------------------af----------------------");
+    //       console.log(this.affaireOrigine);
 
-          //--------------------deja update -------------------------------------------------------------------------------------
+    //       //--------------------deja update -------------------------------------------------------------------------------------
 
-          if (this.update == false) {
-            this.nextBoolean = true;
-          } else {
-            //--------------------Chercher si l'affaire origine est un lien d'autre affaire ou n'est pas un lien d'une aucune affaire -------------------------------------------------------------------------------------
-            this.crudservice
-              .findAffaireByAffaireLien(
-                "affaire",
-                this.affaireIdOrigine.idEnfant,
-                this.affaireIdOrigine.numAffaire,
-                this.affaireIdOrigine.idTribunal
-              )
-              .subscribe((data) => {
-                //-------------------- l'affaire origine est un lien d'autre affaire ------------------------ -------------------------------------------------------------------------------------
-                if (data.result) {
-                  this.displayAlertAffaireOrigineLier = true;
-                }
-                //-------------------- l'affaire origine n'est pas un lien d'une aucune affaire ------------------------ --------------------------------------------------------------------------------------------
-                else {
-                  //-------------------- Tester si l'affaire d'origine avoir un lien avec un autre affaire ou n'avoir pas un lien avec un  affaire  ------------------------ --------------------------------------------------------------------------------------------
+    //       if (this.update == false) {
+    //         this.nextBoolean = true;
+    //       } else {
+    //         //--------------------Chercher si l'affaire origine est un lien d'autre affaire ou n'est pas un lien d'une aucune affaire -------------------------------------------------------------------------------------
+    //         // this.affaireService
+    //         //   .findAffaireByAffaireLien(
+    //         //     this.affaireIdOrigine.idEnfant,
+    //         //     this.affaireIdOrigine.numAffaire,
+    //         //     this.affaireIdOrigine.idTribunal
+    //         //   )
+    //         //   .subscribe((data) => {
+    //         //     //-------------------- l'affaire origine est un lien d'autre affaire ------------------------ -------------------------------------------------------------------------------------
+    //         //     if (data.result) {
+    //         //       this.displayAlertAffaireOrigineLier = true;
+    //         //     }
+    //         //     //-------------------- l'affaire origine n'est pas un lien d'une aucune affaire ------------------------ --------------------------------------------------------------------------------------------
+    //         //     else {
+    //         //       //-------------------- Tester si l'affaire d'origine avoir un lien avec un autre affaire ou n'avoir pas un lien avec un  affaire  ------------------------ --------------------------------------------------------------------------------------------
+    //         //       //-------------------- l'affaire d'origine avoir un lien avec un autre affaire  ------------------------ --------------------------------------------------------------------------------------------
+    //         //       if (this.affaireOrigine.affaireLien) {
+    //         //         //-------------------- Tester si les champs d'affaire de lien sont  remplis ou ne sont pas remplis  ------------------------ --------------------------------------------------------------------------------------------
+    //         //         if (this.tribunal2Objet && this.numAffaireT2) {
+    //         //           //--------------------  les champs d'affaire de lien sont  remplis  et l'affaire d'origine avoir un lien avec un autre affaire------------------- ------------------------ --------------------------------------------------------------------------------------------
+    //         //           //-------------------- Tester si les champs d'affaire de lien à saisir sont les memes que l'affaire  de lien reel ou nn ------------------------ --------------------------------------------------------------------------------------------
+    //         //           if (
+    //         //             this.affaireOrigine.affaireLien.affaireId.idTribunal !=
+    //         //               this.tribunal2Objet.id ||
+    //         //             this.affaireOrigine.affaireLien.affaireId.numAffaire !=
+    //         //               this.numAffaireT2
+    //         //           ) {
+    //         //             //--------------------   les champs d'affaire de lien à saisir sont les memes que l'affaire  de lien reel  ------------------------ --------------------------------------------------------------------------------------------
+    //         //             this.displayAlertLienAutre = true;
+    //         //           } else {
+    //         //             //--------------------   les champs d'affaire de lien à saisir ne sont pas les memes que l'affaire  de lien reel  ------------------------ --------------------------------------------------------------------------------------------
+    //         //             this.displayAlertLienMeme = true;
+    //         //           }
+    //         //         } else {
+    //         //           //--------------------  les champs d'affaire de lien ne sont pas  remplis et l'affaire d'origine avoir un lien avec un autre affaire------------------- ------------------------ --------------------------------------------------------------------------------------------
+    //         //           this.displayAlertOrigineExistAvecLien = true;
+    //         //           console.log("hhhhhhhhhhhhhhhhhhhhhh");
+    //         //           console.log(this.affaireOrigine.affaireLien);
+    //         //           //this.lien(); en view
+    //         //         }
+    //         //       }
+    //         //       //-------------------- l'affaire d'origine n'avoir pas un lien avec un  affaire   ------------------------ --------------------------------------------------------------------------------------------
+    //         //       else {
+    //         //         this.displayAlertOrigineExistSansLien = true;
+    //         //         if (this.tribunal2Objet && this.numAffaireT2) {
+    //         //           this.lienException();
+    //         //         } else {
+    //         //           this.nextBoolean = true;
+    //         //         }
+    //         //         //this.lien(); en view
+    //         //       }
+    //         //     }
+    //         //   });
+    //       }
+    //     } else {
+    //       console.log(data.message);
+    //       console.log(this.affaireLien);
 
-                  //-------------------- l'affaire d'origine avoir un lien avec un autre affaire  ------------------------ --------------------------------------------------------------------------------------------
-                  if (this.affaireOrigine.affaireLien) {
-                    //-------------------- Tester si les champs d'affaire de lien sont  remplis ou ne sont pas remplis  ------------------------ --------------------------------------------------------------------------------------------
+    //       //------------------- l'affaire origine n'exist pas-------------------------------------------------------------------------
+    //       if (this.affaireLien) {
+    //         //par choix
+    //         this.affaireOrigine.affaireLien = this.affaireLien;
+    //         this.affaireService
+    //           .mettreAJourNumeroOrdinal(
+    //             this.affaireOrigine,
+    //             this.arrestation.arrestationId.numOrdinale
+    //           )
+    //           .subscribe((data) => {
+    //             this.affaireOrigine = data.result;
 
-                    if (this.tribunal2Objet && this.numAffaireT2) {
-                      //--------------------  les champs d'affaire de lien sont  remplis  et l'affaire d'origine avoir un lien avec un autre affaire------------------- ------------------------ --------------------------------------------------------------------------------------------
+    //             console.log(this.arrestation.arrestationId.numOrdinale);
 
-                      //-------------------- Tester si les champs d'affaire de lien à saisir sont les memes que l'affaire  de lien reel ou nn ------------------------ --------------------------------------------------------------------------------------------
+    //             this.nextBoolean = true;
+    //           });
+    //       } else {
+    //         // sans choix
 
-                      if (
-                        this.affaireOrigine.affaireLien.affaireId.idTribunal !=
-                          this.tribunal2Objet.id ||
-                        this.affaireOrigine.affaireLien.affaireId.numAffaire !=
-                          this.numAffaireT2
-                      ) {
-                        //--------------------   les champs d'affaire de lien à saisir sont les memes que l'affaire  de lien reel  ------------------------ --------------------------------------------------------------------------------------------
-
-                        this.displayAlertLienAutre = true;
-                      } else {
-                        //--------------------   les champs d'affaire de lien à saisir ne sont pas les memes que l'affaire  de lien reel  ------------------------ --------------------------------------------------------------------------------------------
-
-                        this.displayAlertLienMeme = true;
-                      }
-                    } else {
-                      //--------------------  les champs d'affaire de lien ne sont pas  remplis et l'affaire d'origine avoir un lien avec un autre affaire------------------- ------------------------ --------------------------------------------------------------------------------------------
-
-                      this.displayAlertOrigineExistAvecLien = true;
-
-                      console.log("hhhhhhhhhhhhhhhhhhhhhh");
-                      console.log(this.affaireOrigine.affaireLien);
-                      //this.lien(); en view
-                    }
-                  }
-
-                  //-------------------- l'affaire d'origine n'avoir pas un lien avec un  affaire   ------------------------ --------------------------------------------------------------------------------------------
-                  else {
-                    this.displayAlertOrigineExistSansLien = true;
-
-                    if (this.tribunal2Objet && this.numAffaireT2) {
-                      this.lienException();
-                    } else {
-                      this.nextBoolean = true;
-                    }
-                    //this.lien(); en view
-                  }
-                }
-              });
-          }
-        } else {
-          console.log(data.message);
-          console.log(this.affaireLien);
-
-          //------------------- l'affaire origine n'exist pas-------------------------------------------------------------------------
-          if (this.affaireLien) {
-            //par choix
-            this.affaireOrigine.affaireLien = this.affaireLien;
-            this.crudservice
-              .verifierNumOrdinalAffaire(
-                "affaire",
-                this.affaireOrigine,
-                this.arrestation.arrestationId.numOrdinale
-              )
-              .subscribe((data) => {
-                this.affaireOrigine = data.result;
-
-                console.log(this.arrestation.arrestationId.numOrdinale);
-
-                this.nextBoolean = true;
-              });
-          } else {
-            // sans choix
-
-            this.lien();
-          }
-        }
-      });
+    //         this.lien();
+    //       }
+    //     }
+    //   });
   }
 
   lienException() {
@@ -1505,83 +1498,78 @@ numOrd=0;
       this.affaireIdLien.numAffaire = this.numAffaireT2;
 
       //-------------------- --Chercher l'affaire de lien exisit ou n'existe pas   ------------------------ --------------------------------------------------------------------------------------------
-      this.crudservice
-        .getLigneByAffaireId(
-          "affaire",
-          this.affaireIdLien.idEnfant,
-          this.affaireIdLien.numAffaire,
-          this.affaireIdLien.idTribunal,
-          this.arrestation.arrestationId.numOrdinale
-        )
-        .subscribe((data) => {
-          //	this.affaireLien   = data.result[0];
+      // this.affaireService
+      //   .trouverAffaireParId(
+      //     this.affaireIdLien.idEnfant,
+      //     this.affaireIdLien.numAffaire,
+      //     this.affaireIdLien.idTribunal,
+      //     this.arrestation.arrestationId.numOrdinale
+      //   )
+      //   .subscribe((data) => {
+      //     //	this.affaireLien   = data.result[0];
 
-          //-------------------- -l'affaire de lien exisit ------------------------ --------------------------------------------------------------------------------------------
-          if (data.result) {
-            this.affaireOrigine.affaireLien = data.result;
+      //     //-------------------- -l'affaire de lien exisit ------------------------ --------------------------------------------------------------------------------------------
+      //     if (data.result) {
+      //       this.affaireOrigine.affaireLien = data.result;
 
-            //--------------------Chercher si l'affaire de lien est un lien d'autre affaire ou n'est pas un lien d'une aucune affaire -------------------------------------------------------------------------------------
-            this.crudservice
-              .findAffaireByAffaireLien(
-                "affaire",
-                this.affaireIdLien.idEnfant,
-                this.affaireIdLien.numAffaire,
-                this.affaireIdLien.idTribunal
-              )
-              .subscribe((data) => {
-              //-------------------- l'affaire de lien est un lien d'autre affaire ------------------------ -------------------------------------------------------------------------------------
+      //       //--------------------Chercher si l'affaire de lien est un lien d'autre affaire ou n'est pas un lien d'une aucune affaire -------------------------------------------------------------------------------------
+      //       // this.affaireService
+      //       //   .findAffaireByAffaireLien(
+      //       //     this.affaireIdLien.idEnfant,
+      //       //     this.affaireIdLien.numAffaire,
+      //       //     this.affaireIdLien.idTribunal
+      //       //   )
+      //       //   .subscribe((data) => {
+      //       //     //-------------------- l'affaire de lien est un lien d'autre affaire ------------------------ -------------------------------------------------------------------------------------
 
-                if (data.result) {
-                  this.displayAlertAffaireLienLier = true;
-                }
+      //       //     if (data.result) {
+      //       //       this.displayAlertAffaireLienLier = true;
+      //       //     }
 
-                //-------------------- l'affaire de lien n'est pas un lien d'autre affaire ------------------------ -------------------------------------------------------------------------------------
-                else {
-                  this.crudservice
-                    .verifierNumOrdinalAffaire(
-                      "affaire",
-                      this.affaireOrigine,
-                      this.arrestation.arrestationId.numOrdinale
-                    )
-                    .subscribe((data) => {
-                      this.affaireOrigine = data.result;
+      //       //     //-------------------- l'affaire de lien n'est pas un lien d'autre affaire ------------------------ -------------------------------------------------------------------------------------
+      //       //     else {
+      //       //       this.affaireService
+      //       //         .mettreAJourNumeroOrdinal(
+      //       //           this.affaireOrigine,
+      //       //           this.arrestation.arrestationId.numOrdinale
+      //       //         )
+      //       //         .subscribe((data) => {
+      //       //           this.affaireOrigine = data.result;
 
-                      console.log(this.arrestation.arrestationId.numOrdinale);
-                      // if (this.affaireLien.arrestation.arrestationId.numOrdinale != this.arrestation.arrestationId.numOrdinale) {
-                      // 	this.displayAlertLienAutreArrestation = true;
-                      // }
+      //       //           console.log(this.arrestation.arrestationId.numOrdinale);
+      //       //           // if (this.affaireLien.arrestation.arrestationId.numOrdinale != this.arrestation.arrestationId.numOrdinale) {
+      //       //           // 	this.displayAlertLienAutreArrestation = true;
+      //       //           // }
 
-                      this.nextBoolean = true;
-                    });
-                }
-              });
-          }
-          //-------------------- --  l'affaire de lien  n'existe pas  ----------------------------------------------------------------------------------------------------------------------
-          else {
-            if (data.message == 1) {
-              this.displayAlertLienAutreArrestation = true;
-            } else {
-              this.displayNext = true;
-            }
-            //this.accepter()  en view
-          }
-        });
+      //       //           this.nextBoolean = true;
+      //       //         });
+      //       //     }
+      //       //   });
+      //     }
+      //     //-------------------- --  l'affaire de lien  n'existe pas  ----------------------------------------------------------------------------------------------------------------------
+      //     else {
+      //       if (data.message == 1) {
+      //         this.displayAlertLienAutreArrestation = true;
+      //       } else {
+      //         this.displayNext = true;
+      //       }
+      //       //this.accepter()  en view
+      //     }
+      //   });
     }
 
     //--------------------  les champs d'affaire de lien   ne sont pas remplis  ------------------------ --------------------------------------------------------------------------------------------
     else {
       this.affaireOrigine.affaireLien = null;
 
-      this.crudservice
-         .verifierNumOrdinalAffaire(
-         "affaire",
-          this.affaireOrigine,
-         this.arrestation.arrestationId.numOrdinale
+      this.affaireService
+        .mettreAJourNumeroOrdinal(
+          this.affaireOrigine 
         )
-      .subscribe((data) => {
-         this.affaireOrigine = data.result;
-         this.affaireOrigine.numOrdinalAffaire = this.numOrd;
-         });
+        .subscribe((data) => {
+          this.affaireOrigine = data.result;
+          this.affaireOrigine.numOrdinalAffaire = this.numOrd;
+        });
       this.nextBoolean = true;
     }
   }
@@ -1597,11 +1585,9 @@ numOrd=0;
     this.affaireLien.arrestation = this.arrestation;
     this.affaireOrigine.affaireLien = this.affaireLien;
 
-    this.crudservice
-      .verifierNumOrdinalAffaire(
-        "affaire",
-        this.affaireOrigine,
-        this.arrestation.arrestationId.numOrdinale
+    this.affaireService
+      .mettreAJourNumeroOrdinal(
+        this.affaireOrigine 
       )
       .subscribe((data) => {
         this.affaireOrigine = data.result;
@@ -1647,7 +1633,7 @@ numOrd=0;
   onChangeGouvernorat(gouvernort: Gouvernorat) {
     this.idGouv = gouvernort.id;
     this.crudservice
-      .searchTribunal(this.idGouv, this.idType)
+      .chercherTribunalParGouvernoratEtTypeTribunal(this.idGouv, this.idType)
       .subscribe((data) => {
         console.log(this.idGouv);
         console.log(this.idType);
@@ -1664,7 +1650,7 @@ numOrd=0;
   onChangeTypeTribunal(typeTribunal: TypeTribunal) {
     this.idType = typeTribunal.id;
     this.crudservice
-      .searchTribunal(this.idGouv, this.idType)
+      .chercherTribunalParGouvernoratEtTypeTribunal(this.idGouv, this.idType)
       .subscribe((data) => {
         console.log(this.idGouv);
         console.log(this.idType);
@@ -1688,10 +1674,7 @@ numOrd=0;
 
     window.localStorage.setItem("idValideNav", this.enfantLocal.id.toString());
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = 'reload';
+    this.router.onSameUrlNavigation = "reload";
     this.router.navigate([this.nav]);
   }
-
-
- 
 }

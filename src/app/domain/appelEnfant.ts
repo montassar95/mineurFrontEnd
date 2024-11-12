@@ -9,7 +9,8 @@ import { TypeAffaire } from "./typeAffaire";
 import { TypeJuge } from "./typeJuge";
 import { Document } from "./document";
 import { Etablissement } from "./etablissement";
-import { Personelle } from "./personelle";
+ 
+import { User } from "./user";
 export class AppelEnfant {
     
    
@@ -35,8 +36,8 @@ export class AppelEnfant {
 
  
     etablissement :Etablissement;
-   
-    personelle:Personelle;
+   user:User;
+    // personelle:Personelle;
     
 }
  

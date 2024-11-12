@@ -10,7 +10,7 @@ label {
    
       max-width: 1700px !important;
       
-      padding: 75px 75px;
+      // padding: 75px 75px;
   }
   h2{
     font-family: 'Amiri', Times, serif;
@@ -37,6 +37,7 @@ font-weight: bold;
   .profile-img-card {
     width: 200px;
     height: auto;
+    border: black;
     // margin: 0 auto 10px;
     display: block;
     -moz-border-radius: 10%;

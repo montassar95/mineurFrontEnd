@@ -1,113 +1,65 @@
+<div class="container" dir="rtl">
+   <!-- Table Section -->
+   <p-table [value]="users" [style]="tableStyle" id="dt" #dt dataKey="numOrdinale" paginator
+      [rowsPerPageOptions]="[5, 10, 20, 50]" [paginator]="true" [rows]="10" [globalFilterFields]="['id', 'personelleId', 'fullName', 'personelle?.prenom', 
+                                     'username', 'personelle?.fonction?.libelle_fonction', 
+                                     'personelle?.etablissement?.libelle_etablissement', 'roleName' ]">
 
-<div dir="rtl" style="margin-bottom: 100px;"   >
- 
-<p-table   [value]="users"   
-[style]="{    'box-shadow':'1px 1px 1px #747474,
-1px 2px 1px #747474,
-1px 3px 1px #747474,
-1px 4px 1px #747474,
-1px 5px 1px #747474,
-1px 6px 1px #747474,
-1px 7px 1px #747474,
-1px 8px 1px #747474,
-1px 9px 1px #747474,
-1px 10px 1px #747474' , 'margin-right':'1%' ,'background-image': 'url(assets/layout/images/111.jpg)' }" id="dt" #dt dataKey="numOrdinale"
-paginatorPosition="both"   [paginator]="true" [rows]="10" [globalFilterFields]="['type']">
- <ng-template pTemplate="caption">
-   <div class="p-d-flex p-ai-center p-jc-between">
+      <!-- Table Caption -->
+      <ng-template pTemplate="caption">
+         <div class="table-header">
+            
+            <input type="text" pInputText placeholder="كلمــــــــــة مفتــــــــــاح"
+               (input)="dt.filterGlobal($event.target.value, 'contains')" />
+         </div>
+      </ng-template>
 
-      <h1  style="text-align: center;"  > إسترشــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــاد  </h1>
-   </div>
-</ng-template>  
-<ng-template pTemplate="header"  >
-   <tr > 
-        
-       <th style="width: 5%;" > 1 المعرف    </th>
-       <th style="width: 5%;" > 2 المعرف    </th>
-       <th style="width: 23%;" >الهوية    </th>
-       <th style="width: 23%;" > إسم المستعمل    </th>
-      
+      <!-- Table Header -->
+      <ng-template pTemplate="header">
+         <tr>
+            <th pSortableColumn="id" > معـــرف ألـــي <p-sortIcon field="id"></p-sortIcon></th>
+            <th pSortableColumn="personelleId" > رقـــم الإداري <p-sortIcon field="personelleId"></p-sortIcon></th>
+            <th pSortableColumn="fullName" >الهويـــة <p-sortIcon field="fullName"></p-sortIcon></th>
+            <th pSortableColumn="username" >إســـم المستعمـــل <p-sortIcon field="username"></p-sortIcon></th>
+            <th pSortableColumn="roleName" style="width: 10%;">المهــــام
+               <p-sortIcon field="roleName"></p-sortIcon>  
+            </th>
+         <th pSortableColumn="etablissement">
+            المؤسســـة
+            <p-sortIcon field="etablissement"></p-sortIcon>
+         </th>
 
- 
-       <th style="width: 10%;" >الوظيفة  </th> 
-       <th style="width: 10%;" >المؤسسة  </th> 
-  
-       
-       <th style="width: 4%;" >
-          <button  (click)="addUser()"
-          style="background-color: #28a745!important;" mat-fab  >
-             <i class="pi pi-plus" style="font-size: 25px;"> </i>
-
-   
-         </button> 
-      </th>
-      
-   </tr>
-</ng-template>
-
-<ng-template pTemplate="body" let-user>
-   <tr>
-      
-      <td> {{user?.id}} </td>
-       <td> {{user?.personelle?.id}} </td>
-       <!-- بن    {{personelle.nomPere}} -->
-       <td>{{user?.personelle?.nom}}      {{user?.personelle?.prenom}} </td>
-       <td>{{user?.username}} </td>
-       <td>{{user?.personelle?.fonction?.libelle_fonction}}  </td>
-       <td> {{user?.personelle?.etablissement?.libelle_etablissement}} </td>   
-       
-     
-       <td>
            
-          <div class="example-button-container">
-              
-            
-              <!-- <button (click)="delete(personelle)"  style="background-color: white!important; "  mat-mini-fab   aria-label="Example icon button with a home icon">
-               <i class="pi pi-trash" style="font-size: 30px; color: red;"></i>
-           </button> -->
-              <button  
-              style="background-color: white!important; margin-right: 15px;"    mat-mini-fab  >
-                 <i class="pi pi-pencil" style="font-size: 30px; color: blue;" > </i>
+           
+            <th><button mat-fab (click)="addUser()" class="add-btn"><i class="pi pi-plus"></i></button></th>
+         </tr>
+      </ng-template>
 
-             </button>
-          
-            </div>  
+      <!-- Table Body -->
+      <ng-template pTemplate="body" let-user>
+         <tr>
+            <td>{{user?.id}}</td>
+            <td>{{user?.personelleId}}</td>
+            <td>{{user?.fullName}} </td>
+            <td>{{user?.username}}</td>
+            <td>{{user?.roleName}}</td>
             
-          
-           </td>
-   </tr>
-</ng-template>
+            
+            <td>{{user?.etablissement}}</td>
+            <td>
+               <button mat-mini-fab (click)="editUser(user)"  class="edit-btn"><i class="pi pi-pencil"></i></button>
+            </td>
+         </tr>
+      </ng-template>
+   </p-table>
 
-</p-table>
+   <!-- Dialog for Adding User -->
+   <p-dialog dir="rtl" [(visible)]="displayAddUser" [closable]="false" [modal]="true">
+      <p-header>
+         <div class="dialog-header">
+            <span>إدراج مستعمل جديد</span>
+         </div>
+      </p-header>
+      <app-add-user [user]="selectedUser" (closeEvent)="close($event)"></app-add-user>
+   </p-dialog>
 </div>
-
-
-
-
-<p-dialog  dir="rtl"   [(visible)]="displayAddUser"    [closable]="false" 
-[modal]="true"      >
-<p-header>
-
-    <div class="p-grid " style="background-color: rgb(214, 214, 214);"  >
-      
-      <span    style=" color: green;"  >إدراج مستعمل جديد    </span>
-
-
-    </div>
-    
-     
-      
-      
-     
-     
-     
-          
-          
-        
-    
-</p-header> 
- 
-<app-add-user (closeEvent)="close($event)"  ></app-add-user>
-  
-          
-</p-dialog> 

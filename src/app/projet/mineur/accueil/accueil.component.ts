@@ -38,7 +38,10 @@ export class AccueilComponent implements OnInit {
       },
     ];
   }
-
+  indices = 75; // Exemple de valeur
+  alertesGraves = 5; // Exemple de valeur
+  ageMoyen = 34; // Exemple de valeur
+  affairesDangereuses = 3; // Exemple de valeur
   ngOnInit() {
     // this.enfantList();
     this.products = this.products = [

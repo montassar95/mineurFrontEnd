@@ -1,0 +1,33 @@
+<div class="court-document">
+        <!-- <header class="court-header">
+                <h2 class="court-title"> الهويــــة</h2>
+        </header> -->
+
+        <div class="court-content">
+                <div class="info-section">
+                        <span class="info-label">المعــــرف:</span>
+                        <span class="info-data">{{ enfantLocal?.id }}</span>
+                </div>
+                <div class="info-section">
+                        <span class="info-label">الإسم و اللقب:</span>
+                        <span class="info-data">{{ enfantLocal?.nom }} بن {{ enfantLocal?.nomPere }} بن {{
+                                enfantLocal?.nomGrandPere }} {{ enfantLocal?.prenom }}</span>
+                </div>
+                <div class="info-section">
+                        <span class="info-label">هويــــة الأم:</span>
+                        <span class="info-data">{{ enfantLocal?.nomMere }} {{ enfantLocal?.prenomMere }}</span>
+                </div>
+                <div class="info-section">
+                        <span class="info-label">تــــاريخ الــــولادة:</span>
+                        <span class="info-data">{{ enfantLocal?.dateNaissance }}</span>
+                </div>
+
+                <!-- <div class="residence-section" *ngIf="residence">
+                        <h3 class="section-title">معلومات الإيقاف</h3> -->
+                        <div class="info-section" *ngIf="residence">
+                                <span class="info-label">العدد الرتبــــي للإيقــــاف:</span>
+                                <span class="info-data">{{ arrestation?.arrestationId?.numOrdinale }}</span>
+                        </div>
+                <!-- </div> -->
+        </div>
+</div>

@@ -21,6 +21,8 @@ import { TypeAffaire } from "src/app/domain/typeAffaire";
 import { TypeJuge } from "src/app/domain/typeJuge";
 import { TypeTribunal } from "src/app/domain/typeTribunal";
 import { BreadcrumbService } from "src/app/shared/breadcrumb/breadcrumb.service";
+import { AppConfigService } from "../app-config.service";
+import { RapportService } from "src/app/demo/service/rapport.service";
 
 @Component({
   selector: "app-mensuel",
@@ -55,9 +57,11 @@ export class MensuelComponent implements OnInit {
     private breadcrumbService: BreadcrumbService,
 
     private crudservice: CrudEnfantService,
+    private rapportService: RapportService,
     public datepipe: DatePipe,
 
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private appConfigService: AppConfigService
   ) {
     this.breadcrumbService.setItems([
       { label: "الإستقبال", routerLink: ["/"] },
@@ -66,58 +70,7 @@ export class MensuelComponent implements OnInit {
     ]);
   }
   ngOnInit(): void {
-    this.calendar_ar = {
-      closeText: "Fermer",
-      prevText: "Précédent",
-      nextText: "Suivant",
-      currentText: "Aujourd'hui",
-      monthNames: [
-        "  جانفــــي  ",
-
-        "   فيفـــري   ",
-        "  مــــارس  ",
-        "  أفريــــل  ",
-        "  مــــاي  ",
-        "  جــــوان  ",
-        "  جويليــــة  ",
-        "  أوت  ",
-        "  سبتمبــــر  ",
-        "  أكتوبــــر  ",
-        "  نوفمبــــر  ",
-        "  ديسمبــــر  ",
-      ],
-      monthNamesShort: [
-        "janv.",
-        "févr.",
-        "mars",
-        "avr.",
-        "mai",
-        "juin",
-        "juil.",
-        "août",
-        "sept.",
-        "oct.",
-        "nov.",
-        "déc.",
-      ],
-      dayNames: [
-        "dimanche",
-        "lundi",
-        "mardi",
-        "mercredi",
-        "jeudi",
-        "vendredi",
-        "samedi",
-      ],
-      dayNamesShort: ["dim.", "lun.", "mar.", "mer.", "jeu.", "ven.", "sam."],
-      dayNamesMin: ["D", "L", "M", "M", "J", "V", "S"],
-      weekHeader: "Sem.",
-      dateFormat: "dd/mm/yy",
-      firstDay: 1,
-      isRTL: false,
-      showMonthAfterYear: true,
-      yearSuffix: "",
-    };
+    this.calendar_ar = this.calendar_ar = this.appConfigService.calendarConfig;
   }
   printAllCentre() {
     console.log(this.datePipe.transform(this.datePrintAllCentre, "yyyy-MM-dd"));
@@ -129,23 +82,25 @@ export class MensuelComponent implements OnInit {
     );
     this.click = true;
     // this.crudservice.exportEtatPdf(pDFListExistDTO).subscribe((x) => {
-    this.crudservice.exportAllEtat(pDFListExistDTO).subscribe((x) => {
-      this.sizeFile = x.size;
-      console.log(this.sizeFile);
+    this.rapportService
+      .genererRapportPdfMensuel(pDFListExistDTO)
+      .subscribe((x) => {
+        this.sizeFile = x.size;
+        console.log(this.sizeFile);
 
-      const blob = new Blob([x], { type: "application/pdf" });
-      const data = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = data;
-      link.download = "enfant.pdf";
+        const blob = new Blob([x], { type: "application/pdf" });
+        const data = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = data;
+        link.download = "enfant.pdf";
 
-      if (blob) {
-        this.sizeFile = 0;
-        this.click = false;
-      }
+        if (blob) {
+          this.sizeFile = 0;
+          this.click = false;
+        }
 
-      this.openPDFInNewTab(data);
-    });
+        this.openPDFInNewTab(data);
+      });
   }
 
   openPDFInNewTab(data) {

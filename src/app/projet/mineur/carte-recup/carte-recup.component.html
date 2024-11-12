@@ -1,4 +1,4 @@
-<div dir="rtl" style="margin-top: 0px; margin-left: 5%;margin-right:5%; margin-bottom: 100px;  background-image :  url(assets/layout/images/bg.png) ">
+<div dir="rtl" style="margin-top: 0px; margin-left: 10%;margin-right:10%; margin-bottom: 100px;  background-image :  url(assets/layout/images/bg.png) ">
    <p-toast key="tst" [style]="{marginTop: '150px'}"></p-toast>                               
    <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
 
@@ -9,72 +9,27 @@
 
    <div class="card"  *ngIf="enfantLocal && !isSaved">
       
-      <p-card *ngIf="update"
-         [style]="{ 'height': 'auto',   'border-radius': '0%',  'margin-left': '5%' , 'margin-right':'5%' ,
-      '-moz-box-shadow': '5px 5px 5px 5px rgba(0, 0, 0, 0.61)',
-      '-webkit-box-shadow': '5px 5px 5px 5px rgba(0, 0, 0, 0.61)',
-      'box-shadow':'5px 5px 5px 5px rgba(0, 0, 0, 0.61)'  ,'background-image': 'url(assets/layout/images/cart.jpg)'    }">
-         <p-header>
+   <app-details-enfant [enfantLocal]="enfantLocal" [arrestation]="arrestation" [residence]="residence" [msg]="msg"
+      [isSaved]="isSaved">
+   </app-details-enfant>
 
-            <!-- <label  class="enLabel"  >معرف: <span class="d"> {{enfantLocal.id}}   </span> </label> -->
-         </p-header>
-
-         <div class="p-grid">
-            <div class="p-col-4">
-               <label class="enLabel">المعــــرف: <span class="d"> {{enfantLocal?.id}} </span> </label>
-               <label class="enLabel">الهويــــة: <span class="d"> {{enfantLocal?.nom}} بن {{enfantLocal?.nomPere}} بن
-                     {{enfantLocal?.nomGrandPere}} {{enfantLocal?.prenom}}</span> </label>
-
-               <label    class="enLabel"> هويــــة الأم: <span class="d">{{enfantLocal?.nomMere}}
-                     {{enfantLocal?.prenomMere}}</span></label>
-               <label    class="enLabel"> تــــاريخ الــــولادة : <span dir="rtl"
-                     class="d">{{enfantLocal?.dateNaissance}}</span></label>
-            </div>
-            <div class="p-col-4">
+      
+<div *ngIf="!isSaved" style="text-align: center;">
 
 
-               <label    class="enLabel" *ngIf="isExist"> العدد الرتبــــي للإيقــــاف: <span
-                     class="d">{{arrestation?.arrestationId?.numOrdinale}}</span></label>
+   <h1 class="neons"> <span>{{msg}}</span></h1>
 
-                     <label    class="enLabel" *ngIf="isExist"> تاريخ الإيداع : <span
-                        class="d" dir="rtl">{{arrestation?.date}}</span></label>
+ 
 
-               <label    class="enLabel" *ngIf="isExist"> مركز الإيقــــاف: <span
-                     class="d">{{residence?.etablissement?.libelle_etablissement}}</span></label>
-
-                     <label    class="enLabel" *ngIf="isExist"> بتــــاريــــخ: <span
-                        dir="rtl"   class="d" > {{residence?.dateEntree}}</span></label>
-              
-               <label    class="enLabel" *ngIf="isExist"> عــــدد الإيقــــاف : <span
-                     class="d" dir="rtl">{{residence?.numArrestation}}</span></label>
-            </div>
-            <div class="p-col-4">
-               <img *ngIf="enfantLocal.img" (click)="showImg()" src="{{enfantLocal.img}}" class="profile-img-card2">
-            </div>
-
-         </div>
+   <a class="button" (click)="addArrestatione()" *ngIf="allowNewAddArrestation">
+      <span>إدراج إيقاف جديد؟</span> </a>
 
 
-      </p-card>
 
-      <br>
-      <br>
+</div>
 
-
-      <div *ngIf="isExist">
-         <p-card *ngIf="!nextBoolean" [style]="{ 'height': 'auto',   'border-radius': '0%', 
-            '-moz-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
-            '-webkit-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
-            'box-shadow':' 1px 1px 1px #919191,
-            1px 2px 1px #919191,
-            1px 3px 1px #919191,
-            1px 4px 1px #919191,
-            1px 5px 1px #919191,
-            1px 6px 1px #919191,
-            1px 7px 1px #919191,
-            1px 8px 1px #919191,
-            1px 9px 1px #919191,
-            1px 10px 1px #919191','background-image': 'url(assets/layout/images/cart.jpg)' }" >
+      <div *ngIf="allowNewCarte">
+         <div *ngIf="!nextBoolean"  class="court-document" >
             <div class="p-grid">
                <div class="p-col">
                   <div>
@@ -275,7 +230,7 @@
             </div>
             <div style="text-align: center; ">
                
-               <button pButton type="button" label="التالي " (click)="next()"  *ngIf="update"
+               <button pButton type="button" label="التالي "  (click)="next()"  [disabled]="isLoading" *ngIf="update"
                   style="margin-bottom:10px;padding: 0.5em;margin-right: 10px;" class="ui-button-info"></button>
 
 
@@ -283,23 +238,11 @@
                   style="margin-bottom:10px;padding: 0.5em;margin-right: 10px;   " class="ui-button-danger"></button>
 
             </div>
-         </p-card>
+         </div>
 
 
 
-         <p-card dir="rtl" *ngIf="nextBoolean"  [style]="{ 'height': 'auto',   'border-radius': '0%', 
-            '-moz-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
-            '-webkit-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
-            'box-shadow':' 1px 1px 1px #919191,
-            1px 2px 1px #919191,
-            1px 3px 1px #919191,
-            1px 4px 1px #919191,
-            1px 5px 1px #919191,
-            1px 6px 1px #919191,
-            1px 7px 1px #919191,
-            1px 8px 1px #919191,
-            1px 9px 1px #919191,
-            1px 10px 1px #919191','background-image': 'url(assets/layout/images/cart.jpg)' }" >
+         <div dir="rtl" *ngIf="nextBoolean"   class="court-document" >
 
             <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
            
@@ -699,7 +642,7 @@
                   </p-header>
                <div class="p-field p-grid">
                   <div style="background-color: white;">
-                     <p-table [value]="entitiesAccusation">
+                     <p-table [value]="accusationCarteRecups">
                         <ng-template pTemplate="caption">
                            <div>
                               التهمة
@@ -739,7 +682,7 @@
                                     class="ui-button-danger" icon="pi pi-trash" (click)="deletAccusation(row)"></button> -->
 
 
-                                    <button *ngIf="rowIndex == entitiesAccusation?.length-1"  (click)="deletAccusation(row)"
+                                    <button *ngIf="rowIndex == accusationCarteRecups?.length-1"  (click)="deletAccusation(row)"
                                     style="background-color:white!important; " mat-mini-fab  >
                                        <i class="pi pi-trash" style="font-size: 25px; color: red;" > </i>
                                    </button>
@@ -850,32 +793,19 @@
 
 
 
-         </p-card>
+         </div>
       </div>
    </div>
 
 
-   <div style="text-align: center;" *ngIf="!isExist">
+   <div style="text-align: center;"  >
 
 
-      <br>
-      <div *ngIf="!isSaved">
-
-         <br>
-         <h1 class="neons" *ngIf="statEchappesOrlibre==0"> <span>{{msg}}</span></h1>
-
-         <h1 *ngIf="statEchappesOrlibre==1"> {{msg}} </h1>
-         <br> <br>
-
-         <a class="button" (click)="addArrestatione()" *ngIf="statEchappesOrlibre==1 && !nextAdd">
-            <span>إدراج إيقاف جديد؟</span> </a>
-
-
-         <h1 class="neons" *ngIf="statEchappesOrlibre==2"> <span>{{msg}}</span></h1>
-         <h1 class="neons" *ngIf="statEchappesOrlibre==3"> <span>{{msg}}</span></h1>
-         <h1 class="neons" *ngIf="statEchappesOrlibre==4"> <span>{{msg}}</span></h1>
-      </div>
-    
+      
+   <div class="card" *ngIf="isSaved && update ">
+   
+      <app-next-document [childId]="enfantLocal?.id"></app-next-document>
+   </div>
       <div class="card" *ngIf="isSaved">
 
          <app-show-carte-recup [carteRecup]="carteRecup"></app-show-carte-recup>
@@ -883,20 +813,7 @@
  
       </div>
 
-      <div class="card" *ngIf="isSaved && update ">
-
-               <div class="p-field p-grid">
-               <label   class="p-col-fixed"  >  إدراج وثيقة أخرى      ل{{enfantLocal.nom}} بن {{enfantLocal.nomPere}} بن
-                  {{enfantLocal.nomGrandPere}} {{enfantLocal.prenom}}   :  </label>
-               <div class="p-col">
-                     <p-dropdown   (onChange)="onChangeDir($event) "  [style]="{'width':'300px'}" [options]="directions" placeholder="    الوثائق" [filter]="true"  
-                     ></p-dropdown>
-                     <button pButton type="button"  
-                     style="background-color: #208273;" icon="pi pi-times-circle"
-                     (click)="goTO()"  ></button>
-               </div>
-            </div>
-       </div>
+     
 
    </div>
 
@@ -1159,7 +1076,7 @@
                <tr>
                   <th style="width: 100px;" >الرمز
                   </th>
-                  <th  > المحكمة
+                  <th  > الحكم
                   </th>
                   <th style="width: 50px;"> إدراج
                   </th>
@@ -1183,19 +1100,7 @@
 
 
 
-
-   <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
-   <p-dialog modal="true" *ngIf="enfantLocal" header="صورة: {{enfantLocal.nom}} {{enfantLocal.prenom}}  "
-      [(visible)]="displayImg" showEffect="fade">
-      <img src="{{enfantLocal.img}}" class="profile-img-card">
-      <div style="text-align: center;">
-         <button pButton (click)="displayImg=!displayImg;" type="button" icon="pi pi-times" label="إخفاء الصورة"
-            style="color: red;background-color: transparent;"></button>
-      </div>
-   </p-dialog>
-   <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
-
-
+ 
 
 
 
@@ -1271,7 +1176,7 @@
       <div dir="rtl"  class="p-grid" style="width:100%;" *ngIf="typeAffaireObjet && typeJugeObjet">
         
          <div class="p-col-4">
-            <p-dropdown [options]="accusationsToAdd" *ngIf="entitiesAccusation?.length !==0"
+            <p-dropdown [options]="accusationsToAdd" *ngIf="accusationCarteRecups?.length !==0"
                [(ngModel)]="accusationsToAddValue" [style]="{'width': '100%' }" [filter]="true">
 
 
@@ -1293,7 +1198,7 @@
                </ng-template>
             </p-dropdown>
             <div class="card">
-               <div class="p-grid" *ngIf="entitiesAccusation?.length==0">
+               <div class="p-grid" *ngIf="accusationCarteRecups?.length==0">
 
                   <div class="p-col ">
                      <label style="color: rgb(74, 89, 163);">تاريخ  بداية العقاب  : </label>
@@ -1398,11 +1303,11 @@
                     </div>
                     <div class="p-col">
                      <div style="background-color: white; color: rgb(175, 59, 59); padding: 6px 12px; font-size: 20px; 
-                     font-family: 'Amiri', Times, serif;" *ngIf="entitiesAccusation?.length ===0">
+                     font-family: 'Amiri', Times, serif;" *ngIf="accusationCarteRecups?.length ===0">
                       إختيار قضايا {{typeAffaireObjet.libelle_typeAffaire}}
                      </div>
                      <p-multiSelect    [options]="typeAffaireSwich" [filter]="true"   
-                     [style]="{'width':'100%', 'margin-top':'0'}"   emptyFilterMessage="لا تيوجد نتيجية "
+                     [style]="{'width':'100%', 'margin-top':'0'}"   emptyFilterMessage="لا توجد نتيجية "
                      defaultLabel="   قائمة  أنواع القضايا    " selectedItemsLabel="{0}   أنواع القضايا"  dir="ltr"  
                       (onChange)="dtTitreAccusation.filter($event.value,'typeAffaire.libelle_typeAffaire', 'in')">
                      <ng-template let-group pTemplate="item">
@@ -1721,9 +1626,14 @@
 
 
 
-<p-dialog header="إدراج إيقاف جديد" dir="rtl" [(visible)]="displayAddArrestation" modal="true" showEffect="fade">
-
-   <div class="save col-12" *ngIf="nextAdd">
+<p-dialog header="إدراج إيقاف جديد" dir="rtl" *ngIf="enfantLocal" [(visible)]="displayAddArrestation" modal="true" showEffect="fade">
+<div >
+   <h3>Détails de l'enfant</h3>
+   <p>Nom: {{ enfantLocal.nom }}</p>
+   
+ 
+</div>
+     <div class="save col-12" *ngIf="nextAdd">
       <span style="color: #99CE6B; font-family: 'Amiri', Times, serif;"> تمت عملية التسجيل بنجاح </span>
    </div>
    <div class="card" *ngIf="nextAdd"
@@ -1783,15 +1693,13 @@
                   <div class="p-col">
                      <p-inputMask [(ngModel)]="numArrestation"  mask="999999" slotChar="------"  
                      placeholder="عدد الإيقاف"></p-inputMask>
-                     <!-- <input id="lastname3" [(ngModel)]="numArrestation" type="number" pInputText> -->
+                    
                   </div>
                </div>
                <div class="p-field p-grid">
                   <label    class="p-col-fixed" style="width: 180px;">بتاريخ</label>
                   <div class="p-col">
-                     <!-- <p-inputMask mask="9999/99/99" dir="rtl" slotChar="----/--/--" placeholder="يوم/شهر/سنة"
-                        [style]="{'font-weight': '500','font-size': '16px','color': 'black'}" (change)="changeDate()"
-                        [(ngModel)]="dateEntreLocal"></p-inputMask> -->
+                    
 
                         <p-calendar   [(ngModel)]="dateEntreLocal"  dir="rtl"   [readonlyInput]="false"  
                   [style]="{'font-weight': '500','font-size': '18px','color': 'black'}"appendTo="body"
@@ -1819,8 +1727,8 @@
 
          </button>
       </div>
-   </div>
-
+   </div>  
+  <!-- <app-add-enfant   [enfantOld]="enfantLocal"></app-add-enfant>   -->
 </p-dialog>
 <p-dialog
    [style]="{width: '80vw', height: '30vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"

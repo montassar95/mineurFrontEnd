@@ -1,82 +1,27 @@
- 
-     
-  <span class="text">المنظومــــــة التربويــــــة     </span>
-   <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="onSubmit()" #f="ngForm" novalidate>
-          
-    
-    <!-- style=" background-image: url(assets/layout/images/chel.png); height: 100%; background-position: center;
-    background-repeat: no-repeat; background-size: cover; " -->
-<div  class="login-body" >
- 
-  <div class="login-content">
-   
-            
-            <!-- <img src="assets/layout/images//enfant-arc-en-ciel.jpg" class="card" style=" border-radius: 100%;" /> -->
-         
-        
- 
+<div class="login-container">
+  <div class="login-box">
+    <div class="logo">
+      <img src="assets/layout/images/cgprr.png" alt="Logo" />
+    </div>
+    <h2 class="title">المنظومــــــة التربويــــــة</h2>
 
-      <div class="login-panel "  >
-         
-          <div class="login-panel-content">
-          
-                <div class="logo">
-                  <img   src="assets/layout/images/cgprr.png"style="width:470px ;" class="img" />  
-              </div>  
-              
-              
-           
-
-              
-     
-                
-                
-          
-<div>
-              <div class="forms"  style="margin-right: 33%;">
-                   <div class="login-input-wrapper">
-                      <label  for="username" style="color: #03406b; font-weight: 800; font-size:30px; ">إسم المستعمل</label>
-                      
-                      <input type="text" placeholder="المستعمل"  dir="rtl" id="username"
-                       name="username" [(ngModel)]="form.username"
-                      required #username="ngModel" autocomplete="username"
-                      tooltipEvent="focus" pInputText pTooltip="إسم المستعمل"/>
-
-                    
-
-
-                   
-                  </div>
-
-                  <div class="login-input-wrapper">
-                      <label for="password" style="color: #03406b; font-weight: 800; font-size:30px;" >كلمة السر</label>
-
-                      <input type="password"   pInputText id="password"     dir="rtl"
-                      placeholder="كلمة السر" name="password" 
-                      [(ngModel)]="form.password" pTooltip="كلمة السر"
-                      tooltipEvent="focus"
-                      
-                       
-                      required   #password="ngModel" />
-                        </div>
-
-
-
-                  <div class="buttons" style="margin-left: 50%;  " >
-                    <button pButton type="submit" label="دخول" style="background-color: #074a7a;"  icon="pi pi-sign-in">      </button>
-                       
-                    <p style="color: red;" >{{errorMessage}}</p>
-                
-                      
-                  </div>
-              
-              </div>
-              </div>
-          </div>
+    <form *ngIf="!isLoggedIn" (ngSubmit)="onSubmit()" #f="ngForm" novalidate>
+      <div class="input-group">
+        <label for="username">إسم المستعمل</label>
+        <input type="text" id="username" name="username" [(ngModel)]="form.username" required #username="ngModel"
+          placeholder="المستعمل" dir="rtl" />
       </div>
 
-      <!-- <div class="desert"></div> -->
+      <div class="input-group">
+        <label for="password">كلمة السر</label>
+        <input type="password" id="password" name="password" [(ngModel)]="form.password" required #password="ngModel"
+          placeholder="كلمة السر" dir="rtl" />
+      </div>
+
+      <div class="buttons">
+        <button type="submit" class="btn-submit">دخول</button>
+        <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+      </div>
+    </form>
   </div>
 </div>
-</form>
-    

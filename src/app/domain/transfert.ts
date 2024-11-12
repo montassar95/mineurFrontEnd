@@ -9,8 +9,9 @@ import { TypeAffaire } from "./typeAffaire";
 import { TypeJuge } from "./typeJuge";
 import { Document } from "./document";
 import { Etablissement } from "./etablissement";
-import { Personelle } from "./personelle";
+
 import { ResultatTransfert } from "./resultatTransfert";
+import { User } from "./user";
 export class Transfert {
   documentId: DocumentId;
   typeDocument: string;
@@ -28,6 +29,6 @@ export class Transfert {
   resultatTransfert: ResultatTransfert;
 
   etablissement: Etablissement;
-
-  personelle: Personelle;
+  user: User;
+  // personelle: Personelle;
 }

@@ -7,64 +7,22 @@
 
 
 
-     
     <div class="card" *ngIf="enfantLocal && !isSaved">
-        <p-card [style]="{ 'height': 'auto',   'border-radius': '0%',
- '-moz-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
- '-webkit-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
- 'box-shadow':' 1px 1px 1px #919191,
- 1px 2px 1px #919191,
- 1px 3px 1px #919191,
- 1px 4px 1px #919191,
- 1px 5px 1px #919191,
- 1px 6px 1px #919191,
- 1px 7px 1px #919191,
- 1px 8px 1px #919191,
- 1px 9px 1px #919191,
- 1px 10px 1px #919191','background-image': 'url(assets/layout/images/cart.jpg)' }">
-            <p-header>
-
-                <!-- <label  class="enLabel"  >معرف: <span class="d"> {{enfantLocal.id}}   </span> </label> -->
-            </p-header>
-
-            <div class="p-grid">
-                <div class="p-col-4">
-                   <label class="enLabel">المعــــرف: <span class="d"> {{enfantLocal?.id}} </span> </label>
-                   <label class="enLabel">الهويــــة: <span class="d"> {{enfantLocal?.nom}} بن {{enfantLocal?.nomPere}} بن
-                         {{enfantLocal?.nomGrandPere}} {{enfantLocal?.prenom}}</span> </label>
     
-                   <label for="firstname3" class="enLabel"> هويــــة الأم: <span class="d">{{enfantLocal?.nomMere}}
-                         {{enfantLocal?.prenomMere}}</span></label>
-                   <label for="firstname3" class="enLabel"> تــــاريخ الــــولادة : <span dir="rtl"
-                         class="d">{{enfantLocal?.dateNaissance}}</span></label>
-                </div>
-                <div class="p-col-4">
+    <app-details-enfant [enfantLocal]="enfantLocal" [arrestation]="arrestation" [residence]="residence" [msg]="msg"
+        [isSaved]="isSaved">
+    </app-details-enfant>
+    
+        
+        <div *ngIf="!isSaved" style="text-align: center;">
     
     
-                   <label for="firstname3" class="enLabel" *ngIf="isExist"> العدد الرتبــــي للإيقــــاف: <span
-                         class="d">{{arrestation?.arrestationId?.numOrdinale}}</span></label>
+            <h1 class="neons"> <span>{{msg}}</span></h1>
     
-                         <label for="firstname3" class="enLabel" *ngIf="isExist"> تاريخ الإيداع : <span
-                            class="d" dir="rtl">{{arrestation?.date}}</span></label>
     
-                   <label for="firstname3" class="enLabel" *ngIf="isExist"> مركز الإيقــــاف: <span
-                         class="d">{{residence?.etablissement?.libelle_etablissement}}</span></label>
     
-                         <label for="firstname3" class="enLabel" *ngIf="isExist"> بتــــاريــــخ: <span
-                            dir="rtl"   class="d" > {{residence?.dateEntree}}</span></label>
-                  
-                   <label for="firstname3" class="enLabel" *ngIf="isExist"> عــــدد الإيقــــاف : <span
-                         class="d" dir="rtl">{{residence?.numArrestation}}</span></label>
-                </div>
-                <div class="p-col-4">
-                   <img *ngIf="enfantLocal.img" (click)="showImg()" src="{{enfantLocal.img}}" class="profile-img-card2">
-                </div>
     
-             </div>
-
-
-        </p-card>
-
+        </div>
 
 
 
@@ -79,10 +37,7 @@
 
 
 
-        <div *ngIf="isExist" class="card" style="margin-top:20px ; border-radius:  0%;background-image: url(assets/layout/images/cart.jpg);
--moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.966);
--webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.966);
-   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.966)">
+        <div *ngIf="allowNewCarte" class="court-document" >
 
 
             <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
@@ -90,30 +45,30 @@
 
 
 
-            <div class="card">
+            <div  class="card" >
                 <div class="p-grid">
                     <div class="p-col ">
                     <div class="p-field p-grid">
 
-                        <label for="lastname3" class="p-col-fixed">العدد الرتبي للوثيقة: <span
+                        <label for="lastname3" class="info-label">العدد الرتبي للوثيقة: <span
                                 class="d">{{numOrdinalDoc}}</span> </label>
 
                     </div>
                 </div>
                     <div class="p-col ">
                         <div class="p-field p-grid">
-                            <label for="firstname3" class="p-col-fixed"> تاريخ   الإستئناف </label>
-                            <div class="p-col">
-                                <!-- <p-inputMask [style]="{'width':'120px' , 'font-weight': '500','font-size': '16px','color': 'black'}"
-                                [(ngModel)]="dateDepotCarte" mask="99/99/9999" slotChar="--/--/----"
-                                placeholder="يوم/شهر/سنة">
-                             </p-inputMask> -->
-                             <p-calendar  [(ngModel)]="dateDepotCarte"   dir="rtl"   [readonlyInput]="false"
-                             [style]="{'font-weight': '500','font-size': '18px','color': 'black'}"appendTo="body"
-                            [yearNavigator]="true"  readonly ="true" [monthNavigator]="true" [yearRange]="years"  dateFormat="yy/mm/dd"  [locale]="calendar_ar" placeholder="يوم/شهر/سنة"   >
-                              
-                          </p-calendar>
-                            </div>
+                            <label for="firstname3"class="info-label"> تاريخ   الإستئناف 
+                                <p-calendar [(ngModel)]="dateDepotCarte" dir="rtl" [readonlyInput]="false"
+                                    [style]="{'font-weight': '500','font-size': '18px','color': 'black'}" appendTo="body" [yearNavigator]="true"
+                                    readonly="true" [monthNavigator]="true" [yearRange]="years" dateFormat="yy/mm/dd" [locale]="calendar_ar"
+                                    placeholder="يوم/شهر/سنة">
+                                
+                                </p-calendar>
+                            </label>
+                        
+                                
+                             
+                           
                         </div>
                     </div>
                     <!-- <div class="p-col ">
@@ -131,7 +86,7 @@
             </div>
 
             <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
-            <div class="card">
+            <div >
                 <div class="p-grid">
                     <div class="p-col">
                         <div style="margin-top: 10px;  ">
@@ -208,38 +163,21 @@
 
 
     </div>
-    <div style="text-align: center;" *ngIf="!isExist">
+    <div style="text-align: center;"  >
 
 
 
 
 
-        <div  *ngIf="!isSaved">
-            <br>
-        <h1  class="neons"  *ngIf="statEchappesOrlibre==0"> <span>{{msg}}</span></h1>
-        <h1 *ngIf="statEchappesOrlibre==1">  {{msg}} </h1>
-        <h1  class="neons"  *ngIf="statEchappesOrlibre==2"> <span>{{msg}}</span></h1>
-        <h1  class="neons"  *ngIf="statEchappesOrlibre==3"> <span>{{msg}}</span></h1>
-        <h1  class="neons"  *ngIf="statEchappesOrlibre==4"> <span>{{msg}}</span></h1>
+        <div class="card" *ngIf="isSaved">
+        
+            <app-next-document [childId]="enfantLocal?.id"></app-next-document>
         </div>
         <div  class="card" *ngIf="isSaved">
     
             <app-show-appel-parquet   [appelParquet]="appelParquet"></app-show-appel-parquet>                    
         </div>
-        <div class="card" *ngIf="isSaved">
-
-            <div class="p-field p-grid">
-            <label   class="p-col-fixed"  >  إدراج وثيقة أخرى     ل{{enfantLocal.nom}} بن {{enfantLocal.nomPere}} بن
-               {{enfantLocal.nomGrandPere}} {{enfantLocal.prenom}}   :  </label>
-            <div class="p-col">
-                  <p-dropdown   (onChange)="onChangeDir($event) "  [style]="{'width':'300px'}" [options]="directions" placeholder="    الوثائق" [filter]="true"  
-                  ></p-dropdown>
-                  <button pButton type="button"  
-                  style="background-color: green;" icon="pi pi-times-circle"
-                  (click)="goTO()"  ></button>
-            </div>
-         </div>
-    </div>
+     
        
     </div>
 </div>

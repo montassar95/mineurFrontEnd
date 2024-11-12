@@ -20,6 +20,11 @@ import { TypeAffaire } from "src/app/domain/typeAffaire";
 import { TypeTribunal } from "src/app/domain/typeTribunal";
 import { BreadcrumbService } from "src/app/shared/breadcrumb/breadcrumb.service";
 import { TokenStorageService } from "src/app/_services/token-storage.service";
+import { AppConfigService } from "../app-config.service";
+import { DocumentService } from "src/app/demo/service/document.service";
+import { AffaireService } from "src/app/demo/service/affaire.service";
+import { DetentionService } from "src/app/demo/service/detention.service";
+import { Arrestation } from "src/app/domain/arrestation";
 
 @Component({
   selector: "app-add-arreter-lexecution",
@@ -28,9 +33,10 @@ import { TokenStorageService } from "src/app/_services/token-storage.service";
   providers: [MessageService],
 })
 export class AddArreterLexecutionComponent implements OnInit {
+  affaires: Affaire[];
   refresh() {
-    this.crudservice
-      .getDocumentByArrestation(
+    this.documentService
+      .calculerNombreDocumentsJudiciairesParDetention(
         this.arrestation.arrestationId.idEnfant,
         this.arrestation.arrestationId.numOrdinale
       )
@@ -53,7 +59,7 @@ export class AddArreterLexecutionComponent implements OnInit {
   isExist = false;
   isSaved = false;
   msg = "";
-  arrestation: any;
+  arrestation: Arrestation;
   displayAlertOrigineExist = false;
   showTransfert = false;
   dateEmission;
@@ -73,31 +79,12 @@ export class AddArreterLexecutionComponent implements OnInit {
   gouvernoratSwich: SelectItem[];
 
   types: SelectItem[];
-  directions = [
-    { label: "  بطاقات الإيواء    ", value: "/mineur/docHeber" },
-    { label: "    بطاقات الإيداع ", value: "/mineur/docDepot" },
 
-    { label: "     مضامين الأحكام    ", value: "/mineur/docRecup" },
-    { label: "     إحالة قضية    ", value: "/mineur/Transfert" },
-    { label: "       إيقاف تنفيذ  ", value: "/mineur/ArreterLexecution" },
-
-    {
-      label: "      طعن النيابة بالاستئناف       ",
-      value: "/mineur/AppelParquet",
-    },
-    { label: "         مراجعة     ", value: "/mineur/Revue" },
-    {
-      label: "          طعن الطفل بالاستئناف      ",
-      value: "/mineur/AppelEnfant",
-    },
-    { label: "   الفرارات   ", value: "/mineur/echappes" },
-    { label: "  النقل  ", value: "/mineur/mutation" },
-    { label: "   إجراءات السراح  ", value: "/mineur/liberation" },
-
-    { label: "  الوفاة  ", value: "/mineur/deces" },
-  ];
   constructor(
     private crudservice: CrudEnfantService,
+    private documentService: DocumentService,
+    private affaireService: AffaireService,
+    private detentionService: DetentionService,
     private formBuilder: FormBuilder,
     private eventService: EventService,
     private nodeService: NodeService,
@@ -105,7 +92,8 @@ export class AddArreterLexecutionComponent implements OnInit {
     private breadcrumbService: BreadcrumbService,
     public datepipe: DatePipe,
     private token: TokenStorageService,
-    private router: Router
+    private router: Router,
+    private appConfigService: AppConfigService
   ) {
     this.breadcrumbService.setItems([
       {
@@ -131,8 +119,8 @@ export class AddArreterLexecutionComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.crudservice
-      .findDocumentById(this.arreterlexecution.documentId)
+    this.documentService
+      .trouverDocumentJudiciaireParId(this.arreterlexecution.documentId)
       .subscribe((data) => {
         console.log(
           "======================================================================================="
@@ -204,180 +192,186 @@ export class AddArreterLexecutionComponent implements OnInit {
     this.listeMotif();
     this.showAllGouvernorat();
     this.showAllTypeTribunal();
-    this.calendar_ar = {
-      closeText: "Fermer",
-      prevText: "Précédent",
-      nextText: "Suivant",
-      currentText: "Aujourd'hui",
-      monthNames: [
-        "  جانفــــي  ",
-
-        "   فيفـــري   ",
-        "  مــــارس  ",
-        "  أفريــــل  ",
-        "  مــــاي  ",
-        "  جــــوان  ",
-        "  جويليــــة  ",
-        "  أوت  ",
-        "  سبتمبــــر  ",
-        "  أكتوبــــر  ",
-        "  نوفمبــــر  ",
-        "  ديسمبــــر  ",
-      ],
-      monthNamesShort: [
-        "janv.",
-        "févr.",
-        "mars",
-        "avr.",
-        "mai",
-        "juin",
-        "juil.",
-        "août",
-        "sept.",
-        "oct.",
-        "nov.",
-        "déc.",
-      ],
-      dayNames: [
-        "dimanche",
-        "lundi",
-        "mardi",
-        "mercredi",
-        "jeudi",
-        "vendredi",
-        "samedi",
-      ],
-      dayNamesShort: ["dim.", "lun.", "mar.", "mer.", "jeu.", "ven.", "sam."],
-      dayNamesMin: ["D", "L", "M", "M", "J", "V", "S"],
-      weekHeader: "Sem.",
-      dateFormat: "dd/mm/yy",
-      firstDay: 1,
-      isRTL: false,
-      showMonthAfterYear: true,
-      yearSuffix: "",
-    };
+    this.calendar_ar = this.appConfigService.calendarConfig;
   }
+  //------------------------------------------------------------enfant-----------------------------------------------------------------------------------------------
+
+  allowNewAddArrestation = false;
+  allowNewCarte = false;
+  alerte: boolean;
   search(id: String) {
-    this.crudservice.getLigneById("enfant", id).subscribe((data) => {
-      this.enfantLocal = data.result;
-      this.years =
-        this.years +
-        (new Date(this.enfantLocal?.dateNaissance).getFullYear() + 13) +
-        ":" +
-        new Date().getFullYear();
-      this.crudservice
-        .getLigneById("deces", this.enfantLocal.id)
-        .subscribe((data) => {
-          if (data.result == null) {
-            this.crudservice
-              .findByIdEnfantAndResidenceTrouverNull("echappes", id)
-              .subscribe((data) => {
-                if (data.result == null) {
-                  this.crudservice
-                    .findByIdEnfantAndStatut0("arrestation", id)
-                    .subscribe((data) => {
-                      this.arrestation = data.result;
-                      this.crudservice
-                        .getLiberationById(
-                          "liberation",
-                          this.arrestation.arrestationId.idEnfant,
-                          this.arrestation.arrestationId.numOrdinale
-                        )
-                        .subscribe((data) => {
-                          if (data.result != null) {
-                            this.isExist = false;
-                            this.msg = " طفل  في حالـــة ســراح ";
-                            this.statEchappesOrlibre = 1;
-                          } else {
-                            this.crudservice
-                              .findResidenceByIdEnfantAndStatut0(
-                                "residence",
-                                this.arrestation.arrestationId.idEnfant,
-                                this.arrestation.arrestationId.numOrdinale
-                              )
-                              .subscribe((data) => {
-                                this.residence = data.result;
+    this.detentionService
+      .trouverDetenuAvecSonStatutActuel(
+        id,
+        this.token.getUser().personelle.etablissement.id
+      )
+      .subscribe((data) => {
+        this.enfantLocal = data.result.enfant;
+        this.msg = data.result.situation;
+        this.years = "";
+        this.years =
+          this.years +
+          (new Date(this.enfantLocal?.dateNaissance).getFullYear() + 13) +
+          ":" +
+          new Date().getFullYear();
+        this.allowNewAddArrestation = data.result.allowNewAddArrestation;
+        this.allowNewCarte = data.result.allowNewCarte;
+        this.alerte = data.result.alerte;
+        if (!this.alerte) {
+          this.arrestation = data.result.arrestations[0];
+          this.residence = data.result.residence;
 
-                                this.crudservice
-                                  .findByIdEnfantAndStatutEnCour(
-                                    "residence",
-                                    this.arrestation.arrestationId.idEnfant,
-                                    this.arrestation.arrestationId.numOrdinale
-                                  )
-                                  .subscribe((data) => {
-                                    if (data.result != null) {
-                                      this.isExist = false;
-                                      this.statEchappesOrlibre = 2;
-                                      this.msg =
-                                        "      نقلـــة جـــارية إلـــى مركــز    " +
-                                        data.result.etablissement
-                                          .libelle_etablissement;
-                                    }
-                                  });
-                                if (
-                                  data.result.etablissement.id !=
-                                  this.token.getUser().personelle.etablissement
-                                    .id
-                                ) {
-                                  this.isExist = false;
-                                  this.statEchappesOrlibre = 3;
-                                  this.msg =
-                                    "      طفــل مقيــم بمركــز     " +
-                                    data.result.etablissement
-                                      .libelle_etablissement;
-                                }
-                              });
-
-                            this.crudservice
-                              .getDocumentByArrestation(
-                                this.arrestation.arrestationId.idEnfant,
-                                this.arrestation.arrestationId.numOrdinale
-                              )
-                              .subscribe((data) => {
-                                if (this.numOrdinalDoc) {
-                                  this.numOrdinalDoc = this.numOrdinalDoc;
-                                } else {
-                                  this.numOrdinalDoc = data.result + 1;
-                                }
-                              });
-
-                            this.crudservice
-                              .findByArrestationToArret(
-                                "affaire",
-                                this.arrestation.arrestationId.idEnfant,
-                                this.arrestation.arrestationId.numOrdinale
-                              )
-                              .subscribe((data) => {
-                                if (data.result == null) {
-                                  console.log(data.result);
-                                  // this.service.add({
-                                  // 	key: 'tst',
-                                  // 	severity: 'error',
-                                  // 	summary: '.   خطأ    ',
-                                  // 	detail: id + 'pas d'affaire dans cette arrestation  '
-                                  // });
-                                } else {
-                                  console.log(data.result);
-                                  this.entitiesAffaire = data.result;
-                                }
-                              });
-                            this.isExist = true;
-                          }
-                        });
-                    });
-                } else {
-                  this.msg = "طفل في حالــــــة فـــرار";
-                  this.statEchappesOrlibre = 0;
-                }
-              });
-          } else {
-            this.statEchappesOrlibre = 4;
-
-            this.msg = "طفل فــي ذمــــــة اللـــه";
-          }
-        });
-    });
+          this.documentService
+            .calculerNombreDocumentsJudiciairesParDetention(
+              this.arrestation.arrestationId.idEnfant,
+              this.arrestation.arrestationId.numOrdinale
+            )
+            .subscribe((data) => {
+              if (this.numOrdinalDoc) {
+                this.update = false;
+                this.numOrdinalDoc = this.numOrdinalDoc;
+              } else {
+                this.numOrdinalDoc = data.result + 1;
+              }
+            });
+          this.affaireService
+            .trouverAffairesParAction(
+              "arreter",
+              this.arrestation.arrestationId.idEnfant,
+              this.arrestation.arrestationId.numOrdinale
+            )
+            .subscribe((data) => {
+              if (data.result == null) {
+              } else {
+                this.affaires = data.result;
+              }
+            });
+        }
+      });
   }
+  //------------------------------------------------------------enfant-----------------------------------------------------------------------------------------------
+
+  // search(id: String) {
+  //   this.crudservice.getLigneById("enfant", id).subscribe((data) => {
+  //     this.enfantLocal = data.result;
+  //     this.years =
+  //       this.years +
+  //       (new Date(this.enfantLocal?.dateNaissance).getFullYear() + 13) +
+  //       ":" +
+  //       new Date().getFullYear();
+  //     this.crudservice
+  //       .getLigneById("deces", this.enfantLocal.id)
+  //       .subscribe((data) => {
+  //         if (data.result == null) {
+  //           this.crudservice
+  //             .trouverEchappeNonApprehende("echappes", id)
+  //             .subscribe((data) => {
+  //               if (data.result == null) {
+  //                 this.crudservice
+  //                   .trouverDerniereDetentionParIdDetenu("arrestation", id)
+  //                   .subscribe((data) => {
+  //                     this.arrestation = data.result;
+  //                     this.crudservice
+  //                       .getLiberationById(
+  //                         "liberation",
+  //                         this.arrestation.arrestationId.idEnfant,
+  //                         this.arrestation.arrestationId.numOrdinale
+  //                       )
+  //                       .subscribe((data) => {
+  //                         if (data.result != null) {
+  //                           this.isExist = false;
+  //                           this.msg = " طفل  في حالـــة ســراح ";
+  //                           this.statEchappesOrlibre = 1;
+  //                         } else {
+  //                           this.crudservice
+  //                             .findResidenceByIdEnfantAndStatut0(
+  //                               "residence",
+  //                               this.arrestation.arrestationId.idEnfant,
+  //                               this.arrestation.arrestationId.numOrdinale
+  //                             )
+  //                             .subscribe((data) => {
+  //                               this.residence = data.result;
+
+  //                               this.crudservice
+  //                                 .findByIdEnfantAndStatutEnCour(
+  //                                   "residence",
+  //                                   this.arrestation.arrestationId.idEnfant,
+  //                                   this.arrestation.arrestationId.numOrdinale
+  //                                 )
+  //                                 .subscribe((data) => {
+  //                                   if (data.result != null) {
+  //                                     this.isExist = false;
+  //                                     this.statEchappesOrlibre = 2;
+  //                                     this.msg =
+  //                                       "      نقلـــة جـــارية إلـــى مركــز    " +
+  //                                       data.result.etablissement
+  //                                         .libelle_etablissement;
+  //                                   }
+  //                                 });
+  //                               if (
+  //                                 data.result.etablissement.id !=
+  //                                 this.token.getUser().personelle.etablissement
+  //                                   .id
+  //                               ) {
+  //                                 this.isExist = false;
+  //                                 this.statEchappesOrlibre = 3;
+  //                                 this.msg =
+  //                                   "      طفــل مقيــم بمركــز     " +
+  //                                   data.result.etablissement
+  //                                     .libelle_etablissement;
+  //                               }
+  //                             });
+
+  //                           this.crudservice
+  //                             .getDocumentByArrestation(
+  //                               this.arrestation.arrestationId.idEnfant,
+  //                               this.arrestation.arrestationId.numOrdinale
+  //                             )
+  //                             .subscribe((data) => {
+  //                               if (this.numOrdinalDoc) {
+  //                                 this.numOrdinalDoc = this.numOrdinalDoc;
+  //                               } else {
+  //                                 this.numOrdinalDoc = data.result + 1;
+  //                               }
+  //                             });
+
+  //                           this.crudservice
+  //                             .findByArrestationToArret(
+  //                               "affaire",
+  //                               this.arrestation.arrestationId.idEnfant,
+  //                               this.arrestation.arrestationId.numOrdinale
+  //                             )
+  //                             .subscribe((data) => {
+  //                               if (data.result == null) {
+  //                                 console.log(data.result);
+  //                                 // this.service.add({
+  //                                 // 	key: 'tst',
+  //                                 // 	severity: 'error',
+  //                                 // 	summary: '.   خطأ    ',
+  //                                 // 	detail: id + 'pas d'affaire dans cette arrestation  '
+  //                                 // });
+  //                               } else {
+  //                                 console.log(data.result);
+  //                                 this.entitiesAffaire = data.result;
+  //                               }
+  //                             });
+  //                           this.isExist = true;
+  //                         }
+  //                       });
+  //                   });
+  //               } else {
+  //                 this.msg = "طفل في حالــــــة فـــرار";
+  //                 this.statEchappesOrlibre = 0;
+  //               }
+  //             });
+  //         } else {
+  //           this.statEchappesOrlibre = 4;
+
+  //           this.msg = "طفل فــي ذمــــــة اللـــه";
+  //         }
+  //       });
+  //   });
+  // }
 
   //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -536,6 +530,8 @@ export class AddArreterLexecutionComponent implements OnInit {
         this.affaireIdOrigine.idEnfant = this.enfantLocal.id;
         this.affaireIdOrigine.idTribunal = this.tribunalTransfereObjet.id;
         this.affaireIdOrigine.numAffaire = this.numAffaireTransfere;
+        this.affaireIdOrigine.numOrdinaleArrestation =
+          this.arrestation.arrestationId.numOrdinale;
 
         this.affaireOrigine.arrestation = this.arrestation;
         this.affaireOrigine.tribunal = this.tribunalTransfereObjet;
@@ -545,19 +541,18 @@ export class AddArreterLexecutionComponent implements OnInit {
         this.affaireOrigine = this.affaireObjet;
       }
 
-      this.crudservice
-        .verifierNumOrdinalAffaire(
-          "affaire",
-          this.affaireOrigine,
-          this.arrestation.arrestationId.numOrdinale
-        )
+      this.affaireService
+        .mettreAJourNumeroOrdinal(this.affaireOrigine)
         .subscribe((data) => {
+          console.log("hihi");
+          console.log(data.result);
+
           this.affaireOrigine = data.result;
           this.arreterlexecution.affaire = this.affaireOrigine;
           this.documentId.numOrdinalAffaire =
             this.affaireOrigine.numOrdinalAffaire;
-          this.crudservice
-            .countDocumentByAffaire(
+          this.documentService
+            .calculerNombreDocumentsJudiciairesParAffaire(
               this.arrestation.arrestationId.idEnfant,
               this.arrestation.arrestationId.numOrdinale,
               this.affaireOrigine.numOrdinalAffaire
@@ -594,8 +589,7 @@ export class AddArreterLexecutionComponent implements OnInit {
                 this.residence.numArrestation;
               this.arreterlexecution.etablissement =
                 this.residence.etablissement;
-              this.arreterlexecution.personelle =
-                this.token.getUser().personelle;
+              this.arreterlexecution.user = this.token.getUser();
               this.arreterlexecution.dateInsertion = this.datepipe.transform(
                 new Date(),
                 "yyyy-MM-dd"
@@ -638,18 +632,7 @@ export class AddArreterLexecutionComponent implements OnInit {
         }
       });
   }
-  nav;
-  onChangeDir(event) {
-    this.nav = event.value;
-  }
-  goTO() {
-    window.localStorage.removeItem("idValideNav");
 
-    window.localStorage.setItem("idValideNav", this.enfantLocal.id.toString());
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = "reload";
-    this.router.navigate([this.nav]);
-  }
   showAllGouvernorat() {
     this.crudservice.getlistEntity("gouvernorat").subscribe((data) => {
       if (data.result) {

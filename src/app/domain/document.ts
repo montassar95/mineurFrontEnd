@@ -12,7 +12,7 @@ export class Document {
     // protected  documentId: DocumentId;
     // protected  typeDocument: string;
    documentId: DocumentId;
-       typeDocument: string;
+    typeDocument: string;
        
     constructor(documentId: DocumentId, typeDocument: string) {
 
