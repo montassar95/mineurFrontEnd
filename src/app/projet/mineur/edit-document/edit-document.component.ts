@@ -139,7 +139,7 @@ export class EditDocumentComponent implements OnInit {
             .subscribe((data) => {
               if (
                 data.result?.etablissement?.id ==
-                this.token?.getUser()?.personelle?.etablissement?.id
+                this.token?.getUser()?.etablissement?.id
               ) {
                 this.autorise = true;
               }

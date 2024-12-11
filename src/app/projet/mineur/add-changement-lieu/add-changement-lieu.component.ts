@@ -234,7 +234,7 @@ export class AddChangementLieuComponent implements OnInit {
     this.detentionService
       .trouverDetenuAvecSonStatutActuel(
         id,
-        this.token.getUser().personelle.etablissement.id
+        this.token.getUser().etablissement.id
       )
       .subscribe((data) => {
         this.enfantLocal = data.result.enfant;
@@ -585,7 +585,7 @@ export class AddChangementLieuComponent implements OnInit {
               this.changementLieu.numArrestation =
                 this.residence.numArrestation;
               this.changementLieu.etablissement = this.residence.etablissement;
-              this.changementLieu.user = this.token.getUser();
+              // this.changementLieu.user = this.token.getUser();
               this.changementLieu.etablissementMutation =
                 this.etablissementLocal;
               this.changementLieu.dateInsertion = this.datepipe.transform(
@@ -696,7 +696,7 @@ export class AddChangementLieuComponent implements OnInit {
       console.log(data);
       this.entitesEtablissement = data.result;
       this.entitesEtablissement = this.entitesEtablissement.filter(
-        (s) => s.id !== this.currentUser.personelle.etablissement.id
+        (s) => s.id !== this.currentUser.etablissement.id
       );
     });
   }

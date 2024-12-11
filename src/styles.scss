@@ -28,7 +28,7 @@ $mirage-theme: mat-light-theme($mirage-primary, $mirage-accent, $mirage-warn);
 
 /* You can add global styles to this file, and also import other style files */
 
-html, body {  min-height: 90%;   }
+html, body {  min-height: 100%;   }
 body { margin: 0; font-family: 'Amiri', Times, serif, "Helvetica Neue", sans-serif; }
 label
 {
@@ -207,21 +207,21 @@ input[type=number] {
  }
 
  /* Global Styles */
- * {
-   margin: 0;
-   padding: 0;
-   box-sizing: border-box;
- }
+//  * {
+//    margin: 0;
+//    padding: 0;
+//    box-sizing: border-box;
+//  }
 
- body {
-   font-family: 'Amiri', Times, serif;
-   font-size: 16px;
-   background-color: #f4f4f4;
- }
+//  body {
+//    font-family: 'Amiri', Times, serif;
+//    font-size: 16px;
+//    background-color: #f4f4f4;
+//  }
 
- .container {
-   margin: 2rem;
- }
+//  .container {
+//    margin: 2rem;
+//  }
 
  .table-header {
    display: flex;
@@ -238,23 +238,23 @@ input[type=number] {
    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
  }
 
- th,
- td {
-   text-align: center;
-   padding: 12px;
-   font-size: 22px;
-   color: #333;
- }
+//  th,
+//  td {
+//    text-align: center;
+//    padding: 12px;
+//    font-size: 22px;
+//    color: #333;
+//  }
 
- th {
-   font-weight: bold;
-   background-color: #eaeaea;
- }
+//  th {
+//    font-weight: bold;
+//    background-color: #eaeaea;
+//  }
 
- td {
-   font-weight: lighter;
-   background-color: #fff;
- }
+//  td {
+//    font-weight: lighter;
+//    background-color: #fff;
+//  }
 
  button.add-btn,
  button.edit-btn {
@@ -275,14 +275,14 @@ input[type=number] {
  }
 
  /* Input and Sorting */
- input {
-   font-weight: bold;
-   font-size: 16px;
-   padding: 0.5rem;
-   border-radius: 8px;
-   border: 1px solid #ccc;
-   width: 250px;
- }
+//  input {
+//    font-weight: bold;
+//    font-size: 16px;
+//    padding: 0.5rem;
+//    border-radius: 8px;
+//    border: 1px solid #ccc;
+//    width: 250px;
+//  }
 
  input:focus {
    outline: none;

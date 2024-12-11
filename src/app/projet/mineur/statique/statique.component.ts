@@ -294,7 +294,7 @@ export class StatiqueComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.saveCentre(this.token?.getUser()?.personelle?.etablissement);
+    this.saveCentre(this.token?.getUser()?.etablissement);
     this.crudservice
       .trouverEtablissementsActifs("etablissement")
       .subscribe((data) => {

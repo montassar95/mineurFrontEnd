@@ -1,0 +1,35 @@
+/* Styles pour le titre 1 : Dégradé Bleu */
+.tab-title-blue {
+    font-family: 'Amiri', Times, serif;
+    font-weight: bold;
+    font-size: 30px;
+    color: #fff;
+    /* Couleur du texte blanc */
+    background: linear-gradient(90deg, #007bff, #00c6ff);
+    /* Dégradé bleu */
+    padding: 20px;
+    border-radius: 12px;
+    /* Coins arrondis */
+    text-align: center;
+    margin: 0;
+    box-shadow: 0 4px 20px rgba(0, 123, 255, 0.5);
+    /* Ombre douce */
+}
+
+/* Styles pour le titre 2 : Dégradé Rouge */
+.tab-title-red {
+    font-family: 'Amiri', Times, serif;
+    font-weight: bold;
+    font-size: 30px;
+    color: #fff;
+    /* Couleur du texte blanc */
+    background: linear-gradient(90deg, #ff5733, #ff8c69);
+    /* Dégradé rouge */
+    padding: 20px;
+    border-radius: 12px;
+    /* Coins arrondis */
+    text-align: center;
+    margin: 0;
+    box-shadow: 0 4px 20px rgba(255, 87, 51, 0.5);
+    /* Ombre douce */
+}

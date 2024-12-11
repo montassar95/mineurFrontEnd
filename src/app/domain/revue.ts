@@ -22,8 +22,8 @@ export class Revue {
   numArrestation?: any;
 
   etablissement: Etablissement;
-  user: User;
-//   personelle: Personelle;
+  //  user: User;
+  //   personelle: Personelle;
 }
  
  

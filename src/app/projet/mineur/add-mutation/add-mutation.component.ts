@@ -100,7 +100,7 @@ export class AddMutationComponent implements OnInit, OnDestroy {
       console.log(data);
       this.entitesEtablissement = data.result;
       this.entitesEtablissement = this.entitesEtablissement.filter(
-        (s) => s.id !== this.currentUser.personelle.etablissement.id
+        (s) => s.id !== this.currentUser.etablissement.id
       );
     });
 

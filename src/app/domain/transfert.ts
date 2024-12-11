@@ -29,6 +29,6 @@ export class Transfert {
   resultatTransfert: ResultatTransfert;
 
   etablissement: Etablissement;
-  user: User;
+  // user: User;
   // personelle: Personelle;
 }

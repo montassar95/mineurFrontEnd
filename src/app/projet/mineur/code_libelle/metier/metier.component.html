@@ -14,7 +14,7 @@
     paginatorPosition="bottom" [rowsPerPageOptions]="[5,10,20,50]"  [paginator]="true" [rows]="10" [globalFilterFields]="['id','libelle_metier']">
      <ng-template pTemplate="caption">
        <div class="p-d-flex p-ai-center p-jc-between">
-        <h1  style="text-align: right;"  >  إسترشــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــاد :
+        <h1  style="text-align: right;"  >   
             <input type="text" pInputText size="50" placeholder="  كلمــــــــــة مفتــــــــــاح" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:250px;
                                                                                                                         font-weight: bold;
                                                                                                                         font-size: 16px;">

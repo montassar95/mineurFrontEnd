@@ -166,7 +166,7 @@ export class AddLiberationComponent implements OnInit, OnDestroy {
     this.detentionService
       .trouverDetenuAvecSonStatutActuel(
         id,
-        this.token.getUser().personelle.etablissement.id
+        this.token.getUser().etablissement.id
       )
       .subscribe((data) => {
         this.enfantLocal = data.result.enfant;
@@ -271,7 +271,7 @@ export class AddLiberationComponent implements OnInit, OnDestroy {
 
   addResidence() {
     this.centre =
-      this.currentUser.personelle.etablissement.libelle_etablissement;
+      this.currentUser.etablissement.libelle_etablissement;
 
     this.detentionService
       .calculerNombreDetentionsParIdDetenu("arrestation", this.enfantLocal.id)
@@ -300,7 +300,7 @@ export class AddLiberationComponent implements OnInit, OnDestroy {
             this.residence.residenceId.numOrdinaleResidence + 1;
           residence.residenceId = this.residence.residenceId;
           residence.arrestation = this.residence.arrestation;
-          residence.etablissement = this.currentUser.personelle.etablissement;
+          residence.etablissement = this.currentUser.etablissement;
           residence.dateEntree = this.dateEntreLocal;
           residence.numArrestation = this.numArrestation;
 

@@ -1,15 +1,15 @@
 <div class="login-container">
   <div class="login-box">
     <div class="logo">
-      <img src="assets/layout/images/cgprr.png" alt="Logo" />
+      <img src="assets/layout/images/Drapeau-Tunisie_180-gif.gif" alt="Logo" />
     </div>
-    <h2 class="title">المنظومــــــة التربويــــــة</h2>
+    <h2 class="title">المنظومــــــة الجــــزئيــــــة</h2>
 
     <form *ngIf="!isLoggedIn" (ngSubmit)="onSubmit()" #f="ngForm" novalidate>
       <div class="input-group">
         <label for="username">إسم المستعمل</label>
         <input type="text" id="username" name="username" [(ngModel)]="form.username" required #username="ngModel"
-          placeholder="المستعمل" dir="rtl" />
+          placeholder="إسم المستعمل" dir="rtl" />
       </div>
 
       <div class="input-group">

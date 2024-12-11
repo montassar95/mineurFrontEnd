@@ -1,56 +1,220 @@
+<div class="Listcontainer" style="width: 80%;">
+    <p-toast key="tst" [style]="{ marginTop: '150px' }"></p-toast>
 
+    <p-card [style]="{ 'height': 'auto', 'border-radius': '0%' }">
+        <div dir="rtl">
 
-<div class="Listcontainer" style="   width: 80%;   ">
-    <p-toast key="tst" [style]="{marginTop: '150px'}"></p-toast>
+            <h2>قائمة شهري للأطفال المودعين بجميع مراكز الإصلاح (موقوفين، محكومين و سراحات)</h2>
+            <div class="p-field p-grid">
+                <label class="p-col-fixed" style="width:180px"> السنة : </label>
+                <div class="p-col">
+                    <p-dropdown [options]="years" [(ngModel)]="selectedYear" placeholder="اختيار السنة" [filter]="true"
+                        id="year" [style]="{'width':'300px'}" name="year" (ngModelChange)="calculateLastDay()">
+                        <ng-template let-year pTemplate="item">
+                            <div class="item">
+                                <div>{{ year.label }}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+            </div>
 
-  
-    <p-card [style]="{ 'height': 'auto',   'border-radius': '0%',   'margin-bottom':'1%' }">
+            <div class="p-field p-grid">
+                <label class="p-col-fixed" style="width:180px"> الشهر : </label>
+                <div class="p-col">
+                    <p-dropdown [options]="months" [(ngModel)]="selectedMonth" placeholder="اختيار الشهر"
+                        [filter]="true" id="month" [style]="{'width':'300px'}" name="month"
+                        (ngModelChange)="calculateLastDay()">
+                        <ng-template let-month pTemplate="item">
+                            <div class="item">
+                                <div>{{ month.label }}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+            </div>
 
-
-
-        <div class=" p-grid" dir="rtl" style="text-align: right;">
-
-         <div class="p-col-8">
-<h2> قائمة شهري للأطفال المودعين بجميع مراكز الإصلاح  ( موقوفين، محكومين و سراحات )</h2>
-   </div>
-
-
-            <div class="p-col-2">
-<p-calendar dir="rtl" [readonlyInput]="false" [(ngModel)]="datePrintAllCentre"
-   [style]="{'font-weight': '500','font-size': '18px','color': 'black'}" appendTo="body" [yearNavigator]="true"
-   readonly="true" [monthNavigator]="true" [yearRange]="years" dateFormat="yy/mm/dd" [locale]="calendar_ar"
-   placeholder="يوم/شهر/سنة">
-
-</p-calendar> 
-
-</div>   
-
-            <div class="p-col-2">
-   
-   
-      <button mat-raised-button class="button-card3" *ngIf="!click" (click)="printAllCentre()"
-         style="   background-color:   #206b64;    ">
-         <span style="font-family: 'Amiri', Times, serif; font-size: 20px; color:   #fcfefc;"> تحميل     </span>
-         <i class="pi pi-file" style="font-size: 35px;  color:    #fcfefc;"></i>
-      </button>
-   </div>  
-
-
-     
-
-            
-
+            <!-- Affichage automatique de la date du dernier jour -->
+            <div *ngIf="lastDay">
+                <h2>اليوم الأخير من الشهر المحدد هو: {{ lastDay | date:'yyyy/MM/dd' }}</h2>
+            </div>
         </div>
 
 
+        <div class="p-grid" dir="rtl" style="text-align: right;">
+            <div class="p-col-8">
 
+            </div>
+
+            <!-- <div class="p-col-2">
+                <p-calendar dir="rtl" [readonlyInput]="false" [(ngModel)]="datePrintAllCentre"
+                    [style]="{ 'font-weight': '500', 'font-size': '18px', 'color': 'black' }" appendTo="body"
+                    [yearNavigator]="true" readonly="true" [monthNavigator]="true" [yearRange]="years"
+                    dateFormat="yy/mm/dd" [locale]="calendar_ar" placeholder="يوم/شهر/سنة">
+                </p-calendar>
+            </div> -->
+
+            <div class="p-col-2">
+                <!-- Remplaced button with a link <a> -->
+
+            </div>
+        </div>
     </p-card>
-  
-   
- 
+
+    <table *ngIf="statistiqueEtablissement?.length !== 0" class="p-table" dir="rtl"
+        style="width: 100%; margin-top: 20px; text-align: right;">
+        <thead>
+            <tr>
+                <th style="text-align: right;">#</th>
+                <th style="text-align: right;">إسم المؤسسة</th>
+                <th style="text-align: right;">إجمالي الموقيمن</th>
+                <th style="text-align: right;">موقوفين</th>
+                <th style="text-align: right;">محكومين</th>
+                <th style="text-align: right;">سراحات</th>
+                <th style="text-align: right;">إرهاب </th>
+                <!-- <th style="text-align: right;">إرهاب إناث</th> -->
+                <th style="text-align: right;">أجانب </th>
+
+                <!-- <th style="text-align: right;">أجانب إناث</th> -->
+                <th style="text-align: right;">تحميل البيانات</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let stat of statistiqueEtablissement; let i = index">
+                <td>{{ stat?.id }}</td>
+                <td>{{ stat?.libelle_etablissement }}</td>
+                <td
+                    [ngStyle]="{'background-color': (stat?.nbrStatutPenalArrete + stat?.nbrStatutPenalJuge) === 0 ? '#f2f2f2' : 'transparent'}">
+                    <span style="color: blue;" *ngIf="stat?.nbrStatutPenalArrete + stat?.nbrStatutPenalJuge !== 0">
+                        {{ stat?.nbrStatutPenalArrete + stat?.nbrStatutPenalJuge }}
+                    </span>
+                </td>
+                <td [ngStyle]="{'background-color': stat?.nbrStatutPenalArrete === 0 ? '#f2f2f2' : 'transparent'}">
+                    <span *ngIf="stat?.nbrStatutPenalArrete !== 0">
+                        {{ stat?.nbrStatutPenalArrete }}
+                    </span>
+                </td>
+                <td [ngStyle]="{'background-color': stat?.nbrStatutPenalJuge === 0 ? '#f2f2f2' : 'transparent'}">
+                    <span *ngIf="stat?.nbrStatutPenalJuge !== 0">
+                        {{ stat?.nbrStatutPenalJuge }}
+                    </span>
+                </td>
+                <td [ngStyle]="{'background-color': stat?.nbrStatutPenalLibre === 0 ? '#f2f2f2' : 'transparent'}">
+                    <span *ngIf="stat?.nbrStatutPenalLibre !== 0">
+                        {{ stat?.nbrStatutPenalLibre }}
+                    </span>
+                </td>
+                <td
+                    [ngStyle]="{'background-color': (stat?.nbrTypeAffaireId5M + stat?.nbrTypeAffaireId5F) === 0 ? '#f2f2f2' : 'transparent'}">
+                    <span style="color: red;" *ngIf="stat?.nbrTypeAffaireId5M + stat?.nbrTypeAffaireId5F">
+                        {{ stat?.nbrTypeAffaireId5M + stat?.nbrTypeAffaireId5F }}
+                    </span>
+                </td>
+
+                <td
+                    [ngStyle]="{'background-color': (stat?.nbrNationaliteDifferentDeJuge1M  + stat?.nbrNationaliteDifferentDeJuge1F) === 0 ? '#f2f2f2' : 'transparent'}">
+                    <span *ngIf="stat?.nbrNationaliteDifferentDeJuge1M  + stat?.nbrNationaliteDifferentDeJuge1F">
+                        {{ stat?.nbrNationaliteDifferentDeJuge1M + stat?.nbrNationaliteDifferentDeJuge1F}}
+                    </span>
+                </td>
+
+
+                <td>
+                    <a (click)="downloadEtablissementData(stat)">
+                        تحميل {{ stat?.libelle_etablissement }}
+                    </a>
+                </td>
+            </tr>
+            <tr style="font-weight: bolder;">
+                <td colspan="2" style="text-align: center;">جميع المراكز</td>
+                <td
+                    [ngStyle]="{'background-color': (totalNbrStatutPenalArrete + totalNbrStatutPenalJuge) === 0 ? '#f2f2f2' : 'transparent'}">
+                    <span style="color: blue;" *ngIf="totalNbrStatutPenalArrete + totalNbrStatutPenalJuge !== 0">
+                        {{ totalNbrStatutPenalArrete + totalNbrStatutPenalJuge}}
+                    </span>
+                </td>
+                <td [ngStyle]="{'background-color': totalNbrStatutPenalArrete === 0 ? '#f2f2f2' : 'transparent'}">
+                    <span *ngIf="totalNbrStatutPenalArrete !== 0">
+                        {{ totalNbrStatutPenalArrete }}
+                    </span>
+                </td>
+                <td [ngStyle]="{'background-color': totalNbrStatutPenalJuge === 0 ? '#f2f2f2' : 'transparent'}">
+                    <span *ngIf="totalNbrStatutPenalJuge !== 0">
+                        {{ totalNbrStatutPenalJuge }}
+                    </span>
+                </td>
+                <td [ngStyle]="{'background-color': totalNbrStatutPenalLibre === 0 ? '#f2f2f2' : 'transparent'}">
+                    <span *ngIf="totalNbrStatutPenalLibre !== 0">
+                        {{ totalNbrStatutPenalLibre }}
+                    </span>
+                </td>
+                <td>
+                    <span style="color: red;">
+                        {{ totalNbrTypeAffaireId5M + ' ذكور' + ' و ' +totalNbrTypeAffaireId5F + ' إناث' }}
+                    </span>
+                </td>
+
+                <td
+                    [ngStyle]="{'background-color': totalNbrNationaliteDifferentDeJuge1M === 0 ? '#f2f2f2' : 'transparent'}">
+                    <span>
+                        {{ totalNbrNationaliteDifferentDeJuge1M + ' ذكور' + ' و ' +totalNbrNationaliteDifferentDeJuge1F
+                        + ' إناث' }}
+
+                    </span>
+                </td>
+
+
+                <td style="text-align: center;">
+                    <a (click)="downloadStatistiqueGenerale()">تحميل إحصائية عامة</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- <table class="p-table" dir="rtl"
+    style="width: 100%; margin-top: 20px; text-align: right;">
+    <thead  >
+        <tr >
+            <th style="background-color: rgb(210, 210, 210);">المدة المقضاة بالمركز</th>
+            <th style="background-color: rgb(210, 210, 210);">ذكور</th>
+            <th style="background-color: rgb(210, 210, 210);"> إناث</th>
+            <th style="background-color: rgb(210, 210, 210);"> المجموع</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="background-color: rgb(210, 210, 210); font-weight: bolder;"  > أقل من شهر  </td>
+            <td>   col2  </td>
+            <td>   col3  </td>
+            <td>   col4  </td>
+        </tr>
+        <tr>
+            <td style="background-color: rgb(210, 210, 210); font-weight: bolder;"> من شهر إلى 3 أشهر </td>
+            <td> col2 </td>
+            <td> col3 </td>
+            <td> col4 </td>
+        </tr>
+        <tr>
+            <td style="background-color: rgb(210, 210, 210); font-weight: bolder;"> من 3 إلى 9 أشهر </td>
+            <td> col2 </td>
+            <td> col3 </td>
+            <td> col4 </td>
+        </tr>
+        <tr>
+            <td style="background-color: rgb(210, 210, 210); font-weight: bolder;"> فوق 9 أشهر </td>
+            <td> col2 </td>
+            <td> col3 </td>
+            <td> col4 </td>
+        </tr>
+        <tr>
+            <td style="background-color: rgb(210, 210, 210); font-weight: bolder;"> المجموع     </td>
+            <td> col2 </td>
+            <td> col3 </td>
+            <td> col4 </td>
+        </tr>
+    </tbody>
+</table> -->
+
 </div>
-
-<div *ngIf=" sizeFile==0 && click" style="text-align: center;">
-    <img src="assets/layout/images/g.gif" />
-
+<div *ngIf="click" class="loading-overlay">
+    <img src="assets/layout/images/g.gif" alt="Loading..." class="loading-gif" />
 </div>

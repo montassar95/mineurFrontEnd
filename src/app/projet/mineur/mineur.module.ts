@@ -199,6 +199,13 @@ import { MensuelComponent } from "./mensuel/mensuel.component";
 import { NextDocumentComponent } from "./next-document/next-document.component";
 import { DetailsEnfantComponent } from "./details-enfant/details-enfant.component";
 import { ModifyPasswordComponent } from './modify-password/modify-password.component';
+import { OppositionComponent } from './opposition/opposition.component';
+import { AddOppositionComponent } from './add-opposition/add-opposition.component';
+import { ObservationComponent } from './observation/observation.component';
+import { AddObservationComponent } from './add-observation/add-observation.component';
+import { ShowObservationComponent } from './show/show-observation/show-observation.component';
+import { ShowOppositionComponent } from './show/show-opposition/show-opposition.component';
+import { ShowPenaleComponent } from './show-penale/show-penale.component';
 
 @NgModule({
   declarations: [
@@ -304,6 +311,13 @@ import { ModifyPasswordComponent } from './modify-password/modify-password.compo
     NextDocumentComponent,
     DetailsEnfantComponent,
     ModifyPasswordComponent,
+    OppositionComponent,
+    AddOppositionComponent,
+    ObservationComponent,
+    AddObservationComponent,
+    ShowObservationComponent,
+    ShowOppositionComponent,
+    ShowPenaleComponent,
   ],
   imports: [
     CommonModule,

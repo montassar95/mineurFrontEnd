@@ -1,73 +1,85 @@
-/* Global reset for body and html */
+/* Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-html,
 body {
-    height: 100%;
     font-family: 'Arial', sans-serif;
-    background-color: #f7f7f7;
+    background-color: #f0f2f5;
+    color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #333;
+    min-height: 100vh;
+    direction: rtl;
+    /* Définit l'écriture de droite à gauche */
 }
 
-/* Container for the login box */
+/* Container */
 .login-container {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(to right, #ecedee, #c0c0c0);
+    width: 100%;
     padding: 20px;
-    overflow: hidden;
+    // background: linear-gradient(to right, #ecedee, #a7a5a5);
+    background: url("../../assets/layout/images/78782x.jpg") no-repeat center center fixed;
+     
+        -webkit-background-size: cover;
+         -moz-background-size: cover;
+         -o-background-size: cover;
+         background-size: cover;
 }
 
-/* Style for the login box */
+/* Login box */
 .login-box {
     background: #fff;
+    border: 3mm ridge rgb(0, 0, 0);
     border-radius: 15px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 380px;
+    max-width: 400px;
     padding: 30px;
     text-align: center;
     position: relative;
-    z-index: 1;
+    opacity: 0.8;
+        /* Rend le bloc transparent à 50% */
 }
 
-/* Logo style */
-.login-box .logo img {
-    width: 120px;
+/* Logo */
+.logo img {
+    width: 150px;
     margin-bottom: 20px;
     border-radius: 50%;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 
 /* Title */
 .title {
     font-size: 1.6rem;
-    font-weight: 600;
-    color: #074a7a;
+    font-weight: 900;
+    color: rgb(0, 0, 0);
     margin-bottom: 30px;
     letter-spacing: 1px;
     text-transform: uppercase;
-    font-family: 'Verdana', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2),
+        -2px -2px 3px rgba(255, 255, 255, 0.1);
 }
 
-/* Form input styles */
+/* Input group */
 .input-group {
     margin-bottom: 20px;
     text-align: right;
+    /* Assure un alignement à droite */
 }
 
 .input-group label {
     font-size: 1.1rem;
-    color: #074a7a;
+    color: rgb(0, 0, 0);
     font-weight: 600;
     display: block;
     margin-bottom: 5px;
@@ -81,6 +93,8 @@ body {
     font-size: 1rem;
     outline: none;
     transition: all 0.3s ease;
+    text-align: right;
+    /* Alignement RTL */
 }
 
 .input-group input:focus {
@@ -88,7 +102,7 @@ body {
     box-shadow: 0 0 8px rgba(7, 74, 122, 0.5);
 }
 
-/* Button styles */
+/* Buttons */
 .buttons {
     margin-top: 20px;
 }
@@ -96,7 +110,7 @@ body {
 .btn-submit {
     width: 100%;
     padding: 14px;
-    background-color: #074a7a;
+    background-color: rgb(0, 0, 0);
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -106,17 +120,19 @@ body {
 }
 
 .btn-submit:hover {
-    background-color: #063e59;
+    background-color: rgb(226, 220, 220);
+    color: black;
 }
 
-/* Error message styling */
+/* Error message */
 .error-message {
     color: #ff3b3b;
     font-size: 1rem;
     margin-top: 10px;
+    line-height: 30px;
 }
 
-/* Responsive design */
+/* Responsive */
 @media screen and (max-width: 480px) {
     .login-box {
         padding: 20px;

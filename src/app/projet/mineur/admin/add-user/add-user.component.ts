@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Router } from "@angular/router";
-import { SelectItem } from "primeng";
+import { MessageService, SelectItem } from "primeng";
 import { CrudEnfantService } from "src/app/demo/service/crud-enfant.service";
 import { Etablissement } from "src/app/domain/etablissement";
 import { Personelle } from "src/app/domain/personelle";
@@ -13,6 +13,7 @@ import { TokenStorageService } from "src/app/_services/token-storage.service";
   selector: "app-add-user",
   templateUrl: "./add-user.component.html",
   styleUrls: ["./add-user.component.css"],
+  providers: [MessageService],
 })
 export class AddUserComponent implements OnInit {
   personelle: Personelle;
@@ -25,7 +26,7 @@ export class AddUserComponent implements OnInit {
   update = false;
   etablissementLocal: Etablissement;
   @Output() closeEvent = new EventEmitter<boolean>();
-  idUser=0;
+  idUser = 0;
 
   @Input() user: User | null = null; // Accept user for editing
 
@@ -43,7 +44,8 @@ export class AddUserComponent implements OnInit {
     private crudservice: CrudEnfantService,
     private breadcrumbService: BreadcrumbService,
     private router: Router,
-    private token: TokenStorageService
+    private token: TokenStorageService,
+    private service: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -52,7 +54,7 @@ export class AddUserComponent implements OnInit {
     // this.nom = this.token.getUser().personelle.nom;
     // this.prenom = this.token.getUser().personelle.prenom;
     // this.etablissementLocal = this.token.getUser().personelle.etablissement;
-
+    //this.showPwd=true;
     this.listEtab();
   }
 
@@ -61,7 +63,7 @@ export class AddUserComponent implements OnInit {
     if (this.user) {
       this.crudservice.getLigneById("user", this.user.id).subscribe((data) => {
         if (data.result != null) {
-         this.idUser = data.result.id;
+          this.idUser = data.result.id;
           console.log(data.result);
           this.id = data.result.numAdministratif;
           this.login = data.result.username;
@@ -83,9 +85,11 @@ export class AddUserComponent implements OnInit {
 
           this.etablissementLocal = data.result.etablissement;
           this.update = true;
-          this.showPwd = false;
+          // this.showPwd = false;
         }
       });
+    } else {
+      // this.showPwd = true;
     }
   }
   reset() {
@@ -105,10 +109,10 @@ export class AddUserComponent implements OnInit {
     // Emit the close event to notify the parent component
     this.closeEvent.emit(false);
   }
-  showPwd = true;
-  toggleUpdatePassword() {
-    this.showPwd = !this.showPwd;
-  }
+  // showPwd = true;
+  // toggleUpdatePassword() {
+  //   this.showPwd = !this.showPwd;
+  // }
   onChangeEta(event) {
     this.etablissementLocal = event.value;
   }
@@ -152,56 +156,66 @@ export class AddUserComponent implements OnInit {
   // }
 
   addUser(): void {
-  
-   
-   
-    if(this.update){
-       this.form = {
-         username: this.login,
-         role: this.role,
-         password: this.pwd,
-         nom: this.nom,
-         prenom: this.prenom,
-         numAdministratif: this.id,
-         etablissement: this.etablissementLocal,
-       };
+    if (!this.update) {
+      this.form = {
+        username: this.login,
+        role: this.role,
+        password: this.pwd,
+        nom: this.nom,
+        prenom: this.prenom,
+        numAdministratif: this.id,
+        etablissement: this.etablissementLocal,
+      };
 
-       this.user = this.form;
+      this.user = this.form;
 
-       this.user.role = [this.role];
-     this.authService.register(this.user).subscribe(
-       (data) => {
-         console.log(data);
-         this.closeEvent.emit(false);
-         this.reset();
-       },
-       (err) => {}
-     );
+      this.user.role = [this.role];
+      this.authService.register(this.user).subscribe(
+        (data) => {
+          console.log(data);
+          this.closeEvent.emit(false);
+          this.reset();
+        },
+        (err) => {
+          this.service.add({
+            key: "tst",
+            severity: "error",
+            summary: ".   تثبت من إسم مستعمل أو كلمة السر     ",
+            detail: this.user.username,
+          });
+        }
+      );
+    } else {
+      this.form = {
+        username: this.login,
+        role: this.role,
+        password: this.pwd,
+        nom: this.nom,
+        prenom: this.prenom,
+        numAdministratif: this.id,
+        etablissement: this.etablissementLocal,
+      };
+
+      this.user = this.form;
+
+      this.user.role = [this.role];
+      console.log(this.user);
+      this.authService.updateUser(this.user, this.idUser).subscribe(
+        (data) => {
+          console.log(data);
+          this.closeEvent.emit(false);
+          this.user = undefined;
+          this.reset();
+        },
+        (err) => {
+          this.service.add({
+            key: "tst",
+            severity: "error",
+            summary: ".   تثبت من إسم مستعمل أو كلمة السر     ",
+            detail: this.user.username,
+          });
+        }
+      );
     }
-    else{
-       this.form = {
-         
-         username: this.login,
-         role: this.role,
-         password: this.pwd,
-         nom: this.nom,
-         prenom: this.prenom,
-         numAdministratif: this.id,
-         etablissement: this.etablissementLocal,
-       };
-
-       this.user = this.form;
-
-       this.user.role = [this.role];
-  this.authService.updateUser(this.user, this.idUser).subscribe(
-    (data) => {
-      console.log(data);
-      this.closeEvent.emit(false);
-      this.reset();
-    },
-    (err) => {}
-  );
-    }
-  
   }
 }

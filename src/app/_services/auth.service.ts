@@ -45,7 +45,7 @@ export class AuthService {
       environment.baseUrl + "auth/update/" + id,
       {
         username: user.username,
-
+        personelle: user.personelle,
         role: user.role,
         password: user.password,
         nom: user.nom,
@@ -56,4 +56,6 @@ export class AuthService {
       httpOptions
     );
   }
+
+ 
 }

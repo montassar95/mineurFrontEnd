@@ -12,8 +12,10 @@
           إعتراض
           </label>
           <img src="assets/layout/images/pas-de-racisme.png" class="image-adjust"   />
-          <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black' , 'margin-top': '15px'}" dir="rtl" [(ngModel)]="idRevue"
-            mask="99999999" slotChar="----------" placeholder=" معرف الطفل   ">
+          <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black' , 'margin-top': '15px'}" dir="rtl"
+            [(ngModel)]="idOpposition" mask="99999999" slotChar="----------" (keyup.enter)="dirOpposition()"
+         
+            mask="99999999"  placeholder=" معرف الطفل   ">
           </p-inputMask>
         </div>
       </div>
@@ -32,8 +34,9 @@
         تعقيب
           </label>
           <img src="assets/layout/images/vote.png" class="image-adjust"   />
-          <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black' , 'margin-top': '15px' }" dir="rtl" [(ngModel)]="idRevue"
-            mask="99999999" slotChar="----------" placeholder=" معرف الطفل   ">
+          <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black' , 'margin-top': '15px' }" dir="rtl"
+          [(ngModel)]="idObservation" mask="99999999" slotChar="----------" (keyup.enter)="dirObservation()"
+            mask="99999999"   placeholder=" معرف الطفل   ">
           </p-inputMask>
         </div>
       </div>

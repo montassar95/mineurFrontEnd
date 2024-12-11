@@ -1,0 +1,65 @@
+.container {
+    letter-spacing: 0.5px;
+    max-width: 80%;
+    background: #ffffff;
+    margin: 0px auto;
+    /* Ajoute un espace autour du conteneur */
+    border-radius: 10px;
+    /* Coins arrondis */
+    padding: 20px;
+    /* Espacement interne */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    /* Ombre douce */
+    border: 5px solid #cfcfcf;
+    /* Bordure légère */
+    margin-bottom: 200px;
+}
+
+.profile-img-card3 {
+
+    margin-top: 10px;
+    width: 230px;
+    height: 300px;
+    max-height: 350px;
+
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 10%;
+
+    -moz-box-shadow: 1px 5px 5px rgba(99, 99, 99, 0.979);
+    -webkit-box-shadow: 1px 5px 5px rgba(99, 99, 99, 0.979);
+    box-shadow: 1px 5px 5px rgba(99, 99, 99, 0.979);
+}
+
+.button-card3 {
+    background-color: rgb(235, 235, 235);
+    width: auto;
+    font-family: 'Amiri', Times, serif;
+    font-size: 20px;
+    color: black;
+    border: 2px solid #347688;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+}
+
+.text {
+    // font-family: 'Droid Arabic Naskh';
+    // font-family: 'Times New Roman',
+
+    letter-spacing: 2px;
+    /* Couleur du texte */
+    font-size: 50px;
+    /* Taille de la police */
+    font-weight: bold;
+
+    /* Gras */
+
+    text-align: center;
+
+    font-family: 'Arabic Typesetting', serif;
+    /* Ombre du texte */
+}

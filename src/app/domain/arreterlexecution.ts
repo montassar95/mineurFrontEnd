@@ -27,8 +27,7 @@ export class Arreterlexecution {
   numArrestation?: any;
 
   etablissement: Etablissement;
-  user: User;
-  
+  //user: User;
 
   motifArreterlexecution: MotifArreterlexecution;
 }

@@ -465,7 +465,7 @@ export class CarteRecupComponent implements OnInit, OnDestroy {
       this.arrestation.date = this.dateEntreLocal;
       this.arrestation.enfant = this.enfantLocal;
 
-      this.residence.etablissement = this.currentUser.personelle.etablissement;
+      this.residence.etablissement = this.currentUser.etablissement;
       this.residence.numArrestation = this.numArrestation;
       this.residenceId.idEnfant = this.enfantLocal.id;
 
@@ -507,7 +507,7 @@ export class CarteRecupComponent implements OnInit, OnDestroy {
 
   addArrestatione() {
     this.centre =
-      this.currentUser.personelle.etablissement.libelle_etablissement;
+      this.currentUser.etablissement.libelle_etablissement;
 
     this.detentionService
       .calculerNombreDetentionsParIdDetenu("arrestation", this.enfantLocal.id)
@@ -1421,7 +1421,7 @@ export class CarteRecupComponent implements OnInit, OnDestroy {
     carteRecup.jourArretProvisoire = this.jourArretProvisoire;
     carteRecup.numArrestation = this.residence.numArrestation;
     carteRecup.etablissement = this.residence.etablissement;
-    carteRecup.user = this.token.getUser();
+    //carteRecup.user = this.token.getUser();
     carteRecup.dateInsertion = this.datepipe.transform(
       new Date(),
       "yyyy-MM-dd"

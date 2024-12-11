@@ -12,33 +12,20 @@ import { Etablissement } from "./etablissement";
  
 import { User } from "./user";
 export class AppelEnfant {
-    
-   
-    documentId :DocumentId;
-    typeDocument :string;
-    dateEmission?:any;
-    dateDepotCarte?:any;
-     
-   
-  
+  documentId: DocumentId;
+  typeDocument: string;
+  dateEmission?: any;
+  dateDepotCarte?: any;
 
-   
-   
-    affaire?:Affaire;
+  affaire?: Affaire;
 
+  typeAffaire?: TypeAffaire;
+  dateInsertion?: any;
+  numArrestation?: any;
 
-    
-    typeAffaire?:TypeAffaire;
-    dateInsertion?:any;
-    numArrestation?:any;
-
-	 
-
- 
-    etablissement :Etablissement;
-   user:User;
-    // personelle:Personelle;
-    
+  etablissement: Etablissement;
+  // user:User;
+  // personelle:Personelle;
 }
  
  

@@ -1200,7 +1200,7 @@ export class EditCarteRecupComponent implements OnInit {
 
         this.carteRecup.numArrestation = this.residence.numArrestation;
         this.carteRecup.etablissement = this.residence.etablissement;
-        this.carteRecup.user = this.token.getUser();
+        // this.carteRecup.user = this.token.getUser();
 
         this.carteRecup.dateInsertion = this.datepipe.transform(
           new Date(),

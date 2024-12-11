@@ -1,6 +1,6 @@
 <div style="height: 500px ; width: 500px;">
 
-
+<p-toast key="tst" [style]="{marginTop: '150px'}"></p-toast>
 
 <div class="p-field p-grid">
     <label for="lastname3" class="p-col-fixed" style="width: 180px;">رقـــم الإداري   :</label>
@@ -65,18 +65,18 @@
     <label *ngIf="!update" for="lastname3" class="p-col-fixed" style="width: 180px;">كلمة السر      :</label>
     <label *ngIf="update" for="lastname3" class="p-col-fixed" style="width: 180px;"> تغير كلمة السر :</label>
    
-    <div class="p-col" *ngIf="showPwd">
+    <div class="p-col"  >
         <input      [(ngModel)]="pwd"     type="text" pInputText>
     </div>
-    <button *ngIf="update && !showPwd" (click)="toggleUpdatePassword()" style="background-color: white; " mat-fab>
+    <!-- <button *ngIf="update  " (click)="toggleUpdatePassword()" style="background-color: white; " mat-fab>
         <i class="pi pi-lock" style="font-size: 35px; color: #007bff;"></i>
     
     </button>
-    <button *ngIf="update && showPwd && pwd === '' " (click)="toggleUpdatePassword()" style="background-color: white;"
+    <button *ngIf="update   && pwd === '' " (click)="toggleUpdatePassword()" style="background-color: white;"
         mat-fab>
         <i class="pi pi-lock-open" style="font-size: 35px; color: #007bff;"></i>
     
-    </button>
+    </button> -->
 </div>
  
 
@@ -88,17 +88,18 @@
    
  <div style="text-align: center; margin-top: 20%;">
             
-    <button  (click)="addUser()" style="background-color: #28a745!important;" mat-fab>
-        <i class="pi pi-save" style="font-size: 30px; color: white;"> </i>
-    
-    
-     </button>     
+     
                    
     <button (click)="close()"
        style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab>
        <i class="pi pi-power-off" style="font-size: 30px; color: white;"> </i>
 
 
+    </button>
+    <button (click)="addUser()" style="background-color: #28a745!important;" mat-fab>
+        <i class="pi pi-save" style="font-size: 30px; color: white;"> </i>
+    
+    
     </button>
  </div>
 </div>

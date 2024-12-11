@@ -23,6 +23,7 @@ import { TypeTribunal } from "src/app/domain/typeTribunal";
 import { BreadcrumbService } from "src/app/shared/breadcrumb/breadcrumb.service";
 import { AppConfigService } from "../app-config.service";
 import { RapportService } from "src/app/demo/service/rapport.service";
+import { StatistiqueEtablissementDTO } from "src/app/domain/statistiqueEtablissementDTO";
 
 @Component({
   selector: "app-mensuel",
@@ -31,6 +32,105 @@ import { RapportService } from "src/app/demo/service/rapport.service";
   providers: [MessageService],
 })
 export class MensuelComponent implements OnInit {
+  selectedYear: number | null = null; // Année par défaut
+  selectedMonth: number | null = null; // Mois par défaut
+  lastDay: string | null = null; // Dernier jour sous forme yyyy-MM-dd
+  statistiqueEtablissement: StatistiqueEtablissementDTO[] = [];
+
+  totalNbrStatutPenalArrete: number = 0;
+  totalNbrStatutPenalJuge: number = 0;
+  totalNbrStatutPenalLibre: number = 0;
+  totalNbrTypeAffaireId5M: number = 0;
+  totalNbrNationaliteDifferentDeJuge1M: number = 0;
+  totalNbrTypeAffaireId5F: number = 0;
+  totalNbrNationaliteDifferentDeJuge1F: number = 0;
+
+  // Liste des années de 2024 à 2030
+  years = [
+    { label: "اختيار السنة", value: null }, // Option vide pour sélectionner une année
+    ...Array.from({ length: 2030 - 2024 + 1 }, (_, i) => ({
+      label: (2024 + i).toString(),
+      value: 2024 + i,
+    })),
+  ];
+
+  // Liste des mois en arabe
+  months = [
+    { label: "اختيار الشهر", value: null }, // Option vide pour choisir un mois
+    { label: "جانفــــي", value: 1 },
+    { label: "فيفـــري", value: 2 },
+    { label: "مــــارس", value: 3 },
+    { label: "أفريــــل", value: 4 },
+    { label: "مــــاي", value: 5 },
+    { label: "جــــوان", value: 6 },
+    { label: "جويليــــة", value: 7 },
+    { label: "أوت", value: 8 },
+    { label: "سبتمبــــر", value: 9 },
+    { label: "أكتوبــــر", value: 10 },
+    { label: "نوفمبــــر", value: 11 },
+    { label: "ديسمبــــر", value: 12 },
+  ];
+  calculateTotals(): void {
+    // Calcul des totaux en itérant sur les données
+    this.totalNbrStatutPenalArrete = this.statistiqueEtablissement.reduce(
+      (total, stat) => total + stat.nbrStatutPenalArrete,
+      0
+    );
+    this.totalNbrStatutPenalJuge = this.statistiqueEtablissement.reduce(
+      (total, stat) => total + stat.nbrStatutPenalJuge,
+      0
+    );
+    this.totalNbrStatutPenalLibre = this.statistiqueEtablissement.reduce(
+      (total, stat) => total + stat.nbrStatutPenalLibre,
+      0
+    );
+    this.totalNbrTypeAffaireId5M = this.statistiqueEtablissement.reduce(
+      (total, stat) => total + stat.nbrTypeAffaireId5M,
+      0
+    );
+    this.totalNbrNationaliteDifferentDeJuge1M =
+      this.statistiqueEtablissement.reduce(
+        (total, stat) => total + stat.nbrNationaliteDifferentDeJuge1M,
+        0
+      );
+
+       this.totalNbrTypeAffaireId5F = this.statistiqueEtablissement.reduce(
+         (total, stat) => total + stat.nbrTypeAffaireId5F,
+         0
+       );
+       this.totalNbrNationaliteDifferentDeJuge1F =
+         this.statistiqueEtablissement.reduce(
+           (total, stat) => total + stat.nbrNationaliteDifferentDeJuge1F,
+           0
+         );
+  }
+  // Calculer le dernier jour du mois sélectionné
+  calculateLastDay(): void {
+    if (this.selectedYear && this.selectedMonth) {
+      const lastDayDate = this.getLastDayOfMonth(
+        this.selectedYear,
+        this.selectedMonth
+      );
+
+      this.lastDay = lastDayDate.toLocaleDateString("en-CA").split("T")[0]; // Formate en yyyy-MM-dd
+      this.crudservice.statistiquesParDate(this.lastDay).subscribe((data) => {
+        this.statistiqueEtablissement = data;
+        this.calculateTotals();
+        console.table(this.statistiqueEtablissement);
+      });
+    } else {
+      this.lastDay = null; // Si pas de sélection, pas de date
+    }
+  }
+
+  // Méthode pour obtenir le dernier jour d'un mois
+  getLastDayOfMonth(year: number, month: number): Date {
+    console.log(new Date(year, month, 0));
+    return new Date(year, month, 0); // Le 0 retourne le dernier jour du mois précédent
+  }
+
+  entitiesEtablissement: Etablissement[];
+
   datePrintAllCentre: any;
   click: boolean;
   // displayNationalite: boolean;
@@ -71,20 +171,28 @@ export class MensuelComponent implements OnInit {
   }
   ngOnInit(): void {
     this.calendar_ar = this.calendar_ar = this.appConfigService.calendarConfig;
+    this.crudservice
+      .trouverEtablissementsActifs("etablissement")
+      .subscribe((data) => {
+        this.entitiesEtablissement = data.result;
+      });
   }
-  printAllCentre() {
-    console.log(this.datePipe.transform(this.datePrintAllCentre, "yyyy-MM-dd"));
+  printAllCentre(etablissement: Etablissement) {
+    console.log(this.lastDay);
+    console.log(this.datePipe.transform(this.lastDay, "yyyy-MM-dd"));
     let pDFListExistDTO = new PDFListExistDTO();
-
+    let etablissements: Etablissement[] = []; // Initialisation du tableau
+    etablissements.push(etablissement); // Ajout de l'établissement
+    pDFListExistDTO.etablissements = etablissements;
     pDFListExistDTO.datePrintAllCentre = this.datePipe.transform(
-      this.datePrintAllCentre,
+      this.lastDay,
       "yyyy-MM-dd"
     );
+    console.log(pDFListExistDTO.datePrintAllCentre);
     this.click = true;
-    // this.crudservice.exportEtatPdf(pDFListExistDTO).subscribe((x) => {
-    this.rapportService
-      .genererRapportPdfMensuel(pDFListExistDTO)
-      .subscribe((x) => {
+
+    this.rapportService.genererRapportPdfMensuel(pDFListExistDTO).subscribe(
+      (x) => {
         this.sizeFile = x.size;
         console.log(this.sizeFile);
 
@@ -100,10 +208,65 @@ export class MensuelComponent implements OnInit {
         }
 
         this.openPDFInNewTab(data);
-      });
+      },
+      (error) => {
+        // Handle error here
+        console.error(
+          "An error occurred while generating the report PDF:",
+          error
+        );
+        this.click = false;
+        // You can show an alert or display a user-friendly message if needed
+        alert("فشل إنشاء التقرير. يرجى المحاولة مرة أخرى.");
+      }
+    );
   }
 
   openPDFInNewTab(data) {
     window.open(data, "_blank");
+  }
+  etablissement: Etablissement;
+  downloadEtablissementData(etablissement: Etablissement) {
+    this.click = true;
+    console.log(etablissement.id);
+    this.printAllCentre(etablissement);
+  }
+
+  downloadStatistiqueGenerale() {
+    console.log(this.datePipe.transform(this.lastDay, "yyyy-MM-dd"));
+    let pDFListExistDTO = new PDFListExistDTO();
+
+    pDFListExistDTO.datePrintAllCentre = this.datePipe.transform(
+      this.lastDay,
+      "yyyy-MM-dd"
+    );
+    this.click = true;
+
+    this.rapportService.genererStatistiquePdfMensuel(pDFListExistDTO).subscribe(
+      (x) => {
+        this.sizeFile = x.size;
+        console.log(this.sizeFile);
+
+        const blob = new Blob([x], { type: "application/pdf" });
+        const data = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = data;
+        link.download = "enfant.pdf";
+
+        if (blob) {
+          this.sizeFile = 0;
+          this.click = false;
+        }
+
+        this.openPDFInNewTab(data);
+      },
+      (error) => {
+        // Handle error here
+        console.error("An error occurred while generating the PDF:", error);
+        this.click = false;
+        // You can show an alert or display a user-friendly message if needed
+        alert("فشل إنشاء ملف PDF. يرجى المحاولة مرة أخرى.");
+      }
+    );
   }
 }

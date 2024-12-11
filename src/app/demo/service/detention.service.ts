@@ -160,6 +160,13 @@ export class DetentionService {
     );
   }
 
+  trouverDetenusParCriteresDansPrisons(object: any): Observable<ApiResponse> {
+    return this.httpClient.post<ApiResponse>(
+      environment.baseUrl + "enfant/trouverDetenusParCriteresDansPrisons",
+      object
+    );
+  }
+
   trouverVisitesParIdDetenuEtMoisEtAnnee(
     id: any,
     anneeVisite: any,

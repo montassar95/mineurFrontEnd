@@ -1,5 +1,5 @@
 <div class="container" dir="rtl">
-   <!-- Table Section -->
+<p-toast key="tst" [style]="{marginTop: '150px'}"></p-toast>
    <p-table [value]="users" [style]="tableStyle" id="dt" #dt dataKey="numOrdinale" paginator
       [rowsPerPageOptions]="[5, 10, 20, 50]" [paginator]="true" [rows]="10" [globalFilterFields]="['id', 'personelleId', 'fullName', 'personelle?.prenom', 
                                      'username', 'personelle?.fonction?.libelle_fonction', 
@@ -39,16 +39,18 @@
       <ng-template pTemplate="body" let-user>
          <tr>
             <td>{{user?.id}}</td>
-            <td>{{user?.personelleId}}</td>
+            <td> <b>{{user?.personelleId}}</b> </td>
             <td>{{user?.fullName}} </td>
             <td>{{user?.username}}</td>
             <td>{{user?.roleName}}</td>
             
             
             <td>{{user?.etablissement}}</td>
-            <td>
+            <td *ngIf="user?.id != 41">
                <button mat-mini-fab (click)="editUser(user)"  class="edit-btn"><i class="pi pi-pencil"></i></button>
+               <button mat-mini-fab (click)="deleteUser(user)" class="delete-btn" style="margin-right: 10px;"><i class="pi pi-trash"></i></button>
             </td>
+             
          </tr>
       </ng-template>
    </p-table>
@@ -62,4 +64,60 @@
       </p-header>
       <app-add-user [user]="selectedUser" (closeEvent)="close($event)"></app-add-user>
    </p-dialog>
+
+
+<p-dialog dir="rtl" [(visible)]="displayDeleteUser" [closable]="false" [modal]="true">
+   <p-header>
+      <div class="dialog-header">
+         <span>تنبيه</span>
+      </div>
+   </p-header>
+   <div class="dialog-content">
+      <h1 style="color: red;">هل أنت متأكد من الحذف    ؟</h1>
+      <table>
+         <tr>
+            <th > معـــرف ألـــي </th>
+            <th > رقـــم الإداري </th>
+            <th >الهويـــة </th>
+            <th >إســـم المستعمـــل </th>
+            <th >المهــــام
+               
+            </th>
+            <th >
+               المؤسســـة
+               
+            </th>
+         
+         
+         
+         </tr>
+         <tr>
+            <td>{{selectedUser?.id}}</td>
+            <td>{{selectedUser?.personelleId}}</td>
+            <td>{{selectedUser?.fullName}} </td>
+            <td>{{selectedUser?.username}}</td>
+            <td>{{selectedUser?.roleName}}</td>
+         
+         
+            <td>{{selectedUser?.etablissement}}</td>
+            
+         <td>
+            <button (click)="displayDeleteUser=false" style="background-color: white!important;" mat-fab>
+               <i class="pi pi-undo" style="font-size: 30px; font-weight: bolder; color:green;"> </i>
+            
+            
+            </button>
+            
+            <button (click)="delete()" style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab>
+               <i class="pi pi-trash" style="font-size: 30px; color: white;"> </i>
+            
+            
+            </button>
+         </td>
+         </tr>
+      </table>
+     
+   </div>
+</p-dialog>
+
 </div>

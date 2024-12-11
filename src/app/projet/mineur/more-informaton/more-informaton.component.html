@@ -1,20 +1,22 @@
 
-<div dir="rtl" *ngIf="arrestationLocal" class="container" style=" margin-bottom: 200px; ">
-<div class="p-grid">
-   <div class="p-col-3">
+<div dir="rtl" *ngIf="arrestationLocal" class="container" >
+<div class="p-grid ">
+   <div class="p-col-2">
       <button mat-raised-button class="button-card3" (click)="displayAllArrestation = true"
-         style="   background-color:   white; width: 150px; ">
-         <span style="font-family: 'Amiri', Times, serif; font-size: 20px; color:   black;"> قائمة
-            الإيقافات
+     >
+         <span style="font-family: 'Amiri', Times, serif; font-size: 20px; color:   black;">  
+            الإيقــــاف:
+            <b style="color: #ff3434;  ; font-weight: bold;">{{'0' + arrestationLocal?.arrestationId?.numOrdinale }}</b>
+            
          </span>
          <i class="pi pi-cog" style="font-size: 35px;  color:   #214954;"></i>
       </button>
    </div>
-   <div class="p-col-5">
+   <div class="p-col-6">
 
 
       <h1 class="text"> {{enfantLocal?.nom}} بن {{enfantLocal?.nomPere}} بن
-         {{enfantLocal?.nomGrandPere}} {{enfantLocal.prenom}}</h1>
+         {{enfantLocal?.nomGrandPere}} {{enfantLocal?.prenom}}</h1>
 
    </div>
    <div class="p-col-1">
@@ -22,7 +24,7 @@
             {{affairePrincipale?.typeAffaire?.libelle_typeAffaire}}</span></label>
    </div>
    <div class="p-col-3" style="display: flex; align-items: center;">
-      <button mat-raised-button class="button-card3" (click)="print()">
+      <button mat-raised-button class="button-card3"    (click)="print()">
          <span class="button-text">تحميل مذكرة</span>
          <i class="pi pi-file button-icon"></i>
       </button>
@@ -30,12 +32,12 @@
          <div class="checkbox-row">
             <p-checkbox class="custom-checkbox" [binary]="true" (click)="showRefus()" name="cg" value="yes"
                [(ngModel)]="sansDetail"></p-checkbox>
-            <label class="checkbox-label">غير مفصلة</label>
+            <label class="checkbox-label" style="font-size: 18px;">غير مفصلة</label>
          </div>
          <div class="checkbox-row">
             <p-checkbox class="custom-checkbox" [binary]="true" (click)="showRefus()" name="cg" value="yes"
                [(ngModel)]="sansImage"></p-checkbox>
-            <label class="checkbox-label">بدون صورة</label>
+            <label class="checkbox-label" style="font-size: 18px;">بدون صورة</label>
          </div>
       </div>
    </div>
@@ -45,50 +47,40 @@
  
       <div class="p-col-9 court-document "  >
          
-            
+            <p-card>
             <div class="p-grid court-content ">
                <div class="p-col-6" >
                   <label >
                      المعــــرف الوحيد :
                      <b style="color: #ff3434;  ; font-weight: bold;">
-                        {{enfantLocal?.id}}  
+                        {{enfantLocal?.id +' / '+ '0' + arrestationLocal?.arrestationId?.numOrdinale}} 
                        
                      </b>
                   </label>
                    <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
             
                  
-                     <label>العدد الرتبــــي للإيقــــاف:
+                     <!-- <label>العدد الرتبــــي للإيقــــاف:
                         <b style="color: #ff3434;  ; font-weight: bold;">{{'0' + arrestationLocal?.arrestationId?.numOrdinale }}</b>
                      </label>
-                      <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                      <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);"> -->
                      
                      <label>مركز الإيقــــاف : <b>{{centre}}</b></label>
                       <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
                      
-                     <label>عــــدد الإيقــــاف : <b dir="rtl">{{numArrestation}}</b></label>
-                      <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                     <label for="firstname3">تــــاريخ الــــولادة : <b dir="rtl">{{enfantLocal?.dateNaissance}}</b></label>
+                     <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
                      
-                  <div class="p-col-4" *ngIf="ficheDeDetentionDto?.totaleEchappe">
-                     <label for="firstname3">عدد الفرارات:
-                        <b>{{ficheDeDetentionDto?.totaleEchappe}}</b>
+                     
+                     <label>
+                        تـــاريخ بلـــوغ سن الرشـــد :
+                        <b style="  font-weight: lighter;">
+                           {{ageCon}}
+                        </b>
                      </label>
-                      <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
-                  </div>
-                  <div class="p-grid">
-                     <div class="p-col-4" *ngIf="ficheDeDetentionDto?.totaleRecidenceWithetabChangeManiere">
-                        <label for="firstname3">تغير وسيلة:
-                           <b>{{ficheDeDetentionDto?.totaleRecidenceWithetabChangeManiere}}</b>
-                        </label>
-                         <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
-                     </div>
-                     <div class="p-col-4" *ngIf="ficheDeDetentionDto?.totaleRecidence">
-                        <label for="firstname3">عدد النقل:
-                           <b>{{ficheDeDetentionDto?.totaleRecidence}}</b>
-                        </label>
-                         <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
-                     </div>
-                  </div>
+                     <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                 
+                   
                   
                   
 
@@ -97,22 +89,22 @@
                </div>
             
                <div class="p-col-6">
-                  <label for="firstname3">تــاريخ الإيـداع بالمركز :
-                     <b dir="rtl">{{arrestationLocal?.date}}</b>
-                  </label>
-                   <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
                   <label>العقوبات السابقة :
-                     <b *ngIf="numArrestation > 1">عــائــد</b>
-                     <b *ngIf="numArrestation == 1">{{enfantLocal?.classePenale?.libelle_classe_penale}}</b>
+                     <b *ngIf="arrestations?.length >   1 ">عــائــد</b>
+                     <b *ngIf="arrestations?.length ==   1 ">{{enfantLocal?.classePenale?.libelle_classe_penale}}</b>
                   
                   </label>
-                   <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
-                     <label for="firstname3">تــــاريخ الــــولادة : <b dir="rtl"
-                           style="color: blueviolet;">{{enfantLocal?.dateNaissance}}</b></label>
-                      <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                  <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                  <label>عــــدد الإيقــــاف : <b dir="rtl">{{numArrestation}}</b></label>
+                  <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                  <label for="firstname3">تــاريخ الإيـداع بالمركز :
+                     <b style="color: blueviolet;" dir="rtl">{{arrestationLocal?.date}}</b>
+                  </label>
+                  <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                     
                   <label>
                      السن الحالي :
-                     <b style="color: blueviolet; font-size: 22px; font-weight: lighter;">
+                     <b style="  color: #ff3434; font-weight: lighter;">
                         {{this.ageEnfant}} عــــام
                      </b>
                   </label>
@@ -120,61 +112,47 @@
                   <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
                   
 
-                  <label>
-                     تـــاريخ بلـــوغ سن الرشـــد :
-                     <b style="color: blueviolet; font-size: 22px; font-weight: lighter;">
-                        {{ageCon}}
-                     </b>
-                  </label>
-                  <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                 
                   
                  
                </div>
-               <div class="p-col-12">
+               <div class="p-col-2" >
+                  <label  *ngIf="ficheDeDetentionDto?.totaleEchappe" for="firstname3">عدد الفرارات:
+                     <b>{{ficheDeDetentionDto?.totaleEchappe}}</b>
+                  </label>
+                  <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+               </div>
+               <div class="p-col-2" >
+                  <label *ngIf="ficheDeDetentionDto?.totaleRecidenceWithetabChangeManiere" for="firstname3">تغير وسيلة:
+                     <b>{{ficheDeDetentionDto?.totaleRecidenceWithetabChangeManiere}}</b>
+                  </label>
+                  <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+               </div>
+               <div class="p-col-2" >
+                  <label *ngIf="ficheDeDetentionDto?.totaleRecidence" for="firstname3">عدد النقل:
+                     <b>{{ficheDeDetentionDto?.totaleRecidence}}</b>
+                  </label>
+                  <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+               </div>
+               <div class="p-col-6"  >
+                  <label style="background-color: transparent; " *ngIf="msg" class="wrapper">
+                     <b>{{msg}}</b>
+                  
+                     <b *ngIf="ficheDeDetentionDto?.etatJuridique == 'pasInsertionLiberable' && !ficheDeDetentionDto?.liberation"
+                        style="text-align: center; font-size: 30px;" class="neons">
+                        <span>*** قــــــــــــــــــم بــــــــــــــــــإدراج الســــــــــــــــــراح ***</span>
+                     </b>
+                  </label>
+               </div>
+               <!-- <div class="p-col-12">
                   <label style="font-size: 25px; font-weight: bold; ">
                      <a href="javascript:void(0)"   (click)="toggleMoreInfo()" style="color: #007bff; text-decoration: none;">
                         <u>عرض المزيد من التفاصيل </u>
                      </a>
                   </label>
                
-               </div> 
-               <div class="p-col-6" *ngIf="showMoreInfo">
-                  <label for="firstname3">هويــــة الأم: <b>{{enfantLocal?.nomMere}} {{enfantLocal?.prenomMere}}</b></label>
-                   <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
-               
-                  <label for="firstname3">مكان الولادة : <b>{{enfantLocal?.lieuNaissance}}</b></label>
-                   <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
-                  <label>المهنــة : <b>{{enfantLocal?.metier?.libelle_metier}}</b></label>
-                   <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
-               
-                  <label for="firstname3">الجنسية: <b>{{enfantLocal.nationalite.libelle_nationalite}}</b></label>
-                   <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
-               </div>
-               
-               <div class="p-col-6"  *ngIf="showMoreInfo">
-               
-               
-                  <label for="firstname3">الجنس : <b>{{enfantLocal?.sexe}}</b></label>
-                   <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
-                  <label for="firstname3">الحالة العائلية :
-                     <b>{{enfantLocal?.situationFamiliale?.libelle_situation_familiale}}</b>
-                  </label>
-                   <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
-               
-                  <label for="firstname3">المستوى الدراسي :
-                     <b>{{enfantLocal?.niveauEducatif?.libelle_niveau_educatif}}</b>
-                  </label>
-                   <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
-               
-                  <label for="firstname3">القاطن (ة):
-                     <b style="line-height: 1.2;">
-                        {{enfantLocal?.adresse + ' '}}
-                        {{enfantLocal?.delegation?.libelle_delegation + ' '}}
-                        {{enfantLocal?.delegation?.gouvernorat?.libelle_gouvernorat}}
-                     </b>
-                  </label>
-                   <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
-               </div>
+               </div>  -->
+              
             
             <!-- <div class="p-col-12">
                <label style="font-size: 25px; font-weight: bold; ">
@@ -190,24 +168,17 @@
                 
             </div>
 
-
+</p-card>
             
 
           
       </div>
      
       <div class="p-col-3">
-         <img (click)="swipe()" style="margin-right: 20%;" *ngIf="photo" [src]="photo" class="profile-img-card3" />
-         <img (click)="swipe()" style="margin-right: 20%;" *ngIf="!photo"
+         <img (click)="swipe()" style="margin-right: 10%;" *ngIf="photo" [src]="photo" class="profile-img-card3" />
+         <img (click)="swipe()" style="margin-right: 10%;" *ngIf="!photo"
             [src]="photo ? photo : 'assets/layout/images/cameraa.png'" class="profile-img-card3" />
-         <label style="background-color: transparent; margin-right: 20%;" *ngIf="msg" class="wrapper">
-            <b>{{msg}}</b>
-      
-            <b *ngIf="ficheDeDetentionDto?.etatJuridique == 'pasInsertionLiberable' && !ficheDeDetentionDto?.liberation"
-               style="text-align: center; font-size: 30px;" class="neons">
-               <span>*** قــــــــــــــــــم بــــــــــــــــــإدراج الســــــــــــــــــراح ***</span>
-            </b>
-         </label>
+        
       </div>
       <!-- <div class="p-col-12 court-document"  >
 <div class="p-grid court-content">
@@ -225,12 +196,14 @@
        
       <div  style="width: 100%; " class="court-document"  *ngIf="ficheDeDetentionDto; else loadingTemplate">
          <mat-tab-group mat-align-tabs="center" [(selectedIndex)]="selectedIndex" animationDuration="600ms">
+        
+          
             <mat-tab>
                <ng-template mat-tab-label>
                   <i class="pi pi-search" style="font-size: 25px;   "></i>
-                  <span style="font-family: 'Amiri', Times, serif; font-size: 20px;     ">معطيات </span>
+                  <span style="font-family: 'Amiri', Times, serif; font-size: 20px;     ">معطيات جزائية </span>
                </ng-template>
-               <!-- <p-card [style]="{  'background-image': 'url(assets/layout/images/fond.jpg)'   }"> -->
+               
            <p-card > 
                   <!-- <hr style="      border:0.1px solid rgba(0, 0, 0, 0.060);"> -->
                   <div class="p-grid" style=" text-align: center;">
@@ -261,7 +234,7 @@
                               dir="rtl">{{affairePrincipale?.affaireId.numAffaire}}</b> </label>
                               <hr style="      border:0.1px solid rgba(175, 175, 175, 0.4); ">
                         <label for="firstname3"  > لـــدى :
-                           <b>{{affairePrincipale?.tribunal?.nom_tribunal}}</b></label>
+                           <b style=" line-height: 1.3;">{{affairePrincipale?.tribunal?.nom_tribunal}}</b></label>
                            <hr style="      border:0.1px solid rgba(175, 175, 175, 0.4); ">
                         <label   *ngIf="ficheDeDetentionDto?.dateJuge">تاريخ الحكـــــــــــــــــم : <b
                               dir="rtl">
@@ -403,18 +376,19 @@
                   <i class="pi pi-copy" style="font-size: 25px;   "></i>
                   <span style="font-family: 'Amiri', Times, serif; font-size: 20px;    ">قائمة القضايا </span>
                </ng-template>
+               
                <p-table *ngIf="displayAffaire" [value]="ficheDeDetentionDto?.affaires" #dt dataKey="numOrdinale"
-               [style]="{ 'background-color': 'white'   }"
+
                   selectionMode="single" [paginator]="true" [rows]="10" [globalFilterFields]="['type']">
                   <ng-template pTemplate="header">
                      <tr  >
                         <th style="width:  3em;"> ع.ر </th>
-                        <th style="width: 11%;">عدد القضية</th>
+                        <th style="width: 12%;">عدد القضية</th>
                         <th style="width: 11%;"> تاريخ الحكم </th>
                         <th style="width: 20%;">المحكمة</th>
-                        <th style="width: 25%;">التهمة </th>
-                        <th style="width: 20%;">نص الحكم </th>
-                        <th style="width: 13%;">الوثيقة الجارية</th>
+                        <th style="width: 24%;">التهمة </th>
+                        <th style="width: 12%;">نص الحكم </th>
+                        <th style="width: 11%;">الوثيقة الجارية</th>
                         <th style="width: 3em;">
                            كشف
                         </th>
@@ -424,7 +398,9 @@
                      </tr>
                   </ng-template>
                   <ng-template pTemplate="body" let-row>
-                     <tr>
+
+                   
+                     <tr style="background: white;">
                         <td class="d">{{row?.numOrdinalAffaire}}</td>
                         <td> {{row?.affaireId?.numAffaire}}</td>
                         <td>{{row?.dateEmission}}</td>
@@ -438,7 +414,7 @@
                         </td>
                         <td *ngIf="!row.jour && !row.mois  &&  !row.annee && row.typeDocument !== 'AEX'">
                            <span
-                              *ngIf="row.typeDocument !== 'CJ' && row.typeDocument !== 'CJA'  && row.typeDocument !== 'CR' ">موقوف</span>
+                              *ngIf="row.typeDocument !== 'CJ' && row.typeDocument !== 'CJA'  && row.typeDocument !== 'CR' ">إيقاف</span>
                            <div *ngIf="row.typeJuge">
                               {{row.typeJuge?.libelle_typeJuge}}
                            </div>
@@ -454,7 +430,7 @@
                            </div>
                         </td>
                         <td *ngIf="row.jour ||  row.mois  || row.annee">
-                           <div>
+                           <div  class="li"  >
                               <span *ngIf="row.jour">{{row.jour}} يوم </span>
                               <span *ngIf="row.jour && row.mois"> و </span>
                               <span *ngIf="row.mois">{{row.mois}} شهر </span>
@@ -651,6 +627,54 @@
                      </ng-template>
                   </p-dataView>
                </div>
+            </mat-tab>
+            <mat-tab>
+               <ng-template mat-tab-label>
+                  <i class="pi pi-user" style="font-size: 25px;   "></i>
+                  <span style="font-family: 'Amiri', Times, serif; font-size: 20px;     ">تفاصيل الهوية </span>
+               </ng-template>
+               <p-card>
+                  <div class="p-grid">
+            
+                     <div class="p-col-6">
+                        <label for="firstname3">هويــــة الأم: <b>{{enfantLocal?.nomMere}} {{enfantLocal?.prenomMere}}</b></label>
+                        <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+            
+                        <label for="firstname3">مكان الولادة : <b>{{enfantLocal?.lieuNaissance}}</b></label>
+                        <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                        <label>المهنــة : <b>{{enfantLocal?.metier?.libelle_metier}}</b></label>
+                        <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+            
+                        <label for="firstname3">الجنسية: <b>{{enfantLocal.nationalite.libelle_nationalite}}</b></label>
+                        <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                     </div>
+            
+                     <div class="p-col-6">
+            
+            
+                        <label for="firstname3">الجنس : <b>{{enfantLocal?.sexe}}</b></label>
+                        <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                        <label for="firstname3">الحالة العائلية :
+                           <b>{{enfantLocal?.situationFamiliale?.libelle_situation_familiale}}</b>
+                        </label>
+                        <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+            
+                        <label for="firstname3">المستوى الدراسي :
+                           <b>{{enfantLocal?.niveauEducatif?.libelle_niveau_educatif}}</b>
+                        </label>
+                        <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+            
+                        <label for="firstname3">القاطن (ة):
+                           <b style="line-height: 1.2;">
+                              {{enfantLocal?.adresse + ' '}}
+                              {{enfantLocal?.delegation?.libelle_delegation + ' '}}
+                              {{enfantLocal?.delegation?.gouvernorat?.libelle_gouvernorat}}
+                           </b>
+                        </label>
+                        <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                     </div>
+                  </div>
+               </p-card>
             </mat-tab>
             <mat-tab>
                <ng-template mat-tab-label>
@@ -1023,7 +1047,7 @@
                            <span *ngIf="row.typeDocument !== 'CJ' 
                         && row.typeDocument !== 'CJA' 
                         && row.typeDocument !== 'CRR' 
-                        && row.typeDocument !== 'CR'">موقوف</span>
+                        && row.typeDocument !== 'CR'">إيقاف</span>
                            <div style="color: green;" *ngIf="row?.typeJuge?.situation == 'nonCal'">
                               {{row.typeJuge?.libelle_typeJuge}}
                            </div>

@@ -37,7 +37,7 @@ export class ChangementLieu {
   type: string;
 
   etablissement: Etablissement;
-  user: User;
+  // user: User;
   //personelle: Personelle;
 
   motifArreterlexecution: MotifArreterlexecution;

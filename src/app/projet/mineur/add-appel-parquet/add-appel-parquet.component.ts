@@ -291,7 +291,7 @@ export class AddAppelParquetComponent implements OnInit {
 
           this.appelParquet.numArrestation = this.residence.numArrestation;
           this.appelParquet.etablissement = this.residence.etablissement;
-          this.appelParquet.user = this.token.getUser();
+          // this.appelParquet.user = this.token.getUser();
           this.appelParquet.dateInsertion = this.datepipe.transform(
             new Date(),
             "yyyy-MM-dd"

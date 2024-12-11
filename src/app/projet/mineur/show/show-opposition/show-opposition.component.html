@@ -1,0 +1,88 @@
+<div dir="rtl" *ngIf=" opposition" class="judicial-document">
+    <div class="document-header">
+        <div class="header-left">
+            <h1>الجمهورية التونسية</h1>
+            <h2>وزارة العدل</h2>
+            <h3>{{ opposition?.affaire?.tribunal?.nom_tribunal }}</h3>
+        </div>
+
+        <div class="header-center">
+            <h1 class="document-title">
+                <b> إستئنـــاف النيـابة </b>
+
+            </h1>
+        </div>
+
+        <div class="header-right">
+            <h3>
+                <b>{{ opposition?.affaire?.tribunal?.gouvernorat?.libelle_gouvernorat}}</b>
+                <b> في {{ opposition?.dateEmission | date:'yyyy/MM/dd' }}</b>
+            </h3>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="p-grid">
+            <div class="p-col-2">
+                <label>الهوية:</label>
+            </div>
+            <div class="p-col-10">
+                <ul>
+                    <li style="font-weight: bold;">
+                        {{ opposition?.affaire?.arrestation?.enfant?.nom }} بن
+                        {{ opposition?.affaire?.arrestation?.enfant?.nomPere }} بن
+                        {{ opposition?.affaire?.arrestation?.enfant?.nomGrandPere }}
+                        {{ opposition?.affaire?.arrestation?.enfant?.prenom }}
+                        <br>
+                        إبن
+                        {{ opposition?.affaire?.arrestation?.enfant?.nomMere + ' ' +
+                        opposition?.affaire?.arrestation?.enfant?.prenomMere }}
+                    </li>
+                    <li style="color: red;">
+                        البلغ (ة) من العمر: XX سنة
+
+                        و المولود (ة) بــــ:
+                        {{ opposition?.affaire?.arrestation?.enfant?.lieuNaissance }}
+                        {{ opposition?.affaire?.arrestation?.enfant?.dateNaissance | date:'yyyy/MM/dd' }}
+                    </li>
+                    <li>
+                        القاطن (ة):
+                        {{ opposition?.affaire?.arrestation?.enfant?.adresse + ' ' }}
+                        {{ opposition?.affaire?.arrestation?.enfant?.delegation?.libelle_delegation + ' ' }}
+                        {{ opposition?.affaire?.arrestation?.enfant?.delegation?.gouvernorat?.libelle_gouvernorat }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="p-grid" *ngIf=" opposition?.affaire">
+            <div class="p-col-2">
+                <label>قضية الإستئناف:</label>
+            </div>
+            <div class="p-col-10">
+                <span *ngIf=" opposition?.affaire">{{ opposition?.affaire?.affaireId?.numAffaire
+                    }} - {{ opposition?.affaire?.tribunal?.nom_tribunal }}</span>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="p-grid">
+            <div class="p-col-2">
+                <label>تاريخ الإستئناف:</label>
+            </div>
+            <div class="p-col-10">
+                <span>{{ opposition?.dateEmission | date:'yyyy/MM/dd'}}</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            <label>المدرج: <span>{{ opposition?.user?.nom +' '+ opposition?.user?.prenom }}</span>
+                <p>{{ opposition?.etablissement?.libelle_etablissement }} في {{ opposition?.dateInsertion |
+                    date:'yyyy/MM/dd' }} </p>
+            </label>
+        </div>
+    </div>
+</div>

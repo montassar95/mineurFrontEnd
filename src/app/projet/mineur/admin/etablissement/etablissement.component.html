@@ -142,7 +142,14 @@
     <label   class="p-col-fixed" style="width:180px">  الولاية    :  </label>
     <div class="p-col">
         <p-dropdown    (onChange)="onChangGouv($event) " [options]="gouvernorats" placeholder="الولاية  "   [filter]="true" id="gouvernorat"  
-                  [style]="{'width':'300px'}"   name="gouvernorat"></p-dropdown>
+                  [style]="{'width':'300px'}"   name="gouvernorat">
+                <ng-template let-gouv pTemplate="item">
+                    <div class="item">
+                
+                        <div>{{gouv.label }}</div>
+                    </div>
+                </ng-template>
+                </p-dropdown>
     </div>
  </div>  
  <div style="text-align: center; margin-top: 20%;">

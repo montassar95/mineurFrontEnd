@@ -114,9 +114,8 @@ export class MoreInformatonComponent implements OnInit {
   affairePrincipale: Affaire | undefined;
   photo = "";
 
-  
   loading: boolean = true;
-
+  source: string | null = null;
   ngOnDestroy() {
     window.localStorage.removeItem("idEnfantValide");
   }
@@ -130,11 +129,16 @@ export class MoreInformatonComponent implements OnInit {
     if (this.idEnfant) {
       this.search(this.idEnfant);
     }
-    // Récupérer le paramètre 'idEnfant' de l'URL
+    // Récupérer les paramètres 'id' et 'source' de l'URL
     this.route.paramMap.subscribe((params) => {
-      this.idEnfant = params.get("id"); // Récupération du paramètre
-      if (this.idEnfant) {
-        this.search(this.idEnfant); // Appel de la méthode search si nécessaire
+      this.idEnfant = params.get("id"); // Récupération du paramètre 'id'
+      this.source = params.get("source"); // Récupération du paramètre 'source'
+      console.log(this.source);
+      if (this.idEnfant && this.source == "Mineur") {
+        this.search(this.idEnfant); // Appel de la méthode search avec les deux paramètres
+      }
+      else{
+        alert("Penale")
       }
     });
   }

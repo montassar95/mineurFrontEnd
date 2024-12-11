@@ -442,7 +442,7 @@ export class AddPropagationComponent implements OnInit {
 
           this.cartePropagation.numArrestation = this.residence.numArrestation;
           this.cartePropagation.etablissement = this.residence.etablissement;
-          this.cartePropagation.user = this.token.getUser();
+          // this.cartePropagation.user = this.token.getUser();
           this.cartePropagation.dateInsertion = this.datepipe.transform(
             new Date(),
             "yyyy-MM-dd"

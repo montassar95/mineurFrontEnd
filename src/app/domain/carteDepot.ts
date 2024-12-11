@@ -24,7 +24,7 @@ export class CarteDepot {
   numArrestation?: any;
 
   etablissement: Etablissement;
-  user: User;
+  //user: User;
   // personelle: Personelle;
 
   dateInsertion?: any;

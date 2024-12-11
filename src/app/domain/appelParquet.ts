@@ -25,7 +25,7 @@ export class AppelParquet {
   numArrestation?: any;
 
   etablissement: Etablissement;
-  user: User;
+  //user: User;
   // personelle:Personelle;
 }
  

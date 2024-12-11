@@ -20,7 +20,7 @@ export class ModifyPasswordComponent implements OnInit {
   ) {}
   idPersonelle: any;
   userId: number; // Remplacez cela par l'ID de l'utilisateur courant
-  personelle: Personelle;
+  // personelle: Personelle;
   oldPassword: string = "";
   newPassword: string = "";
   confirmPassword: string = ""; // Ajouté pour le mot de passe de confirmation
@@ -30,7 +30,7 @@ export class ModifyPasswordComponent implements OnInit {
   ngOnInit(): void {
     this.currentUser = this.token.getUser();
     this.userId = this.currentUser.id;
-    this.personelle = this.currentUser.personelle;
+    // this.personelle = this.currentUser.personelle;
   }
 
   onChangePassword() {

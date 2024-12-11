@@ -1,0 +1,88 @@
+<div dir="rtl" *ngIf=" observation" class="judicial-document">
+    <div class="document-header">
+        <div class="header-left">
+            <h1>الجمهورية التونسية</h1>
+            <h2>وزارة العدل</h2>
+            <h3>{{ observation?.affaire?.tribunal?.nom_tribunal }}</h3>
+        </div>
+
+        <div class="header-center">
+            <h1 class="document-title">
+                <b> إستئنـــاف النيـابة </b>
+
+            </h1>
+        </div>
+
+        <div class="header-right">
+            <h3>
+                <b>{{ observation?.affaire?.tribunal?.gouvernorat?.libelle_gouvernorat}}</b>
+                <b> في {{ observation?.dateEmission | date:'yyyy/MM/dd' }}</b>
+            </h3>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="p-grid">
+            <div class="p-col-2">
+                <label>الهوية:</label>
+            </div>
+            <div class="p-col-10">
+                <ul>
+                    <li style="font-weight: bold;">
+                        {{ observation?.affaire?.arrestation?.enfant?.nom }} بن
+                        {{ observation?.affaire?.arrestation?.enfant?.nomPere }} بن
+                        {{ observation?.affaire?.arrestation?.enfant?.nomGrandPere }}
+                        {{ observation?.affaire?.arrestation?.enfant?.prenom }}
+                        <br>
+                        إبن
+                        {{ observation?.affaire?.arrestation?.enfant?.nomMere + ' ' +
+                        observation?.affaire?.arrestation?.enfant?.prenomMere }}
+                    </li>
+                    <li style="color: red;">
+                        البلغ (ة) من العمر: XX سنة
+
+                        و المولود (ة) بــــ:
+                        {{ observation?.affaire?.arrestation?.enfant?.lieuNaissance }}
+                        {{ observation?.affaire?.arrestation?.enfant?.dateNaissance | date:'yyyy/MM/dd' }}
+                    </li>
+                    <li>
+                        القاطن (ة):
+                        {{ observation?.affaire?.arrestation?.enfant?.adresse + ' ' }}
+                        {{ observation?.affaire?.arrestation?.enfant?.delegation?.libelle_delegation + ' ' }}
+                        {{ observation?.affaire?.arrestation?.enfant?.delegation?.gouvernorat?.libelle_gouvernorat }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="p-grid" *ngIf=" observation?.affaire">
+            <div class="p-col-2">
+                <label>قضية الإستئناف:</label>
+            </div>
+            <div class="p-col-10">
+                <span *ngIf=" observation?.affaire">{{ observation?.affaire?.affaireId?.numAffaire
+                    }} - {{ observation?.affaire?.tribunal?.nom_tribunal }}</span>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="p-grid">
+            <div class="p-col-2">
+                <label>تاريخ الإستئناف:</label>
+            </div>
+            <div class="p-col-10">
+                <span>{{ observation?.dateEmission | date:'yyyy/MM/dd'}}</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            <label>المدرج: <span>{{ observation?.user?.nom +' '+ observation?.user?.prenom }}</span>
+                <p>{{ observation?.etablissement?.libelle_etablissement }} في {{ observation?.dateInsertion |
+                    date:'yyyy/MM/dd' }} </p>
+            </label>
+        </div>
+    </div>
+</div>

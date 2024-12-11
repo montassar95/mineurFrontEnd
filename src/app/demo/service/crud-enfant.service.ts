@@ -56,6 +56,12 @@ export class CrudEnfantService {
     );
   }
 
+  statistiquesParDate(idOjet1: any): Observable<any> {
+    return this.httpClient.get<any>(
+      environment.baseUrl + "statistcs/statistiquesParDate/" + idOjet1
+    );
+  }
+
   trouverDelegationsParGouvernorat(
     ojetUrl: any,
     idOjet: any

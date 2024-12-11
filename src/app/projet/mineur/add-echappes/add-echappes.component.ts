@@ -202,7 +202,7 @@ export class AddEchappesComponent implements OnInit, OnDestroy {
       //                           if (data.result == null) {
       //                             if (
       //                               this.residence.etablissement.id !=
-      //                               this.currentUser.personelle.etablissement.id
+      //                               this.currentUser.etablissement.id
       //                             ) {
       //                               this.isShow = true;
       //                               this.msg =
@@ -225,7 +225,7 @@ export class AddEchappesComponent implements OnInit, OnDestroy {
       //                       if (
       //                         this.echappes.residenceEchapper.etablissement
       //                           .id !=
-      //                         this.currentUser.personelle.etablissement.id
+      //                         this.currentUser.etablissement.id
       //                       ) {
       //                         this.memeEtablisement = true;
       //                       }

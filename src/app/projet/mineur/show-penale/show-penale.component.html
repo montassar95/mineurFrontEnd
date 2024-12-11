@@ -1,0 +1,149 @@
+<div dir="rtl" class="container">
+
+<div class="p-grid ">
+    <div class="p-col-2">
+        <button mat-raised-button class="button-card3" (click)="displayAllArrestation = true">
+            <span style="font-family: 'Amiri', Times, serif; font-size: 20px; color:   black;">
+                الإيقــــاف:
+                <b style="color: #ff3434;  ; font-weight: bold;">{{'0' + arrestationLocal?.arrestationId?.numOrdinale
+                    }}</b>
+
+            </span>
+            <i class="pi pi-cog" style="font-size: 35px;  color:   #214954;"></i>
+        </button>
+    </div>
+    <div class="p-col-6">
+
+
+        <h1 class="text"> {{enfantLocal?.nom}} بن {{enfantLocal?.nomPere}} بن
+            {{enfantLocal?.nomGrandPere}} {{enfantLocal?.prenom}}</h1>
+
+    </div>
+    <div class="p-col-1">
+        <label class="neons cercle" *ngIf="affairePrincipale?.typeAffaire?.id==5"> <span>
+                {{affairePrincipale?.typeAffaire?.libelle_typeAffaire}}</span></label>
+    </div>
+    <div class="p-col-3" style="display: flex; align-items: center;">
+        <button mat-raised-button class="button-card3" (click)="print()">
+            <span class="button-text">تحميل مذكرة</span>
+            <i class="pi pi-file button-icon"></i>
+        </button>
+        
+    </div>
+</div>
+
+    <div class="p-grid">
+
+
+        <div class="p-col-9 court-document ">
+
+            <p-card>
+                <div class="p-grid court-content ">
+                    <div class="p-col-6">
+                        <label>
+                            المعــــرف الوحيد :
+                            <b style="color: #ff3434;  ; font-weight: bold;">
+                                {{enfantLocal?.id +' / '+ '0' + arrestationLocal?.arrestationId?.numOrdinale}}
+
+                            </b>
+                        </label>
+                        <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+
+
+                        <!-- <label>العدد الرتبــــي للإيقــــاف:
+                        <b style="color: #ff3434;  ; font-weight: bold;">{{'0' + arrestationLocal?.arrestationId?.numOrdinale }}</b>
+                     </label>
+                      <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);"> -->
+
+                        <label>سجن الإيقــــاف : <b>{{centre}}</b></label>
+                        <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+
+                        <label for="firstname3">تــــاريخ الــــولادة : <b
+                                dir="rtl">{{enfantLocal?.dateNaissance}}</b></label>
+                        <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+
+
+                        <label>
+                            تـــاريخ بلـــوغ سن الرشـــد :
+                            <b style="  font-weight: lighter;">
+                                {{ageCon}}
+                            </b>
+                        </label>
+                        <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+
+
+
+
+
+
+
+                    </div>
+
+                    <div class="p-col-6">
+                        <label>العقوبات السابقة :
+                            <b *ngIf="arrestations?.length >   1 ">عــائــد</b>
+                            <b
+                                *ngIf="arrestations?.length ==   1 ">{{enfantLocal?.classePenale?.libelle_classe_penale}}</b>
+
+                        </label>
+                        <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                        <label>عــــدد الإيقــــاف : <b dir="rtl">{{numArrestation}}</b></label>
+                        <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                        <label for="firstname3">تــاريخ الإيـداع بالسجن :
+                            <b style="color: blueviolet;" dir="rtl">{{arrestationLocal?.date}}</b>
+                        </label>
+                        <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+
+                        <label>
+                            السن الحالي :
+                            <b style="  color: #ff3434; font-weight: lighter;">
+                                {{this.ageEnfant}} عــــام
+                            </b>
+                        </label>
+
+                        <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+
+
+
+
+
+                    </div>
+                    <div class="p-col-2">
+                        <label *ngIf="ficheDeDetentionDto?.totaleEchappe" for="firstname3">عدد الفرارات:
+                            <b>{{ficheDeDetentionDto?.totaleEchappe}}</b>
+                        </label>
+                        <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                    </div>
+                    <div class="p-col-2">
+                        <label *ngIf="ficheDeDetentionDto?.totaleRecidenceWithetabChangeManiere" for="firstname3">تغير
+                            وسيلة:
+                            <b>{{ficheDeDetentionDto?.totaleRecidenceWithetabChangeManiere}}</b>
+                        </label>
+                        <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                    </div>
+                    <div class="p-col-2">
+                        <label *ngIf="ficheDeDetentionDto?.totaleRecidence" for="firstname3">عدد النقل:
+                            <b>{{ficheDeDetentionDto?.totaleRecidence}}</b>
+                        </label>
+                        <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                    </div>
+
+
+
+
+
+
+                </div>
+
+            </p-card>
+
+
+        </div>
+        <div class="p-col-3">
+            <img (click)="swipe()" style="margin-right: 10%;" *ngIf="photo" [src]="photo" class="profile-img-card3" />
+            <img (click)="swipe()" style="margin-right: 10%;" *ngIf="!photo"
+                [src]="photo ? photo : 'assets/layout/images/cameraa.png'" class="profile-img-card3" />
+
+        </div>
+    </div>
+</div>

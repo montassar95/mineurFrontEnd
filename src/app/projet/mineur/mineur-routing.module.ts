@@ -72,6 +72,9 @@ import { StatistiqueSpecComponent } from "./statistique-spec/statistique-spec.co
 import { AddEnfantComponent } from "./add-enfant/add-enfant.component";
 import { MensuelComponent } from "./mensuel/mensuel.component";
 import { ModifyPasswordComponent } from "./modify-password/modify-password.component";
+import { OppositionComponent } from "./opposition/opposition.component";
+import { ObservationComponent } from "./observation/observation.component";
+import { ShowPenaleComponent } from "./show-penale/show-penale.component";
 
 const routes: Routes = [
   {
@@ -83,9 +86,15 @@ const routes: Routes = [
       { path: "", component: AccueilComponent },
 
       {
-        path: "MoreInformation/:id",
+        path: "MoreInformation/:id/:source",
         component: MoreInformatonComponent,
       },
+
+      {
+        path: "showPenale/:id",
+        component: ShowPenaleComponent,
+      },
+
       {
         path: "ModifyPassword",
         component: ModifyPasswordComponent,
@@ -145,6 +154,10 @@ const routes: Routes = [
       { path: "CommentTrouver", component: CommentTrouverComponent },
       { path: "CauseMutation", component: CauseMutationComponent },
       { path: "CauseLiberation", component: CauseLiberationComponent },
+
+      { path: "Opposition", component: OppositionComponent },
+      { path: "Observation", component: ObservationComponent },
+
       {
         path: "MotifArreterlexecution",
         component: MotifArreterlexecutionComponent,

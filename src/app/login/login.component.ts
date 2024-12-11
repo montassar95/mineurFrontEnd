@@ -43,10 +43,11 @@ export class LoginComponent implements OnInit {
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.chekBlock(this.tokenStorage.getUser() );
+        this.chekBlock(this.tokenStorage.getUser());
       },
       (err) => {
-        this.errorMessage = "يرجى التحقق من  إسم المستعمل و كلمة السر  ";
+        this.errorMessage =
+          "يرجــــى التحقــــق مــــن إســــم المستعمــــل و كلمــة الســــر أو الإتصــــــــال بمركــــــــز الإعلاميــــة ";
         this.isLoginFailed = true;
       }
     );

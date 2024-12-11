@@ -278,7 +278,10 @@
                     <th style="width: 150px;"> الوثيقة الجارية   </th>
                     <th style="width: 150px;"> عدد القضية </th>
                     <th> المحكمة </th>
+                        <th style="width: 250px;"> تاريخ العقاب
 
+
+                        </th>
                     <th style="width: 100px;"> إدراج
 
 
@@ -302,6 +305,8 @@
                     <td *ngIf="row.typeDocument == 'CR' " style="color:  #ff3434!important;"> <b style="font-size:16px;">مراجعة</b> </td>
                     <td *ngIf="row.typeDocument == 'CRR' " style="color:  #ff3434!important;"> <b style="font-size:16px;">رفض مراجعة</b>
                     </td>
+
+                    
                     </ng-template>
                     <!-- <td *ngIf="row.typeDocument == 'CJ'   " style="color:  #ff3434!important;"> <b style="font-size:16px;">مضمون حكم</b></td>
                     
@@ -311,7 +316,8 @@
                   -->
                     <td> <b style="font-size:16px;">{{row.affaireId.numAffaire}} </b></td>
                     <td> <b style="font-size:16px;">{{row.tribunal.nom_tribunal}} </b></td>
-
+                    <td> <b style="font-size:16px;">  من   {{row.dateDebutPunition | date:'dd-MM-yyyy'}}   إلى    {{row.dateFinPunition | date:'dd-MM-yyyy'}} </b>
+                    </td>
                     <td >
 
                     

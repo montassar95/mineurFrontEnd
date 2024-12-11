@@ -116,7 +116,7 @@ export class AddNumArretComponent implements OnInit {
         //     //     if (data.result != null) {
         //     //       this.isReadOnly = false;
         //     //       this.centre =
-        //     //         this.currentUser.personelle.etablissement.libelle_etablissement;
+        //     //         this.currentUser.etablissement.libelle_etablissement;
         //     //       this.dateEntreLocal = "";
         //     //       this.detentionService
         //     //         .calculerNombreDetentionsParIdDetenu("arrestation", id)

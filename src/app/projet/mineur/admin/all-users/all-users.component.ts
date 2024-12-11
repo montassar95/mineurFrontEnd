@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { MessageService } from "primeng";
 import { CrudEnfantService } from "src/app/demo/service/crud-enfant.service";
 
 import { BreadcrumbService } from "src/app/shared/breadcrumb/breadcrumb.service";
@@ -18,17 +19,20 @@ interface User {
   selector: "app-all-users",
   templateUrl: "./all-users.component.html",
   styleUrls: ["./all-users.component.css"],
+    providers: [MessageService]
+  
+
 })
 export class AllUsersComponent implements OnInit {
   users: User[] = [];
   displayAddUser = false;
 
   selectedUser: User | null = null; // Track the selected user for editing
-
+  displayDeleteUser = false;
   constructor(
     private crudservice: CrudEnfantService,
     private breadcrumbService: BreadcrumbService,
-    private router: Router
+    private router: Router, private service: MessageService
   ) {
     this.breadcrumbService.setItems([
       { label: "الإستقبال", routerLink: ["/"] },
@@ -83,5 +87,26 @@ export class AllUsersComponent implements OnInit {
     this.selectedUser = user; // Pass the user to be edited
     console.log(user);
     this.displayAddUser = true; // Show the dialog for editing
+  }
+  deleteUser(user: User) {
+    this.selectedUser = user;
+    this.displayDeleteUser = true;
+    
+  }
+  delete(){
+     this.crudservice.deleteLigne("auth", this.selectedUser.id).subscribe((data) => {
+       if (data.status == 200) {
+         alert("err");
+       } else {
+        this.displayDeleteUser = false;
+          this.service.add({
+            key: "tst",
+            severity: "success",
+            summary: ".   تمت عملية الحذف بنجاح     ",
+            detail: this.selectedUser.fullName,
+          });
+         this.showAllUsers();
+       }
+     });
   }
 }

@@ -1,0 +1,95 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Amiri', Times, serif;
+    font-size: 16px;
+    background-color: #f4f4f4;
+}
+
+.container {
+    margin: 2rem;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    /* background: url('assets/layout/images/111.jpg') no-repeat center center; */
+    background-size: cover;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+    text-align: center;
+    padding: 12px;
+    font-size: 22px;
+    color: #333;
+}
+
+th {
+    font-weight: bold;
+    background-color: #eaeaea;
+}
+
+td {
+    font-weight: lighter;
+    background-color: #fff;
+}
+
+button.add-btn,
+button.edit-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+button.add-btn i,
+button.edit-btn i {
+    font-size: 30px;
+    color: #007bff;
+}
+
+button.add-btn:hover,
+button.edit-btn:hover {
+    color: #0056b3;
+}
+
+/* Input and Sorting */
+input {
+    font-weight: bold;
+    font-size: 16px;
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    width: 250px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+/* Dialog Styles */
+.p-dialog .p-header {
+    background-color: #eaeaea;
+    text-align: center;
+    font-size: 18px;
+    color: #333;
+}
+
+.p-dialog .p-header span {
+    color: #28a745;
+    font-weight: bold;
+}

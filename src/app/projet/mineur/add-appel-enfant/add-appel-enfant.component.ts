@@ -166,7 +166,7 @@ export class AddAppelEnfantComponent implements OnInit {
     this.detentionService
       .trouverDetenuAvecSonStatutActuel(
         id,
-        this.token.getUser().personelle.etablissement.id
+        this.token.getUser().etablissement.id
       )
       .subscribe((data) => {
         this.enfantLocal = data.result.enfant;
@@ -214,127 +214,7 @@ export class AddAppelEnfantComponent implements OnInit {
   }
   //------------------------------------------------------------enfant-----------------------------------------------------------------------------------------------
 
-  // search(id: String) {
-  //   this.crudservice.getLigneById("enfant", id).subscribe((data) => {
-  //     this.enfantLocal = data.result;
-  //     this.years =
-  //       this.years +
-  //       (new Date(this.enfantLocal?.dateNaissance).getFullYear() + 13) +
-  //       ":" +
-  //       new Date().getFullYear();
-  //     this.crudservice
-  //       .getLigneById("deces", this.enfantLocal.id)
-  //       .subscribe((data) => {
-  //         if (data.result == null) {
-  //           this.crudservice
-  //             .trouverEchappeNonApprehende("echappes", id)
-  //             .subscribe((data) => {
-  //               if (data.result == null) {
-  //                 this.crudservice
-  //                   .trouverDerniereDetentionParIdDetenu("arrestation", id)
-  //                   .subscribe((data) => {
-  //                     this.arrestation = data.result;
-  //                     this.crudservice
-  //                       .getLiberationById(
-  //                         "liberation",
-  //                         this.arrestation.arrestationId.idEnfant,
-  //                         this.arrestation.arrestationId.numOrdinale
-  //                       )
-  //                       .subscribe((data) => {
-  //                         if (data.result != null) {
-  //                           this.isExist = false;
-  //                           this.msg = " طفل  في حالـــة ســراح ";
-  //                           this.statEchappesOrlibre = 1;
-  //                         } else {
-  //                           this.crudservice
-  //                             .findResidenceByIdEnfantAndStatut0(
-  //                               "residence",
-  //                               this.arrestation.arrestationId.idEnfant,
-  //                               this.arrestation.arrestationId.numOrdinale
-  //                             )
-  //                             .subscribe((data) => {
-  //                               this.residence = data.result;
-  //                               this.crudservice
-  //                                 .findByIdEnfantAndStatutEnCour(
-  //                                   "residence",
-  //                                   this.arrestation.arrestationId.idEnfant,
-  //                                   this.arrestation.arrestationId.numOrdinale
-  //                                 )
-  //                                 .subscribe((data) => {
-  //                                   if (data.result != null) {
-  //                                     this.isExist = false;
-  //                                     this.statEchappesOrlibre = 2;
-  //                                     this.msg =
-  //                                       "      نقلـــة جـــارية إلـــى مركــز    " +
-  //                                       data.result.etablissement
-  //                                         .libelle_etablissement;
-  //                                   }
-  //                                 });
-  //                               if (
-  //                                 data.result.etablissement.id !=
-  //                                 this.token.getUser().personelle.etablissement
-  //                                   .id
-  //                               ) {
-  //                                 this.isExist = false;
-  //                                 this.statEchappesOrlibre = 3;
-  //                                 this.msg =
-  //                                   "      طفــل مقيــم بمركــز     " +
-  //                                   data.result.etablissement
-  //                                     .libelle_etablissement;
-  //                               }
-  //                             });
-
-  //                           this.crudservice
-  //                             .getDocumentByArrestation(
-  //                               this.arrestation.arrestationId.idEnfant,
-  //                               this.arrestation.arrestationId.numOrdinale
-  //                             )
-  //                             .subscribe((data) => {
-  //                               if (this.numOrdinalDoc) {
-  //                                 this.numOrdinalDoc = this.numOrdinalDoc;
-  //                               } else {
-  //                                 this.numOrdinalDoc = data.result + 1;
-  //                               }
-  //                             });
-
-  //                           this.crudservice
-  //                             .findByArrestationByCJorCR(
-  //                               "affaire",
-  //                               this.arrestation.arrestationId.idEnfant,
-  //                               this.arrestation.arrestationId.numOrdinale
-  //                             )
-  //                             .subscribe((data) => {
-  //                               if (data.result == null) {
-  //                                 console.log(data.result);
-  //                                 // this.service.add({
-  //                                 // 	key: 'tst',
-  //                                 // 	severity: 'error',
-  //                                 // 	summary: '.   خطأ    ',
-  //                                 // 	detail: id + 'pas d'affaire dans cette arrestation  '
-  //                                 // });
-  //                               } else {
-  //                                 console.log(data.result);
-  //                                 this.entitiesAffaire = data.result;
-  //                               }
-  //                             });
-
-  //                           this.isExist = true;
-  //                         }
-  //                       });
-  //                   });
-  //               } else {
-  //                 this.msg = "طفل في حالــــــة فـــرار";
-  //                 this.statEchappesOrlibre = 0;
-  //               }
-  //             });
-  //         } else {
-  //           this.statEchappesOrlibre = 4;
-
-  //           this.msg = "طفل فــي ذمــــــة اللـــه";
-  //         }
-  //       });
-  //   });
-  // }
+  
 
   showImg() {
     this.displayImg = true;
@@ -415,7 +295,7 @@ export class AddAppelEnfantComponent implements OnInit {
 
           this.appelEnfant.numArrestation = this.residence.numArrestation;
           this.appelEnfant.etablissement = this.residence.etablissement;
-          this.appelEnfant.user = this.token.getUser();
+          //this.appelEnfant.user = this.token.getUser();
           this.appelEnfant.dateInsertion = this.datepipe.transform(
             new Date(),
             "yyyy-MM-dd"

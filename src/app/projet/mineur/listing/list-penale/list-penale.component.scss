@@ -1,35 +1,28 @@
-.Listcontainer {
-      
-background: #e9ecef;
-  margin: 0px auto 0px; 
-  
-  border-radius: 0px;  
-  padding: 20px;
- 
-  -moz-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
-    -webkit-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
-    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
-    
+ .Listcontainer {
+
+   background: white;
+   margin: 0px auto 0px;
+
+   border-radius: 0px;
+   padding: 20px;
+
+   -moz-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+   -webkit-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+   box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+
+   margin-bottom: 500px;
+
+
+ }
 
  
  
-}
-
- 
-h1 {
-
-  
-  font-family: 'Amiri', Times, serif;
-  font-size: 25px;
-  font-weight: bold;
-
-}
  h2{
     
     color:#12488f;
   font-family: 'Amiri', Times, serif;
-    font-size: 25px;
-    font-weight: bold;
+    font-size: 22px;
+ 
   
  
   
@@ -55,107 +48,96 @@ h1 {
 
 
     input  {
-    text-align: center;
+    text-align: right;
     font-family: 'Amiri', Times, serif;
    width: auto;
     font-weight: bold;
  
-    // box-shadow : 1px 1px 1px #9c9c9c,
-    // 1px 1px 1px #9c9c9c,
-    // 1px 2px 1px #9c9c9c,
-    // 1px 1px 3px #9c9c9c,
-    // 1px 2px 1px #9c9c9c,
-    // 1px 1px 1px #9c9c9c;
    
    }
 
-     @keyframes colorAnimation {
-       0% {
-         color: blue;
-       }
-  
-       50% {
-         color: red;
-       }
-  
-       100% {
-         color: green;
-       }
-     }
-  
-     /* Classe pour l'animation de changement de couleur */
-     .color-animation {
-       animation-name: colorAnimation;
-       animation-duration: 2s;
-       animation-iteration-count: infinite;
-     }
-         /* Styles pour le bouton en 3D */
-         .button-3d {
-           display: inline-block;
-           padding: 10px 20px;
-           font-size: 24px;
-           text-align: center;
-           text-decoration: none;
-          color: #ffffff;
-         
-           background-color: #d3dad3;
-           border: none;
-           border-radius: 6px;
-           box-shadow: 0 6px 0 #5e635d;
-           transition: transform 0.2s, box-shadow 0.2s;
-         }
-    
-         .button-3d:hover {
-           transform: translateY(3px);
-           box-shadow: 0 3px 0 #5e635d;
-         }
-    
-         .button-3d:active {
-           transform: translateY(6px);
-           box-shadow: none;
-         }
-
-// .selected-item {
-//   display: inline-block;
-//    padding: 5px 30px 5px 10px;
-//   /* Adjust padding as needed */
-//   border:0;
-//   // border-radius: 3px;
-//   margin: 5px;
-//   // background-color: #f2f2f2;
-//   background-color: transparent;
-//   color: white;
-//   position: relative;
-  
-// }
-
-// .selected-item button {
-//   background-color: transparent;
-//   border: none;
-//   color: transparent;
-//   /* Change color as desired */
-//   font-size: 16px;
-//   cursor: pointer;
-//   position: absolute;
-//   top: 50%;
-//   /* Vertically center the button */
-//   transform: translateY(-50%);
-//   /* Adjust position */
-//   right: 10px;
-//   /* Adjust the position from the right */
-//   padding: 0;
-  
-// }
-
-// .selected-item button:hover {
-//   color: darkred;
-//   font-size: 20px;
+ 
+ /* General table styles */
+ .styled-table {
+   width: 100%;
+   border-collapse: collapse;
+   font-family: 'Arial', sans-serif;
+   margin-top: 20px;
    
-//   /* Change color as desired */
-// }
+ }
 
-//  .full-width-autocomplete {
-//    width: 100%;
-//  }
+ .styled-table th,
+ .styled-table td {
+  
+    font-family: 'Amiri', Times, serif;
+    font-size: 20px;
+    font-weight: bold;
 
 
+   padding: 7px;
+   text-align: center;
+ 
+   border: 1px solid #ddd;
+ }
+
+ .styled-table th {
+  //  background-color: #5a9ffa;
+  color: #12488f;
+    background: linear-gradient(to right, #ffffff, #e0e0e0);
+   
+ }
+
+ .styled-table td {
+   background-color: #f9f9f9;
+ }
+
+ .styled-table tr:nth-child(even) td {
+   background-color: #f1f1f1;
+ }
+
+ .styled-table tr:hover td {
+   background-color: #f2f2f2;
+ }
+
+ /* Button styling */
+ .download-btn {
+   background-color: transparent;
+   border: none;
+   cursor: pointer;
+   padding: 7px;
+   border-radius: 5px;
+   transition: background-color 0.3s ease, transform 0.3s ease;
+ }
+
+ .download-btn:hover {
+   background-color: #12488f;
+   transform: scale(1.1);
+ }
+
+ .download-btn i {
+   font-size: 24px;
+   color:  green;
+ }
+
+ .download-btn:hover i {
+   color: white;
+ }
+
+
+ .loading-overlay {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: rgba(255, 255, 255, 0.8);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   z-index: 1000;
+ }
+
+ .loading-gif {
+   max-width: 300px;
+   max-height: 300px;
+ }

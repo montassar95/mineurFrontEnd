@@ -20,13 +20,21 @@ import { CrudEnfantService } from "src/app/demo/service/crud-enfant.service";
 import { OnDestroy } from "@angular/core";
 import { Router } from "@angular/router";
 import { HttpParams } from "@angular/common/http";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from "@angular/forms";
 import { DatePipe, ViewportScroller } from "@angular/common";
 import { Residence } from "src/app/domain/residence";
 import { TokenStorageService } from "src/app/_services/token-storage.service";
 import { Visite } from "src/app/domain/visite";
 import { DetentionService } from "src/app/demo/service/detention.service";
 import { DocumentService } from "src/app/demo/service/document.service";
+import { SearchDetenuDto } from "src/app/domain/searchDetenuDto ";
 @Component({
   selector: "app-all-enfant",
   templateUrl: "./all-enfant.component.html",
@@ -37,9 +45,9 @@ import { DocumentService } from "src/app/demo/service/document.service";
 export class AllEnfantComponent implements OnInit {
   selectedIndex;
   displayEdit: boolean;
-  
+
   enfantLocal: Enfant;
-  enfants: Residence[] = [];
+  detenus: SearchDetenuDto[] = [];
   path: string;
   centre = "";
   numArrestation = "";
@@ -50,7 +58,7 @@ export class AllEnfantComponent implements OnInit {
   searchBoolean: boolean;
   addBoolean: boolean;
   existBoolean: boolean;
-  addForm1: FormGroup;
+  searchForm: FormGroup;
   id: number;
   numArr: number;
 
@@ -72,13 +80,15 @@ export class AllEnfantComponent implements OnInit {
   selectedValue: string = "val1";
 
   residenceEdit: Residence;
-
+  click = false;
   update = true;
   currentUser: any;
   displayVisite: boolean;
 
   residenceVisite: Residence;
   selectedTab: string; // Définit l'onglet par défaut
+
+  source: string;
 
   selectTab(tab: string) {
     this.selectedTab = tab; // Met à jour l'onglet sélectionné
@@ -112,21 +122,31 @@ export class AllEnfantComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser = this.token.getUser();
-    console.log(this.currentUser);
-    this.addForm1 = this.formBuilder.group({
-      nom: [""],
-      prenom: [""],
+
+    this.searchForm = this.formBuilder.group({
+      nom: ["", Validators.required],
+      prenom: ["", Validators.required],
       nomPere: [""],
       nomGrandPere: [""],
       nomMere: [""],
       prenomMere: [""],
-      dateNaissance: ["", Validators.required],
-
+      dateNaissance: [""],
       sexe: [""],
     });
-    //  this.searchBoolean=true;
-    this.enfants = [];
+
+    this.detenus = [];
   }
+
+  // optionalPatternValidator(pattern: RegExp): ValidatorFn {
+  //   return (control: AbstractControl): ValidationErrors | null => {
+  //     if (!control.value) {
+  //       // Si le champ est vide, aucune erreur
+  //       return null;
+  //     }
+  //     // Vérifier si la valeur respecte le pattern
+  //     return pattern.test(control.value) ? null : { pattern: true };
+  //   };
+  // }
 
   showVisite(residence) {
     this.residenceVisite = residence;
@@ -158,61 +178,174 @@ export class AllEnfantComponent implements OnInit {
     }
   }
   show() {
-    // this.addForm1.reset();
+    // this.searchForm.reset();
     if (this.selectedValue == "val1") {
       this.numArr = null;
     } else {
       this.id = null;
     }
   }
-  onSubmitAddForm1() {
+
+  onSubmitSearchForm2() {
+    this.source = "Penale";
+    console.log("Formulaire départ :", this.searchForm.value);
+
+    if (this.searchForm.invalid) {
+      console.log("Formulaire invalide");
+      Object.keys(this.searchForm.controls).forEach((key) => {
+        const controlErrors = this.searchForm.get(key)?.errors;
+        if (controlErrors) {
+          console.log(`Champ ${key} - Erreurs :`, controlErrors);
+        }
+      });
+      this.searchForm.markAllAsTouched();
+      return;
+    }
+
+    console.log("Formulaire valide :", this.searchForm.value);
+    // Logique après validation
+    this.click = true;
     this.numArr = null;
     this.id = null;
-    //Object.keys(this.addForm1.controls).forEach((key) => this.addForm1.get(key).setValue(this.addForm1.get(key).value.trim()));
+    //Object.keys(this.searchForm.controls).forEach((key) => this.searchForm.get(key).setValue(this.searchForm.get(key).value.trim()));
 
-    this.nomEnfant = this.addForm1.get("nom").value;
+    this.nomEnfant = this.searchForm.get("nom").value;
 
-    this.prenom = this.addForm1.get("prenom").value;
+    this.prenom = this.searchForm.get("prenom").value;
 
-    this.nomPere = this.addForm1.get("nomPere").value;
+    this.nomPere = this.searchForm.get("nomPere").value;
 
-    this.nomGrandPere = this.addForm1.get("nomGrandPere").value;
+    this.nomGrandPere = this.searchForm.get("nomGrandPere").value;
 
-    this.nomMere = this.addForm1.get("nomMere").value;
+    this.nomMere = this.searchForm.get("nomMere").value;
 
-    this.prenomMere = this.addForm1.get("prenomMere").value;
+    this.prenomMere = this.searchForm.get("prenomMere").value;
 
-    this.dateNaissance = this.addForm1.get("dateNaissance").value;
+    this.dateNaissance = this.searchForm?.get("dateNaissance")?.value;
 
-    this.addForm1
+    this.searchForm
       .get("dateNaissance")
       .setValue(
         this.datepipe.transform(
-          this.addForm1.get("dateNaissance").value,
+          this.searchForm.get("dateNaissance").value,
           "yyyy-MM-dd"
         )
       );
-    this.sexe = this.addForm1.get("sexe").value;
+    this.sexe = this.searchForm.get("sexe").value;
 
     this.detentionService
-      .trouverResidencesParCriteresDetenu(this.addForm1.value)
+      .trouverDetenusParCriteresDansPrisons(this.searchForm.value)
 
-      .subscribe((data) => {
-        this.enfants = [];
-        if (data.result.length) {
-          this.enfants = data.result;
-          this.existBoolean = false;
-        } else {
-          console.log("data.result");
-          //  this.service.add({ key: 'tst', severity: 'error', summary: '.   لا يوجد أطفال    ', detail: ' قم بإدراج هوية جديدة   '  });
-          this.existBoolean = true;
+      .subscribe(
+        (data) => {
+          this.click = false;
+          this.detenus = [];
+          if (data.result.length) {
+            this.detenus = data.result;
+            this.existBoolean = false;
+          } else {
+            console.log("data.result");
+            //  this.service.add({ key: 'tst', severity: 'error', summary: '.   لا يوجد أطفال    ', detail: ' قم بإدراج هوية جديدة   '  });
+            this.existBoolean = true;
+          }
+          this.searchBoolean = false;
+        },
+        (error) => {
+          // Handle error here
+          console.error(
+            "An error occurred while generating the report PDF:",
+            error
+          );
+          this.click = false;
+          // You can show an alert or display a user-friendly message if needed
+          alert("فشل إنشاء التقرير. يرجى المحاولة مرة أخرى.");
         }
-        this.searchBoolean = false;
-      });
+      );
 
     // this.viewportscroller.scrollToAnchor("dt" );
     // this.selectedIndex=0;
   }
+  onSubmitSearchForm() {
+    this.source = "Mineur";
+    console.log("Formulaire départ :", this.searchForm.value);
+
+    if (this.searchForm.invalid) {
+      console.log("Formulaire invalide");
+      Object.keys(this.searchForm.controls).forEach((key) => {
+        const controlErrors = this.searchForm.get(key)?.errors;
+        if (controlErrors) {
+          console.log(`Champ ${key} - Erreurs :`, controlErrors);
+        }
+      });
+      this.searchForm.markAllAsTouched();
+      return;
+    }
+
+    console.log("Formulaire valide :", this.searchForm.value);
+    // Logique après validation
+    this.click = true;
+    this.numArr = null;
+    this.id = null;
+    //Object.keys(this.searchForm.controls).forEach((key) => this.searchForm.get(key).setValue(this.searchForm.get(key).value.trim()));
+
+    this.nomEnfant = this.searchForm.get("nom").value;
+
+    this.prenom = this.searchForm.get("prenom").value;
+
+    this.nomPere = this.searchForm.get("nomPere").value;
+
+    this.nomGrandPere = this.searchForm.get("nomGrandPere").value;
+
+    this.nomMere = this.searchForm.get("nomMere").value;
+
+    this.prenomMere = this.searchForm.get("prenomMere").value;
+
+    this.dateNaissance = this.searchForm?.get("dateNaissance")?.value;
+
+    this.searchForm
+      .get("dateNaissance")
+      .setValue(
+        this.datepipe.transform(
+          this.searchForm.get("dateNaissance").value,
+          "yyyy-MM-dd"
+        )
+      );
+    this.sexe = this.searchForm.get("sexe").value;
+
+    this.detentionService
+      .trouverResidencesParCriteresDetenu(this.searchForm.value)
+
+      .subscribe(
+        (data) => {
+          this.click = false;
+          this.detenus = [];
+          if (data.result.length) {
+            console.log("yessss " + data.result.length);
+            this.detenus = data.result;
+            this.existBoolean = false;
+          } else {
+            console.log("data.result");
+            //  this.service.add({ key: 'tst', severity: 'error', summary: '.   لا يوجد أطفال    ', detail: ' قم بإدراج هوية جديدة   '  });
+            this.existBoolean = true;
+          }
+          this.searchBoolean = false;
+        },
+        (error) => {
+          // Handle error here
+          console.error(
+            "An error occurred while generating the report PDF:",
+            error
+          );
+          this.click = false;
+          // You can show an alert or display a user-friendly message if needed
+          alert("فشل إنشاء التقرير. يرجى المحاولة مرة أخرى.");
+        }
+      );
+
+    // this.viewportscroller.scrollToAnchor("dt" );
+    // this.selectedIndex=0;
+  }
+
   // scrollToElement(element): void { console.log(element);
   //    element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
   //   }
@@ -222,55 +355,80 @@ export class AllEnfantComponent implements OnInit {
         .trouverDerniereResidenceParIdDetenu(id)
         .subscribe((data) => {
           if (data.result) {
-            this.enfants = [];
+            this.detenus = [];
             console.log(data.result);
-            this.enfants.push(data.result);
+            this.detenus.push(data.result);
             this.displayEdit = false;
           } else {
-            this.enfants = [];
+            this.detenus = [];
             this.displayEdit = false;
           }
         });
     }
   }
   onSubmitId() {
-    //  this.addForm1.reset();
+    this.source = "Mineur";
+    //  this.searchForm.reset();
     console.log(this.selectedValue);
 
     if (this.selectedValue == "val1") {
       if (this.id) {
         this.detentionService
           .trouverDerniereResidenceParIdDetenu(this.id)
-          .subscribe((data) => {
-            console.log(data);
-            if (data.result) {
-              this.enfants = [];
-              console.log(data.result);
-              this.enfants.push(data.result);
-              this.searchBoolean = false;
-            } else {
-              this.enfants = [];
+          .subscribe(
+            (data) => {
+              console.log(data);
+              if (data.result) {
+                this.detenus = [];
+                console.log(data.result);
+                this.detenus.push(data.result);
+                this.searchBoolean = false;
+              } else {
+                this.detenus = [];
 
-              this.searchBoolean = false;
+                this.searchBoolean = false;
+              }
+            },
+            (error) => {
+              // Handle error here
+              console.error(
+                "An error occurred while generating the report PDF:",
+                error
+              );
+              this.click = false;
+              // You can show an alert or display a user-friendly message if needed
+              alert("فشل إنشاء التقرير. يرجى المحاولة مرة أخرى.");
             }
-          });
+          );
       }
     } else {
       if (this.numArr) {
         this.detentionService
           .trouverResidencesParNumeroEcrou(this.numArr)
-          .subscribe((data) => {
-            if (data.result) {
-              this.enfants = [];
+          .subscribe(
+            (data) => {
+              if (data.result) {
+                this.detenus = [];
 
-              this.enfants = data.result;
-              this.searchBoolean = false;
-            } else {
-              this.enfants = [];
+                this.detenus = data.result;
+                this.searchBoolean = false;
+              } else {
+                this.detenus = [];
 
-              this.searchBoolean = false;
+                this.searchBoolean = false;
+              }
+            },
+            (error) => {
+              // Handle error here
+              console.error(
+                "An error occurred while generating the report PDF:",
+                error
+              );
+              this.click = false;
+              // You can show an alert or display a user-friendly message if needed
+              alert("فشل إنشاء التقرير. يرجى المحاولة مرة أخرى.");
             }
-          });
+          );
       }
     }
 
@@ -290,17 +448,16 @@ export class AllEnfantComponent implements OnInit {
     this.displayEdit = true;
   }
 
- 
-
-  showFolderEnfant(enfant) {
-    // window.localStorage.removeItem("idEnfantValide");
-
-    // window.localStorage.setItem("idEnfantValide", enfant.id.toString());
-    // this.router.navigate(["mineur/MoreInformaton"]);
-    // Naviguer vers la page "MoreInformation" en passant l'ID en tant que paramètre
-    this.router.navigate(["/mineur/MoreInformation", enfant.id]);
+  showFolderEnfant(detenuId: string) {
+    // Logique de navigation
+    if (this.source == "Mineur") {
+      this.router.navigate(["/mineur/MoreInformation", detenuId, this.source]);
+    } else if (this.source == "Penale") {
+      this.router.navigate(["/mineur/showPenale", detenuId]);
+    } else {
+      alert("erreur");
+    }
   }
- 
 
   search(enfant) {
     this.detentionService

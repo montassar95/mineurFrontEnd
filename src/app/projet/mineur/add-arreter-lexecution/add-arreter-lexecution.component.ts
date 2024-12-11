@@ -203,7 +203,7 @@ export class AddArreterLexecutionComponent implements OnInit {
     this.detentionService
       .trouverDetenuAvecSonStatutActuel(
         id,
-        this.token.getUser().personelle.etablissement.id
+        this.token.getUser().etablissement.id
       )
       .subscribe((data) => {
         this.enfantLocal = data.result.enfant;
@@ -589,7 +589,7 @@ export class AddArreterLexecutionComponent implements OnInit {
                 this.residence.numArrestation;
               this.arreterlexecution.etablissement =
                 this.residence.etablissement;
-              this.arreterlexecution.user = this.token.getUser();
+              // this.arreterlexecution.user = this.token.getUser();
               this.arreterlexecution.dateInsertion = this.datepipe.transform(
                 new Date(),
                 "yyyy-MM-dd"

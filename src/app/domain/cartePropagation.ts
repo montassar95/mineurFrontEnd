@@ -23,7 +23,7 @@ export class CartePropagation {
   numArrestation?: any;
 
   etablissement: Etablissement;
-  user: User;
+  //user: User;
   // personelle: Personelle;
 
   dateInsertion?: any;

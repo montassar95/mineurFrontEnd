@@ -9,7 +9,7 @@ import { ApiResponse } from "../domain/api.response";
 })
 export class RapportService {
   constructor(private httpClient: HttpClient) {}
-  
+
   genererFicheDeDetentionPdf(ojet: any): Observable<Blob> {
     return this.httpClient.post(
       environment.baseUrl + "rapportPdf/genererFicheDeDetentionPdf",
@@ -38,8 +38,13 @@ export class RapportService {
       }
     );
   }
-
-  
-
-  
+  genererStatistiquePdfMensuel(ojet: any): Observable<Blob> {
+    return this.httpClient.post(
+      environment.baseUrl + "rapportPdf/genererStatistiquePdfMensuel",
+      ojet,
+      {
+        responseType: "blob",
+      }
+    );
+  }
 }

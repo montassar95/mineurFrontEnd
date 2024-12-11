@@ -138,7 +138,7 @@ export class ListPenaleComponent implements OnInit {
     private breadcrumbService: BreadcrumbService,
     private router: Router,
     private crudservice: CrudEnfantService,
-    private rapportService : RapportService,
+    private rapportService: RapportService,
     public datepipe: DatePipe,
     private imageCompress: NgxImageCompressService,
     private datePipe: DatePipe,
@@ -154,28 +154,24 @@ export class ListPenaleComponent implements OnInit {
   ngOnInit(): void {
     this.accusationsToAdd = [
       // { label: "المقيمين بمختلف وضعيتهم", value: "all" },
+      { label: "المفرج عنهم", value: "seraLibere" },
+      { label: "البالغين لسن الرشد ", value: "devenuMajeur" },
       { label: "الموقوفين ", value: "arret" },
       { label: "المحكومين", value: "juge" },
+
       { label: "السراحات", value: "libere" },
-      { label: "المفرج عنهم", value: "seraLibere" },
+
       { label: " داخلون  ", value: "entreReelle" },
 
       { label: " جلسات   ", value: "audience" },
 
       { label: "الواقع نقلتهم إلى مراكز إصلاح", value: "sortieMutation" },
       { label: "الوافدون من مراكز إصلاح", value: "entreeMutation" },
-      { label: "البالغين لسن الرشد ", value: "devenuMajeur" },
+      { label: "المقيمين دون قضايا", value: "nonAff" },
       { label: "الموقوفين ( إحالة ) ", value: "attetT" },
       { label: "الموقوفين ( إستئناف النيابة )", value: "attetAP" },
       { label: "الموقوفين ( إستئناف الطفل )", value: "attetAE" },
       { label: "المحكومين ( مراجعة )", value: "jugeR" },
-
-      { label: "المقيمين دون قضايا", value: "nonAff" },
-
-      {
-        label: "  شهرية  ( موقوفين، محكومين و سراحات )",
-        value: "AllofAll",
-      },
     ];
     this.ageToAdd1 = [
       { label: "empty", value: 0 },
@@ -250,7 +246,7 @@ export class ListPenaleComponent implements OnInit {
 
     this.centre = this.token?.getUser()?.etablissement;
     this.centreLibelle =
-      this.token?.getUser()?.personelle?.etablissement.libelle_etablissement;
+      this.token?.getUser()?.etablissement.libelle_etablissement;
 
     this.accusationsToAddValue = "all";
     this.accusationsToAddLabel = "المقيمين بمختلف وضعيتهم";
@@ -510,7 +506,7 @@ export class ListPenaleComponent implements OnInit {
     this.centreLibelle = "";
   }
 
-  print() {
+  print(accusationsToAddValue) {
     let pDFListExistDTO = new PDFListExistDTO();
 
     console.log(this.checkUniqueAff);
@@ -644,36 +640,66 @@ export class ListPenaleComponent implements OnInit {
               pDFListExistDTO.checkEtranger = "etranger";
             }
 
-            if (this.accusationsToAddValue) {
-              pDFListExistDTO.etatJuridiue = this.accusationsToAddValue;
+            if (accusationsToAddValue) {
+              pDFListExistDTO.etatJuridiue = accusationsToAddValue;
+              if (
+                (accusationsToAddValue == "libere" ||
+                  accusationsToAddValue == "seraLibere" ||
+                  accusationsToAddValue == "entreReelle" ||
+                  accusationsToAddValue == "sortieMutation" ||
+                  accusationsToAddValue == "entreeMutation" ||
+                  accusationsToAddValue == "devenuMajeur") &&
+                (!this.dateDebutGlobale || !this.dateFinGlobale)
+              ) {
+                this.click = false;
+                this.service.add({
+                  key: "tst",
+                  severity: "error",
+                  summary: "تثبت   ",
+                  detail: "قم بإختيار تاريخ البداية و تاريخ النهاية      ",
+                });
+                return;
+              }
             } else {
               pDFListExistDTO.etatJuridiue = "all";
             }
-            this.rapportService.genererRapportPdfActuel(
-              pDFListExistDTO
-            ).subscribe((x) => {
-              // this.crudservice.exportAllEtat(pDFListExistDTO).subscribe((x) => {
-              this.sizeFile = x.size;
-              console.log(this.sizeFile);
+            this.rapportService
+              .genererRapportPdfActuel(pDFListExistDTO)
+              .subscribe(
+                (x) => {
+                  // this.crudservice.exportAllEtat(pDFListExistDTO).subscribe((x) => {
+                  this.sizeFile = x.size;
+                  console.log(this.sizeFile);
 
-              const blob = new Blob([x], { type: "application/pdf" });
-              const data = window.URL.createObjectURL(blob);
-              const link = document.createElement("a");
-              link.href = data;
-              link.download = "enfant.pdf";
+                  const blob = new Blob([x], { type: "application/pdf" });
+                  const data = window.URL.createObjectURL(blob);
+                  const link = document.createElement("a");
+                  link.href = data;
+                  link.download = "enfant.pdf";
 
-              if (blob) {
-                this.sizeFile = 0;
-                this.click = false;
-              }
+                  if (blob) {
+                    this.sizeFile = 0;
+                    this.click = false;
+                  }
 
-              this.openPDFInNewTab(data);
-              // window.open(
-              //   data,
-              //   "_blank",
-              //   "top=0,left=0,bottom= 0, right= 0,height=100%,width=auto"
-              // );
-            });
+                  this.openPDFInNewTab(data);
+                  // window.open(
+                  //   data,
+                  //   "_blank",
+                  //   "top=0,left=0,bottom= 0, right= 0,height=100%,width=auto"
+                  // );
+                },
+                (error) => {
+                  // Handle error here
+                  console.error(
+                    "An error occurred while generating the report PDF:",
+                    error
+                  );
+                  this.click = false;
+                  // You can show an alert or display a user-friendly message if needed
+                  alert("فشل إنشاء التقرير. يرجى المحاولة مرة أخرى.");
+                }
+              );
           } else {
             this.service.add({
               key: "tst",
@@ -722,8 +748,9 @@ export class ListPenaleComponent implements OnInit {
     );
     this.click = true;
     // this.crudservice.exportEtatPdf(pDFListExistDTO).subscribe((x) => {
-    this.rapportService.genererRapportPdfMensuel(pDFListExistDTO).subscribe(
-      (x) => {
+    this.rapportService
+      .genererRapportPdfMensuel(pDFListExistDTO)
+      .subscribe((x) => {
         this.sizeFile = x.size;
         console.log(this.sizeFile);
 
@@ -739,8 +766,7 @@ export class ListPenaleComponent implements OnInit {
         }
 
         this.openPDFInNewTab(data);
-      }
-    );
+      });
   }
 
   openPDFInNewTab(data) {

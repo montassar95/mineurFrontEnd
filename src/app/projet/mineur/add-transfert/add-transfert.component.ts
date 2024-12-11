@@ -429,7 +429,7 @@ export class AddTransfertComponent implements OnInit {
 
                   this.transfert.numArrestation = this.residence.numArrestation;
                   this.transfert.etablissement = this.residence.etablissement;
-                  this.transfert.user = this.token.getUser();
+                  // this.transfert.user = this.token.getUser();
                   this.transfert.dateInsertion = this.datepipe.transform(
                     new Date(),
                     "yyyy-MM-dd"

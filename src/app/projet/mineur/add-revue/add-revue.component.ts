@@ -460,7 +460,7 @@ export class AddRevueComponent implements OnInit {
 
               this.revue.numArrestation = this.residence.numArrestation;
               this.revue.etablissement = this.residence.etablissement;
-              this.revue.user = this.token.getUser();
+              //this.revue.user = this.token.getUser();
               this.revue.dateInsertion = this.datepipe.transform(
                 new Date(),
                 "yyyy-MM-dd"
