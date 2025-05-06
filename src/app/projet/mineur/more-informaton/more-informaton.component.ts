@@ -81,6 +81,7 @@ export class MoreInformatonComponent implements OnInit {
   pDFPenaleDTO: PDFPenaleDTO;
   centre = "";
   numArrestation = "";
+  infoResidence = "";
   titreAcc = "";
   showArreterlexecution = false;
   showCarteRecup = false;
@@ -113,7 +114,7 @@ export class MoreInformatonComponent implements OnInit {
   ficheDeDetentionDto: FicheDeDetentionDto;
   affairePrincipale: Affaire | undefined;
   photo = "";
-
+  libre: boolean;
   loading: boolean = true;
   source: string | null = null;
   ngOnDestroy() {
@@ -136,9 +137,8 @@ export class MoreInformatonComponent implements OnInit {
       console.log(this.source);
       if (this.idEnfant && this.source == "Mineur") {
         this.search(this.idEnfant); // Appel de la méthode search avec les deux paramètres
-      }
-      else{
-        alert("Penale")
+      } else {
+        alert("Penale");
       }
     });
   }
@@ -166,7 +166,7 @@ export class MoreInformatonComponent implements OnInit {
         this.ageEnfant = " " + data.result.age + " ";
         this.ageCon = data.result.adultDate;
         this.arrestations = data.result.arrestations;
-
+        this.libre = data.result.libre;
         this.showArrestation(this.arrestations[0]);
 
         console.log(this.arrestations[0]);
@@ -242,10 +242,10 @@ export class MoreInformatonComponent implements OnInit {
         this.displayAffaire = true;
 
         console.log(
-          " dateAppelEnfant " +
-            this.ficheDeDetentionDto.dateAppelEnfant +
-            "datDebut " +
-            this.ficheDeDetentionDto.dateDebut
+          "datDebut " +
+            this.ficheDeDetentionDto.dateDebut +
+            " dateFin " +
+            this.ficheDeDetentionDto.dateFin
         );
         this.loading = false; // Fin du chargement
       });
@@ -261,6 +261,7 @@ export class MoreInformatonComponent implements OnInit {
   }
 
   private getRecidence(residence: Residence) {
+     this.infoResidence =" ";
     if (residence.statut == 2) {
       this.numArrestation = "نقلة جارية";
       this.centre =
@@ -269,6 +270,20 @@ export class MoreInformatonComponent implements OnInit {
       this.numArrestation = residence.numArrestation;
       this.centre = residence.etablissement.libelle_etablissement;
     }
+ 
+
+  const libelleEtab =
+    residence.etabChangeManiereEntree?.libelle_etabChangeManiere;
+  const libellePassage = residence.etablissementPassage?.libelle_etablissement;
+
+  if (libelleEtab) {
+    this.infoResidence += "قدِم من " + libelleEtab;
+  }
+
+  if (libellePassage) {
+    this.infoResidence +=
+      (libelleEtab ? " ، " : "") + "مرّ بـمركز " + libellePassage;
+  }
   }
 
   private getTitreAccusation(affaire: Affaire) {
@@ -353,7 +368,7 @@ export class MoreInformatonComponent implements OnInit {
     } else if (row.typeDocument == "CRR") {
       this.refuseRevue = row;
       this.showRefuseRevue = true;
-    } else if (row.typeDocument == "AEX") {
+    } else if (row.typeDocument == "ArretEx") {
       this.arreterlexecution = row;
       this.showArreterlexecution = true;
     }

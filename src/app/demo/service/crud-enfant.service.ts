@@ -56,9 +56,23 @@ export class CrudEnfantService {
     );
   }
 
-  statistiquesParDate(idOjet1: any): Observable<any> {
+  statistiquesParDate(idOjet1: any, idOjet2: any): Observable<any> {
     return this.httpClient.get<any>(
-      environment.baseUrl + "statistcs/statistiquesParDate/" + idOjet1
+      environment.baseUrl +
+        "statistcs/statistiquesParDate/" +
+        idOjet1 +
+        "/" +
+        idOjet2
+    );
+  }
+
+  statistiquesMouvementsParDate(idOjet1: any, idOjet2: any): Observable<any> {
+    return this.httpClient.get<any>(
+      environment.baseUrl +
+        "statistcs/statistiquesMouvementsParDate/" +
+        idOjet1 +
+        "/" +
+        idOjet2
     );
   }
 

@@ -29,11 +29,10 @@ export class ChangementComponent implements OnInit {
                 private service: MessageService) { 
 
     this.breadcrumbService.setItems([
-      {label: 'الإستقبال', routerLink: ['/']},
-      
-      {label: ' القضايا' },
-  
-  ]);}
+      { label: "الإستقبال", routerLink: ["/"] },
+
+      { label: " التغيرات الطارئة " },
+    ]);}
 
   ngOnInit(): void {
   }

@@ -26,7 +26,7 @@ export class FicheDeDetentionDto {
   isChangementLieuCh: boolean;
   isAgeAdulte: boolean;
   etatJuridique: string;
-
+ 
   affaires: Affaire[] = [];
   liberation: Liberation;
 

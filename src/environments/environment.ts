@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  baseUrl: "http://192.168.160.61:8080/api/",
-  //baseUrl: "http://192.168.100.39:8085/mineur/api/"
+
+  //baseUrl: "http://192.168.160.61:8080/api/",
+  baseUrl: "http://192.168.100.39:8085/mineur/api/",
 };
 
 /*

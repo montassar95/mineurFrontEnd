@@ -9,6 +9,7 @@ import { TitreAccusation } from "./titreAccusation";
 import { Etablissement } from "./etablissement";
  
 import { User } from "./user";
+import { EtabChangeManiere } from "./etabChangeManiere";
 export class CarteDepot {
   documentId: DocumentId;
   typeDocument: string;
@@ -32,4 +33,6 @@ export class CarteDepot {
   entitiesTitreAccusation: TitreAccusation[] = [];
 
   titreAccusations: TitreAccusation[] = [];
+
+   etabChangeManiere: EtabChangeManiere;
 }

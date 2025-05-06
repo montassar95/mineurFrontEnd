@@ -1,102 +1,120 @@
 <p-toast key="tst" [style]="{marginTop: '150px'}"></p-toast>
 <div class="card" dir="rtl" style="margin-top: 20px; margin-left: 5%;margin-right:5%;">
- 
- 
-<div *ngIf="enfantLocal && !isSaved">
-
-    <app-details-enfant [enfantLocal]="enfantLocal" [arrestation]="arrestation" [residence]="residence" [msg]="msg"
-        [isSaved]="isSaved">
-    </app-details-enfant>
-
-    
-</div>
-<div *ngIf="isSaved ">
-
-    <app-show-liberation [liberation]="liberation" [enfant]="enfantLocal"> </app-show-liberation>
-
-</div>
-    <div class="card" *ngIf=" !allowNewAddArrestation && !alerte"
-    style="margin-top:20px ; border-radius:  0%;background-image: url(assets/layout/images/cart.jpg)">
-    <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
-
-    <div >
-        <p-table
-        [value]="affaires"
-       
-         
-       
-        >
-       
-        <ng-template pTemplate="header">
-           <tr style="color: black;">
-              <th style="width: 10%;"  >العدد الرتبي</th>
-              <th style="width: 20%;" >  عددالقضية</th>
-              <th style="width: 60%;"  >  المحكمة</th>
-              <th style="width: 30%;" >الوثيقة الجارية </th>
-             
-           </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-row>
-           <tr style="color: black; font-size: 18px;">
-              <td><b style="font-size: 18px;">{{row?.numOrdinalAffaire }}</b></td>
-              <td><b style="font-size: 18px;">{{row?.affaireId?.numAffaire}} </b></td>
-              <td><b style="font-size: 18px;">{{row?.tribunal?.nom_tribunal}} </b></td>
-              
-              <td *ngIf="row.typeDocument == 'CP' " style="color:  #0099ff!important;"> <b style="font-size:16px;"> (موقوف)  قرار تمديد     </b></td>
-              <td *ngIf="row.typeDocument == 'CD' " style="color: #0099ff !important;">بطاقة إيداع (موقوف)</td>
-              <td *ngIf="row.typeDocument == 'CH' " style="color: #0099ff !important;"> (موقوف) بطاقة إيواء</td>
-              <td *ngIf="row.typeDocument == 'CJ'  || row.typeDocument == 'CJA' " style="color: #ff3434 !important;">مضمون حكم</td>
-              <td *ngIf="row.typeDocument == 'T' " style="color: #0099ff !important;">إحالة</td>
-              <td *ngIf="row.typeDocument == 'AE' " style="color: #0099ff !important;">طعن الطفل بالاستئناف</td>
-              <td *ngIf="row.typeDocument == 'AP' " style="color: #ff3434 !important;">طعن النيابة بالاستئناف</td>
-              <td *ngIf="row.typeDocument == 'CR' " style="color:  #ff3434 !important;">مراجعة</td>  
-              <td *ngIf="row.typeDocument == 'CRR' " style="color:  #ff3434!important;">  رفض مراجعة  </td>
-              <td *ngIf="row.typeDocument == 'AEX'" style="color: rgb(1, 151, 1) !important;  ">إيقاف تنفيذ الحكم
-                <div class="dateDocument">  ({{row?.dateEmissionDocument}})    </div>
-            </td>  
 
 
+    <div *ngIf="enfantLocal && !isSaved">
+
+        <app-details-enfant [enfantLocal]="enfantLocal" [arrestation]="arrestation" [residence]="residence" [msg]="msg"
+            [isSaved]="isSaved">
+        </app-details-enfant>
 
 
-
-           </tr>
-        </ng-template>
-        </p-table>
-        <div class="p-grid">
-            <div class="p-col">
-       
-        <div *ngIf="!ficheDeDetentionDto?.liberation && (arrestation?.etatJuridique=='juge' ||arrestation?.etatJuridique=='pasInsertionLiberable') ">
-           
-
-            <label for="firstname3" class="enLabel" *ngIf="ficheDeDetentionDto?.dateFin &&  ficheDeDetentionDto?.appelParquet"  >
-                تـــاريخ
-                الســـــــــــراح : <b dir="rtl"
-                    style="text-decoration: line-through  rgba(255, 0, 0, 0.650); text-decoration-style: double;">
-                    {{ficheDeDetentionDto?.dateFin}}</b></label>
-          
-        </div>
-        
-        
-       
-            </div>
-            <div class="p-col">
-                 <label class="enLabel">الوضعية الجزائية :   
-                    <b *ngIf="arrestation?.etatJuridique=='juge'" style=" text-align: center;" class="neons"> <span  >محكــــــــــــــوم </span>  </b>
-                    <b *ngIf="arrestation?.etatJuridique=='arret'" style=" text-align: center;"  class="neons">  <span  >موقــــــــــــــوف</span> </b>
-                    <b *ngIf="arrestation?.etatJuridique=='pasInsertionLiberable'" style=" text-align: center;"  class="neons">  <span  >*** قــــــــــــــــــم بــــــــــــــــــإدراج الســــــــــــــــــراح ***</span> </b>
-               
-                    <!-- <b *ngIf="arrestation?.liberation" style=" text-align: center; color: green;">   {{arrestation?.liberation?.causeLiberation?.libelleCauseLiberation}}  <span dir="rtl"  style="color: rgb(124, 124, 124);"> ({{arrestationLocal?.liberation?.date}} )</span>  </b> -->
-                    </label>
-                    </div>
-        </div>
-     
-       
-   
     </div>
- 
+    <div *ngIf="isSaved ">
 
-</div>
-    <div   *ngIf=" !allowNewAddArrestation && !alerte"
+        <app-show-liberation [liberation]="liberation" [enfant]="enfantLocal"> </app-show-liberation>
+
+    </div>
+    <div class="card" *ngIf=" !allowNewAddArrestation && !alerte"
+        style="margin-top:20px ; border-radius:  0%;background-image: url(assets/layout/images/cart.jpg)">
+        <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
+
+        <div>
+            <p-table [value]="affaires">
+
+                <ng-template pTemplate="header">
+                    <tr style="color: black;">
+                        <th style="width: 10%;">العدد الرتبي</th>
+
+                        <th style="width: 60%;"> عددالقضية و المحكمة</th>
+                        <th style="width: 30%;">الوثيقة الجارية </th>
+                        <th style="width: 20%;"> ملاحظة </th>
+
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-row>
+                    <tr style="color: black; font-size: 18px;">
+                        <td><b style="font-size: 18px;">{{row?.numOrdinalAffaire }}</b></td>
+                        <td><b style="font-size: 18px;">{{row?.affaireId?.numAffaire +' ' +
+                                row?.tribunal?.nom_tribunal}} </b></td>
+
+                        <td *ngIf="row.typeDocument == 'CP' " style="color:  #0099ff!important;"> <b
+                                style="font-size:16px;"> (موقوف) قرار تمديد </b></td>
+                        <td *ngIf="row.typeDocument == 'CD' " style="color: #0099ff !important;">بطاقة إيداع (موقوف)
+                        </td>
+                        <td *ngIf="row.typeDocument == 'CH' " style="color: #0099ff !important;"> (موقوف) بطاقة إيواء
+                        </td>
+                        <td *ngIf="row.typeDocument == 'CJ'  || row.typeDocument == 'CJA' "
+                            style="color: #ff3434 !important;">مضمون حكم</td>
+                        <td *ngIf="row.typeDocument == 'T' " style="color: #0099ff !important;">إحالة</td>
+                        <td *ngIf="row.typeDocument == 'AE' " style="color: #0099ff !important;">طعن الطفل بالاستئناف
+                        </td>
+                        <td *ngIf="row.typeDocument == 'AP' " style="color: #ff3434 !important;">طعن النيابة بالاستئناف
+                        </td>
+                        <td *ngIf="row.typeDocument == 'CR' " style="color:  #ff3434 !important;">مراجعة</td>
+                        <td *ngIf="row.typeDocument == 'CRR' " style="color:  #ff3434!important;"> رفض مراجعة </td>
+                        <td *ngIf="row.typeDocument == 'ArretEx'" style="color: rgb(1, 151, 1) !important;  ">إيقاف
+                            تنفيذ
+                            الحكم
+                            <div class="dateDocument"> ({{row?.dateEmissionDocument}}) </div>
+                        </td>
+
+                        <td *ngIf="row.typeDocumentActuelle == 'CHL'" style="color: black!important;"
+                            style="font-size:16px;"> قرار
+                            تغير مكان الإيداع </td>
+
+
+
+
+
+                    </tr>
+                </ng-template>
+            </p-table>
+            <div class="p-grid">
+                <div class="p-col">
+
+                    <div
+                        *ngIf="!ficheDeDetentionDto?.liberation && (ficheDeDetentionDto?.etatJuridique=='juge' ||ficheDeDetentionDto?.etatJuridique=='pasInsertionLiberable') ">
+
+
+                        <label for="firstname3" class="enLabel"
+                            *ngIf="ficheDeDetentionDto?.dateFin &&  ficheDeDetentionDto?.appelParquet">
+                            تـــاريخ
+                            الســـــــــــراح : <b dir="rtl"
+                                style="text-decoration: line-through  rgba(255, 0, 0, 0.650); text-decoration-style: double;">
+                                {{ficheDeDetentionDto?.dateFin}}</b></label>
+
+                    </div>
+
+
+
+                </div>
+                <div class="p-col">
+                    <label class="enLabel">الوضعية الجزائية :
+                        <b *ngIf="ficheDeDetentionDto?.etatJuridique=='juge'" style=" text-align: center;"
+                            class="neons">
+                            <span>محكــــــــــــــوم </span> </b>
+                            {{this.ficheDeDetentionDto.datefin}}
+                        <b *ngIf="ficheDeDetentionDto?.etatJuridique=='arret'" style=" text-align: center;"
+                            class="neons">
+                            <span>موقــــــــــــــوف</span> </b>
+                        <b *ngIf="ficheDeDetentionDto?.etatJuridique=='pasInsertionLiberable'"
+                            style=" text-align: center;" class="neons"> <span>*** قــــــــــــــــــم
+                                بــــــــــــــــــإدراج
+                                الســــــــــــــــــراح ***</span> </b>
+
+                        <!-- <b *ngIf="arrestation?.liberation" style=" text-align: center; color: green;">   {{arrestation?.liberation?.causeLiberation?.libelleCauseLiberation}}  <span dir="rtl"  style="color: rgb(124, 124, 124);"> ({{arrestationLocal?.liberation?.date}} )</span>  </b> -->
+                    </label>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+    <div *ngIf=" !allowNewAddArrestation && !alerte"
         style="margin-top:20px ; border-radius:  0%;background-image: url(assets/layout/images/cart.jpg)">
         <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
 
@@ -110,7 +128,7 @@
                     </div>
 
                     <div class="p-field p-grid">
-                        <label for="lastname3" class="p-col-fixed" style="width: 180px;">  تــاريخ الســراح :</label>
+                        <label for="lastname3" class="p-col-fixed" style="width: 180px;"> تــاريخ الســراح :</label>
                         <!-- <div class="p-col">
                             <p-inputMask mask="9999/99/99" dir="rtl" slotChar="----/--/--" placeholder="يوم/شهر/سنة"
                                 [style]="{'font-weight': '500','font-size': '16px','color': 'black'}"
@@ -119,26 +137,29 @@
                                 
                         </div> -->
                         <div class="p-col">
-                            
-                                 <p-calendar  [(ngModel)]="dateLiberation" id="popup" dir="rtl"   [readonlyInput]="false"
-                                  [style]="{'font-weight': '500','font-size': '18px','color': 'black'}"  
-                                 [yearNavigator]="true"  readonly ="true" [monthNavigator]="true" [yearRange]="years"  dateFormat="yy/mm/dd"  [locale]="calendar_ar" placeholder="يوم/شهر/سنة"   >
-                                   
-                               </p-calendar>
+
+                            <p-calendar [(ngModel)]="dateLiberation" id="popup" dir="rtl" [readonlyInput]="false"
+                                [style]="{'font-weight': '500','font-size': '18px','color': 'black'}"
+                                [yearNavigator]="true" readonly="true" [monthNavigator]="true" [yearRange]="years"
+                                dateFormat="yy/mm/dd" [locale]="calendar_ar" placeholder="يوم/شهر/سنة">
+
+                            </p-calendar>
                         </div>
                     </div>
-                   
+
 
                     <div class="p-field p-grid">
-                        <label for="lastname3" class="p-col-fixed " style="width: 180px;">   مــوجب  الســراح  :</label>
+                        <label for="lastname3" class="p-col-fixed " style="width: 180px;"> مــوجب الســراح :</label>
                         <div class="p-col">
-                            <input   readonly [(ngModel)]="cause" (click)="showListCauseLiberation()" type="text" pInputText>
+                            <input readonly [(ngModel)]="cause" (click)="showListCauseLiberation()" type="text"
+                                pInputText>
                         </div>
                     </div>
                     <div class="p-field p-grid" *ngIf="causeLiberationLocal?.id==50">
-                        <label for="lastname3" class="p-col-fixed " style="width: 180px;">   مؤسسة تغير وسيلة  :</label>
+                        <label for="lastname3" class="p-col-fixed " style="width: 180px;"> مؤسسة تغير وسيلة :</label>
                         <div class="p-col">
-                            <input   readonly [(ngModel)]="cause_etabChangeManiere" (click)="showListEtabChangeManiere()" type="text" pInputText>
+                            <input readonly [(ngModel)]="cause_etabChangeManiere" (click)="showListEtabChangeManiere()"
+                                type="text" pInputText>
                         </div>
                     </div>
                 </div>
@@ -148,100 +169,108 @@
                 <div class="p-col">
 
                     <div class="p-field p-grid">
-                        <label for="lastname3" class="p-col-fixed" style="width: 180px;" > لفت نظر :</label>
+                        <label for="lastname3" class="p-col-fixed" style="width: 180px;"> لفت نظر :</label>
                         <div class="p-col">
-                           <textarea class="tribunal" [(ngModel)]="remarqueLiberation" [rows]="4" [cols]="40" pInputTextarea
-                              autoResize="autoResize"></textarea>
+                            <textarea class="tribunal" [(ngModel)]="remarqueLiberation" [rows]="4" [cols]="40"
+                                pInputTextarea autoResize="autoResize"></textarea>
                         </div>
-                     </div>
+                    </div>
                 </div>
             </div>
 
 
-            
+
         </div>
 
         <div *ngIf="enfantLocal" style="text-align: center;">
 
             <button *ngIf=" !allowNewAddArrestation && !alerte" pButton type="button" label="تسجيل " (click)="save()"
                 style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;" class="ui-button-success"></button>
-            
+
         </div>
 
     </div>
- 
-  
-    <div class="card"  *ngIf="arrestation?.liberation?.causeLiberation?.id==50 && !nextAdd"
-      style="margin-top:20px ;
+
+
+    <div class="card" *ngIf="arrestation?.liberation?.causeLiberation?.id==50 && !nextAdd" style="margin-top:20px ;
              border-radius:  0%;
              background-image: url(assets/layout/images/cart.jpg)">
-             <div class="p-grid">
-                <div class="p-col">
-
-                    <div class="p-field p-grid">
-
-                    </div>
-
-                    <div class="p-field p-grid"> 
-                        
-                        <label for="firstname3" class="enLabel">تــاريخ الســراح: <span
-                            dir="rtl"    class="d">{{arrestation?.liberation?.date}}</span></label>
-                    </div>
-                    
-                    <div class="p-field p-grid">
-                        <div class="p-col"> 
-                        <label for="firstname3" class="enLabel"> مــوجب  الســراح: <span
-                            class="d">{{arrestation?.liberation?.causeLiberation?.libelleCauseLiberation}}</span>
-                            <span 
-                            class="d">{{' إلى '+ arrestation?.liberation?.etabChangeManiere?.libelle_etabChangeManiere}}</span></label>
-
-                          </div>
+        <div class="p-grid">
 
 
 
 
+            <!-- <div class="p-col-3">
 
-                            <div class="p-col" >
-                              
-                          <a class="button" (click)="addResidence()" *ngIf="arrestation?.liberation?.causeLiberation?.id==50" > 
-                            <span  > إدراج إقـــامـة جـديـدة بالإيقــاف الســـابق؟</span>   </a>
-                                </div>
-
-                                
-                    </div>
-                   
-                    
+                    <label for="firstname3" class="enLabel">تــاريخ الســراح: <span dir="rtl"
+                            class="d">{{arrestation?.liberation?.date}}</span></label>
                 </div>
 
+                
+                    <div class="p-col-3">
+                        <label for="firstname3" class="enLabel"> مــوجب الســراح: <span
+                                class="d">{{arrestation?.liberation?.causeLiberation?.libelleCauseLiberation}}</span>
+                            <span class="d">{{' إلى '+
+                                arrestation?.liberation?.etabChangeManiere?.libelle_etabChangeManiere}}</span></label>
+
+                    </div> -->
 
 
-                <div class="p-col" *ngIf="liberation?.remarqueLiberation">
 
-                    <div class="p-field p-grid">
-                         
-                        <label for="firstname3" class="enLabel">لفت نظر: <span
-                            class="d">{{liberation?.remarqueLiberation}}</span></label>
-                            
-                     </div>
-                </div>
+
+
+            <div class="p-col-12" style="text-align: center;">
+
+                <a class="button" (click)="addResidence()" *ngIf="arrestation?.liberation?.causeLiberation?.id==50">
+                    <span> إدراج إقـــامـة جـديـدة بالإيقــاف الســـابق؟</span> </a>
             </div>
 
+
+
+
+
+
+
+
+
+            <div class="p-col-12" *ngIf="liberation?.remarqueLiberation">
+
+
+
+                <label for="firstname3" class="enLabel">لفت نظر: <span
+                        class="d">{{liberation?.remarqueLiberation}}</span></label>
+
+
+            </div>
+        </div>
+
     </div>
- 
-    <div *ngIf="!isSaved && !nextAdd" style="text-align: center;">
-    
-    
-        <h1 class="neons"> <span>{{msg}}</span></h1>
-    
-    
-    
-    
+
+
+    <div class="p-grid" *ngIf="!isSaved && !nextAdd" style="text-align: center;">
+
+
+
+        <div class="p-col-9">
+            <h1 class="neons"> <span>{{msg}}</span></h1>
+        </div>
+
+        <div class="p-col-3">
+            <div class="checkbox-row"></div>
+            <button class="button-download" *ngIf="libre" (click)="downloadPdf()">
+                <i class="pi pi-download "></i>
+                <span> تحميل بطاقـــة خروج </span>
+            </button>
+
+        </div>
     </div>
-         
- 
- 
-        
-     
+
+
+
+
+
+
+
 </div>
 
 
@@ -262,47 +291,46 @@
 </p-dialog>
 
 
- 
+
 <p-dialog
-   [style]="{width: '80vw', height: '30vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
-   [closable]="false" [(visible)]="showLiberation" modal="true">
-   <p-header style="color: red; font-family: 'Amiri', Times, serif;"> هل ترغب في تأكيد التسجيل؟ الرجاء التثبث
-      من المعطيات, أنت تضمن دقة البيانات المقدمة: </p-header>
+    [style]="{width: '80vw', height: '30vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+    [closable]="false" [(visible)]="showLiberation" modal="true">
+    <p-header style="color: red; font-family: 'Amiri', Times, serif;"> هل ترغب في تأكيد التسجيل؟ الرجاء التثبث
+        من المعطيات, أنت تضمن دقة البيانات المقدمة: </p-header>
 
-   <app-show-liberation [liberation]="liberation" [enfant]="enfantLocal"> </app-show-liberation>
+    <app-show-liberation [liberation]="liberation" [enfant]="enfantLocal"> </app-show-liberation>
 
-   <p-footer>
-      <div style="text-align: center;">
-
-
-         <button (click)="confirmer()" style="background-color: #28a745!important;" mat-fab>
-            <i class="pi pi-save" style="font-size: 30px; color: white;"> </i>
+    <p-footer>
+        <div style="text-align: center;">
 
 
-         </button>
-         <button (click)="showLiberation = false"
-            style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab>
-            <i class="pi pi-power-off" style="font-size: 30px; color: white;"> </i>
+            <button (click)="confirmer()" style="background-color: #28a745!important;" mat-fab>
+                <i class="pi pi-save" style="font-size: 30px; color: white;"> </i>
 
 
-         </button>
-      </div>
-   </p-footer>
+            </button>
+            <button (click)="showLiberation = false"
+                style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab>
+                <i class="pi pi-power-off" style="font-size: 30px; color: white;"> </i>
+
+
+            </button>
+        </div>
+    </p-footer>
 </p-dialog>
 
 
 
 
 
-<p-dialog header="قائمة أسباب  الســراح "  [(visible)]="displayCauseLiberation"  modal="true" showEffect="fade" [style]="{ 'border-radius': '1%',  
+<p-dialog header="قائمة أسباب  الســراح " [(visible)]="displayCauseLiberation" modal="true" showEffect="fade" [style]="{ 'border-radius': '1%',  
 '-moz-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
 '-webkit-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
 'box-shadow':' 0px 2px 2px rgba(0, 0, 0, 0.966)','background-image': 'url(assets/layout/images/cart.jpg)' }">
 
     <div style="width: 1000px;">
-        <p-table [value]="entitesCauseLiberation" #dtCauseLiberation selectionMode="single" [paginator]="true" [rows]="5"
-        
-            [globalFilterFields]="[ 'libelleCauseLiberation' ]">
+        <p-table [value]="entitesCauseLiberation" #dtCauseLiberation selectionMode="single" [paginator]="true"
+            [rows]="5" [globalFilterFields]="[ 'libelleCauseLiberation' ]">
             <ng-template pTemplate="caption">
 
                 <div style="text-align: right">
@@ -316,9 +344,9 @@
             <ng-template pTemplate="header">
                 <tr>
 
-                  
-                  
-                    <th> الأسباب  </th>
+
+
+                    <th> الأسباب </th>
 
                     <th style="width: 100px;"> إدراج
 
@@ -332,15 +360,16 @@
                 <tr>
 
 
-                    
+
                     <td> <b style="font-size:16px;">{{row?.libelleCauseLiberation}} </b></td>
 
-                    <td >
+                    <td>
 
-                    
-                        <button  pButton icon="pi pi-plus"  label="موافق " style="background-color: #66a266;"  (click)=saveCauseLiberation(row)>
+
+                        <button pButton icon="pi pi-plus" label="موافق " style="background-color: #66a266;"
+                            (click)=saveCauseLiberation(row)>
                         </button>
-                       
+
 
                     </td>
 
@@ -353,15 +382,15 @@
 </p-dialog>
 
 
-<p-dialog header="قائمة مؤسسات تغير وسيلة "  [(visible)]="displayEtabChangeManiere"  modal="true" showEffect="fade" [style]="{ 'border-radius': '1%',  
+<p-dialog header="قائمة مؤسسات تغير وسيلة " [(visible)]="displayEtabChangeManiere" modal="true" showEffect="fade"
+    [style]="{ 'border-radius': '1%',  
 '-moz-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
 '-webkit-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
 'box-shadow':' 0px 2px 2px rgba(0, 0, 0, 0.966)','background-image': 'url(assets/layout/images/cart.jpg)' }">
 
     <div style="width: 1000px;">
-        <p-table [value]="entitesEtabChangeManiere" #dtEtabChangeManiere selectionMode="single" [paginator]="true" [rows]="5"
-        
-            [globalFilterFields]="[ 'libell_etabChangeManiere' ]">
+        <p-table [value]="entitesEtabChangeManiere" #dtEtabChangeManiere selectionMode="single" [paginator]="true"
+            [rows]="5" [globalFilterFields]="[ 'libell_etabChangeManiere' ]">
             <ng-template pTemplate="caption">
 
                 <div style="text-align: right">
@@ -375,9 +404,9 @@
             <ng-template pTemplate="header">
                 <tr>
 
-                  
-                  
-                    <th> الأسباب  </th>
+
+
+                    <th> الأسباب </th>
 
                     <th style="width: 100px;"> إدراج
 
@@ -391,15 +420,16 @@
                 <tr>
 
 
-                    
+
                     <td> <b style="font-size:16px;">{{row?.libelle_etabChangeManiere}} </b></td>
 
-                    <td >
+                    <td>
 
-                    
-                        <button  pButton icon="pi pi-plus"  label="موافق " style="background-color: #66a266;"  (click)=saveEtabChangeManiere(row)>
+
+                        <button pButton icon="pi pi-plus" label="موافق " style="background-color: #66a266;"
+                            (click)=saveEtabChangeManiere(row)>
                         </button>
-                       
+
 
                     </td>
 
@@ -410,100 +440,102 @@
     </div>
 
 </p-dialog>
-<p-dialog header="إدراج إقـــامـة جـديـدة بالإيقــاف الســـابق " dir="rtl" [(visible)]="displayAddArrestation" modal="true" showEffect="fade">
+<p-dialog header="إدراج إقـــامـة جـديـدة بالإيقــاف الســـابق " dir="rtl" [(visible)]="displayAddArrestation"
+    modal="true" showEffect="fade">
 
     <div class="save col-12" *ngIf="nextAdd">
-       <span style="color: #99CE6B; font-family: 'Amiri', Times, serif;"> تمت عملية التسجيل بنجاح </span>
+        <span style="color: #99CE6B; font-family: 'Amiri', Times, serif;"> تمت عملية التسجيل بنجاح </span>
     </div>
     <div class="card" *ngIf="nextAdd"
-       style="margin-top:20px ; width: 700px;  border-radius:  0%;background-image: url(assets/layout/images/cart.jpg)">
- 
- 
-       <div class="p-grid">
-          <div class="p-col">
-             <div class="p-field p-grid">
-                <label    class="p-col-fixed ">العدد الرتبي للإيقاف : <span
-                      style="color: black;">{{residence.residenceId.numOrdinaleArrestation}}</span> </label>
-             </div>
-             <div class="p-field p-grid">
-                <label for="centre" class="p-col-fixed"> مركز الإيقاف : <span
-                      style="color: black;">{{residence.etablissement.libelle_etablissement}}</span> </label>
-             </div>
-          </div>
-          <div class="p-col">
-             <div class="p-field p-grid">
-                <label    class="p-col-fixed " style="width: 180px;">عدد الإيقاف: <span
-                      style="color: black;">{{residence.numArrestation}}</span> </label>
-             </div>
-             <div class="p-field p-grid">
-                <label    class="p-col-fixed" style="width: 180px;">بتاريخ: <span
-                   dir="rtl"    style="color: black;">{{residence.dateEntree}}</span> </label>
-             </div>
-          </div>
-       </div>
- 
+        style="margin-top:20px ; width: 700px;  border-radius:  0%;background-image: url(assets/layout/images/cart.jpg)">
+
+
+        <div class="p-grid">
+            <div class="p-col">
+                <div class="p-field p-grid">
+                    <label class="p-col-fixed ">العدد الرتبي للإيقاف : <span
+                            style="color: black;">{{residence.residenceId.numOrdinaleArrestation}}</span> </label>
+                </div>
+                <div class="p-field p-grid">
+                    <label for="centre" class="p-col-fixed"> مركز الإيقاف : <span
+                            style="color: black;">{{residence.etablissement.libelle_etablissement}}</span> </label>
+                </div>
+            </div>
+            <div class="p-col">
+                <div class="p-field p-grid">
+                    <label class="p-col-fixed " style="width: 180px;">عدد الإيقاف: <span
+                            style="color: black;">{{residence.numArrestation}}</span> </label>
+                </div>
+                <div class="p-field p-grid">
+                    <label class="p-col-fixed" style="width: 180px;">بتاريخ: <span dir="rtl"
+                            style="color: black;">{{residence.dateEntree}}</span> </label>
+                </div>
+            </div>
+        </div>
+
     </div>
     <div style="text-align: center;" *ngIf="nextAdd">
-       <button (click)="displayAddArrestation=false" style="background-color: #99CE6B!important;" mat-fab
-          aria-label="Example icon button with a home icon">
- 
-          <i class="pi pi-arrow-left" style="font-size: 25px;"></i>
-       </button>
+        <button (click)="displayAddArrestation=false" style="background-color: #99CE6B!important;" mat-fab
+            aria-label="Example icon button with a home icon">
+
+            <i class="pi pi-arrow-left" style="font-size: 25px;"></i>
+        </button>
     </div>
     <div style="width: 1000px;" *ngIf="!nextAdd">
- 
-       <div class="card"
-          style="margin-top:20px ; border-radius:  0%;background-image: url(assets/layout/images/cart.jpg)">
- 
-          <div class="p-grid">
-             <div class="p-col">
-                <div class="p-field p-grid">
-                   <label    class="p-col-fixed ">العدد الرتبي للإيقاف : <span
-                         style="color: black;">{{numOrdinale}}</span> </label>
-                </div>
-                <div class="p-field p-grid">
-                   <label for="centre" class="p-col-fixed"> مركز الإيقاف : <span style="color: black;">{{centre}}</span>
-                   </label>
-                </div>
-             </div>
-             <div class="p-col">
-                <div class="p-field p-grid">
-                   <label    class="p-col-fixed " style="width: 180px;">عدد الإيقاف</label>
-                   <div class="p-col">
-                      <p-inputMask [(ngModel)]="numArrestation"  mask="999999" slotChar="------"  
-                      placeholder="عدد الإيقاف"></p-inputMask>
+
+        <div class="card"
+            style="margin-top:20px ; border-radius:  0%;background-image: url(assets/layout/images/cart.jpg)">
+
+            <div class="p-grid">
+                <div class="p-col">
+                    <div class="p-field p-grid">
+                        <label class="p-col-fixed ">العدد الرتبي للإيقاف : <span
+                                style="color: black;">{{numOrdinale}}</span> </label>
+                    </div>
+                    <div class="p-field p-grid">
+                        <label for="centre" class="p-col-fixed"> مركز الإيقاف : <span
+                                style="color: black;">{{centre}}</span>
+                        </label>
                     </div>
                 </div>
-                <div class="p-field p-grid">
-                   <label    class="p-col-fixed" style="width: 180px;">بتاريخ</label>
-                   <div class="p-col">
-                                  <p-calendar   [(ngModel)]="dateEntreLocal"  dir="rtl"   [readonlyInput]="false"  
-                   [style]="{'font-weight': '500','font-size': '18px','color': 'black'}"appendTo="body"
-                  [yearNavigator]="false"  readonly ="true" [monthNavigator]="true"    dateFormat="yy/mm/dd"  [locale]="calendar_ar" placeholder="يوم/شهر/سنة"   >
-                  </p-calendar>
-              
-                   </div>
+                <div class="p-col">
+                    <div class="p-field p-grid">
+                        <label class="p-col-fixed " style="width: 180px;">عدد الإيقاف</label>
+                        <div class="p-col">
+                            <p-inputMask [(ngModel)]="numArrestation" mask="999999" slotChar="------"
+                                placeholder="عدد الإيقاف"></p-inputMask>
+                        </div>
+                    </div>
+                    <div class="p-field p-grid">
+                        <label class="p-col-fixed" style="width: 180px;">بتاريخ</label>
+                        <div class="p-col">
+                            <p-calendar [(ngModel)]="dateEntreLocal" dir="rtl" [readonlyInput]="false"
+                                [style]="{'font-weight': '500','font-size': '18px','color': 'black'}" appendTo="body"
+                                [yearNavigator]="false" readonly="true" [monthNavigator]="true" dateFormat="yy/mm/dd"
+                                [locale]="calendar_ar" placeholder="يوم/شهر/سنة">
+                            </p-calendar>
+
+                        </div>
+                    </div>
                 </div>
-             </div>
-          </div>
- 
- 
-       </div>
-       <div style=" text-align: center;">
- 
-          <button (click)="saveNewResidence()" style="background-color: #28a745!important;" mat-fab>
-             <i class="pi pi-save" style="font-size: 30px; color: white;"> </i>
- 
- 
-          </button>
-          <button (click)="displayAddArrestation=false"
-             style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab>
-             <i class="pi pi-power-off" style="font-size: 30px; color: white;"> </i>
- 
- 
-          </button>
-       </div>
+            </div>
+
+
+        </div>
+        <div style=" text-align: center;">
+
+            <button (click)="saveNewResidence()" style="background-color: #28a745!important;" mat-fab>
+                <i class="pi pi-save" style="font-size: 30px; color: white;"> </i>
+
+
+            </button>
+            <button (click)="displayAddArrestation=false"
+                style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab>
+                <i class="pi pi-power-off" style="font-size: 30px; color: white;"> </i>
+
+
+            </button>
+        </div>
     </div>
- 
- </p-dialog>
- 
+
+</p-dialog>

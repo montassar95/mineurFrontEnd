@@ -1,24 +1,45 @@
+ 
+
+
 .container {
-    letter-spacing: 0.5px;
-    max-width: 80%;
-    background: #ffffff;
-    margin: 0px auto;
-    /* Ajoute un espace autour du conteneur */
-    border-radius: 10px;
-    /* Coins arrondis */
+    position: relative;
+    max-width: 85%;
+
+    /* Largeur maximale */
+    background: linear-gradient(to right, #ffffff, #f0efef);
+    /* Dégradé subtil pour simuler une texture papier */
+    margin: 00px auto;
+    /* Centré avec un espacement autour */
     padding: 20px;
     /* Espacement interne */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    /* Ombre douce */
-    border: 5px solid #cfcfcf;
-    /* Bordure légère */
-    margin-bottom: 200px;
+    border: 3px solid #4a4a4a;
+    /* Bordure épaisse sombre */
+    border-right: 15px solid #333;
+    /* Bande latérale moderne plus fine */
+
+    -moz-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+    /* Coins légèrement arrondis */
+    // box-shadow: 0 12px 18px rgba(0, 0, 0, 0.35), 0 12px 18px rgba(0, 0, 0, 0.35);
+    /* Ombres plus nettes pour une meilleure profondeur */
+    // font-family: 'Times New Roman', serif;
+    /* Police officielle classique */
+    // line-height: 1.8;
+    /* Espacement des lignes pour lisibilité */
+    color: #333;
+    // /* Texte sombre */
+    overflow: hidden;
+    // /* Empêche tout débordement */
+    position: relative;
+    z-index: 1;
+    // /* Placer le contenu au-dessus des ombres */
 }
 
 .profile-img-card3 {
 
     margin-top: 10px;
-    width: 230px;
+    width: 280px;
     height: 300px;
     max-height: 350px;
 
@@ -63,3 +84,41 @@
     font-family: 'Arabic Typesetting', serif;
     /* Ombre du texte */
 }
+
+.textDepot {
+    // font-family: 'Droid Arabic Naskh';
+    // font-family: 'Times New Roman',
+
+    letter-spacing: 2px;
+    /* Couleur du texte */
+    font-size: 25px;
+    /* Taille de la police */
+    font-weight: bold;
+
+    /* Gras */
+
+    text-align: center;
+
+    font-family: 'Arabic Typesetting', serif;
+    /* Ombre du texte */
+}
+ tr {
+     font-family: 'Amiri', Times, serif;
+     font-weight: bold;
+     font-size: 20px;
+ }
+ th {
+
+     background-color: #dfdfdf;
+     /* Couleur de fond */
+     color: #333;
+     /* Couleur du texte */
+     padding: 10px;
+     /* Espacement interne */
+     text-align: center;
+     /* Centrage du texte */
+     border-bottom: 2px solid #c2c2c2;
+     /* Bordure inférieure */
+     font-weight: bold;
+     /* Police en gras */
+ }

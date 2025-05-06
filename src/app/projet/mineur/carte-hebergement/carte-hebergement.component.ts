@@ -150,7 +150,7 @@ export class CarteHebergementComponent implements OnInit {
       { label: "الإستقبال", routerLink: ["/"] },
 
       { label: "القضايا ", routerLink: ["/mineur/Affaire"] },
-      { label: "   بطاقات إيداع" },
+      { label: "   بطاقات الإيواء" },
       { label: "إدراج" },
     ]);
   }
@@ -374,8 +374,7 @@ export class CarteHebergementComponent implements OnInit {
   }
 
   addArrestatione() {
-    this.centre =
-      this.currentUser.etablissement.libelle_etablissement;
+    this.centre = this.currentUser.etablissement.libelle_etablissement;
 
     this.detentionService
       .calculerNombreDetentionsParIdDetenu("arrestation", this.enfantLocal.id)
@@ -703,7 +702,7 @@ export class CarteHebergementComponent implements OnInit {
 
             this.carteHeber.numArrestation = this.residence.numArrestation;
             this.carteHeber.etablissement = this.residence.etablissement;
-            this.carteHeber.user = this.token.getUser() ;
+            this.carteHeber.user = this.token.getUser();
 
             this.carteHeber.dateInsertion = this.datepipe.transform(
               new Date(),

@@ -5,22 +5,23 @@ import { Etablissement } from "./etablissement";
 import { ResidenceId } from "./residanceId";
 
 export class Residence {
-    
-    residenceId: ResidenceId;
-    numArrestation?;
- 
-    
-	  dateEntree?;
-	 dateSortie?;  
-	etablissement:Etablissement;
-    etablissementEntree:Etablissement; 
-    etablissementSortie:Etablissement;
-    arrestation: Arrestation;
-    statut?:any;
-    causeMutation: CauseMutation;
-    causeMutationSortie: CauseMutation;
-    remarqueMutation?:any;
-    nombreEchappes?:any;
-    
-    etabChangeManiere:EtabChangeManiere;
+  residenceId: ResidenceId;
+  numArrestation?;
+
+  dateEntree?;
+  datePassage?;
+  dateSortie?;
+  etablissementPassage: Etablissement;
+  etablissement: Etablissement;
+  etablissementEntree: Etablissement;
+  etablissementSortie: Etablissement;
+  arrestation: Arrestation;
+  statut?: any;
+  causeMutation: CauseMutation;
+  causeMutationSortie: CauseMutation;
+  remarqueMutation?: any;
+  nombreEchappes?: any;
+
+  etabChangeManiere: EtabChangeManiere;
+  etabChangeManiereEntree: EtabChangeManiere;
 }

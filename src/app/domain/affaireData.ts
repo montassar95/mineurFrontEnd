@@ -8,5 +8,7 @@ export class AffaireData {
   tribunal1: Tribunal;
   numAffaire2: number;
   tribunal2: Tribunal;
+  numAffaire3: number;
+  tribunal3: Tribunal;
   affaireOrigine: Affaire;
 }

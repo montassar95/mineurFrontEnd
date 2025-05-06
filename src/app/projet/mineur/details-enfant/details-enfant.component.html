@@ -1,9 +1,9 @@
-<div class="court-document">
+<div class="court-document p-grid">
         <!-- <header class="court-header">
                 <h2 class="court-title"> الهويــــة</h2>
         </header> -->
 
-        <div class="court-content">
+        <div class="court-content p-col-9">
                 <div class="info-section">
                         <span class="info-label">المعــــرف:</span>
                         <span class="info-data">{{ enfantLocal?.id }}</span>
@@ -29,5 +29,15 @@
                                 <span class="info-data">{{ arrestation?.arrestationId?.numOrdinale }}</span>
                         </div>
                 <!-- </div> -->
+
+
+                
+        </div>
+
+        <div class="court-content p-col-3">
+                <img (click)="swipe()" style="margin-right: 10%;" *ngIf="photo" [src]="photo" class="profile-img-card3" />
+                <img (click)="swipe()" style="margin-right: 10%;" *ngIf="!photo"
+                        [src]="photo ? photo : 'assets/layout/images/cameraa.png'" class="profile-img-card3" />
+        
         </div>
 </div>

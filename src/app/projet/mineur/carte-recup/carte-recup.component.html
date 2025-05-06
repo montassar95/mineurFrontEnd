@@ -1,5 +1,6 @@
-<div dir="rtl" style="margin-top: 0px; margin-left: 10%;margin-right:10%; margin-bottom: 100px;  background-image :  url(assets/layout/images/bg.png) ">
-   <p-toast key="tst" [style]="{marginTop: '150px'}"></p-toast>                               
+<div dir="rtl"
+   style="margin-top: 0px; margin-left: 10%;margin-right:10%; margin-bottom: 100px;  background-image :  url(assets/layout/images/bg.png) ">
+   <p-toast key="tst" [style]="{marginTop: '150px'}"></p-toast>
    <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
 
 
@@ -7,29 +8,29 @@
 
 
 
-   <div class="card"  *ngIf="enfantLocal && !isSaved">
-      
-   <app-details-enfant [enfantLocal]="enfantLocal" [arrestation]="arrestation" [residence]="residence" [msg]="msg"
-      [isSaved]="isSaved">
-   </app-details-enfant>
+   <div class="card" *ngIf="enfantLocal && !isSaved">
 
-      
-<div *ngIf="!isSaved" style="text-align: center;">
+      <app-details-enfant [enfantLocal]="enfantLocal" [arrestation]="arrestation" [residence]="residence" [msg]="msg"
+         [isSaved]="isSaved">
+      </app-details-enfant>
 
 
-   <h1 class="neons"> <span>{{msg}}</span></h1>
+      <div *ngIf="!isSaved" style="text-align: center;">
 
- 
 
-   <a class="button" (click)="addArrestatione()" *ngIf="allowNewAddArrestation">
-      <span>إدراج إيقاف جديد؟</span> </a>
+         <h1 class="neons"> <span>{{msg}}</span></h1>
 
 
 
-</div>
+         <a class="button" (click)="addArrestatione()" *ngIf="allowNewAddArrestation">
+            <span>إدراج إيقاف جديد؟</span> </a>
+
+
+
+      </div>
 
       <div *ngIf="allowNewCarte">
-         <div *ngIf="!nextBoolean"  class="court-document" >
+         <div *ngIf="!nextBoolean" class="court-document">
             <div class="p-grid">
                <div class="p-col">
                   <div>
@@ -37,90 +38,94 @@
                      <!-- <label    class="p-col-fixed">العدد الرتبي للقضية</label> -->
                      <div class="p-field p-grid">
 
-                        <label    class="p-col-fixed">العدد الرتبي للوثيقة: <span
-                              class="d">{{numOrdinalDoc}}</span> </label>
+                        <label class="p-col-fixed">العدد الرتبي للوثيقة: <span class="d">{{numOrdinalDoc}}</span>
+                        </label>
 
                      </div>
                      <div class="card" *ngIf="!update">
-                        <div class="p-grid"   *ngIf="carteRecup.affaire" >
+                        <div class="p-grid" *ngIf="carteRecup.affaire">
                            <div class="p-col-4">
-                               <label  style="background-color: rgb(241, 241, 241);">
-                                   القضيــــة:
-                                  
-                               </label>
-                               </div>
-                               <div class="p-col-8">
-                                   <label>
-                                     
-                                       <span> {{ carteRecup?.affaire.affaireId?.numAffaire }}</span>
-                                       <span> {{ carteRecup?.affaire.tribunal?.nom_tribunal }}</span>
-                                        
-                                   </label>
-                               </div>
-                            </div>
-            
-            
-                               <div class="p-grid" *ngIf="carteRecup.affaire" >
-                                   <div class="p-col-4">
-                                       <label style="background-color: rgb(241, 241, 241);">
-                                            قضيــــة الربــــط :
-                                          
-                                       </label>
-                                       </div>
-                                       <div class="p-col-8">
-                                           <label>
-                                             
-                                               <span *ngIf="carteRecup.affaire.affaireLien"> {{ carteRecup?.affaire?.affaireLien?.affaireId?.numAffaire }}</span>
-                                               <span *ngIf="carteRecup.affaire.affaireLien"> {{ carteRecup?.affaire?.affaireLien?.tribunal?.nom_tribunal }}</span>
-                                               <span *ngIf="!carteRecup.affaire.affaireLien"> غيــــر موجــــودة</span>
-                                                
-                                           </label>
-                                       </div>
+                              <label style="background-color: rgb(241, 241, 241);">
+                                 القضيــــة:
+
+                              </label>
+                           </div>
+                           <div class="p-col-8">
+                              <label>
+
+                                 <span> {{ carteRecup?.affaire.affaireId?.numAffaire }}</span>
+                                 <span> {{ carteRecup?.affaire.tribunal?.nom_tribunal }}</span>
+
+                              </label>
+                           </div>
+                        </div>
 
 
-                                       <div class="p-col-4">
-                                          <label style="background-color: rgb(241, 241, 241);">
-                                           
-                                              قضيــــة الضـــــم :
-                                          </label>
-                                          </div>
-                                          <div class="p-col-8">
-                                              <label>
-                                                
-                                                  <span *ngIf="carteRecup.affaire.affaireAffecter"> {{ carteRecup?.affaire?.affaireAffecter?.affaireId.numAffaire }}</span>
-                                                  <span *ngIf="carteRecup.affaire.affaireAffecter"> {{ carteRecup?.affaire?.affaireAffecter?.tribunal.nom_tribunal }}</span>
-                                                  <span *ngIf="!carteRecup.affaire.affaireAffecter"> غيــــر موجــــودة</span>
-                                                   
-                                              </label>
-                                    
-                                          </div> 
-                                       </div>
-                                    </div>
+                        <div class="p-grid" *ngIf="carteRecup.affaire">
+                           <div class="p-col-4">
+                              <label style="background-color: rgb(241, 241, 241);">
+                                 قضيــــة الربــــط :
+
+                              </label>
+                           </div>
+                           <div class="p-col-8">
+                              <label>
+
+                                 <span *ngIf="carteRecup.affaire.affaireLien"> {{
+                                    carteRecup?.affaire?.affaireLien?.affaireId?.numAffaire }}</span>
+                                 <span *ngIf="carteRecup.affaire.affaireLien"> {{
+                                    carteRecup?.affaire?.affaireLien?.tribunal?.nom_tribunal }}</span>
+                                 <span *ngIf="!carteRecup.affaire.affaireLien"> غيــــر موجــــودة</span>
+
+                              </label>
+                           </div>
+
+
+                           <div class="p-col-4">
+                              <label style="background-color: rgb(241, 241, 241);">
+
+                                 قضيــــة الضـــــم :
+                              </label>
+                           </div>
+                           <div class="p-col-8">
+                              <label>
+
+                                 <span *ngIf="carteRecup.affaire.affaireAffecter"> {{
+                                    carteRecup?.affaire?.affaireAffecter?.affaireId.numAffaire }}</span>
+                                 <span *ngIf="carteRecup.affaire.affaireAffecter"> {{
+                                    carteRecup?.affaire?.affaireAffecter?.tribunal.nom_tribunal }}</span>
+                                 <span *ngIf="!carteRecup.affaire.affaireAffecter"> غيــــر موجــــودة</span>
+
+                              </label>
+
+                           </div>
+                        </div>
+                     </div>
                      <p-accordion multiple="true" *ngIf="update">
-                        <p-accordionTab [selected]="true" >
+                        <p-accordionTab [selected]="true">
 
                            <p-header style="font-family: 'Amiri', Times, serif; color: rgba(0, 0, 0, 0.733)">
                               المحكمة و عدد القضية </p-header>
 
-                              <div class="ui-toolbar-group-left">
-                                 <button pButton type="button" label=" قم بإختيار القضية      "
-                                     style="background-color: #208273;" icon="pi pi-paperclip"
-                                     (click)="showListAffaireOrigine()"  ></button>
-                                     <button pButton type="button"  
-                                     style="background-color: #f57421;" icon="pi pi-times-circle"
-                                     (click)="deleteOrigine()"  ></button>
-                             </div>
+                           <div class="ui-toolbar-group-left">
+                              <button pButton type="button" label=" قم بإختيار القضية      "
+                                 style="background-color: #208273;" icon="pi pi-paperclip"
+                                 (click)="showListAffaireOrigine()"></button>
+                              <button pButton type="button" style="background-color: #f57421;" icon="pi pi-times-circle"
+                                 (click)="deleteOrigine()"></button>
+                           </div>
 
                            <div class="p-field p-grid">
-                              <label    class="p-col-fixed" style="width:150px">المحكمة </label>
+                              <label class="p-col-fixed" style="width:150px">المحكمة </label>
 
 
                               <div class="p-col">
-                                
+
                                  <input class="tribunal" type="text" [(ngModel)]="codeTribunal1" style="width:  20%;"
-                                    (change)="getTribunal1()" placeholder=" رمز المحكمة"  [(readonly)]="!update" pInputText>
-                                 <input class="tribunal" readonly [ngModel]="tribunal1" (click)="showListTribunal1()" [(readonly)]="!update"
-                                    type="text" style="width:  50%;" pInputText>
+                                    (change)="getTribunal1()" placeholder=" رمز المحكمة" [(readonly)]="!update"
+                                    pInputText>
+                                 <input class="tribunal" readonly [ngModel]="tribunal1" (click)="showListTribunal1()"
+                                    [(readonly)]="!update" type="text" style="width:  50%;" pInputText>
 
 
                               </div>
@@ -129,31 +134,31 @@
 
                            </div>
                            <div class="p-field p-grid">
-                              <label    class="p-col-fixed" style="width:150px">عدد القضية </label>
+                              <label class="p-col-fixed" style="width:150px">عدد القضية </label>
                               <div class="p-col">
 
-                                 <p-inputMask [style]="{'font-weight': '500','width':  '20%','font-size': '16px','color': 'black'}"
-                                 dir="rtl"   [(readonly)]="!update"[(ngModel)]="numAffaireT1" mask="999-999999" slotChar="----------"
-                                    placeholder=" عدد القضية">
+                                 <p-inputMask
+                                    [style]="{'font-weight': '500','width':  '20%','font-size': '16px','color': 'black'}"
+                                    dir="rtl" [(readonly)]="!update" [(ngModel)]="numAffaireT1" mask="999-999999"
+                                    slotChar="----------" placeholder=" عدد القضية">
                                  </p-inputMask>
                                  <!-- <input class="tribunal" [(readonly)]="!update"[(ngModel)]="numAffaireT1" placeholder="  عدد القضية"
                                     style="width:  20%;" type="text" pInputText> -->
                               </div>
                            </div>
                         </p-accordionTab>
-                        <p-accordionTab [selected]="codeTribunal2 !='' && codeTribunal2 !='' "  *ngIf="update" >
+                        <p-accordionTab [selected]="codeTribunal2 !='' && codeTribunal2 !='' " *ngIf="update">
                            <p-header style="font-family: 'Amiri', Times, serif; color: rgba(0, 0, 0, 0.733);">
                               المحكمة وعدد قضية الربط </p-header>
-                              <div class="ui-toolbar-group-left">
-                                 <button pButton type="button" label=" قم بإختيار القضية      "
-                                     style="background-color: #208273;" icon="pi pi-paperclip"
-                                     (click)="showListAffaireLier()"  ></button>
-                                     <button pButton type="button"  
-                                     style="background-color: #f57421;" icon="pi pi-times-circle"
-                                     (click)="deleteLier()"  ></button>
-                             </div>
+                           <div class="ui-toolbar-group-left">
+                              <button pButton type="button" label=" قم بإختيار القضية      "
+                                 style="background-color: #208273;" icon="pi pi-paperclip"
+                                 (click)="showListAffaireLier()"></button>
+                              <button pButton type="button" style="background-color: #f57421;" icon="pi pi-times-circle"
+                                 (click)="deleteLier()"></button>
+                           </div>
                            <div class="p-field p-grid">
-                              <label    class="p-col-fixed" style="width:150px">المحكمة </label>
+                              <label class="p-col-fixed" style="width:150px">المحكمة </label>
                               <div class="p-col">
                                  <input class="tribunal" type="text" [(ngModel)]="codeTribunal2"
                                     (change)="getTribunal2()" style="width:  20%;" placeholder=" رمز المحكمة"
@@ -163,11 +168,12 @@
                               </div>
                            </div>
                            <div class="p-field p-grid">
-                              <label    class="p-col-fixed" style="width:150px">عدد القضية </label>
+                              <label class="p-col-fixed" style="width:150px">عدد القضية </label>
                               <div class="p-col">
 
-                                 <p-inputMask [style]="{'font-weight': '500','width':  '20%','font-size': '16px','color': 'black'}"
-                                 dir="rtl"    [(ngModel)]="numAffaireT2" mask="999-999999" slotChar="----------"
+                                 <p-inputMask
+                                    [style]="{'font-weight': '500','width':  '20%','font-size': '16px','color': 'black'}"
+                                    dir="rtl" [(ngModel)]="numAffaireT2" mask="999-999999" slotChar="----------"
                                     placeholder=" عدد القضية">
                                  </p-inputMask>
 
@@ -181,37 +187,36 @@
                            </div>
                         </p-accordionTab>
 
-                        <p-accordionTab  [selected]="codeTribunal3 !='' && codeTribunal3 !='' " *ngIf="update">
+                        <p-accordionTab [selected]="codeTribunal3 !='' && codeTribunal3 !='' " *ngIf="update">
                            <p-header style="font-family: 'Amiri', Times, serif; color: rgba(0, 0, 0, 0.733)">
-                              المحكمة وعدد قضية الضم 
+                              المحكمة وعدد قضية الضم
                            </p-header>
-                              <div class="ui-toolbar-group-left">
-                                 <button pButton type="button" label=" قم بإختيار القضية      "
-                                     style="background-color: #208273;" icon="pi pi-paperclip"
-                                     (click)="showListAffaireAffecter()"  ></button>
-                                     <button pButton type="button"  
-                                     style="background-color: #f57421;" icon="pi pi-times-circle"
-                                     (click)="deleteAffecter()"  ></button>
-                             </div>
+                           <div class="ui-toolbar-group-left">
+                              <button pButton type="button" label=" قم بإختيار القضية      "
+                                 style="background-color: #208273;" icon="pi pi-paperclip"
+                                 (click)="showListAffaireAffecter()"></button>
+                              <button pButton type="button" style="background-color: #f57421;" icon="pi pi-times-circle"
+                                 (click)="deleteAffecter()"></button>
+                           </div>
                            <div class="p-field p-grid">
-                              <label    class="p-col-fixed" style="width:150px">المحكمة </label>
+                              <label class="p-col-fixed" style="width:150px">المحكمة </label>
                               <div class="p-col">
                                  <!-- (change)="getTribunal3()" -->
-                                 <input class="tribunal" type="text"readonly [(ngModel)]="codeTribunal3"
-                                   style="width:  20%;" placeholder=" رمز المحكمة"
-                                    pInputText>
-                                    <!-- (click)="showListTribunal3()" -->
-                                 <input class="tribunal" readonly [(ngModel)]="tribunal3" 
-                                    id="lastname3" type="text" style="width:  50%;" pInputText>
+                                 <input class="tribunal" type="text" readonly [(ngModel)]="codeTribunal3"
+                                    style="width:  20%;" placeholder=" رمز المحكمة" pInputText>
+                                 <!-- (click)="showListTribunal3()" -->
+                                 <input class="tribunal" readonly [(ngModel)]="tribunal3" id="lastname3" type="text"
+                                    style="width:  50%;" pInputText>
                               </div>
                            </div>
                            <div class="p-field p-grid">
-                              <label    class="p-col-fixed" style="width:150px">عدد القضية </label>
+                              <label class="p-col-fixed" style="width:150px">عدد القضية </label>
                               <div class="p-col">
 
-                                 <p-inputMask [style]="{'font-weight': '500','width':  '20%','font-size': '16px','color': 'black'}"
-                                 dir="rtl"  [(ngModel)]="numAffaireT3" readonly   mask="999-999999" slotChar="----------"
-                                    placeholder=" عدد القضية">
+                                 <p-inputMask
+                                    [style]="{'font-weight': '500','width':  '20%','font-size': '16px','color': 'black'}"
+                                    dir="rtl" [(ngModel)]="numAffaireT3" readonly mask="999-999999"
+                                    slotChar="----------" placeholder=" عدد القضية">
                                  </p-inputMask>
                                  <!-- <input class="tribunal" id="lastname3" type="text" placeholder="  عدد القضية"
                                     style="width:  20%;" pInputText> -->
@@ -229,12 +234,12 @@
                </div>
             </div>
             <div style="text-align: center; ">
-               
-               <button pButton type="button" label="التالي "  (click)="next()"  [disabled]="isLoading" *ngIf="update"
+
+               <button pButton type="button" label="التالي " (click)="next()" [disabled]="isLoading" *ngIf="update"
                   style="margin-bottom:10px;padding: 0.5em;margin-right: 10px;" class="ui-button-info"></button>
 
 
-                  <button pButton type="button" label="تحييـــن  " (click)="next()"  *ngIf="!update"
+               <button pButton type="button" label="تحييـــن  " (click)="next()" *ngIf="!update"
                   style="margin-bottom:10px;padding: 0.5em;margin-right: 10px;   " class="ui-button-danger"></button>
 
             </div>
@@ -242,129 +247,137 @@
 
 
 
-         <div dir="rtl" *ngIf="nextBoolean"   class="court-document" >
+         <div dir="rtl" *ngIf="nextBoolean" class="court-document">
 
             <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
-           
-           <div class="card">
-            <div class="p-grid"   *ngIf="!update" >
-               <div class="p-col-4">
-                   <label  style="background-color: rgb(241, 241, 241);">
-                       القضيــــة:
-                      
-                   </label>
-                   </div>
-                   <div class="p-col-8">
-                       <label>
-                         
-                           <span> {{ carteRecup.affaire.affaireId.numAffaire }}</span>
-                           <span> {{ carteRecup.affaire.tribunal.nom_tribunal }}</span>
-                            
-                       </label>
-                   </div>
-                   </div>
+
+            <div class="card">
+               <div class="p-grid" *ngIf="!update">
+                  <div class="p-col-4">
+                     <label style="background-color: rgb(241, 241, 241);">
+                        القضيــــة:
+
+                     </label>
+                  </div>
+                  <div class="p-col-8">
+                     <label>
+
+                        <span> {{ carteRecup.affaire.affaireId.numAffaire }}</span>
+                        <span> {{ carteRecup.affaire.tribunal.nom_tribunal }}</span>
+
+                     </label>
+                  </div>
+               </div>
 
 
-                   <div class="p-grid" *ngIf="!update" >
-                       <div class="p-col-4">
-                           <label style="background-color: rgb(241, 241, 241);">
-                                قضيــــة الربــــط :
-                              
-                           </label>
-                           </div>
-                           <div class="p-col-8">
-                               <label>
-                                 
-                                   <span *ngIf="carteRecup.affaire.affaireLien"> {{ carteRecup.affaire.affaireLien.affaireId.numAffaire }}</span>
-                                   <span *ngIf="carteRecup.affaire.affaireLien"> {{ carteRecup.affaire.affaireLien.tribunal.nom_tribunal }}</span>
-                                   <span *ngIf="!carteRecup.affaire.affaireLien"> غيــــر موجــــودة</span>
-                                    
-                               </label>
-                           </div>
+               <div class="p-grid" *ngIf="!update">
+                  <div class="p-col-4">
+                     <label style="background-color: rgb(241, 241, 241);">
+                        قضيــــة الربــــط :
+
+                     </label>
+                  </div>
+                  <div class="p-col-8">
+                     <label>
+
+                        <span *ngIf="carteRecup.affaire.affaireLien"> {{
+                           carteRecup.affaire.affaireLien.affaireId.numAffaire }}</span>
+                        <span *ngIf="carteRecup.affaire.affaireLien"> {{
+                           carteRecup.affaire.affaireLien.tribunal.nom_tribunal }}</span>
+                        <span *ngIf="!carteRecup.affaire.affaireLien"> غيــــر موجــــودة</span>
+
+                     </label>
+                  </div>
 
 
-                           <div class="p-col-4">
-                              <label style="background-color: rgb(241, 241, 241);">
-                               
-                                  قضيــــة الضـــــم :
-                              </label>
-                              </div>
-                              <div class="p-col-8">
-                                  <label>
-                                    
-                                      <span *ngIf="carteRecup.affaire.affaireAffecter"> {{ carteRecup.affaire.affaireAffecter.affaireId.numAffaire }}</span>
-                                      <span *ngIf="carteRecup.affaire.affaireAffecter"> {{ carteRecup.affaire.affaireAffecter.tribunal.nom_tribunal }}</span>
-                                      <span *ngIf="!carteRecup.affaire.affaireAffecter"> غيــــر موجــــودة</span>
-                                       
-                                  </label>
-                        
-                              </div> 
-                           </div>
+                  <div class="p-col-4">
+                     <label style="background-color: rgb(241, 241, 241);">
+
+                        قضيــــة الضـــــم :
+                     </label>
+                  </div>
+                  <div class="p-col-8">
+                     <label>
+
+                        <span *ngIf="carteRecup.affaire.affaireAffecter"> {{
+                           carteRecup.affaire.affaireAffecter.affaireId.numAffaire }}</span>
+                        <span *ngIf="carteRecup.affaire.affaireAffecter"> {{
+                           carteRecup.affaire.affaireAffecter.tribunal.nom_tribunal }}</span>
+                        <span *ngIf="!carteRecup.affaire.affaireAffecter"> غيــــر موجــــودة</span>
+
+                     </label>
+
+                  </div>
+               </div>
 
 
-                           <div class="p-grid"   *ngIf="update" >
-                              <div class="p-col-4">
-                                  <label  style="background-color: rgb(241, 241, 241);">
-                                      القضيــــة:
-                                     
-                                  </label>
-                                  </div>
-                                  <div class="p-col-8">
-                                      <label>
-                                        
-                                          <span> {{ affaireOrigine.affaireId.numAffaire }}</span>
-                                          <span> {{ affaireOrigine.tribunal.nom_tribunal }}</span>
-                                           
-                                      </label>
-                                  </div>
-                                  </div>
-               
-               
-                                  <div class="p-grid" *ngIf="update" >
-                                      <div class="p-col-4">
-                                          <label style="background-color: rgb(241, 241, 241);">
-                                             قضيــــة الربــــط :
-                                             
-                                          </label>
-                                          </div>
-                                          <div class="p-col-8">
-                                              <label>
-                                                
-                                                  <span *ngIf="affaireOrigine.affaireLien"> {{ affaireOrigine.affaireLien.affaireId.numAffaire }}</span>
-                                                  <span *ngIf="affaireOrigine.affaireLien"> {{ affaireOrigine.affaireLien.tribunal.nom_tribunal }}</span>
-                                                  <span *ngIf="!affaireOrigine.affaireLien"> غيــــر موجــــودة</span>
-                                                   
-                                              </label>
-                                          </div>
+               <div class="p-grid" *ngIf="update">
+                  <div class="p-col-4">
+                     <label style="background-color: rgb(241, 241, 241);">
+                        القضيــــة:
 
-                                      
-                                             <div class="p-col-4">
-                                                 <label style="background-color: rgb(241, 241, 241);">
-                                                  
-                                                     قضيــــة الضـــــم :
-                                                 </label>
-                                                 </div>
-                                                 <div class="p-col-8">
-                                                     <label>
-                                                       
-                                                         <span *ngIf="affaireOrigine.affaireAffecter"> {{ affaireOrigine.affaireAffecter.affaireId.numAffaire }}</span>
-                                                         <span *ngIf="affaireOrigine.affaireAffecter"> {{ affaireOrigine.affaireAffecter.tribunal.nom_tribunal }}</span>
-                                                         <span *ngIf="!affaireOrigine.affaireAffecter"> غيــــر موجــــودة</span>
-                                                          
-                                                     </label>
-                                           
-                                                 </div>   
-                                          </div>
-                        </div>
+                     </label>
+                  </div>
+                  <div class="p-col-8">
+                     <label>
+
+                        <span> {{ affaireOrigine.affaireId.numAffaire }}</span>
+                        <span> {{ affaireOrigine.tribunal.nom_tribunal }}</span>
+
+                     </label>
+                  </div>
+               </div>
+
+
+               <div class="p-grid" *ngIf="update">
+                  <div class="p-col-4">
+                     <label style="background-color: rgb(241, 241, 241);">
+                        قضيــــة الربــــط :
+
+                     </label>
+                  </div>
+                  <div class="p-col-8">
+                     <label>
+
+                        <span *ngIf="affaireOrigine.affaireLien"> {{ affaireOrigine.affaireLien.affaireId.numAffaire
+                           }}</span>
+                        <span *ngIf="affaireOrigine.affaireLien"> {{ affaireOrigine.affaireLien.tribunal.nom_tribunal
+                           }}</span>
+                        <span *ngIf="!affaireOrigine.affaireLien"> غيــــر موجــــودة</span>
+
+                     </label>
+                  </div>
+
+
+                  <div class="p-col-4">
+                     <label style="background-color: rgb(241, 241, 241);">
+
+                        قضيــــة الضـــــم :
+                     </label>
+                  </div>
+                  <div class="p-col-8">
+                     <label>
+
+                        <span *ngIf="affaireOrigine.affaireAffecter"> {{
+                           affaireOrigine.affaireAffecter.affaireId.numAffaire }}</span>
+                        <span *ngIf="affaireOrigine.affaireAffecter"> {{
+                           affaireOrigine.affaireAffecter.tribunal.nom_tribunal }}</span>
+                        <span *ngIf="!affaireOrigine.affaireAffecter"> غيــــر موجــــودة</span>
+
+                     </label>
+
+                  </div>
+               </div>
+            </div>
             <div class="card" dir="rtl">
-               
-              
+
+
 
                <div class="p-grid">
                   <div class="p-col-4">
 
                      <div class="p-field p-grid">
-                        <label    class="p-col-fixed">العدد الرتبي للقضية: <span
+                        <label class="p-col-fixed">العدد الرتبي للقضية: <span
                               class="d">{{affaireOrigine.numOrdinalAffaire}}</span> </label>
 
 
@@ -375,7 +388,7 @@
 
                   <div class="p-col-4">
                      <div class="p-field p-grid">
-                        <label    class="p-col-fixed" style="width:150px"> تاريخ الحكم </label>
+                        <label class="p-col-fixed" style="width:150px"> تاريخ الحكم </label>
                         <div class="p-col">
 
                            <!-- <p-inputMask   [style]="{'width':'120px' ,'font-weight': '500','font-size': '16px','color': 'black'}"
@@ -383,37 +396,39 @@
                               placeholder="يوم/شهر/سنة">
                            </p-inputMask> -->
 
-                           <p-calendar  [(ngModel)]="dateEmission"   dir="rtl"   [readonlyInput]="false"
-                           [style]="{'font-weight': '500','font-size': '18px','color': 'black'}"appendTo="body"
-                          [yearNavigator]="true"  readonly ="true" [monthNavigator]="true" [yearRange]="years"  dateFormat="yy/mm/dd"  [locale]="calendar_ar" placeholder="يوم/شهر/سنة"   >
-                            
-                        </p-calendar>
+                           <p-calendar [(ngModel)]="dateEmission" dir="rtl" [readonlyInput]="false"
+                              [style]="{'font-weight': '500','font-size': '18px','color': 'black'}" appendTo="body"
+                              [yearNavigator]="true" readonly="true" [monthNavigator]="true" [yearRange]="years"
+                              dateFormat="yy/mm/dd" [locale]="calendar_ar" placeholder="يوم/شهر/سنة">
+
+                           </p-calendar>
                         </div>
                      </div>
                   </div>
                   <div class="p-col-4">
                      <div class="p-field p-grid">
-                        <label    class="p-col-fixed" style="width:180px">تاريخ إيداع البطاقة</label>
+                        <label class="p-col-fixed" style="width:180px">تاريخ إيداع البطاقة</label>
                         <div class="p-col">
                            <!-- <p-inputMask   [style]="{'width':'120px' ,'font-weight': '500','font-size': '16px','color': 'black'}"
                               [(ngModel)]="dateDepotCarte" mask="99/99/9999" slotChar="--/--/----"
                               placeholder="يوم/شهر/سنة">
                            </p-inputMask> -->
 
-                           <p-calendar  [(ngModel)]="dateDepotCarte"   dir="rtl"   [readonlyInput]="false"
-                           [style]="{'font-weight': '500','font-size': '18px','color': 'black'}"appendTo="body"
-                          [yearNavigator]="true"  readonly ="true" [monthNavigator]="true" [yearRange]="years"  dateFormat="yy/mm/dd"  [locale]="calendar_ar" placeholder="يوم/شهر/سنة"   >
-                            
-                        </p-calendar>
+                           <p-calendar [(ngModel)]="dateDepotCarte" dir="rtl" [readonlyInput]="false"
+                              [style]="{'font-weight': '500','font-size': '18px','color': 'black'}" appendTo="body"
+                              [yearNavigator]="true" readonly="true" [monthNavigator]="true" [yearRange]="years"
+                              dateFormat="yy/mm/dd" [locale]="calendar_ar" placeholder="يوم/شهر/سنة">
+
+                           </p-calendar>
                         </div>
                      </div>
                   </div>
 
                </div>
 
-              
+
             </div>
-           
+
             <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
 
 
@@ -425,7 +440,7 @@
 
                   <div class="p-col-6">
                      <div class="p-field p-grid">
-                        <label    class="p-col-fixed" style="width:180px">نوع القضية </label>
+                        <label class="p-col-fixed" style="width:180px">نوع القضية </label>
                         <div class="p-col">
 
 
@@ -445,7 +460,7 @@
                   </div>
                   <div class="p-col-6">
                      <div class="p-field p-grid">
-                        <label    class="p-col-fixed" style="width:150px">نوع الحكم </label>
+                        <label class="p-col-fixed" style="width:150px">نوع الحكم </label>
                         <div class="p-col">
 
                            <input type="text" [(ngModel)]="codeTypeJuge" (change)="getTypeJuge()" style="width:  20%;"
@@ -467,37 +482,37 @@
             <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
 
             <div class="card" dir="rtl">
-               
-              
+
+
                <div class="p-grid">
-                  
+
                   <div class="p-col-6">
                      <div class="p-field p-grid">
-                        <label   class="p-col-fixed" style="width:200px"> نــوع المضمــون  </label>
+                        <label class="p-col-fixed" style="width:200px"> نــوع المضمــون </label>
                         <div class="p-col">
-                           <p-dropdown [style]="{'font-weight': '500','font-size': '16px','color': 'black'}" 
-                            [options]='[{name: "جلســــــات"},{name: "دخلــــــون"},  {name: "تغيــــــرات"}]'
-                            optionLabel="name"  [filter]="true"  > 
-                       
-                        </p-dropdown>
+                           <p-dropdown [style]="{'font-weight': '500','font-size': '16px','color': 'black'}"
+                              [options]='[{name: "جلســــــات"},{name: "دخلــــــون"},  {name: "تغيــــــرات"}]'
+                              optionLabel="name" [filter]="true">
+
+                           </p-dropdown>
                         </div>
                      </div>
                   </div>
                   <div class="p-col-6">
                      <div class="p-field p-grid">
-                        <label   class="p-col-fixed" style="width:150px"> الوضعيــــة     </label>
+                        <label class="p-col-fixed" style="width:150px"> الوضعيــــة </label>
                         <div class="p-col">
-                           <p-dropdown [style]="{'font-weight': '500','font-size': '16px','color': 'black'}" 
-                            [options]='[{name: "حضــــــوري"}, {name: "غيابــــــي "}, {name: "معتبـــر حضـــوري "}]'
-                            optionLabel="name"  [filter]="true"  > 
-                          
-                        </p-dropdown>
+                           <p-dropdown [style]="{'font-weight': '500','font-size': '16px','color': 'black'}"
+                              [options]='[{name: "حضــــــوري"}, {name: "غيابــــــي "}, {name: "معتبـــر حضـــوري "}]'
+                              optionLabel="name" [filter]="true">
+
+                           </p-dropdown>
                         </div>
                      </div>
                   </div>
 
                </div>
-              
+
             </div>
 
 
@@ -514,114 +529,118 @@
 
 
             <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
-            <div class="card" dir="rtl"  style=" text-align: center;">
-               <p-fieldset    collapsed="true"  toggleable="true">
-                  <p-header style="font-size: 16px;font-weight: bold; font-family: 'Amiri', Times, serif; color: rgba(0, 0, 0, 0.733)">
+            <div class="card" dir="rtl" style=" text-align: center;">
+               <p-fieldset collapsed="true" toggleable="true">
+                  <p-header
+                     style="font-size: 16px;font-weight: bold; font-family: 'Amiri', Times, serif; color: rgba(0, 0, 0, 0.733)">
                      نص الحكم
                   </p-header>
-               <div class="p-grid">
-                  <div>
-                     <div class="p-field p-grid">
-                        <label    class="p-col-fixed" style="width:150px">نص الحكم </label>
-                        <div class="p-col">
-                           <textarea class="tribunal" [(ngModel)]="textJugement" [rows]="4" [cols]="100" pInputTextarea
-                              autoResize="autoResize"></textarea>
+                  <div class="p-grid">
+                     <div>
+                        <div class="p-field p-grid">
+                           <label class="p-col-fixed" style="width:150px">نص الحكم </label>
+                           <div class="p-col">
+                              <textarea class="tribunal" [(ngModel)]="textJugement" [rows]="4" [cols]="100"
+                                 pInputTextarea autoResize="autoResize"></textarea>
+                           </div>
                         </div>
                      </div>
                   </div>
-               </div>
-</p-fieldset>
+               </p-fieldset>
             </div>
             <div class="card" dir="rtl" style="width: 70%; text-align: center;">
-               <p-fieldset    collapsed="true"  toggleable="true">
-                  <p-header style="font-size: 16px;font-weight: bold; font-family: 'Amiri', Times, serif; color: rgba(0, 0, 0, 0.733)">
-                      الإيقاف التحفظي
+               <p-fieldset collapsed="true" toggleable="true">
+                  <p-header
+                     style="font-size: 16px;font-weight: bold; font-family: 'Amiri', Times, serif; color: rgba(0, 0, 0, 0.733)">
+                     الإيقاف التحفظي
                   </p-header>
-               <div class="p-field p-grid">
-                  <div style="  background-color: white;">
-                     <p-table [value]="entitiesArretProvisoire">
-                        <ng-template pTemplate="caption">
-                           <div>
-                              الإيقاف التحفظي
-                              <!-- <button pButton (click)="showArretProvisoire()" type="button" icon="pi pi-plus"
+                  <div class="p-field p-grid">
+                     <div style="  background-color: white;">
+                        <p-table [value]="entitiesArretProvisoire">
+                           <ng-template pTemplate="caption">
+                              <div>
+                                 الإيقاف التحفظي
+                                 <!-- <button pButton (click)="showArretProvisoire()" type="button" icon="pi pi-plus"
                                  style="margin-right: 3em;"> </button> -->
 
-                                 <button  (click)="showArretProvisoire()"
-                                 style="background-color: rgba(0, 0, 255, 0.507)!important; margin-right: 20px;" mat-fab  >
-                                    <i class="pi pi-plus" style="font-size: 20px; color: white;" > </i>
-                               </button>
+                                 <button (click)="showArretProvisoire()"
+                                    style="background-color: rgba(0, 0, 255, 0.507)!important; margin-right: 20px;"
+                                    mat-fab>
+                                    <i class="pi pi-plus" style="font-size: 20px; color: white;"> </i>
+                                 </button>
 
-                           </div>
-                        </ng-template>
-                        <ng-template pTemplate="header">
+                              </div>
+                           </ng-template>
+                           <ng-template pTemplate="header">
 
-                           <tr>
-                              <th rowspan="3" style="width: 5em;"> </th>
-                              <th rowspan="3" style="width: 5em;">عدد </th>
-                           </tr>
-                           <tr>
-                              <th colspan="3">التاريخ</th>
-                           </tr>
-                           <tr>
-                              <th>من </th>
-                              <th>إلى </th>
-                              <th>المدة </th>
-                           </tr>
+                              <tr>
+                                 <th rowspan="3" style="width: 5em;"> </th>
+                                 <th rowspan="3" style="width: 5em;">عدد </th>
+                              </tr>
+                              <tr>
+                                 <th colspan="3">التاريخ</th>
+                              </tr>
+                              <tr>
+                                 <th>من </th>
+                                 <th>إلى </th>
+                                 <th>المدة </th>
+                              </tr>
 
 
-                        </ng-template>
-                        <ng-template pTemplate="body" let-row let-row let-rowIndex="rowIndex">
-                           <tr class="tribunal">
-                              <td>
-                                 <!-- && (entitiesAccusation.length == 0) -->
-                                 <!-- <button
+                           </ng-template>
+                           <ng-template pTemplate="body" let-row let-row let-rowIndex="rowIndex">
+                              <tr class="tribunal">
+                                 <td>
+                                    <!-- && (entitiesAccusation.length == 0) -->
+                                    <!-- <button
                                     *ngIf="(rowIndex == entitiesArretProvisoire?.length-1) "
                                     pButton type="button" class="ui-button-danger" (click)="deletArretProvisoire(row)"
                                     icon="pi pi-trash"></button> -->
 
-                                    <button *ngIf="(rowIndex == entitiesArretProvisoire?.length-1) " (click)="deletArretProvisoire(row)"
-                                    style="background-color:white!important; " mat-mini-fab  >
-                                       <i class="pi pi-trash" style="font-size: 25px; color: red;" > </i>
-                                   </button>
-                              </td>
+                                    <button *ngIf="(rowIndex == entitiesArretProvisoire?.length-1) "
+                                       (click)="deletArretProvisoire(row)" style="background-color:white!important; "
+                                       mat-mini-fab>
+                                       <i class="pi pi-trash" style="font-size: 25px; color: red;"> </i>
+                                    </button>
+                                 </td>
 
-                              <td> <span>{{rowIndex + 1}} </span> </td>
-                              <td>{{row.dateDebut}}</td>
-                              <td>{{row.dateFin}} </td>
-                              <td> <span *ngIf="row.jour">{{row.jour}} يوم </span>
-                                 <span *ngIf="row.jour && row.mois"> و </span>
-                                 <span *ngIf="row.mois">{{row.mois}} شهر </span>
-                                 <span *ngIf="row.annee && row.mois"> و </span>
-                                 <span *ngIf="row.annee && row.jour && !row.mois"> و </span>
-                                 <span *ngIf="row.annee">{{row.annee}} سنة</span>
+                                 <td> <span>{{rowIndex + 1}} </span> </td>
+                                 <td>{{row.dateDebut}}</td>
+                                 <td>{{row.dateFin}} </td>
+                                 <td> <span *ngIf="row.jour">{{row.jour}} يوم </span>
+                                    <span *ngIf="row.jour && row.mois"> و </span>
+                                    <span *ngIf="row.mois">{{row.mois}} شهر </span>
+                                    <span *ngIf="row.annee && row.mois"> و </span>
+                                    <span *ngIf="row.annee && row.jour && !row.mois"> و </span>
+                                    <span *ngIf="row.annee">{{row.annee}} سنة</span>
 
-                              </td>
+                                 </td>
 
-                           </tr>
-                        </ng-template>
-                        <ng-template pTemplate="footer">
-                           <tr style="    background: #f5f5f5;
+                              </tr>
+                           </ng-template>
+                           <ng-template pTemplate="footer">
+                              <tr style="    background: #f5f5f5;
                            color: #292B2C;
                            border: 1px solid #dddddd;;">
-                              <td colspan="4"> <label> المجموع: </label></td>
+                                 <td colspan="4"> <label> المجموع: </label></td>
 
 
-                              <td style="color: red;">
-                                 <span *ngIf="jourArretProvisoire">{{jourArretProvisoire}} يوم </span>
-                                 <span *ngIf="jourArretProvisoire && moisArretProvisoire"> و </span>
-                                 <span *ngIf="moisArretProvisoire">{{moisArretProvisoire}} شهر </span>
-                                 <span *ngIf="anneeArretProvisoire && moisArretProvisoire"> و </span>
-                                 <span *ngIf="anneeArretProvisoire && jourArretProvisoire && !moisArretProvisoire"> و
-                                 </span>
-                                 <span *ngIf="anneeArretProvisoire">{{anneeArretProvisoire}} سنة</span>
-                              </td>
+                                 <td style="color: red;">
+                                    <span *ngIf="jourArretProvisoire">{{jourArretProvisoire}} يوم </span>
+                                    <span *ngIf="jourArretProvisoire && moisArretProvisoire"> و </span>
+                                    <span *ngIf="moisArretProvisoire">{{moisArretProvisoire}} شهر </span>
+                                    <span *ngIf="anneeArretProvisoire && moisArretProvisoire"> و </span>
+                                    <span *ngIf="anneeArretProvisoire && jourArretProvisoire && !moisArretProvisoire"> و
+                                    </span>
+                                    <span *ngIf="anneeArretProvisoire">{{anneeArretProvisoire}} سنة</span>
+                                 </td>
 
 
-                           </tr>
-                        </ng-template>
-                     </p-table>
+                              </tr>
+                           </ng-template>
+                        </p-table>
+                     </div>
                   </div>
-               </div>
                </p-fieldset>
             </div>
             <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
@@ -649,10 +668,9 @@
                               <!-- <button (click)="showAccusation()" pButton type="button" icon="pi pi-plus"
                                  style="margin-right: 5em;"> </button> -->
 
-                                 <button  (click)="showAccusation()"
-                                 style="background-color:#4384be!important;  " mat-fab  >
-                                    <i class="pi pi-plus" style=" color: white;" > </i>
-                               </button>
+                              <button (click)="showAccusation()" style="background-color:#4384be!important;  " mat-fab>
+                                 <i class="pi pi-plus" style=" color: white;"> </i>
+                              </button>
                            </div>
                         </ng-template>
                         <ng-template pTemplate="header">
@@ -663,7 +681,7 @@
 
                            </tr>
                            <tr>
-                              <th colspan="3">مدة الحكم  </th>
+                              <th colspan="3">مدة الحكم </th>
                               <th colspan="2">تاريخ العقوبة حسب المكتب الجزئي</th>
                            </tr>
                            <tr>
@@ -682,10 +700,11 @@
                                     class="ui-button-danger" icon="pi pi-trash" (click)="deletAccusation(row)"></button> -->
 
 
-                                    <button *ngIf="rowIndex == accusationCarteRecups?.length-1"  (click)="deletAccusation(row)"
-                                    style="background-color:white!important; " mat-mini-fab  >
-                                       <i class="pi pi-trash" style="font-size: 25px; color: red;" > </i>
-                                   </button>
+                                 <button *ngIf="rowIndex == accusationCarteRecups?.length-1"
+                                    (click)="deletAccusation(row)" style="background-color:white!important; "
+                                    mat-mini-fab>
+                                    <i class="pi pi-trash" style="font-size: 25px; color: red;"> </i>
+                                 </button>
                               </td>
                               <td>
                                  <!-- {{rowIndex + 1}} -->
@@ -722,12 +741,16 @@
 
                               <td>
                                  <!-- || row.typeJuge.situation == 'nonCal' -->
-                                 <span [ngClass]="{'line': row.dateDebut ===row.dateFin ||  typeJugeObjet.situation == 'nonCal'  }"   > {{row.dateDebut}}</span>
+                                 <span
+                                    [ngClass]="{'line': row.dateDebut ===row.dateFin ||  typeJugeObjet.situation == 'nonCal'  }">
+                                    {{row.dateDebut}}</span>
                                  <!-- <span *ngIf="row.dateDebut==row.dateFin" style="color: gray;">  {{row.dateDebut}}</span> -->
 
                               </td>
                               <td>
-                                 <span [ngClass]="{'line': row.dateDebut ===row.dateFin ||  typeJugeObjet.situation == 'nonCal' }"   > {{row.dateFin}}</span>
+                                 <span
+                                    [ngClass]="{'line': row.dateDebut ===row.dateFin ||  typeJugeObjet.situation == 'nonCal' }">
+                                    {{row.dateFin}}</span>
                                  <!-- <span *ngIf="row.dateDebut==row.dateFin" style="color: gray;">  {{row.dateFin}}</span> -->
 
                               </td>
@@ -766,7 +789,7 @@
                   </div>
                </div>
 
-    <!-- </p-fieldset> -->
+               <!-- </p-fieldset> -->
             </div>
 
 
@@ -798,22 +821,22 @@
    </div>
 
 
-   <div style="text-align: center;"  >
+   <div style="text-align: center;">
 
 
-      
-   <div class="card" *ngIf="isSaved && update ">
-   
-      <app-next-document [childId]="enfantLocal?.id"></app-next-document>
-   </div>
+
+      <div class="card" *ngIf="isSaved && update ">
+
+         <app-next-document [childId]="enfantLocal?.id"></app-next-document>
+      </div>
       <div class="card" *ngIf="isSaved">
 
          <app-show-carte-recup [carteRecup]="carteRecup"></app-show-carte-recup>
-         
- 
+
+
       </div>
 
-     
+
 
    </div>
 
@@ -882,13 +905,13 @@
             </ng-template>
             <ng-template pTemplate="header">
                <tr>
-                  <th style="width: 100px;" >الرمز
+                  <th style="width: 100px;">الرمز
                   </th>
-                  <th  > المحكمة
+                  <th> المحكمة
                   </th>
-                  <th   style="width: 15%;"> النوع
+                  <th style="width: 15%;"> النوع
                   </th>
-                  <th   style="width: 15%;"> الولاية
+                  <th style="width: 15%;"> الولاية
                   </th>
                   <th style="width: 70px;"> إدراج
                   </th>
@@ -944,9 +967,9 @@
             </ng-template>
             <ng-template pTemplate="header">
                <tr>
-                  <th style="width: 100px;"  >الرمز
+                  <th style="width: 100px;">الرمز
                   </th>
-                  <th > المحكمة
+                  <th> المحكمة
                   </th>
                   <th style="width: 50px;"> إدراج
                   </th>
@@ -988,9 +1011,9 @@
             </ng-template>
             <ng-template pTemplate="header">
                <tr>
-                  <th style="width: 100px;"  >الرمز
+                  <th style="width: 100px;">الرمز
                   </th>
-                  <th  > المحكمة
+                  <th> المحكمة
                   </th>
                   <th style="width: 50px;"> إدراج
                   </th>
@@ -1030,9 +1053,9 @@
             </ng-template>
             <ng-template pTemplate="header">
                <tr>
-                  <th style="width: 100px;"  >الرمز
+                  <th style="width: 100px;">الرمز
                   </th>
-                  <th  > المحكمة
+                  <th> المحكمة
                   </th>
                   <th style="width: 50px;"> إدراج
                   </th>
@@ -1074,9 +1097,9 @@
             </ng-template>
             <ng-template pTemplate="header">
                <tr>
-                  <th style="width: 100px;" >الرمز
+                  <th style="width: 100px;">الرمز
                   </th>
-                  <th  > الحكم
+                  <th> الحكم
                   </th>
                   <th style="width: 50px;"> إدراج
                   </th>
@@ -1100,44 +1123,46 @@
 
 
 
- 
+
 
 
 
 
 
    <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
- 
- 
- 
- 
+
+
+
+
    <p-dialog header="إدراج  إيقاف  تحفظي " [(visible)]="displayArretProvisoire" modal="true" showEffect="fade">
       <div class="card">
          <form [formGroup]="arretProvisoireForm">
             <div class="p-grid">
 
-               <label    class="p-col-fixed" style="width:150px"> من تاريخ </label>
+               <label class="p-col-fixed" style="width:150px"> من تاريخ </label>
                <div class="p-col">
                   <!-- <p-inputMask [style]="{ 'font-size': '16px' }" formControlName="dateDebut" mask="99/99/9999" slotChar="--/--/----" placeholder="يوم/شهر/سنة">
                   </p-inputMask> -->
 
-                  <p-calendar  formControlName="dateDebut"   dir="rtl"   [readonlyInput]="false"
-                  [style]="{'font-weight': '500','font-size': '18px','color': 'black'}"appendTo="body"
-                 [yearNavigator]="true"  readonly ="true" [monthNavigator]="true" [yearRange]="years"  dateFormat="yy/mm/dd"  [locale]="calendar_ar" placeholder="يوم/شهر/سنة"   >
-                   
-               </p-calendar>
+                  <p-calendar formControlName="dateDebut" dir="rtl" [readonlyInput]="false"
+                     [style]="{'font-weight': '500','font-size': '18px','color': 'black'}" appendTo="body"
+                     [yearNavigator]="true" readonly="true" [monthNavigator]="true" [yearRange]="years"
+                     dateFormat="yy/mm/dd" [locale]="calendar_ar" placeholder="يوم/شهر/سنة">
+
+                  </p-calendar>
                </div>
-               <label    class="p-col-fixed" style="width:150px"> إلى تاريخ </label>
+               <label class="p-col-fixed" style="width:150px"> إلى تاريخ </label>
                <div class="p-col">
                   <!-- <p-inputMask [style]="{ 'font-size': '16px' }" formControlName="dateFin" mask="99/99/9999" slotChar="--/--/----" placeholder="يوم/شهر/سنة">
                   </p-inputMask> -->
 
 
-                  <p-calendar  formControlName="dateFin"   dir="rtl"   [readonlyInput]="false"
-                  [style]="{'font-weight': '500','font-size': '18px','color': 'black'}"appendTo="body"
-                 [yearNavigator]="true"  readonly ="true" [monthNavigator]="true" [yearRange]="years"  dateFormat="yy/mm/dd"  [locale]="calendar_ar" placeholder="يوم/شهر/سنة"   >
-                   
-               </p-calendar>
+                  <p-calendar formControlName="dateFin" dir="rtl" [readonlyInput]="false"
+                     [style]="{'font-weight': '500','font-size': '18px','color': 'black'}" appendTo="body"
+                     [yearNavigator]="true" readonly="true" [monthNavigator]="true" [yearRange]="years"
+                     dateFormat="yy/mm/dd" [locale]="calendar_ar" placeholder="يوم/شهر/سنة">
+
+                  </p-calendar>
                </div>
             </div>
          </form>
@@ -1160,21 +1185,21 @@
 
 
    <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
-   <p-dialog header=" إدراج  تهمة "  appendTo="body"   [(visible)]="displayAccusation"
-      [baseZIndex]="10000" modal="true" showEffect="fade">
+   <p-dialog header=" إدراج  تهمة " appendTo="body" [(visible)]="displayAccusation" [baseZIndex]="10000" modal="true"
+      showEffect="fade">
 
 
 
 
 
-      
-      <div  class="p-grid"   *ngIf="!typeAffaireObjet || !typeJugeObjet">
-         <p style="width:100%; font-size: 20px; color: red; font-weight:bold ;">  قم بإختيار نوع القضية و نوع الحكم </p>
-                       </div>
+
+      <div class="p-grid" *ngIf="!typeAffaireObjet || !typeJugeObjet">
+         <p style="width:100%; font-size: 20px; color: red; font-weight:bold ;"> قم بإختيار نوع القضية و نوع الحكم </p>
+      </div>
 
 
-      <div dir="rtl"  class="p-grid" style="width:100%;" *ngIf="typeAffaireObjet && typeJugeObjet">
-        
+      <div dir="rtl" class="p-grid" style="width:100%;" *ngIf="typeAffaireObjet && typeJugeObjet">
+
          <div class="p-col-4">
             <p-dropdown [options]="accusationsToAdd" *ngIf="accusationCarteRecups?.length !==0"
                [(ngModel)]="accusationsToAddValue" [style]="{'width': '100%' }" [filter]="true">
@@ -1201,30 +1226,31 @@
                <div class="p-grid" *ngIf="accusationCarteRecups?.length==0">
 
                   <div class="p-col ">
-                     <label style="color: rgb(74, 89, 163);">تاريخ  بداية العقاب  : </label>
+                     <label style="color: rgb(74, 89, 163);">تاريخ بداية العقاب : </label>
                   </div>
                   <div class="p-col ">
-                  
-                     <p-calendar  [(ngModel)]="dateDebutGlobale"   dir="rtl"   [readonlyInput]="false"
-                     [style]="{'font-weight': '500','font-size': '18px','color': 'black'}"  
-                    [yearNavigator]="true"  readonly ="true" [monthNavigator]="true" [yearRange]="yearsPunition"  dateFormat="yy/mm/dd"  [locale]="calendar_ar" placeholder="يوم/شهر/سنة"   >
-                      
-                  </p-calendar>
+
+                     <p-calendar [(ngModel)]="dateDebutGlobale" dir="rtl" [readonlyInput]="false"
+                        [style]="{'font-weight': '500','font-size': '18px','color': 'black'}" [yearNavigator]="true"
+                        readonly="true" [monthNavigator]="true" [yearRange]="years" dateFormat="yy/mm/dd"
+                        [locale]="calendar_ar" placeholder="يوم/شهر/سنة">
+
+                     </p-calendar>
 
                   </div>
                </div>
-              
-               <div class="p-grid"*ngIf="typeJugeObjet?.id == 4">
+
+               <div class="p-grid" *ngIf="typeJugeObjet?.id == 4">
 
                   <div class="p-col ">
-                     <label style="color: rgb(74, 89, 163);">مدة العقوبة حسب الحكم:     </label>
+                     <label style="color: rgb(74, 89, 163);">مدة العقوبة حسب الحكم: </label>
                   </div>
                   <div class="p-col ">
                      <label style="color:red;">{{typeJugeObjet?.libelle_typeJuge}} </label>
-                     
+
                   </div>
                </div>
-              
+
 
                <form [formGroup]="accusationForm" *ngIf="typeJugeObjet?.id != 4">
 
@@ -1287,74 +1313,79 @@
             </div>
          </div>
          <div class="p-col-8" style="border: #292B2C;">
-            <p-table    [value]="entitiesTitreAccusation" #dtTitreAccusation [(selection)]="titreAccusationLocal"
-               selectionMode="single" [paginator]="true"  [resetPageOnSort]="false" [rows]="5"
-               paginatorPosition="bottom" [rowsPerPageOptions]="[5,10,20,50]"     [rows]="5" [globalFilterFields]="['titreAccusation']">
+            <p-table [value]="entitiesTitreAccusation" #dtTitreAccusation [(selection)]="titreAccusationLocal"
+               selectionMode="single" [paginator]="true" [resetPageOnSort]="false" [rows]="5" paginatorPosition="bottom"
+               [rowsPerPageOptions]="[5,10,20,50]" [rows]="5" [globalFilterFields]="['titreAccusation']">
                <ng-template pTemplate="caption">
-                 
-                 
-             
-                <div class="p-grid">
-                    <div class="p-col">
+
+
+
+                  <div class="p-grid">
+                     <div class="p-col">
                         <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
                         <input type="text" pInputText size="50" placeholder=" بحث"
-                            (input)="dtTitreAccusation.filterGlobal($event.target.value, 'contains')" style="width:300px">
-    
-                    </div>
-                    <div class="p-col">
-                     <div style="background-color: white; color: rgb(175, 59, 59); padding: 6px 12px; font-size: 20px; 
-                     font-family: 'Amiri', Times, serif;" *ngIf="accusationCarteRecups?.length ===0">
-                      إختيار قضايا {{typeAffaireObjet.libelle_typeAffaire}}
-                     </div>
-                     <p-multiSelect    [options]="typeAffaireSwich" [filter]="true"   
-                     [style]="{'width':'100%', 'margin-top':'0'}"   emptyFilterMessage="لا توجد نتيجية "
-                     defaultLabel="   قائمة  أنواع القضايا    " selectedItemsLabel="{0}   أنواع القضايا"  dir="ltr"  
-                      (onChange)="dtTitreAccusation.filter($event.value,'typeAffaire.libelle_typeAffaire', 'in')">
-                     <ng-template let-group pTemplate="item">
-                       <div class="item">
-                           <span  >{{group.label}}</span>
-                          </div>
-                        
-                  </ng-template>
-                  
-                 </p-multiSelect>
+                           (input)="dtTitreAccusation.filterGlobal($event.target.value, 'contains')"
+                           style="width:300px">
 
-                 
-                 </div>
-                    
-                    </div>
+                     </div>
+                     <div class="p-col">
+                        <div style="background-color: white; color: rgb(175, 59, 59); padding: 6px 12px; font-size: 20px; 
+                     font-family: 'Amiri', Times, serif;" *ngIf="accusationCarteRecups?.length ===0">
+                           إختيار قضايا {{typeAffaireObjet.libelle_typeAffaire}}
+                        </div>
+                        <p-multiSelect [options]="typeAffaireSwich" [filter]="true"
+                           [style]="{'width':'100%', 'margin-top':'0'}" emptyFilterMessage="لا توجد نتيجية "
+                           defaultLabel="   قائمة  أنواع القضايا    " selectedItemsLabel="{0}   أنواع القضايا" dir="ltr"
+                           (onChange)="dtTitreAccusation.filter($event.value,'typeAffaire.libelle_typeAffaire', 'in')">
+                           <ng-template let-group pTemplate="item">
+                              <div class="item">
+                                 <span>{{group.label}}</span>
+                              </div>
+
+                           </ng-template>
+
+                        </p-multiSelect>
+
+
+                     </div>
+
+                  </div>
                </ng-template>
                <ng-template pTemplate="header">
-                <tr>
+                  <tr>
 
-                   
-                    <th style="width: 10%;" pSortableColumn="id" >  
+
+                     <th style="width: 10%;" pSortableColumn="id">
                         <p-sortIcon field="id"></p-sortIcon>
-                    </th>
-                    <th style="width: 80%; "pSortableColumn="titreAccusation" > عناوين التهم
-                        <p-sortIcon field="titreAccusation"></p-sortIcon> 
-                   </th>
-                   <th style="width: 10%;" >   
-                   
-                   </th>
-                 </tr>
-                <tr > 
-                  
-                 <th     >     
-                     <input   pInputText type="text" placeholder="يبدأ بـــــــــــ" class="ui-column-filter" style="width: 100%; margin-top: 0;" (input)="dtTitreAccusation.filter($event.target.value, 'id', 'startsWith')">
-                                  
-              </th>
-                 <th    >    
-                     <input   pInputText type="text" placeholder=" يبدأ بـــــــــــ" class="ui-column-filter" style="width: 100%; margin-top: 0;" (input)="dtTitreAccusation.filter($event.target.value, 'titreAccusation', 'startsWith')">
-                                  
-              </th> 
-               
-                 
-                 <th style="width: 10%;" >
-                   
-                </th>
-                
-             </tr>
+                     </th>
+                     <th style="width: 80%; " pSortableColumn="titreAccusation"> عناوين التهم
+                        <p-sortIcon field="titreAccusation"></p-sortIcon>
+                     </th>
+                     <th style="width: 10%;">
+
+                     </th>
+                  </tr>
+                  <tr>
+
+                     <th>
+                        <input pInputText type="text" placeholder="يبدأ بـــــــــــ" class="ui-column-filter"
+                           style="width: 100%; margin-top: 0;"
+                           (input)="dtTitreAccusation.filter($event.target.value, 'id', 'startsWith')">
+
+                     </th>
+                     <th>
+                        <input pInputText type="text" placeholder=" يبدأ بـــــــــــ" class="ui-column-filter"
+                           style="width: 100%; margin-top: 0;"
+                           (input)="dtTitreAccusation.filter($event.target.value, 'titreAccusation', 'startsWith')">
+
+                     </th>
+
+
+                     <th style="width: 10%;">
+
+                     </th>
+
+                  </tr>
                </ng-template>
                <ng-template pTemplate="body" let-row>
                   <tr>
@@ -1382,8 +1413,9 @@
          <br>
 
 
-         <button pButton type="button" label="تسجيل "*ngIf="titreAccusationLocal && dateDebutGlobale" (click)="onSubmitAccusationForm(accusationForm.value)"
-            style="margin-left: 2px;" class="ui-button-success"></button>
+         <button pButton type="button" label="تسجيل " *ngIf="titreAccusationLocal && dateDebutGlobale"
+            (click)="onSubmitAccusationForm(accusationForm.value)" style="margin-left: 2px;"
+            class="ui-button-success"></button>
          <button pButton type="button" label="إلغاء" (click)="displayAccusation=!displayAccusation"
             style="margin-right: 2px;" class="ui-button-danger"></button>
       </div>
@@ -1409,7 +1441,7 @@
       </p-header>
 
       <span class="alert">
-         قضية الربط غير موجودة بملــــف الطفــــل 
+         قضية الربط غير موجودة بملــــف الطفــــل
 
       </span>
 
@@ -1579,7 +1611,7 @@
       </p-header>
 
 
-      <span class="alert"> هذه القضية موجودة بملــــف الطفــــل  ولها قضية ربط </span>
+      <span class="alert"> هذه القضية موجودة بملــــف الطفــــل ولها قضية ربط </span>
 
 
 
@@ -1595,7 +1627,7 @@
             <button pButton type="button" label="واضح" style="margin-right: 2px;" class="ui-button-danger" (click)="displayAlertOrigineExistAvecLien = false;
                                                                    nextBoolean = true;
                                                                    "></button>
-                                                                   <!-- lien() -->
+            <!-- lien() -->
             <!-- <p-button icon="pi pi-check" (click)="displayBasic=false" label="Ok" styleClass="p-button-text"></p-button> -->
          </div>
       </p-footer>
@@ -1610,7 +1642,7 @@
       </p-header>
 
 
-      <span class="alert"> هذه القضية موجودة بملــــف الطفــــل  و ليس لها قضية ربط </span>
+      <span class="alert"> هذه القضية موجودة بملــــف الطفــــل و ليس لها قضية ربط </span>
 
 
       <p-footer>
@@ -1626,14 +1658,15 @@
 
 
 
-<p-dialog header="إدراج إيقاف جديد" dir="rtl" *ngIf="enfantLocal" [(visible)]="displayAddArrestation" modal="true" showEffect="fade">
-<div >
-   <h3>Détails de l'enfant</h3>
-   <p>Nom: {{ enfantLocal.nom }}</p>
-   
- 
-</div>
-     <div class="save col-12" *ngIf="nextAdd">
+<p-dialog header="إدراج إيقاف جديد" dir="rtl" *ngIf="enfantLocal" [(visible)]="displayAddArrestation" modal="true"
+   showEffect="fade">
+   <div>
+      <h3>Détails de l'enfant</h3>
+      <p>Nom: {{ enfantLocal.nom }}</p>
+
+
+   </div>
+   <div class="save col-12" *ngIf="nextAdd">
       <span style="color: #99CE6B; font-family: 'Amiri', Times, serif;"> تمت عملية التسجيل بنجاح </span>
    </div>
    <div class="card" *ngIf="nextAdd"
@@ -1643,7 +1676,7 @@
       <div class="p-grid">
          <div class="p-col">
             <div class="p-field p-grid">
-               <label    class="p-col-fixed ">العدد الرتبي للإيقاف : <span
+               <label class="p-col-fixed ">العدد الرتبي للإيقاف : <span
                      style="color: black;">{{residence.residenceId.numOrdinaleArrestation}}</span> </label>
             </div>
             <div class="p-field p-grid">
@@ -1653,12 +1686,12 @@
          </div>
          <div class="p-col">
             <div class="p-field p-grid">
-               <label    class="p-col-fixed " style="width: 180px;">عدد الإيقاف: <span
+               <label class="p-col-fixed " style="width: 180px;">عدد الإيقاف: <span
                      style="color: black;">{{residence.numArrestation}}</span> </label>
             </div>
             <div class="p-field p-grid">
-               <label    class="p-col-fixed" style="width: 180px;">بتاريخ: <span
-                  dir="rtl"    style="color: black;">{{residence.dateEntree}}</span> </label>
+               <label class="p-col-fixed" style="width: 180px;">بتاريخ: <span dir="rtl"
+                     style="color: black;">{{residence.dateEntree}}</span> </label>
             </div>
          </div>
       </div>
@@ -1679,8 +1712,8 @@
          <div class="p-grid">
             <div class="p-col">
                <div class="p-field p-grid">
-                  <label    class="p-col-fixed ">العدد الرتبي للإيقاف : <span
-                        style="color: black;">{{numOrdinale}}</span> </label>
+                  <label class="p-col-fixed ">العدد الرتبي للإيقاف : <span style="color: black;">{{numOrdinale}}</span>
+                  </label>
                </div>
                <div class="p-field p-grid">
                   <label for="centre" class="p-col-fixed"> مركز الإيقاف : <span style="color: black;">{{centre}}</span>
@@ -1689,23 +1722,24 @@
             </div>
             <div class="p-col">
                <div class="p-field p-grid">
-                  <label    class="p-col-fixed " style="width: 180px;">عدد الإيقاف</label>
+                  <label class="p-col-fixed " style="width: 180px;">عدد الإيقاف</label>
                   <div class="p-col">
-                     <p-inputMask [(ngModel)]="numArrestation"  mask="999999" slotChar="------"  
-                     placeholder="عدد الإيقاف"></p-inputMask>
-                    
+                     <p-inputMask [(ngModel)]="numArrestation" mask="999999" slotChar="------"
+                        placeholder="عدد الإيقاف"></p-inputMask>
+
                   </div>
                </div>
                <div class="p-field p-grid">
-                  <label    class="p-col-fixed" style="width: 180px;">بتاريخ</label>
+                  <label class="p-col-fixed" style="width: 180px;">بتاريخ</label>
                   <div class="p-col">
-                    
 
-                        <p-calendar   [(ngModel)]="dateEntreLocal"  dir="rtl"   [readonlyInput]="false"  
-                  [style]="{'font-weight': '500','font-size': '18px','color': 'black'}"appendTo="body"
-                 [yearNavigator]="false"  readonly ="true" [monthNavigator]="true"    dateFormat="yy/mm/dd"  [locale]="calendar_ar" placeholder="يوم/شهر/سنة"   >
-                 </p-calendar>
-             
+
+                     <p-calendar [(ngModel)]="dateEntreLocal" dir="rtl" [readonlyInput]="false"
+                        [style]="{'font-weight': '500','font-size': '18px','color': 'black'}" appendTo="body"
+                        [yearNavigator]="false" readonly="true" [monthNavigator]="true" dateFormat="yy/mm/dd"
+                        [locale]="calendar_ar" placeholder="يوم/شهر/سنة">
+                     </p-calendar>
+
                   </div>
                </div>
             </div>
@@ -1727,17 +1761,19 @@
 
          </button>
       </div>
-   </div>  
-  <!-- <app-add-enfant   [enfantOld]="enfantLocal"></app-add-enfant>   -->
+   </div>
+   <!-- <app-add-enfant   [enfantOld]="enfantLocal"></app-add-enfant>   -->
 </p-dialog>
 <p-dialog
    [style]="{width: '80vw', height: '30vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
    [closable]="false" [(visible)]="showCarteRecup" modal="true" dir="rtl">
-   <p-header style="color: #fffae7; font-family: 'Amiri', Times, serif;"  > 
-      هل ترغب في   تأكيد التسجيل؟   الرجاء التثبث من المعطيات, أنت تضمن دقة البيانات المقدمة: 
-      <div   *ngIf="alertTypeAffaire"  class="neons">    <p >{{alertTypeAffaire}}</p></div>
-  </p-header>
-     
+   <p-header style="color: #fffae7; font-family: 'Amiri', Times, serif;">
+      هل ترغب في تأكيد التسجيل؟ الرجاء التثبث من المعطيات, أنت تضمن دقة البيانات المقدمة:
+      <div *ngIf="alertTypeAffaire" class="neons">
+         <p>{{alertTypeAffaire}}</p>
+      </div>
+   </p-header>
+
    <app-show-carte-recup [carteRecup]="carteRecup"></app-show-carte-recup>
 
    <p-footer>
@@ -1760,47 +1796,46 @@
 </p-dialog>
 
 
-<p-dialog header="قائمة القضايا التي يمكنك الضم إليها  "  [(visible)]="displayAfferAffecter"  modal="true" showEffect="fade" [style]="{ 'border-radius': '1%',  
+<p-dialog header="قائمة القضايا التي يمكنك الضم إليها  " [(visible)]="displayAfferAffecter" modal="true"
+   showEffect="fade" [style]="{ 'border-radius': '1%',  
 '-moz-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
 '-webkit-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
 'box-shadow':' 0px 2px 2px rgba(0, 0, 0, 0.966)','background-image': 'url(assets/layout/images/cart.jpg)' }">
 
-    <div style="width: 1200px;">
-        <p-table [value]="affaires" #dtAffaire selectionMode="single" [paginator]="true" [rows]="5"
-        
-            [globalFilterFields]="['id','nom_tribunal' ]">
-            <ng-template pTemplate="caption">
+   <div style="width: 1200px;">
+      <p-table [value]="affaires" #dtAffaire selectionMode="single" [paginator]="true" [rows]="5"
+         [globalFilterFields]="['id','nom_tribunal' ]">
+         <ng-template pTemplate="caption">
 
-                <div style="text-align: right">
-                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                    <input type="text" pInputText size="50" placeholder=" بحث"
-                        style="width:300px">
+            <div style="text-align: right">
+               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+               <input type="text" pInputText size="50" placeholder=" بحث" style="width:300px">
 
-                </div>
+            </div>
 
-            </ng-template>
-            <ng-template pTemplate="header">
-                <tr>
+         </ng-template>
+         <ng-template pTemplate="header">
+            <tr>
 
-                    <th style="width: 150px;"> العدد الرتبي للقضية </th>
-                    <th style="width: 150px;"> الوثيقة الجارية   </th>
-                    <th style="width: 150px;"> عدد القضية </th>
-                    <th> المحكمة </th>
+               <th style="width: 150px;"> العدد الرتبي للقضية </th>
+               <th style="width: 150px;"> الوثيقة الجارية </th>
+               <th style="width: 150px;"> عدد القضية </th>
+               <th> المحكمة </th>
 
-                    <th style="width: 100px;"> إدراج
+               <th style="width: 100px;"> إدراج
 
 
-                    </th>
+               </th>
 
 
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-row>
-                <tr>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-row>
+            <tr>
 
 
-                    <td> <b style="font-size:16px;">{{row.numOrdinalAffaire}}</b></td>
-                    <!-- <td *ngIf="row.typeDocument == 'CP' " style="color:  #0099ff!important;"> <b style="font-size:16px;">  قرار تمديد </b></td>
+               <td> <b style="font-size:16px;">{{row.numOrdinalAffaire}}</b></td>
+               <!-- <td *ngIf="row.typeDocument == 'CP' " style="color:  #0099ff!important;"> <b style="font-size:16px;">  قرار تمديد </b></td>
                                      
                     <td *ngIf="row.typeDocument == 'CD' " style="color:  #0099ff!important;"> <b style="font-size:16px;">بطاقة إيداع</b></td>
                     <td *ngIf="row.typeDocument == 'CH' " style="color: #0099ff!important;"> <b style="font-size:16px;">بطاقة إيواء</b></td>
@@ -1810,97 +1845,108 @@
                     <td *ngIf="row.typeDocument == 'T' " style="color:  #0099ff!important;"> <b style="font-size:16px;">إحالة</b></td>
                     <td *ngIf="row.typeDocument == 'AE' " style="color:  #0099ff!important;"> <b style="font-size:16px;"> طعن الطفل بالاستئناف </b></td>
                     <td *ngIf="row.typeDocument == 'AP' " style="color:  #0099ff!important;" > <b style="font-size:16px;">طعن النيابة بالاستئناف</b>  </td>
-                    <td *ngIf="row.typeDocument == 'AEX' "  style="color: rgb(1, 151, 1) !important;" >  <b style="font-size:16px;" > إيقاف تنفيذ الحكم  </b> </td>
+                    <td *ngIf="row.typeDocument == 'ArretEx' "  style="color: rgb(1, 151, 1) !important;" >  <b style="font-size:16px;" > إيقاف تنفيذ الحكم  </b> </td>
                     <td *ngIf="row.typeDocumentActuelle == 'CHL' "  style="color: rgb(1, 151, 1) !important;" >  <b style="font-size:16px;" >  قرار تغير مكان الإيداع  </b> </td> -->
-                  
-<td *ngIf="row.typeDocumentActuelle == 'CHL' else typeDocument" style="color: rgb(1, 151, 1) !important;"> <b
-      style="font-size:16px;"> قرار تغير مكان الإيداع </b> </td>
 
-<ng-template #typeDocument>
-    <td *ngIf="row.typeDocument == 'CP' " style="color:  #0099ff!important;"> <b style="font-size:16px;">  قرار تمديد </b></td>
-                                     
-                     <td *ngIf="row.typeDocument == 'CP' " style="color:  #0099ff!important;"> <b style="font-size:16px;"> قرار تمديد </b>
-                     </td>
-                     
-                     <td *ngIf="row.typeDocument == 'CD' " style="color:  #0099ff!important;"> <b style="font-size:16px;">بطاقة إيداع</b>
-                     </td>
-                     <td *ngIf="row.typeDocument == 'CH' " style="color: #0099ff!important;"> <b style="font-size:16px;">بطاقة إيواء</b></td>
-                     <td *ngIf="row.typeDocument == 'CJ'  || row.typeDocument == 'CJA' " style="color: #ff3434 !important;"><b
-                           style="font-size:16px;">مضمون حكم</b></td>
-                     <td *ngIf="row.typeDocument == 'CR' " style="color:  #ff3434 !important;"><b style="font-size:16px;">مراجعة</b></td>
-                     <td *ngIf="row.typeDocument == 'CRR' " style="color:  #ff3434!important;"> <b style="font-size:16px;">رفض مراجعة</b>
-                     </td>
-                     <td *ngIf="row.typeDocument == 'T' " style="color:  #0099ff!important;"> <b style="font-size:16px;">إحالة</b></td>
-                     <td *ngIf="row.typeDocument == 'AE' " style="color:  #0099ff!important;"> <b style="font-size:16px;"> طعن الطفل
-                           بالاستئناف </b></td>
-                     <td *ngIf="row.typeDocument == 'AP' " style="color:  #0099ff!important;"> <b style="font-size:16px;">طعن النيابة
-                           بالاستئناف</b> </td>
-                     <td *ngIf="row.typeDocument == 'AEX' " style="color: rgb(1, 151, 1) !important;"> <b style="font-size:16px;"> إيقاف
-                           تنفيذ الحكم </b> </td>
-</ng-template>
+               <td *ngIf="row.typeDocumentActuelle == 'CHL' else typeDocument"
+                  style="color: rgb(1, 151, 1) !important;"> <b style="font-size:16px;"> قرار تغير مكان الإيداع </b>
+               </td>
 
+               <ng-template #typeDocument>
+                  <td *ngIf="row.typeDocument == 'CP' " style="color:  #0099ff!important;"> <b style="font-size:16px;">
+                        قرار تمديد </b></td>
 
-                    <td> <b style="font-size:16px;">{{row.affaireId.numAffaire}} </b></td>
-                    <td> <b style="font-size:16px;">{{row.tribunal.nom_tribunal}} </b></td>
+                  <td *ngIf="row.typeDocument == 'CP' " style="color:  #0099ff!important;"> <b style="font-size:16px;">
+                        قرار تمديد </b>
+                  </td>
 
-                    <td >
-
-                    
-                        <button  pButton icon="pi pi-plus"  label="إيقاف" style="background-color: #66a266;"  (click)=saveAffaireAffecter(row)>
-                        </button>
-                       
-
-                    </td>
+                  <td *ngIf="row.typeDocument == 'CD' " style="color:  #0099ff!important;"> <b
+                        style="font-size:16px;">بطاقة إيداع</b>
+                  </td>
+                  <td *ngIf="row.typeDocument == 'CH' " style="color: #0099ff!important;"> <b
+                        style="font-size:16px;">بطاقة إيواء</b></td>
+                  <td *ngIf="row.typeDocument == 'CJ'  || row.typeDocument == 'CJA' "
+                     style="color: #ff3434 !important;"><b style="font-size:16px;">مضمون حكم</b></td>
+                  <td *ngIf="row.typeDocument == 'CR' " style="color:  #ff3434 !important;"><b
+                        style="font-size:16px;">مراجعة</b></td>
+                  <td *ngIf="row.typeDocument == 'CRR' " style="color:  #ff3434!important;"> <b
+                        style="font-size:16px;">رفض مراجعة</b>
+                  </td>
+                  <td *ngIf="row.typeDocument == 'T' " style="color:  #0099ff!important;"> <b
+                        style="font-size:16px;">إحالة</b></td>
+                  <td *ngIf="row.typeDocument == 'AE' " style="color:  #0099ff!important;"> <b style="font-size:16px;">
+                        طعن الطفل
+                        بالاستئناف </b></td>
+                  <td *ngIf="row.typeDocument == 'AP' " style="color:  #0099ff!important;"> <b
+                        style="font-size:16px;">طعن النيابة
+                        بالاستئناف</b> </td>
+                  <td *ngIf="row.typeDocument == 'ArretEx' " style="color: rgb(1, 151, 1) !important;"> <b
+                        style="font-size:16px;"> إيقاف
+                        تنفيذ الحكم </b> </td>
+               </ng-template>
 
 
-                </tr>
-            </ng-template>
-        </p-table>
-    </div>
+               <td> <b style="font-size:16px;">{{row.affaireId.numAffaire}} </b></td>
+               <td> <b style="font-size:16px;">{{row.tribunal.nom_tribunal}} </b></td>
+
+               <td>
+
+
+                  <button pButton icon="pi pi-plus" label="إيقاف" style="background-color: #66a266;"
+                     (click)=saveAffaireAffecter(row)>
+                  </button>
+
+
+               </td>
+
+
+            </tr>
+         </ng-template>
+      </p-table>
+   </div>
 
 </p-dialog>
 
-<p-dialog header="قائمة القضايا التي يمكنك الربط  إليها  "  [(visible)]="displayAfferLier"  modal="true" showEffect="fade" [style]="{ 'border-radius': '1%',  
+<p-dialog header="قائمة القضايا التي يمكنك الربط  إليها  " [(visible)]="displayAfferLier" modal="true" showEffect="fade"
+   [style]="{ 'border-radius': '1%',  
 '-moz-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
 '-webkit-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
 'box-shadow':' 0px 2px 2px rgba(0, 0, 0, 0.966)','background-image': 'url(assets/layout/images/cart.jpg)' }">
 
-    <div style="width: 1200px;">
-        <p-table [value]="affaires" #dtAffaireLier selectionMode="single" [paginator]="true" [rows]="5"
-        
-            [globalFilterFields]="['id','nom_tribunal' ]">
-            <ng-template pTemplate="caption">
+   <div style="width: 1200px;">
+      <p-table [value]="affaires" #dtAffaireLier selectionMode="single" [paginator]="true" [rows]="5"
+         [globalFilterFields]="['id','nom_tribunal' ]">
+         <ng-template pTemplate="caption">
 
-                <div style="text-align: right">
-                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                    <input type="text" pInputText size="50" placeholder=" بحث"
-                        style="width:300px">
+            <div style="text-align: right">
+               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+               <input type="text" pInputText size="50" placeholder=" بحث" style="width:300px">
 
-                </div>
+            </div>
 
-            </ng-template>
-            <ng-template pTemplate="header">
-                <tr>
+         </ng-template>
+         <ng-template pTemplate="header">
+            <tr>
 
-                    <th style="width: 150px;"> العدد الرتبي للقضية </th>
-                    <th style="width: 150px;"> الوثيقة الجارية   </th>
-                    <th style="width: 150px;"> عدد القضية </th>
-                    <th> المحكمة </th>
+               <th style="width: 150px;"> العدد الرتبي للقضية </th>
+               <th style="width: 150px;"> الوثيقة الجارية </th>
+               <th style="width: 150px;"> عدد القضية </th>
+               <th> المحكمة </th>
 
-                    <th style="width: 100px;"> إدراج
+               <th style="width: 100px;"> إدراج
 
 
-                    </th>
+               </th>
 
 
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-row>
-                <tr>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-row>
+            <tr>
 
 
-                    <td> <b style="font-size:16px;">{{row.numOrdinalAffaire}}</b></td>
-                    <!-- <td *ngIf="row.typeDocument == 'CP' " style="color:  #0099ff!important;"> <b style="font-size:16px;">  قرار تمديد </b></td>
+               <td> <b style="font-size:16px;">{{row.numOrdinalAffaire}}</b></td>
+               <!-- <td *ngIf="row.typeDocument == 'CP' " style="color:  #0099ff!important;"> <b style="font-size:16px;">  قرار تمديد </b></td>
                                      
                     <td *ngIf="row.typeDocument == 'CD' " style="color:  #0099ff!important;"> <b style="font-size:16px;">بطاقة إيداع</b></td>
                     <td *ngIf="row.typeDocument == 'CH' " style="color: #0099ff!important;"> <b style="font-size:16px;">بطاقة إيواء</b></td>
@@ -1910,97 +1956,108 @@
                     <td *ngIf="row.typeDocument == 'T' " style="color:  #0099ff!important;"> <b style="font-size:16px;">إحالة</b></td>
                     <td *ngIf="row.typeDocument == 'AE' " style="color:  #0099ff!important;"> <b style="font-size:16px;"> طعن الطفل بالاستئناف </b></td>
                     <td *ngIf="row.typeDocument == 'AP' " style="color:  #0099ff!important;" > <b style="font-size:16px;">طعن النيابة بالاستئناف</b>  </td>
-                    <td *ngIf="row.typeDocument == 'AEX' "  style="color: rgb(1, 151, 1) !important;" >  <b style="font-size:16px;" > إيقاف تنفيذ الحكم  </b> </td>
+                    <td *ngIf="row.typeDocument == 'ArretEx' "  style="color: rgb(1, 151, 1) !important;" >  <b style="font-size:16px;" > إيقاف تنفيذ الحكم  </b> </td>
                     <td *ngIf="row.typeDocumentActuelle == 'CHL' "  style="color: rgb(1, 151, 1) !important;" >  <b style="font-size:16px;" >  قرار تغير مكان الإيداع  </b> </td> -->
-                  <td *ngIf="row.typeDocumentActuelle == 'CHL' else typeDocument" style="color: rgb(1, 151, 1) !important;"> <b
-                        style="font-size:16px;"> قرار تغير مكان الإيداع </b> </td>
-                  
-                  <ng-template #typeDocument>
-                     <td *ngIf="row.typeDocument == 'CP' " style="color:  #0099ff!important;"> <b style="font-size:16px;"> قرار تمديد </b>
-                     </td>
-                  
-                     <td *ngIf="row.typeDocument == 'CP' " style="color:  #0099ff!important;"> <b style="font-size:16px;"> قرار تمديد </b>
-                     </td>
-                  
-                     <td *ngIf="row.typeDocument == 'CD' " style="color:  #0099ff!important;"> <b style="font-size:16px;">بطاقة إيداع</b>
-                     </td>
-                     <td *ngIf="row.typeDocument == 'CH' " style="color: #0099ff!important;"> <b style="font-size:16px;">بطاقة إيواء</b>
-                     </td>
-                     <td *ngIf="row.typeDocument == 'CJ'  || row.typeDocument == 'CJA' " style="color: #ff3434 !important;"><b
-                           style="font-size:16px;">مضمون حكم</b></td>
-                     <td *ngIf="row.typeDocument == 'CR' " style="color:  #ff3434 !important;"><b style="font-size:16px;">مراجعة</b></td>
-                     <td *ngIf="row.typeDocument == 'CRR' " style="color:  #ff3434!important;"> <b style="font-size:16px;">رفض مراجعة</b>
-                     </td>
-                     <td *ngIf="row.typeDocument == 'T' " style="color:  #0099ff!important;"> <b style="font-size:16px;">إحالة</b></td>
-                     <td *ngIf="row.typeDocument == 'AE' " style="color:  #0099ff!important;"> <b style="font-size:16px;"> طعن الطفل
-                           بالاستئناف </b></td>
-                     <td *ngIf="row.typeDocument == 'AP' " style="color:  #0099ff!important;"> <b style="font-size:16px;">طعن النيابة
-                           بالاستئناف</b> </td>
-                     <td *ngIf="row.typeDocument == 'AEX' " style="color: rgb(1, 151, 1) !important;"> <b style="font-size:16px;"> إيقاف
-                           تنفيذ الحكم </b> </td>
-                  </ng-template>
-                    <td> <b style="font-size:16px;">{{row.affaireId.numAffaire}} </b></td>
-                    <td> <b style="font-size:16px;">{{row.tribunal.nom_tribunal}} </b></td>
+               <td *ngIf="row.typeDocumentActuelle == 'CHL' else typeDocument"
+                  style="color: rgb(1, 151, 1) !important;"> <b style="font-size:16px;"> قرار تغير مكان الإيداع </b>
+               </td>
 
-                    <td >
+               <ng-template #typeDocument>
+                  <td *ngIf="row.typeDocument == 'CP' " style="color:  #0099ff!important;"> <b style="font-size:16px;">
+                        قرار تمديد </b>
+                  </td>
 
-                    
-                        <button  pButton icon="pi pi-plus"  label="ربط " style="background-color: #208273;"  (click)=saveAffaireLier(row)>
-                        </button>
-                       
+                  <td *ngIf="row.typeDocument == 'CP' " style="color:  #0099ff!important;"> <b style="font-size:16px;">
+                        قرار تمديد </b>
+                  </td>
 
-                    </td>
+                  <td *ngIf="row.typeDocument == 'CD' " style="color:  #0099ff!important;"> <b
+                        style="font-size:16px;">بطاقة إيداع</b>
+                  </td>
+                  <td *ngIf="row.typeDocument == 'CH' " style="color: #0099ff!important;"> <b
+                        style="font-size:16px;">بطاقة إيواء</b>
+                  </td>
+                  <td *ngIf="row.typeDocument == 'CJ'  || row.typeDocument == 'CJA' "
+                     style="color: #ff3434 !important;"><b style="font-size:16px;">مضمون حكم</b></td>
+                  <td *ngIf="row.typeDocument == 'CR' " style="color:  #ff3434 !important;"><b
+                        style="font-size:16px;">مراجعة</b></td>
+                  <td *ngIf="row.typeDocument == 'CRR' " style="color:  #ff3434!important;"> <b
+                        style="font-size:16px;">رفض مراجعة</b>
+                  </td>
+                  <td *ngIf="row.typeDocument == 'T' " style="color:  #0099ff!important;"> <b
+                        style="font-size:16px;">إحالة</b></td>
+                  <td *ngIf="row.typeDocument == 'AE' " style="color:  #0099ff!important;"> <b style="font-size:16px;">
+                        طعن الطفل
+                        بالاستئناف </b></td>
+                  <td *ngIf="row.typeDocument == 'AP' " style="color:  #0099ff!important;"> <b
+                        style="font-size:16px;">طعن النيابة
+                        بالاستئناف</b> </td>
+                  <td *ngIf="row.typeDocument == 'ArretEx' " style="color: rgb(1, 151, 1) !important;"> <b
+                        style="font-size:16px;"> إيقاف
+                        تنفيذ الحكم </b> </td>
+               </ng-template>
+               <td> <b style="font-size:16px;">{{row.affaireId.numAffaire}} </b></td>
+               <td> <b style="font-size:16px;">{{row.tribunal.nom_tribunal}} </b></td>
+
+               <td>
 
 
-                </tr>
-            </ng-template>
-        </p-table>
-    </div>
+                  <button pButton icon="pi pi-plus" label="ربط " style="background-color: #208273;"
+                     (click)=saveAffaireLier(row)>
+                  </button>
+
+
+               </td>
+
+
+            </tr>
+         </ng-template>
+      </p-table>
+   </div>
 
 </p-dialog>
 
 
-<p-dialog header="قائمة القضايا التي يمكنك  ادرجها "  [(visible)]="displayAfferOrigine"  modal="true" showEffect="fade" [style]="{ 'border-radius': '1%',  
+<p-dialog header="قائمة القضايا التي يمكنك  ادرجها " [(visible)]="displayAfferOrigine" modal="true" showEffect="fade"
+   [style]="{ 'border-radius': '1%',  
 '-moz-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
 '-webkit-box-shadow': '0px 2px 2px rgba(0, 0, 0, 0.966)',
 'box-shadow':' 0px 2px 2px rgba(0, 0, 0, 0.966)','background-image': 'url(assets/layout/images/cart.jpg)' }">
 
-    <div style="width: 1200px;">
-        <p-table [value]="affaires" #dtAffaireLier selectionMode="single" [paginator]="true" [rows]="5"
-        
-            [globalFilterFields]="['id','nom_tribunal' ]">
-            <ng-template pTemplate="caption">
+   <div style="width: 1200px;">
+      <p-table [value]="affaires" #dtAffaireLier selectionMode="single" [paginator]="true" [rows]="5"
+         [globalFilterFields]="['id','nom_tribunal' ]">
+         <ng-template pTemplate="caption">
 
-                <div style="text-align: right">
-                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                    <input type="text" pInputText size="50" placeholder=" بحث"
-                        style="width:300px">
+            <div style="text-align: right">
+               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+               <input type="text" pInputText size="50" placeholder=" بحث" style="width:300px">
 
-                </div>
+            </div>
 
-            </ng-template>
-            <ng-template pTemplate="header">
-                <tr>
+         </ng-template>
+         <ng-template pTemplate="header">
+            <tr>
 
-                    <th style="width: 150px;"> العدد الرتبي للقضية </th>
-                    <th style="width: 150px;"> الوثيقة الجارية   </th>
-                    <th style="width: 150px;"> عدد القضية </th>
-                    <th> المحكمة </th>
+               <th style="width: 150px;"> العدد الرتبي للقضية </th>
+               <th style="width: 150px;"> الوثيقة الجارية </th>
+               <th style="width: 150px;"> عدد القضية </th>
+               <th> المحكمة </th>
 
-                    <th style="width: 100px;"> إدراج
+               <th style="width: 100px;"> إدراج
 
 
-                    </th>
+               </th>
 
 
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-row>
-                <tr>
+            </tr>
+         </ng-template>
+         <ng-template pTemplate="body" let-row>
+            <tr>
 
 
-                    <td> <b style="font-size:16px;">{{row.numOrdinalAffaire}}</b></td>
-                    <!-- <td *ngIf="row.typeDocument == 'CP' " style="color:  #0099ff!important;"> <b style="font-size:16px;">  قرار تمديد </b></td>
+               <td> <b style="font-size:16px;">{{row.numOrdinalAffaire}}</b></td>
+               <!-- <td *ngIf="row.typeDocument == 'CP' " style="color:  #0099ff!important;"> <b style="font-size:16px;">  قرار تمديد </b></td>
                                      
                     <td *ngIf="row.typeDocument == 'CD' " style="color:  #0099ff!important;"> <b style="font-size:16px;">بطاقة إيداع</b></td>
                     <td *ngIf="row.typeDocument == 'CH' " style="color: #0099ff!important;"> <b style="font-size:16px;">بطاقة إيواء</b></td>
@@ -2010,53 +2067,65 @@
                     <td *ngIf="row.typeDocument == 'T' " style="color:  #0099ff!important;"> <b style="font-size:16px;">إحالة</b></td>
                     <td *ngIf="row.typeDocument == 'AE' " style="color:  #0099ff!important;"> <b style="font-size:16px;"> طعن الطفل بالاستئناف </b></td>
                     <td *ngIf="row.typeDocument == 'AP' " style="color:  #0099ff!important;" > <b style="font-size:16px;">طعن النيابة بالاستئناف</b>  </td>
-                    <td *ngIf="row.typeDocument == 'AEX' "  style="color: rgb(1, 151, 1) !important;" >  <b style="font-size:16px;" > إيقاف تنفيذ الحكم  </b> </td>
+                    <td *ngIf="row.typeDocument == 'ArretEx' "  style="color: rgb(1, 151, 1) !important;" >  <b style="font-size:16px;" > إيقاف تنفيذ الحكم  </b> </td>
                     <td *ngIf="row.typeDocumentActuelle == 'CHL' "  style="color: rgb(1, 151, 1) !important;" >  <b style="font-size:16px;" >  قرار تغير مكان الإيداع  </b> </td>         -->
-                   
-                  <td *ngIf="row.typeDocumentActuelle == 'CHL' else typeDocument" style="color: rgb(1, 151, 1) !important;"> <b
-                        style="font-size:16px;"> قرار تغير مكان الإيداع </b> </td>
-                  
-                  <ng-template #typeDocument>
-                     <td *ngIf="row.typeDocument == 'CP' " style="color:  #0099ff!important;"> <b style="font-size:16px;"> قرار تمديد </b>
-                     </td>
-                  
-                     <td *ngIf="row.typeDocument == 'CP' " style="color:  #0099ff!important;"> <b style="font-size:16px;"> قرار تمديد </b>
-                     </td>
-                  
-                     <td *ngIf="row.typeDocument == 'CD' " style="color:  #0099ff!important;"> <b style="font-size:16px;">بطاقة إيداع</b>
-                     </td>
-                     <td *ngIf="row.typeDocument == 'CH' " style="color: #0099ff!important;"> <b style="font-size:16px;">بطاقة إيواء</b>
-                     </td>
-                     <td *ngIf="row.typeDocument == 'CJ'  || row.typeDocument == 'CJA' " style="color: #ff3434 !important;"><b
-                           style="font-size:16px;">مضمون حكم</b></td>
-                     <td *ngIf="row.typeDocument == 'CR' " style="color:  #ff3434 !important;"><b style="font-size:16px;">مراجعة</b></td>
-                     <td *ngIf="row.typeDocument == 'CRR' " style="color:  #ff3434!important;"> <b style="font-size:16px;">رفض مراجعة</b>
-                     </td>
-                     <td *ngIf="row.typeDocument == 'T' " style="color:  #0099ff!important;"> <b style="font-size:16px;">إحالة</b></td>
-                     <td *ngIf="row.typeDocument == 'AE' " style="color:  #0099ff!important;"> <b style="font-size:16px;"> طعن الطفل
-                           بالاستئناف </b></td>
-                     <td *ngIf="row.typeDocument == 'AP' " style="color:  #0099ff!important;"> <b style="font-size:16px;">طعن النيابة
-                           بالاستئناف</b> </td>
-                     <td *ngIf="row.typeDocument == 'AEX' " style="color: rgb(1, 151, 1) !important;"> <b style="font-size:16px;"> إيقاف
-                           تنفيذ الحكم </b> </td>
-                  </ng-template>
-                   
-                    <td> <b style="font-size:16px;">{{row.affaireId.numAffaire}} </b></td>
-                    <td> <b style="font-size:16px;">{{row.tribunal.nom_tribunal}} </b></td>
 
-                    <td >
+               <td *ngIf="row.typeDocumentActuelle == 'CHL' else typeDocument"
+                  style="color: rgb(1, 151, 1) !important;"> <b style="font-size:16px;"> قرار تغير مكان الإيداع </b>
+               </td>
 
-                    
-                        <button  pButton icon="pi pi-plus"  label="إدراج " style="background-color: #208273;"  (click)=saveAffaireOrigine(row)>
-                        </button>
-                       
+               <ng-template #typeDocument>
+                  <td *ngIf="row.typeDocument == 'CP' " style="color:  #0099ff!important;"> <b style="font-size:16px;">
+                        قرار تمديد </b>
+                  </td>
 
-                    </td>
+                  <td *ngIf="row.typeDocument == 'CP' " style="color:  #0099ff!important;"> <b style="font-size:16px;">
+                        قرار تمديد </b>
+                  </td>
+
+                  <td *ngIf="row.typeDocument == 'CD' " style="color:  #0099ff!important;"> <b
+                        style="font-size:16px;">بطاقة إيداع</b>
+                  </td>
+                  <td *ngIf="row.typeDocument == 'CH' " style="color: #0099ff!important;"> <b
+                        style="font-size:16px;">بطاقة إيواء</b>
+                  </td>
+                  <td *ngIf="row.typeDocument == 'CJ'  || row.typeDocument == 'CJA' "
+                     style="color: #ff3434 !important;"><b style="font-size:16px;">مضمون حكم</b></td>
+                  <td *ngIf="row.typeDocument == 'CR' " style="color:  #ff3434 !important;"><b
+                        style="font-size:16px;">مراجعة</b></td>
+                  <td *ngIf="row.typeDocument == 'CRR' " style="color:  #ff3434!important;"> <b
+                        style="font-size:16px;">رفض مراجعة</b>
+                  </td>
+                  <td *ngIf="row.typeDocument == 'T' " style="color:  #0099ff!important;"> <b
+                        style="font-size:16px;">إحالة</b></td>
+                  <td *ngIf="row.typeDocument == 'AE' " style="color:  #0099ff!important;"> <b style="font-size:16px;">
+                        طعن الطفل
+                        بالاستئناف </b></td>
+                  <td *ngIf="row.typeDocument == 'AP' " style="color:  #0099ff!important;"> <b
+                        style="font-size:16px;">طعن النيابة
+                        بالاستئناف</b> </td>
+                  <td *ngIf="row.typeDocument == 'ArretEx' " style="color: rgb(1, 151, 1) !important;"> <b
+                        style="font-size:16px;"> إيقاف
+                        تنفيذ الحكم </b> </td>
+               </ng-template>
+
+               <td> <b style="font-size:16px;">{{row.affaireId.numAffaire}} </b></td>
+               <td> <b style="font-size:16px;">{{row.tribunal.nom_tribunal}} </b></td>
+
+               <td>
 
 
-                </tr>
-            </ng-template>
-        </p-table>
-    </div>
+                  <button pButton icon="pi pi-plus" label="إدراج " style="background-color: #208273;"
+                     (click)=saveAffaireOrigine(row)>
+                  </button>
+
+
+               </td>
+
+
+            </tr>
+         </ng-template>
+      </p-table>
+   </div>
 
 </p-dialog>

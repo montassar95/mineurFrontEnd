@@ -84,9 +84,18 @@ export class AppMenuComponent implements OnInit {
             //    ]
           },
           //   {label: 'الوضعيات الجزائية' , routerLink: ['/mineur/dashboard/coordinador']},
+
+          {
+            label: "القائمات",
+            routerLink: ["/mineur/ListPenale"],
+            // items: [
+            //   { label: "  الحالية", routerLink: ["/mineur/ListPenale"] },
+            //   { label: "الشهرية", routerLink: ["/mineur/mensuel"] },
+            // ],
+          },
           {
             label: "الاحصائيات ",
-            routerLink: ["/mineur/Statique"],
+            routerLink: ["/mineur/mensuel"],
             // items: [
             //   {
             //     label: "   عـــامة    ",
@@ -97,14 +106,6 @@ export class AppMenuComponent implements OnInit {
             //     routerLink: ["/mineur/StatistiqueSpec"],
             //   },
             // ],
-          },
-          {
-            label: "القائمات",
-
-            items: [
-              { label: "  الحالية", routerLink: ["/mineur/ListPenale"] },
-              { label: "الشهرية", routerLink: ["/mineur/mensuel"] },
-            ],
           },
         ];
       } else if (this.roles.some((item) => item == "ROLE_DIRECTEUR")) {
@@ -113,26 +114,12 @@ export class AppMenuComponent implements OnInit {
 
           //   {label: 'الوضعيات الجزائية' , routerLink: ['/mineur/dashboard/coordinador']},
           {
-            label: "الاحصائيات ",
-            routerLink: ["/mineur/Statique"],
-            // items: [
-            //   {
-            //     label: "   عـــامة    ",
-            //     routerLink: ["/mineur/Statique"],
-            //   },
-            //   {
-            //     label: " خـــاصة     ",
-            //     routerLink: ["/mineur/StatistiqueSpec"],
-            //   },
-            // ],
+            label: "القائمات",
+            routerLink: ["/mineur/ListPenale"],
           },
           {
-            label: "القائمات",
-
-            items: [
-              { label: "  الحالية", routerLink: ["/mineur/ListPenale"] },
-              { label: "الشهرية", routerLink: ["/mineur/mensuel"] },
-            ],
+            label: "الاحصائيات ",
+            routerLink: ["/mineur/mensuel"],
           },
         ];
       } else if (this.roles.some((item) => item == "ROLE_MODERATOR")) {

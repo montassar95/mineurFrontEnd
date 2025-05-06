@@ -167,7 +167,7 @@ export class AddArreterLexecutionComponent implements OnInit {
   }
   ngOnInit() {
     this.types = [];
-    this.types.push({ label: "إيقاف تنفيذ الحكم ", value: "AEX" });
+    this.types.push({ label: "إيقاف تنفيذ الحكم ", value: "ArretEx" });
     this.types.push({ label: "ســــــــــــراح", value: "L" });
 
     let idValide = window.localStorage.getItem("idValide");
@@ -568,7 +568,7 @@ export class AddArreterLexecutionComponent implements OnInit {
               }
 
               this.arreterlexecution.documentId = this.documentId;
-              this.arreterlexecution.typeDocument = "AEX";
+              this.arreterlexecution.typeDocument = "ArretEx";
               this.arreterlexecution.typeFile = this.selectedType;
 
               this.arreterlexecution.dateDepotCarte = this.datepipe.transform(

@@ -24,6 +24,7 @@ import { BreadcrumbService } from "src/app/shared/breadcrumb/breadcrumb.service"
 import { AppConfigService } from "../app-config.service";
 import { RapportService } from "src/app/demo/service/rapport.service";
 import { StatistiqueEtablissementDTO } from "src/app/domain/statistiqueEtablissementDTO";
+import { StatistiqueMouvementsDTO } from "src/app/domain/statistiqueMouvementsDTO";
 
 @Component({
   selector: "app-mensuel",
@@ -35,8 +36,9 @@ export class MensuelComponent implements OnInit {
   selectedYear: number | null = null; // Année par défaut
   selectedMonth: number | null = null; // Mois par défaut
   lastDay: string | null = null; // Dernier jour sous forme yyyy-MM-dd
+  firstDay: string | null = null;
   statistiqueEtablissement: StatistiqueEtablissementDTO[] = [];
-
+  statistiqueMouvements: StatistiqueMouvementsDTO[] = [];
   totalNbrStatutPenalArrete: number = 0;
   totalNbrStatutPenalJuge: number = 0;
   totalNbrStatutPenalLibre: number = 0;
@@ -44,15 +46,19 @@ export class MensuelComponent implements OnInit {
   totalNbrNationaliteDifferentDeJuge1M: number = 0;
   totalNbrTypeAffaireId5F: number = 0;
   totalNbrNationaliteDifferentDeJuge1F: number = 0;
+  currentYear = new Date().getFullYear();
+
+  dateDebutGlobale: any;
+  dateFinGlobale: any;
 
   // Liste des années de 2024 à 2030
-  years = [
-    { label: "اختيار السنة", value: null }, // Option vide pour sélectionner une année
-    ...Array.from({ length: 2030 - 2024 + 1 }, (_, i) => ({
-      label: (2024 + i).toString(),
-      value: 2024 + i,
-    })),
-  ];
+  // years = [
+  //   { label: "اختيار السنة", value: null }, // Option vide pour sélectionner une année
+  //   ...Array.from({ length: this.currentYear - 2021 + 1 }, (_, i) => ({
+  //     label: (2021 + i).toString(),
+  //     value: 2021 + i,
+  //   })),
+  // ];
 
   // Liste des mois en arabe
   months = [
@@ -70,6 +76,11 @@ export class MensuelComponent implements OnInit {
     { label: "نوفمبــــر", value: 11 },
     { label: "ديسمبــــر", value: 12 },
   ];
+  currentUser: any;
+  calendar_ar: any;
+
+  years = "";
+
   calculateTotals(): void {
     // Calcul des totaux en itérant sur les données
     this.totalNbrStatutPenalArrete = this.statistiqueEtablissement.reduce(
@@ -94,33 +105,45 @@ export class MensuelComponent implements OnInit {
         0
       );
 
-       this.totalNbrTypeAffaireId5F = this.statistiqueEtablissement.reduce(
-         (total, stat) => total + stat.nbrTypeAffaireId5F,
-         0
-       );
-       this.totalNbrNationaliteDifferentDeJuge1F =
-         this.statistiqueEtablissement.reduce(
-           (total, stat) => total + stat.nbrNationaliteDifferentDeJuge1F,
-           0
-         );
+    this.totalNbrTypeAffaireId5F = this.statistiqueEtablissement.reduce(
+      (total, stat) => total + stat.nbrTypeAffaireId5F,
+      0
+    );
+    this.totalNbrNationaliteDifferentDeJuge1F =
+      this.statistiqueEtablissement.reduce(
+        (total, stat) => total + stat.nbrNationaliteDifferentDeJuge1F,
+        0
+      );
   }
   // Calculer le dernier jour du mois sélectionné
   calculateLastDay(): void {
-    if (this.selectedYear && this.selectedMonth) {
-      const lastDayDate = this.getLastDayOfMonth(
-        this.selectedYear,
-        this.selectedMonth
-      );
-
-      this.lastDay = lastDayDate.toLocaleDateString("en-CA").split("T")[0]; // Formate en yyyy-MM-dd
-      this.crudservice.statistiquesParDate(this.lastDay).subscribe((data) => {
+    // if (this.selectedYear && this.selectedMonth) {
+    //   const lastDayDate = this.getLastDayOfMonth(
+    //     this.selectedYear,
+    //     this.selectedMonth
+    //   );
+    this.firstDay = this.datepipe.transform(this.dateDebutGlobale, "yyyy-MM-dd");
+    this.lastDay = this.datepipe.transform(this.dateFinGlobale, "yyyy-MM-dd");
+    console.log(this.lastDay);
+    // this.lastDay = lastDayDate.toLocaleDateString("en-CA").split("T")[0]; // Formate en yyyy-MM-dd
+    this.crudservice
+      .statistiquesParDate(this.firstDay, this.lastDay)
+      .subscribe((data) => {
         this.statistiqueEtablissement = data;
         this.calculateTotals();
         console.table(this.statistiqueEtablissement);
       });
-    } else {
-      this.lastDay = null; // Si pas de sélection, pas de date
-    }
+
+    this.crudservice
+      .statistiquesMouvementsParDate(this.firstDay, this.lastDay)
+      .subscribe((data) => {
+        this.statistiqueMouvements = data;
+
+        console.table(this.statistiqueMouvements);
+      });
+    // } else {
+    //   this.lastDay = null; // Si pas de sélection, pas de date
+    // }
   }
 
   // Méthode pour obtenir le dernier jour d'un mois
@@ -136,26 +159,26 @@ export class MensuelComponent implements OnInit {
   // displayNationalite: boolean;
 
   sizeFile = 0;
-  calendar_ar: {
-    closeText: string;
-    prevText: string;
-    nextText: string;
-    currentText: string;
-    monthNames: string[];
-    monthNamesShort: string[];
-    dayNames: string[];
-    dayNamesShort: string[];
-    dayNamesMin: string[];
-    weekHeader: string;
-    dateFormat: string;
-    firstDay: number;
-    isRTL: boolean;
-    showMonthAfterYear: boolean;
-    yearSuffix: string;
-  };
+  // calendar_ar: {
+  //   closeText: string;
+  //   prevText: string;
+  //   nextText: string;
+  //   currentText: string;
+  //   monthNames: string[];
+  //   monthNamesShort: string[];
+  //   dayNames: string[];
+  //   dayNamesShort: string[];
+  //   dayNamesMin: string[];
+  //   weekHeader: string;
+  //   dateFormat: string;
+  //   firstDay: number;
+  //   isRTL: boolean;
+  //   showMonthAfterYear: boolean;
+  //   yearSuffix: string;
+  // };
   constructor(
     private breadcrumbService: BreadcrumbService,
-
+    private token: TokenStorageService,
     private crudservice: CrudEnfantService,
     private rapportService: RapportService,
     public datepipe: DatePipe,
@@ -170,20 +193,30 @@ export class MensuelComponent implements OnInit {
     ]);
   }
   ngOnInit(): void {
+    this.currentUser = this.token.getUser();
+
     this.calendar_ar = this.calendar_ar = this.appConfigService.calendarConfig;
+    this.years =
+      this.years +
+      (new Date().getFullYear() - 5) +
+      ":" +
+      (new Date().getFullYear() + 9);
+
+    // this.calendar_ar = this.calendar_ar = this.appConfigService.calendarConfig;
     this.crudservice
       .trouverEtablissementsActifs("etablissement")
       .subscribe((data) => {
         this.entitiesEtablissement = data.result;
       });
   }
-  printAllCentre(etablissement: Etablissement) {
+  printAllCentre(etablissement: Etablissement, situationJudiciaire: String) {
     console.log(this.lastDay);
     console.log(this.datePipe.transform(this.lastDay, "yyyy-MM-dd"));
     let pDFListExistDTO = new PDFListExistDTO();
     let etablissements: Etablissement[] = []; // Initialisation du tableau
     etablissements.push(etablissement); // Ajout de l'établissement
     pDFListExistDTO.etablissements = etablissements;
+    pDFListExistDTO.etatJuridiue = situationJudiciaire;
     pDFListExistDTO.datePrintAllCentre = this.datePipe.transform(
       this.lastDay,
       "yyyy-MM-dd"
@@ -226,10 +259,13 @@ export class MensuelComponent implements OnInit {
     window.open(data, "_blank");
   }
   etablissement: Etablissement;
-  downloadEtablissementData(etablissement: Etablissement) {
+  downloadEtablissementData(
+    etablissement: Etablissement,
+    situationJudiciaire: String
+  ) {
     this.click = true;
     console.log(etablissement.id);
-    this.printAllCentre(etablissement);
+    this.printAllCentre(etablissement, situationJudiciaire);
   }
 
   downloadStatistiqueGenerale() {
@@ -240,6 +276,9 @@ export class MensuelComponent implements OnInit {
       this.lastDay,
       "yyyy-MM-dd"
     );
+    // console.log(this.currentUser.etablissement);
+    // pDFListExistDTO.etablissement = this.currentUser.etablissement;
+    // console.log(this.currentUser.etablissement);
     this.click = true;
 
     this.rapportService.genererStatistiquePdfMensuel(pDFListExistDTO).subscribe(

@@ -23,26 +23,26 @@
             <label>الهوية:</label>
         </div>
         <div class="p-col-10">
-            <ul  >
+            <ul>
                 <li style="font-weight: bold;">
-                     {{ carteDepot?.affaire?.arrestation?.enfant?.nom }} بن
+                    {{ carteDepot?.affaire?.arrestation?.enfant?.nom }} بن
                     {{ carteDepot?.affaire?.arrestation?.enfant?.nomPere }} بن
                     {{ carteDepot?.affaire?.arrestation?.enfant?.nomGrandPere }}
-                    {{ carteDepot?.affaire?.arrestation?.enfant?.prenom  }}
-                 <br>
-                     إبن  
+                    {{ carteDepot?.affaire?.arrestation?.enfant?.prenom }}
+                    <br>
+                    إبن
                     {{ carteDepot?.affaire?.arrestation?.enfant?.nomMere + ' ' +
                     carteDepot?.affaire?.arrestation?.enfant?.prenomMere }}
                 </li>
                 <li style="color: red;">
-                     البلغ (ة) من العمر: XX سنة
-                     
+                    البلغ (ة) من العمر: XX سنة
+
                     و المولود (ة) بــــ:
                     {{ carteDepot?.affaire?.arrestation?.enfant?.lieuNaissance }}
                     {{ carteDepot?.affaire?.arrestation?.enfant?.dateNaissance | date:'yyyy/MM/dd' }}
                 </li>
                 <li>
-                     القاطن (ة):
+                    القاطن (ة):
                     {{ carteDepot?.affaire?.arrestation?.enfant?.adresse + ' ' }}
                     {{ carteDepot?.affaire?.arrestation?.enfant?.delegation?.libelle_delegation + ' ' }}
                     {{ carteDepot?.affaire?.arrestation?.enfant?.delegation?.gouvernorat?.libelle_gouvernorat }}
@@ -52,10 +52,10 @@
     </div>
 
 
-   
- 
 
-     
+
+
+
 
     <div class="p-grid" *ngIf="carteDepot.affaire">
         <div class="p-col-2">
@@ -106,28 +106,45 @@
             <span>{{ carteDepot?.typeAffaire?.libelle_typeAffaire }}</span>
         </div>
     </div>
-<div class="p-grid">
-    <div class="p-col-2">
-        <label><b>المتهم (ة) بــــ :</b></label>
-    </div>
-    <div class="p-col-10">
-    <div  >
+
+
+    <div class="p-grid" *ngIf="carteDepot?.etabChangeManiere" >
+        <div class="p-col-2">
+            <label style="color: red;" >إلى  :</label>
+        </div>
+        <div class="p-col-10">
+            <span style="color: red;"
+                >{{carteDepot?.etabChangeManiere?.libelle_etabChangeManiere}}</span>
+        </div>
     
-        <p>
-            <span *ngFor="let row of carteDepot.titreAccusations; let rowIndex = index">
-                {{ row?.titreAccusation }}<span *ngIf="rowIndex < carteDepot.titreAccusations.length - 1"> و </span>
-            </span>
-            .
-        </p>
     </div>
+
+
+    <div class="p-grid">
+        <div class="p-col-2">
+            <label><b>المتهم (ة) بــــ :</b></label>
+        </div>
+        <div class="p-col-10">
+            <div>
+
+                <p>
+                    <span *ngFor="let row of carteDepot.titreAccusations; let rowIndex = index">
+                        {{ row?.titreAccusation }}<span *ngIf="rowIndex < carteDepot.titreAccusations.length - 1"> و
+                        </span>
+                    </span>
+                    .
+                </p>
+            </div>
+        </div>
     </div>
-</div>
-    
+
 
     <div class="footer">
-        <label>المدرج: <span>{{ carteDepot?.user?.nom + ' ' + carteDepot?.user?.prenom }}</span>
-        <p>{{ carteDepot?.etablissement?.libelle_etablissement }} في {{ carteDepot?.dateInsertion | date:'yyyy/MM/dd' }}
-        </p>
+        <!-- <label>المدرج: <span>{{ carteDepot?.user?.nom + ' ' + carteDepot?.user?.prenom }}</span> -->
+        <label>
+            <p>{{ carteDepot?.etablissement?.libelle_etablissement }} في {{ carteDepot?.dateInsertion |
+                date:'yyyy/MM/dd' }}
+            </p>
         </label>
     </div>
 </div>

@@ -1,48 +1,46 @@
-<div style="margin-bottom: 250px;" >
-    <p-accordion>
-        <p-accordionTab 
-    
-         *ngFor="let affaire of affaires" >
+<div style="margin-bottom: 250px;">
+  <p-accordion>
+    <p-accordionTab *ngFor="let affaire of affaires">
 
-           <p-header style="font-family: 'Amiri', Times, serif; font-size: 20px;  color: rgba(0, 0, 0, 0.733); ">
-           <div style="text-align: center;"> 
-              
+      <p-header style="font-family: 'Amiri', Times, serif; font-size: 20px;  color: rgba(0, 0, 0, 0.733); ">
+        <div style="text-align: center;">
 
 
-                 <div class="p-field p-grid">
-                    
-              
-              
-                    <div class="p-col">
-                        ع.ر    : <b> {{affaire.numOrdinalAffaire}} </b>
-                       
-              
-              
-                    </div>
-                    
-                    <div class="p-col">
-                        عددالقضية:   <b dir="rtl"> {{  affaire.affaireId.numAffaire}}</b>   
-               
-                     </div>
-                     
-                    <div class="p-col">
-                        المحكمة: <b> {{  affaire.tribunal.nom_tribunal}}</b> 
-               
-               
-                     </div>
-              
-              
-              
-                 </div>
-                </div>
-                 </p-header>
 
-            <div dir="rtl" style="margin-top: 20px; width: initial; ">
-                <div class="p-grid layout-dashboard">
-                <div class="p-col-12 p-lg-12" dir="rtl" style="width: 500 px; text-align: center;">
-                    <div class="card download-files" style="background-color:rgb(238, 238, 238) ;">
-                         
-                        <!-- <div class="p-grid p-nogutter">
+          <div class="p-field p-grid">
+
+
+
+            <div class="p-col">
+              ع.ر : <b> {{affaire.numOrdinalAffaire}} </b>
+
+
+
+            </div>
+
+            <div class="p-col">
+              عددالقضية: <b dir="rtl"> {{ affaire.affaireId.numAffaire}}</b>
+
+            </div>
+
+            <div class="p-col">
+              المحكمة: <b> {{ affaire.tribunal.nom_tribunal}}</b>
+
+
+            </div>
+
+
+
+          </div>
+        </div>
+      </p-header>
+
+      <div dir="rtl" style="margin-top: 20px; width: initial; ">
+        <div class="p-grid layout-dashboard">
+          <div class="p-col-12 p-lg-12" dir="rtl" style="width: 500 px; text-align: center;">
+            <div class="card download-files" style="background-color:rgb(238, 238, 238) ;">
+
+              <!-- <div class="p-grid p-nogutter">
                             <div class="p-col-12 title">
                                 <h1 style="font-family: 'Amiri', Times, serif; 
                                 text-align: center;">قم بإختيار القضية   <button pButton type="button"   icon="pi pi-spin pi-spinner" 
@@ -51,1041 +49,976 @@
                             </div>
                              
                         </div> -->
-            
-                        
-            
-            
-                        <ul >
-                            <li *ngFor="let document of affaire.documents;  let index = index; " >
-                                <div class="p-grid list-item">
-                                    <!-- (dblclick)="showCarte(document, affaire.documents.length,affaire)" -->
-                                    <div class="p-col-3">
-                                        
-                                        <div class="item" >العدد الرتبي للقضية: <b >{{ document.affaire.numOrdinalAffaire }}</b>  </div>
-                                       
-                                        <div class="item" > المحكمة: <b>{{ document.affaire.tribunal.nom_tribunal }} </b>  </div>
-                                    </div>
-                                    
-                                    <div class="p-col-3">
-                                        <div class="item" >عددالقضية: <b dir="rtl">{{ document.affaire.affaireId.numAffaire }}</b>   </div>
-                                      
-                                        <div class="item" >نوع الوثيقة : 
-
-                                            <b *ngIf="document.typeDocumentActuelle == 'CHL' else typeDocument  " style="color: #0099ff !important;"> قرار تغير مكان الإيداع  </b>
-                                        
-                                        <ng-template #typeDocument>
-                                            <b *ngIf="document.typeDocument == 'CP' " style="color: #0099ff !important;">  قرار تمديد</b>
-                                            <b *ngIf="document.typeDocument == 'CD' " style="color: #0099ff !important;">بطاقة إيداع</b>
-                                            <b *ngIf="document.typeDocument == 'CH' " style="color: #0099ff !important;">بطاقة إيواء</b>
-                                            <b *ngIf="document.typeDocument == 'CJ'  || document.typeDocument == 'CJA'" style="color: #ff3434 !important;">مضمون حكم</b>
-                                            
-
-<b style="color: #0099ff !important;" *ngIf="document.typeDocument == 'T' && (document?.typeFile=='T' ||  !document?.typeFile) ">
-  إحــــــالة
-</b>
-<b style="color: #0099ff !important;" *ngIf="document.typeDocument == 'T' && (document?.typeFile=='A')">
-  تخلــــــي
-</b>
-<b style="color: #0099ff !important;" *ngIf="document.typeDocument == 'T' && (document?.typeFile=='G')">
-  تعهــــــد
-</b>
 
 
-                                            <b *ngIf="document.typeDocument == 'AE' " style="color: #0099ff !important;">طعن الطفل بالاستئناف</b>
-                                            <b *ngIf="document.typeDocument == 'AP' " style="color: #0099ff !important;">طعن النيابة بالاستئناف</b>
-                                            <b *ngIf="document.typeDocument == 'CR' " style="color:  #ff3434 !important;">مراجعة</b>  
-                                             
-                                            
-                                             
-                                              <b style="color: rgb(1, 151, 1) !important;"
-                                                *ngIf="document.typeDocument == 'AEX' && (document?.typeFile=='AEX' ||  !document?.typeFile) ">
-                                                إيقاف تنفيذ الحكم
-                                            </b>
-                                              <b style="color: rgb(1, 151, 1) !important;"
-                                                *ngIf="document.typeDocument == 'AEX' && (document?.typeFile=='L')">
-                                                ســــــــــــراح
-                                          </b>
-               </ng-template>
 
-                                        </div>
-                                    </div>
-                                    <div class="p-col-2">
-                                        <div class="item" >العدد الرتبي :  <b>{{ document?.documentId?.numOrdinalDocByAffaire }} </b>  </div>
-                                     
-                                        <div class="item" >نوع القضية: <b>{{ document?.affaire?.typeAffaire?.libelle_typeAffaire }}</b>  </div>
-                                    </div>
-                                    <div class="p-col-2"> 
-                                        <div class="item">تاريخ الصدور: <b dir="rtl">{{ document.dateEmission }}</b>  </div>
-                                        <div class="item">تاريخ الإيداع:  <b dir="rtl">{{ document.dateDepotCarte }}</b> </div>
-                                    </div>
-                                    <div class="p-col-2"> 
-                                        <!-- *ngIf="index == 0 " -->
-                                        <button    *ngIf="index == 0 && !(affaire?.arrestation?.liberation) && autorise"  (click)="editCarte(document)" 
-                                        style="background-color: white!important; margin-right: 10px;"   label="تحييين" mat-fab  >
-                                           <i class="pi pi-pencil" style="font-size: 30px; color: #1c7568;" > </i>
 
-                                       </button>
-                                     
-                                      <button      (click)="showCarte(document, affaire.documents.length,affaire)"
-                                      style="background-color: white!important; margin-right: 10px;"   label="تحييين" mat-fab  >
-                                         <i class="pi pi-eye" style="font-size: 30px; color: #f57421;"  > </i>
+              <ul>
+                <li *ngFor="let document of affaire.documents;  let index = index; ">
+                  <div class="p-grid list-item">
+                    <!-- (dblclick)="showCarte(document, affaire.documents.length,affaire)" -->
+                    <div class="p-col-3">
 
-                                     </button>
-                                         <!-- <b> <i class="pi pi-eye" style="font-size: 30px; color: green;" (click)="showCarte(document)"> </i></b>  -->
-                                       
-                                       
-                                       
-                                    </div>
-                                </div>
-                            </li>
-                            
-                        </ul>
-                        <!-- <div class="list-effect"></div> -->
+                      <div class="item">العدد الرتبي للقضية: <b>{{ document.affaire.numOrdinalAffaire }}</b> </div>
+
+                      <div class="item"> المحكمة: <b>{{ document.affaire.tribunal.nom_tribunal }} </b> </div>
                     </div>
-                </div>
-            </div>
-            </div>
-         
-        </p-accordionTab>
-      
-     </p-accordion>
+
+                    <div class="p-col-3">
+                      <div class="item">عددالقضية: <b dir="rtl">{{ document.affaire.affaireId.numAffaire }}</b> </div>
+
+                      <div class="item">نوع الوثيقة :
+
+                        <b *ngIf="document.typeDocumentActuelle == 'CHL' else typeDocument  "
+                          style="color: #0099ff !important;"> قرار تغير مكان الإيداع </b>
+
+                        <ng-template #typeDocument>
+                          <b *ngIf="document.typeDocument == 'CP' " style="color: #0099ff !important;"> قرار تمديد</b>
+                          <b *ngIf="document.typeDocument == 'CD' " style="color: #0099ff !important;">بطاقة إيداع</b>
+                          <b *ngIf="document.typeDocument == 'CH' " style="color: #0099ff !important;">بطاقة إيواء</b>
+                          <b *ngIf="document.typeDocument == 'CJ'  || document.typeDocument == 'CJA'"
+                            style="color: #ff3434 !important;">مضمون حكم</b>
 
 
+                          <b style="color: #0099ff !important;"
+                            *ngIf="document.typeDocument == 'T' && (document?.typeFile=='T' ||  !document?.typeFile) ">
+                            إحــــــالة
+                          </b>
+                          <b style="color: #0099ff !important;"
+                            *ngIf="document.typeDocument == 'T' && (document?.typeFile=='A')">
+                            تخلــــــي
+                          </b>
+                          <b style="color: #0099ff !important;"
+                            *ngIf="document.typeDocument == 'T' && (document?.typeFile=='G')">
+                            تعهــــــد
+                          </b>
+
+
+                          <b *ngIf="document.typeDocument == 'AE' " style="color: #0099ff !important;">طعن الطفل
+                            بالاستئناف</b>
+                          <b *ngIf="document.typeDocument == 'AP' " style="color: #0099ff !important;">طعن النيابة
+                            بالاستئناف</b>
+                          <b *ngIf="document.typeDocument == 'CR' " style="color:  #ff3434 !important;">مراجعة</b>
+
+
+
+                          <b style="color: rgb(1, 151, 1) !important;"
+                            *ngIf="document.typeDocument == 'ArretEx' && (document?.typeFile=='ArretEx' ||  !document?.typeFile) ">
+                            إيقاف تنفيذ الحكم
+                          </b>
+                          <b style="color: rgb(1, 151, 1) !important;"
+                            *ngIf="document.typeDocument == 'ArretEx' && (document?.typeFile=='L')">
+                            ســــــــــــراح
+                          </b>
+                        </ng-template>
+
+                      </div>
+                    </div>
+                    <div class="p-col-2">
+                      <div class="item">العدد الرتبي : <b>{{ document?.documentId?.numOrdinalDocByAffaire }} </b> </div>
+
+                      <div class="item">نوع القضية: <b>{{ document?.affaire?.typeAffaire?.libelle_typeAffaire }}</b>
+                      </div>
+                    </div>
+                    <div class="p-col-2">
+                      <div class="item">تاريخ الصدور: <b dir="rtl">{{ document.dateEmission }}</b> </div>
+                      <div class="item">تاريخ الإيداع: <b dir="rtl">{{ document.dateDepotCarte }}</b> </div>
+                    </div>
+                    <div class="p-col-2">
+                      <!-- *ngIf="index == 0 " -->
+                      <button *ngIf="index == 0 && !(affaire?.arrestation?.liberation) && autorise"
+                        (click)="editCarte(document)" style="background-color: white!important; margin-right: 10px;"
+                        label="تحييين" mat-fab>
+                        <i class="pi pi-pencil" style="font-size: 30px; color: #1c7568;"> </i>
+
+                      </button>
+
+                      <button (click)="showCarte(document, affaire.documents.length,affaire)"
+                        style="background-color: white!important; margin-right: 10px;" label="تحييين" mat-fab>
+                        <i class="pi pi-eye" style="font-size: 30px; color: #f57421;"> </i>
+
+                      </button>
+                      <!-- <b> <i class="pi pi-eye" style="font-size: 30px; color: green;" (click)="showCarte(document)"> </i></b>  -->
+
+
+
+                    </div>
+                  </div>
+                </li>
+
+              </ul>
+              <!-- <div class="list-effect"></div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </p-accordionTab>
+
+  </p-accordion>
+
+
+</div>
+
+
+<p-dialog
+  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+  appendTo="body" [closable]="false" [closable]="false" [draggable]="false" *ngIf="carteRecup"
+  [(visible)]="showCarteRecup" modal="true">
+  <p-header>
+    <label class="d" *ngIf="carteRecup">
+      {{carteRecup.documentId.numOrdinalDocByAffaire}}/
+
+      <span style="color: #ff3434 !important;">مضمون حكم</span>
+    </label>
+  </p-header>
+
+  <app-show-carte-recup [carteRecup]="carteRecup"></app-show-carte-recup>
+
+  <p-footer>
+
+    <div style="text-align: center;" *ngIf="!isDelet">
+
+
+      <button (click)="showCarteRecup = false" style="background-color: #28a745!important;" mat-fab>
+        <i class="pi pi-save" style="font-size: 28px; color: white;"> </i>
+
+
+      </button>
+      <button *ngIf="showDelet && autorise && !(affaire?.arrestation?.liberation)" (click)="isDelet = true"
+        style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab>
+        <i class="pi pi-trash" style="font-size: 30px; color: white;"> </i>
+
+
+      </button>
+    </div>
+    <div style="text-align: center;" *ngIf="isDelet">
+      <label style="color: red; font-family: 'Amiri', Times, serif;"> هل أنت متأكد من عملية الحذف ؟
+        <button pButton type="button" label="نعم  " (click)="yesDelet()"
+          style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;margin-right: 10px;" class="ui-button-success">
+        </button>
+        <button pButton type="button" label="لا" (click)="isDelet = false"
+          style="margin-bottom:10px; padding: 0.5em;margin-right: 10px;" class="ui-button-danger">
+        </button>
+
+      </label>
+    </div>
+  </p-footer>
+</p-dialog>
+
+
+
+
+
+
+
+
+
+
+<p-dialog
+  [style]="{'width': '90vw', 'max-height': '40vw'  , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+  appendTo="body" [closable]="false" [draggable]="false" *ngIf="carteDepot" [(visible)]="showCarteDepot" modal="true">
+
+
+  <p-header>
+    <label class="d" *ngIf="carteDepot">
+      {{carteDepot.documentId.numOrdinalDocByAffaire}}/
+
+      <span style="color: #0099ff !important;">بطاقة إيداع</span>
+    </label>
+  </p-header>
+
+
+
+  <app-show-carte-depot [carteDepot]="carteDepot"></app-show-carte-depot>
+  <p-footer>
+    <div style="text-align: center;" *ngIf="!isDelet">
+
+
+      <button (click)="showCarteDepot = false" style="background-color: #28a745!important;" mat-fab>
+        <i class="pi pi-save" style="font-size: 28px; color: white;"> </i>
+
+
+      </button>
+      <button *ngIf="showDelet && autorise && !(affaire?.arrestation?.liberation)" (click)="isDelet = true"
+        style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab>
+        <i class="pi pi-trash" style="font-size: 30px; color: white;"> </i>
+
+
+      </button>
+    </div>
+    <div style="text-align: center;" *ngIf="isDelet">
+      <label style="color: red; font-family: 'Amiri', Times, serif;"> هل أنت متأكد من عملية الحذف ؟
+        <button pButton type="button" label="نعم  " (click)="yesDelet()"
+          style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;margin-right: 10px;" class="ui-button-success">
+        </button>
+        <button pButton type="button" label="لا" (click)="isDelet = false"
+          style="margin-bottom:10px; padding: 0.5em;margin-right: 10px;" class="ui-button-danger">
+        </button>
+
+      </label>
+    </div>
+  </p-footer>
+</p-dialog>
+
+<p-dialog *ngIf="carteHeber"
+  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+  appendTo="body" [closable]="false" [(visible)]="showCarteHeber" modal="true">
+  <p-header>
+    <label class="d">
+      {{carteHeber?.documentId?.numOrdinalDocByAffaire}}/
+      <span style="color: #0099ff !important;">بطاقة إيواء</span>
+    </label>
+  </p-header>
+  <app-show-carte-hebergement [carteHeber]="carteHeber"></app-show-carte-hebergement>
+  <p-footer>
+    <div style="text-align: center;" *ngIf="!isDelet">
+
+
+      <button (click)="showCarteHeber = false" style="background-color: #28a745!important;" mat-fab>
+        <i class="pi pi-save" style="font-size: 28px; color: white;"> </i>
+
+
+      </button>
+      <button *ngIf="showDelet && autorise && !(affaire?.arrestation?.liberation)" (click)="isDelet = true"
+        style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab>
+        <i class="pi pi-trash" style="font-size: 30px; color: white;"> </i>
+
+
+      </button>
+    </div>
+    <div style="text-align: center;" *ngIf="isDelet">
+      <label style="color: red; font-family: 'Amiri', Times, serif;"> هل أنت متأكد من عملية الحذف ؟
+        <button pButton type="button" label="نعم  " (click)="yesDelet()"
+          style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;margin-right: 10px;" class="ui-button-success">
+        </button>
+        <button pButton type="button" label="لا" (click)="isDelet = false"
+          style="margin-bottom:10px; padding: 0.5em;margin-right: 10px;" class="ui-button-danger">
+        </button>
+
+      </label>
+    </div>
+  </p-footer>
+</p-dialog>
+
+
+<p-dialog
+  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+  appendTo="body" [closable]="false" [draggable]="false" *ngIf="transfert" [(visible)]="showTransfert" modal="true">
+
+  <p-header>
+    <label class="d" *ngIf="transfert">
+      {{transfert.documentId.numOrdinalDocByAffaire}}/
+      <span style="color: #0099ff !important;"
+        *ngIf="transfert.typeDocument == 'T' && (transfert?.typeFile=='T' ||  !transfert?.typeFile) ">
+        إحــــــالة
+      </span>
+      <span style="color: #0099ff !important;" *ngIf="transfert.typeDocument == 'T' && (transfert?.typeFile=='A')">
+        تخلــــــي
+      </span>
+      <span style="color: #0099ff !important;" *ngIf="transfert.typeDocument == 'T' && (transfert?.typeFile=='G')">
+        تعهــــــد
+      </span>
+
+    </label>
+  </p-header>
+  <app-show-transfert [transfert]="transfert"></app-show-transfert>
+  <p-footer>
+
+    <div style="text-align: center;" *ngIf="!isDelet">
+
+
+      <button (click)="showTransfert = false" style="background-color: #28a745!important;" mat-fab>
+        <i class="pi pi-save" style="font-size: 28px; color: white;"> </i>
+
+
+      </button>
+      <button *ngIf="showDelet && autorise && !(affaire?.arrestation?.liberation)" (click)="isDelet = true"
+        style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab>
+        <i class="pi pi-trash" style="font-size: 30px; color: white;"> </i>
+
+
+      </button>
+    </div>
+    <div style="text-align: center;" *ngIf="isDelet">
+      <label style="color: red; font-family: 'Amiri', Times, serif;"> هل أنت متأكد من عملية الحذف ؟
+        <button pButton type="button" label="نعم  " (click)="yesDelet()"
+          style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;margin-right: 10px;" class="ui-button-success">
+        </button>
+        <button pButton type="button" label="لا" (click)="isDelet = false"
+          style="margin-bottom:10px; padding: 0.5em;margin-right: 10px;" class="ui-button-danger">
+        </button>
+
+      </label>
+    </div>
+  </p-footer>
+</p-dialog>
+
+<p-dialog
+  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+  appendTo="body" [closable]="false" [draggable]="false" *ngIf="cartePropagation" [(visible)]="showPropagation"
+  modal="true">
+
+  <p-header>
+    <label class="d" *ngIf="cartePropagation">
+      {{cartePropagation.documentId.numOrdinalDocByAffaire}}/
+
+      <span style="color: #0099ff !important; ">إحالة</span>
+    </label>
+  </p-header>
+  <app-show-carte-propagation [cartePropagation]="cartePropagation"></app-show-carte-propagation>
+  <p-footer>
+
+    <div style="text-align: center;" *ngIf="!isDelet">
+
+
+      <button (click)="showPropagation = false" style="background-color: #28a745!important;" mat-fab>
+        <i class="pi pi-save" style="font-size: 28px; color: white;"> </i>
+
+
+      </button>
+      <button *ngIf="showDelet && autorise && !(affaire?.arrestation?.liberation)" (click)="isDelet = true"
+        style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab>
+        <i class="pi pi-trash" style="font-size: 30px; color: white;"> </i>
+
+
+      </button>
+    </div>
+    <div style="text-align: center;" *ngIf="isDelet">
+      <label style="color: red; font-family: 'Amiri', Times, serif;"> هل أنت متأكد من عملية الحذف ؟
+        <button pButton type="button" label="نعم  " (click)="yesDelet()"
+          style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;margin-right: 10px;" class="ui-button-success">
+        </button>
+        <button pButton type="button" label="لا" (click)="isDelet = false"
+          style="margin-bottom:10px; padding: 0.5em;margin-right: 10px;" class="ui-button-danger">
+        </button>
+
+      </label>
+    </div>
+  </p-footer>
+</p-dialog>
+
+<p-dialog
+  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+  appendTo="body" [closable]="false" [draggable]="false" *ngIf="appelEnfant" [(visible)]="showAppelEnfant" modal="true">
+
+  <p-header>
+    <label class="d" *ngIf="appelEnfant">
+      {{appelEnfant.documentId.numOrdinalDocByAffaire}}/
+
+      <span style="color:  #0099ff !important;"> إستناف الطفل </span>
+    </label>
+  </p-header>
+  <app-show-appel-enfant [appelEnfant]="appelEnfant"></app-show-appel-enfant>
+  <p-footer>
+
+
+    <div style="text-align: center;" *ngIf="!isDelet">
+
+
+      <button (click)="showAppelEnfant = false" style="background-color: #28a745!important;" mat-fab>
+        <i class="pi pi-save" style="font-size: 28px; color: white;"> </i>
+
+
+      </button>
+      <button *ngIf="showDelet && autorise && !(affaire?.arrestation?.liberation)" (click)="isDelet = true"
+        style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab>
+        <i class="pi pi-trash" style="font-size: 30px; color: white;"> </i>
+
+
+      </button>
+    </div>
+    <div style="text-align: center;" *ngIf="isDelet">
+      <label style="color: red; font-family: 'Amiri', Times, serif;"> هل أنت متأكد من عملية الحذف ؟
+        <button pButton type="button" label="نعم  " (click)="yesDelet()"
+          style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;margin-right: 10px;" class="ui-button-success">
+        </button>
+        <button pButton type="button" label="لا" (click)="isDelet = false"
+          style="margin-bottom:10px; padding: 0.5em;margin-right: 10px;" class="ui-button-danger">
+        </button>
+
+      </label>
+    </div>
+  </p-footer>
+</p-dialog>
+
+<p-dialog
+  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+  appendTo="body" [closable]="false" [draggable]="false" *ngIf="appelParquet" [(visible)]="showAppelParquet"
+  modal="true">
+  <p-header>
+    <label class="d" *ngIf="appelParquet">
+      {{appelParquet.documentId.numOrdinalDocByAffaire}}/
+
+      <span style="color:  #0099ff !important;"> إستناف النيابة </span>
+    </label>
+  </p-header>
+
+  <app-show-appel-parquet [appelParquet]="appelParquet"></app-show-appel-parquet>
+  <p-footer>
+
+
+
+    <div style="text-align: center;" *ngIf="!isDelet">
+
+
+      <button (click)="showAppelParquet = false" style="background-color: #28a745!important;" mat-fab>
+        <i class="pi pi-save" style="font-size: 28px; color: white;"> </i>
+
+
+      </button>
+      <button *ngIf="showDelet && autorise && !(affaire?.arrestation?.liberation)" (click)="isDelet = true"
+        style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab>
+        <i class="pi pi-trash" style="font-size: 30px; color: white;"> </i>
+
+
+      </button>
+    </div>
+    <div style="text-align: center;" *ngIf="isDelet">
+      <label style="color: red; font-family: 'Amiri', Times, serif;"> هل أنت متأكد من عملية الحذف ؟
+        <button pButton type="button" label="نعم  " (click)="yesDelet()"
+          style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;margin-right: 10px;" class="ui-button-success">
+        </button>
+        <button pButton type="button" label="لا" (click)="isDelet = false"
+          style="margin-bottom:10px; padding: 0.5em;margin-right: 10px;" class="ui-button-danger">
+        </button>
+
+      </label>
+    </div>
+  </p-footer>
+</p-dialog>
+
+
+<p-dialog
+  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+  appendTo="body" [closable]="false" [draggable]="false" [(visible)]="showRevue" *ngIf="revue" modal="true">
+  <p-header>
+    <label class="d" *ngIf="revue">
+      {{revue.documentId.numOrdinalDocByAffaire}}/
+
+      <span style="color: #ff3434 !important;">مراجعة</span>
+    </label>
+  </p-header>
+
+  <app-show-revue [revue]="revue"></app-show-revue>
+  <p-footer>
+
+
+    <div style="text-align: center;" *ngIf="!isDelet">
+
+
+      <button (click)="showRevue = false" style="background-color: #28a745!important;" mat-fab>
+        <i class="pi pi-save" style="font-size: 28px; color: white;"> </i>
+
+
+      </button>
+      <button *ngIf="showDelet && autorise && !(affaire?.arrestation?.liberation)" (click)="isDelet = true"
+        style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab>
+        <i class="pi pi-trash" style="font-size: 30px; color: white;"> </i>
+
+
+      </button>
+    </div>
+    <div style="text-align: center;" *ngIf="isDelet">
+      <label style="color: red; font-family: 'Amiri', Times, serif;"> هل أنت متأكد من عملية الحذف ؟
+        <button pButton type="button" label="نعم  " (click)="yesDelet()"
+          style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;margin-right: 10px;" class="ui-button-success">
+        </button>
+        <button pButton type="button" label="لا" (click)="isDelet = false"
+          style="margin-bottom:10px; padding: 0.5em;margin-right: 10px;" class="ui-button-danger">
+        </button>
+
+      </label>
+    </div>
+  </p-footer>
+</p-dialog>
+
+
+<p-dialog
+  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+  appendTo="body" [closable]="false" [draggable]="false" [(visible)]="showChangementLieu" *ngIf="changementLieu"
+  modal="true">
+  <p-header>
+    <label class="d" *ngIf="changementLieu">
+      {{changementLieu.documentId.numOrdinalDocByAffaire}}/
+
+      <span style="color: #ff3434 !important;">قرار تغير مكان الإيداع</span>
+    </label>
+  </p-header>
+
+  <app-show-changement-lieu [changementLieu]="changementLieu"></app-show-changement-lieu>
+  <p-footer>
+
+
+    <div style="text-align: center;" *ngIf="!isDelet">
+
+
+      <button (click)="showChangementLieu = false" style="background-color: #28a745!important;" mat-fab>
+        <i class="pi pi-save" style="font-size: 28px; color: white;"> </i>
+
+
+      </button>
+      <button *ngIf="showDelet && autorise && !(affaire?.arrestation?.liberation)" (click)="isDelet = true"
+        style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab>
+        <i class="pi pi-trash" style="font-size: 30px; color: white;"> </i>
+
+
+      </button>
+    </div>
+    <div style="text-align: center;" *ngIf="isDelet">
+      <label style="color: red; font-family: 'Amiri', Times, serif;"> هل أنت متأكد من عملية الحذف ؟
+        <button pButton type="button" label="نعم  " (click)="yesDelet()"
+          style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;margin-right: 10px;" class="ui-button-success">
+        </button>
+        <button pButton type="button" label="لا" (click)="isDelet = false"
+          style="margin-bottom:10px; padding: 0.5em;margin-right: 10px;" class="ui-button-danger">
+        </button>
+
+      </label>
+    </div>
+  </p-footer>
+</p-dialog>
+
+
+
+<p-dialog
+  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+  appendTo="body" [closable]="false" [draggable]="false" [(visible)]="showRefuseRevue" *ngIf="refuseRevue" modal="true">
+  <p-header>
+    <label class="d" *ngIf="refuseRevue">
+      {{refuseRevue.documentId.numOrdinalDocByAffaire}}/
+
+      <span style="color: #ff3434 !important;">رفض مراجعة</span>
+    </label>
+  </p-header>
+
+  <app-show-refuse-revue [refuseRevue]="refuseRevue"></app-show-refuse-revue>
+  <p-footer>
+
+
+    <div style="text-align: center;" *ngIf="!isDelet">
+
+
+      <button (click)="showRefuseRevue = false" style="background-color: #28a745!important;" mat-fab>
+        <i class="pi pi-save" style="font-size: 28px; color: white;"> </i>
+
+
+      </button>
+      <button *ngIf="showDelet && autorise && !(affaire?.arrestation?.liberation)" (click)="isDelet = true"
+        style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab>
+        <i class="pi pi-trash" style="font-size: 30px; color: white;"> </i>
+
+
+      </button>
+    </div>
+    <div style="text-align: center;" *ngIf="isDelet">
+      <label style="color: red; font-family: 'Amiri', Times, serif;"> هل أنت متأكد من عملية الحذف ؟
+        <button pButton type="button" label="نعم  " (click)="yesDelet()"
+          style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;margin-right: 10px;" class="ui-button-success">
+        </button>
+        <button pButton type="button" label="لا" (click)="isDelet = false"
+          style="margin-bottom:10px; padding: 0.5em;margin-right: 10px;" class="ui-button-danger">
+        </button>
+
+      </label>
+    </div>
+  </p-footer>
+</p-dialog>
+
+<p-dialog
+  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+  appendTo="body" [closable]="false" [draggable]="false" [(visible)]="showArreterlexecution" *ngIf="arreterlexecution"
+  modal="true">
+  <p-header>
+    <label class="d" *ngIf="arreterlexecution">
+      {{arreterlexecution.documentId.numOrdinalDocByAffaire}}/
+
+
+      <span style="color: rgb(1, 151, 1) !important;"
+        *ngIf="arreterlexecution.typeDocument == 'ArretEx' && (arreterlexecution?.typeFile=='ArretEx' ||  !arreterlexecution?.typeFile) ">
+        إيقاف تنفيذ الحكم
+      </span>
+      <span style="color: rgb(1, 151, 1) !important;"
+        *ngIf="arreterlexecution.typeDocument == 'ArretEx' && (arreterlexecution?.typeFile=='L')">
+        ســــــــــــراح
+      </span>
+
+    </label>
+  </p-header>
+
+  <app-show-arreter-lexecution [arreterlexecution]="arreterlexecution"></app-show-arreter-lexecution>
+  <p-footer>
+
+
+
+    <div style="text-align: center;" *ngIf="!isDelet">
+
+
+      <button (click)="showArreterlexecution = false" style="background-color: #28a745!important;" mat-fab>
+        <i class="pi pi-save" style="font-size: 28px; color: white;"> </i>
+
+
+      </button>
+      <button *ngIf="showDelet && autorise && !(affaire?.arrestation?.liberation)" (click)="isDelet = true"
+        style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab>
+        <i class="pi pi-trash" style="font-size: 30px; color: white;"> </i>
+
+
+      </button>
+    </div>
+    <div style="text-align: center;" *ngIf="isDelet">
+      <label style="color: red; font-family: 'Amiri', Times, serif;"> هل أنت متأكد من عملية الحذف ؟
+        <button pButton type="button" label="نعم  " (click)="yesDelet()"
+          style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;margin-right: 10px;" class="ui-button-success">
+        </button>
+        <button pButton type="button" label="لا" (click)="isDelet = false"
+          style="margin-bottom:10px; padding: 0.5em;margin-right: 10px;" class="ui-button-danger">
+        </button>
+
+      </label>
+    </div>
+  </p-footer>
+</p-dialog>
+
+<p-dialog
+  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+  appendTo="body" [closable]="false" [draggable]="false" *ngIf="carteRecup" [(visible)]="editCarteRecup" [modal]="true">
+  <p-header>
+    <div class="p-grid">
+      <div class="p-col-3 neons" *ngIf="carteRecup">
+        <span style="color: red; font-size: 20px;">تحييـــن مضمون حكم عدد
+          {{carteRecup.documentId.numOrdinalDocByAffaire}}
+
+
+
+        </span>
+
+
+
+      </div>
+      <div class="p-col-3">
+        <label class="enLabel" style="color: red;">المعــــرف: <span> {{carteRecup?.affaire?.arrestation?.enfant?.id}}
+          </span> </label>
+
+      </div>
+      <div class="p-col-3">
+        <label class="enLabel" style="color: red;">الهويــــة: <span> {{carteRecup?.affaire?.arrestation?.enfant?.nom}}
+            بن {{carteRecup?.affaire?.arrestation?.enfant?.nomPere}} بن
+            {{carteRecup?.affaire?.arrestation?.enfant?.nomGrandPere}}
+            {{carteRecup?.affaire?.arrestation?.enfant?.prenom}}</span> </label>
+
+      </div>
+      <div class="p-col-3">
+        <i (click)="editCarteRecup = false" class="pi pi-power-off"
+          style="font-size: 20px; color: white; background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 90%;">
+        </i>
+
+      </div>
     </div>
 
 
-    <p-dialog [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}" 
-    appendTo="body"
-  [closable]="false"
-    [closable]="false" [draggable]="false"  *ngIf="carteRecup"
-                                            [(visible)]="showCarteRecup"
-                                                                    modal="true"  >
-                                                                    <p-header >                          
-                                                                        <label class="d" *ngIf="carteRecup"  >
-                                                                                 {{carteRecup.documentId.numOrdinalDocByAffaire}}/
-                                                                                                                                      
-                                                                              <span    style="color: #ff3434 !important;" >مضمون حكم</span>
-                                                                     </label>
-                                                                  </p-header>
-      
-      <app-show-carte-recup   [carteRecup]="carteRecup"></app-show-carte-recup>    
-     
-         <p-footer>
-        
-            <div style="text-align: center;" *ngIf="!isDelet">
-    
-             
-                <button  (click)="showCarteRecup = false"
-                style="background-color: #28a745!important;" mat-fab  >
-                   <i class="pi pi-save" style="font-size: 28px; color: white;" > </i>
-            
-                   
-               </button>
-               <button  *ngIf="showDelet && autorise && !(affaire?.arrestation?.liberation)"   (click)="isDelet = true"
-               style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab  >
-                  <i class="pi pi-trash" style="font-size: 30px; color: white;" > </i>
-            
-                  
-              </button>
-          </div>
-          <div style="text-align: center;" *ngIf="isDelet">
-          <label style="color: red; font-family: 'Amiri', Times, serif;"> هل أنت متأكد من عملية الحذف ؟ 
-            <button pButton type="button" label="نعم  " (click)="yesDelet()"
-            style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;margin-right: 10px;"
-            class="ui-button-success">
-        </button>
-           <button pButton type="button" label="لا" (click)="isDelet = false"
-            style="margin-bottom:10px; padding: 0.5em;margin-right: 10px;" class="ui-button-danger">
-        </button>  
-      
-        </label>
-           </div>
-       </p-footer>
-    </p-dialog>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <p-dialog [style]="{'width': '90vw', 'max-height': '40vw'  , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}" 
-    appendTo="body"
-   
-    [closable]="false" [draggable]="false"
-    *ngIf="carteDepot"   [(visible)]="showCarteDepot"
-                                                                    modal="true"  >
-    
-    
-      <p-header >                          
-          <label class="d" *ngIf="carteDepot"  >
-                   {{carteDepot.documentId.numOrdinalDocByAffaire}}/
-                                                                        
-                <span     style="color: #0099ff !important;">بطاقة إيداع</span>
-       </label>
-    </p-header>   
-    
-    
-    
-      <app-show-carte-depot   [carteDepot]="carteDepot"></app-show-carte-depot>                                                         
-         <p-footer>
-          <div style="text-align: center;" *ngIf="!isDelet">
-    
-             
-                <button  (click)="showCarteDepot = false"
-                style="background-color: #28a745!important;" mat-fab  >
-                   <i class="pi pi-save" style="font-size: 28px; color: white;" > </i>
-            
-                   
-               </button>
-               <button  *ngIf="showDelet && autorise && !(affaire?.arrestation?.liberation)"   (click)="isDelet = true"
-               style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab  >
-                  <i class="pi pi-trash" style="font-size: 30px; color: white;" > </i>
-            
-                  
-              </button>
-          </div>
-          <div style="text-align: center;" *ngIf="isDelet">
-          <label style="color: red; font-family: 'Amiri', Times, serif;"> هل أنت متأكد من عملية الحذف ؟ 
-            <button pButton type="button" label="نعم  " (click)="yesDelet()"
-            style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;margin-right: 10px;"
-            class="ui-button-success">
-        </button>
-           <button pButton type="button" label="لا" (click)="isDelet = false"
-            style="margin-bottom:10px; padding: 0.5em;margin-right: 10px;" class="ui-button-danger">
-        </button>  
-      
-        </label>
-           </div>
-       </p-footer>
-    </p-dialog>
-
-    <p-dialog *ngIf="carteHeber"  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}" 
-    appendTo="body"
-  [closable]="false"
-    [(visible)]="showCarteHeber"
-    modal="true"  >
-    <p-header >                          
-       <label class="d"  >
-       {{carteHeber?.documentId?.numOrdinalDocByAffaire}}/
-       <span     style="color: #0099ff !important;">بطاقة  إيواء</span>
-       </label>
-    </p-header>                    
-    <app-show-carte-hebergement  [carteHeber]="carteHeber" ></app-show-carte-hebergement>
-    <p-footer>
-        <div style="text-align: center;" *ngIf="!isDelet">
-  
-           
-              <button  (click)="showCarteHeber = false"
-              style="background-color: #28a745!important;" mat-fab  >
-                 <i class="pi pi-save" style="font-size: 28px; color: white;" > </i>
-          
-                 
-             </button>
-             <button  *ngIf="showDelet && autorise && !(affaire?.arrestation?.liberation)"   (click)="isDelet = true"
-             style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab  >
-                <i class="pi pi-trash" style="font-size: 30px; color: white;" > </i>
-          
-                
-            </button>
-        </div>
-        <div style="text-align: center;" *ngIf="isDelet">
-        <label style="color: red; font-family: 'Amiri', Times, serif;"> هل أنت متأكد من عملية الحذف ؟ 
-          <button pButton type="button" label="نعم  " (click)="yesDelet()"
-          style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;margin-right: 10px;"
-          class="ui-button-success">
-      </button>
-         <button pButton type="button" label="لا" (click)="isDelet = false"
-          style="margin-bottom:10px; padding: 0.5em;margin-right: 10px;" class="ui-button-danger">
-      </button>  
-    
-      </label>
-         </div>
-     </p-footer>
-    </p-dialog>
 
 
-    <p-dialog  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}" 
-    appendTo="body"
-  [closable]="false"  [draggable]="false"
-    *ngIf="transfert"      [(visible)]="showTransfert"
-                                                                    modal="true"  >
-      
-                                                                    <p-header >                          
-                                                                        <label class="d"  *ngIf="transfert"  >
-                                                                                 {{transfert.documentId.numOrdinalDocByAffaire}}/
-                                                                              <span style="color: #0099ff !important;" *ngIf="transfert.typeDocument == 'T' && (transfert?.typeFile=='T' ||  !transfert?.typeFile) ">
-                                                                                إحــــــالة
-                                                                              </span>
-                                                                              <span style="color: #0099ff !important;" *ngIf="transfert.typeDocument == 'T' && (transfert?.typeFile=='A')">
-                                                                                تخلــــــي
-                                                                              </span>
-                                                                              <span style="color: #0099ff !important;" *ngIf="transfert.typeDocument == 'T' && (transfert?.typeFile=='G')">
-                                                                                تعهــــــد
-                                                                              </span>
-                                                                           
-                                                                     </label>
-                                                                  </p-header>
-       <app-show-transfert   [transfert]="transfert"></app-show-transfert>                                                  
-         <p-footer>
-     
-          <div style="text-align: center;" *ngIf="!isDelet">
-    
-             
-            <button  (click)="showTransfert = false"
-            style="background-color: #28a745!important;" mat-fab  >
-               <i class="pi pi-save" style="font-size: 28px; color: white;" > </i>
-        
-               
-           </button>
-           <button  *ngIf="showDelet && autorise && !(affaire?.arrestation?.liberation)"   (click)="isDelet = true"
-           style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab  >
-              <i class="pi pi-trash" style="font-size: 30px; color: white;" > </i>
-        
-              
-          </button>
-      </div>
-      <div style="text-align: center;" *ngIf="isDelet">
-      <label style="color: red; font-family: 'Amiri', Times, serif;"> هل أنت متأكد من عملية الحذف ؟ 
-        <button pButton type="button" label="نعم  " (click)="yesDelet()"
-        style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;margin-right: 10px;"
-        class="ui-button-success">
-    </button>
-       <button pButton type="button" label="لا" (click)="isDelet = false"
-        style="margin-bottom:10px; padding: 0.5em;margin-right: 10px;" class="ui-button-danger">
-    </button>  
-    
-    </label>
-       </div>
-       </p-footer>
-    </p-dialog>
-    
-    <p-dialog
-      [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
-      appendTo="body" [closable]="false" [draggable]="false" *ngIf="cartePropagation" [(visible)]="showPropagation" modal="true">
-    
-      <p-header>
-        <label class="d" *ngIf="cartePropagation">
-          {{cartePropagation.documentId.numOrdinalDocByAffaire}}/
-    
-          <span style="color: #0099ff !important; ">إحالة</span>
-        </label>
-      </p-header>
-      <app-show-carte-propagation [cartePropagation]="cartePropagation"></app-show-carte-propagation>
-      <p-footer>
-    
-        <div style="text-align: center;" *ngIf="!isDelet">
-    
-    
-          <button (click)="showPropagation = false" style="background-color: #28a745!important;" mat-fab>
-            <i class="pi pi-save" style="font-size: 28px; color: white;"> </i>
-    
-    
-          </button>
-          <button *ngIf="showDelet && autorise && !(affaire?.arrestation?.liberation)" (click)="isDelet = true"
-            style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab>
-            <i class="pi pi-trash" style="font-size: 30px; color: white;"> </i>
-    
-    
-          </button>
-        </div>
-        <div style="text-align: center;" *ngIf="isDelet">
-          <label style="color: red; font-family: 'Amiri', Times, serif;"> هل أنت متأكد من عملية الحذف ؟
-            <button pButton type="button" label="نعم  " (click)="yesDelet()"
-              style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;margin-right: 10px;" class="ui-button-success">
-            </button>
-            <button pButton type="button" label="لا" (click)="isDelet = false"
-              style="margin-bottom:10px; padding: 0.5em;margin-right: 10px;" class="ui-button-danger">
-            </button>
-    
-          </label>
-        </div>
-      </p-footer>
-    </p-dialog>
-    
-    <p-dialog [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}" 
-    appendTo="body"
-  [closable]="false"  [draggable]="false"
-    *ngIf="appelEnfant"      [(visible)]="showAppelEnfant"
-                                                                    modal="true"  >
-      
-                                                                    <p-header >                          
-                                                                        <label class="d" *ngIf="appelEnfant"  >
-                                                                                 {{appelEnfant.documentId.numOrdinalDocByAffaire}}/
-                                                                                                                                      
-                                                                              <span     style="color:  #0099ff !important;"> إستناف الطفل     </span>
-                                                                     </label>
-                                                                  </p-header>
-       <app-show-appel-enfant   [appelEnfant]="appelEnfant"></app-show-appel-enfant>                                                  
-         <p-footer>
-          
-    
-          <div style="text-align: center;" *ngIf="!isDelet">
-    
-             
-            <button  (click)="showAppelEnfant = false"
-            style="background-color: #28a745!important;" mat-fab  >
-               <i class="pi pi-save" style="font-size: 28px; color: white;" > </i>
-        
-               
-           </button>
-           <button  *ngIf="showDelet && autorise && !(affaire?.arrestation?.liberation)"   (click)="isDelet = true"
-           style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab  >
-              <i class="pi pi-trash" style="font-size: 30px; color: white;" > </i>
-        
-              
-          </button>
-      </div>
-      <div style="text-align: center;" *ngIf="isDelet">
-      <label style="color: red; font-family: 'Amiri', Times, serif;"> هل أنت متأكد من عملية الحذف ؟ 
-        <button pButton type="button" label="نعم  " (click)="yesDelet()"
-        style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;margin-right: 10px;"
-        class="ui-button-success">
-    </button>
-       <button pButton type="button" label="لا" (click)="isDelet = false"
-        style="margin-bottom:10px; padding: 0.5em;margin-right: 10px;" class="ui-button-danger">
-    </button>  
-    
-    </label>
-       </div>
-       </p-footer>
-    </p-dialog>
-    
-    <p-dialog  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}" 
-    appendTo="body"
-  [closable]="false"  [draggable]="false"
-      *ngIf="appelParquet"          [(visible)]="showAppelParquet"
-                                                                    modal="true"  >
-                                                                    <p-header >                          
-                                                                        <label class="d" *ngIf="appelParquet"  >
-                                                                                 {{appelParquet.documentId.numOrdinalDocByAffaire}}/
-                                                                                                                                      
-                                                                              <span     style="color:  #0099ff !important;"> إستناف النيابة     </span>
-                                                                     </label>
-                                                                  </p-header>
-       
-       <app-show-appel-parquet   [appelParquet]="appelParquet"></app-show-appel-parquet>                                                  
-         <p-footer>
-           
-    
-    
-          <div style="text-align: center;" *ngIf="!isDelet">
-    
-             
-            <button  (click)="showAppelParquet = false"
-            style="background-color: #28a745!important;" mat-fab  >
-               <i class="pi pi-save" style="font-size: 28px; color: white;" > </i>
-        
-               
-           </button>
-           <button  *ngIf="showDelet && autorise && !(affaire?.arrestation?.liberation)"   (click)="isDelet = true"
-           style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab  >
-              <i class="pi pi-trash" style="font-size: 30px; color: white;" > </i>
-        
-              
-          </button>
-      </div>
-      <div style="text-align: center;" *ngIf="isDelet">
-      <label style="color: red; font-family: 'Amiri', Times, serif;"> هل أنت متأكد من عملية الحذف ؟ 
-        <button pButton type="button" label="نعم  " (click)="yesDelet()"
-        style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;margin-right: 10px;"
-        class="ui-button-success">
-    </button>
-       <button pButton type="button" label="لا" (click)="isDelet = false"
-        style="margin-bottom:10px; padding: 0.5em;margin-right: 10px;" class="ui-button-danger">
-    </button>  
-    
-    </label>
-       </div>
-       </p-footer>
-    </p-dialog>
-    
-    
-    <p-dialog  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}" 
-    appendTo="body"
-    [closable]="false" [draggable]="false"
-                                            [(visible)]="showRevue"  *ngIf="revue"
-                                                                    modal="true"  >
-                                                                    <p-header >                          
-                                                                        <label class="d" *ngIf="revue"  >
-                                                                                 {{revue.documentId.numOrdinalDocByAffaire}}/
-                                                                                                                                      
-                                                                              <span     style="color: #ff3434 !important;">مراجعة</span>
-                                                                     </label>
-                                                                  </p-header>
-       
-       <app-show-revue   [revue]="revue"></app-show-revue>                                                  
-         <p-footer>
-     
-    
-          <div style="text-align: center;" *ngIf="!isDelet">
-    
-             
-            <button  (click)="showRevue = false"
-            style="background-color: #28a745!important;" mat-fab  >
-               <i class="pi pi-save" style="font-size: 28px; color: white;" > </i>
-        
-               
-           </button>
-           <button  *ngIf="showDelet && autorise && !(affaire?.arrestation?.liberation)"   (click)="isDelet = true"
-           style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab  >
-              <i class="pi pi-trash" style="font-size: 30px; color: white;" > </i>
-        
-              
-          </button>
-      </div>
-      <div style="text-align: center;" *ngIf="isDelet">
-      <label style="color: red; font-family: 'Amiri', Times, serif;"> هل أنت متأكد من عملية الحذف ؟ 
-        <button pButton type="button" label="نعم  " (click)="yesDelet()"
-        style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;margin-right: 10px;"
-        class="ui-button-success">
-    </button>
-       <button pButton type="button" label="لا" (click)="isDelet = false"
-        style="margin-bottom:10px; padding: 0.5em;margin-right: 10px;" class="ui-button-danger">
-    </button>  
-    
-    </label>
-       </div>
-       </p-footer>
-    </p-dialog>
-    
 
-      <p-dialog  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}" 
-    appendTo="body"
-    [closable]="false" [draggable]="false"
-                                            [(visible)]="showChangementLieu"  *ngIf="changementLieu"
-                                                                    modal="true"  >
-                                                                    <p-header >                          
-                                                                        <label class="d" *ngIf="changementLieu"  >
-                                                                                 {{changementLieu.documentId.numOrdinalDocByAffaire}}/
-                                                                                                                                      
-                                                                              <span     style="color: #ff3434 !important;">قرار تغير مكان الإيداع</span>
-                                                                     </label>
-                                                                  </p-header>
-       
-       <app-show-changement-lieu   [changementLieu]="changementLieu"></app-show-changement-lieu>                                                  
-         <p-footer>
-     
-    
-          <div style="text-align: center;" *ngIf="!isDelet">
-    
-             
-            <button  (click)="showChangementLieu = false"
-            style="background-color: #28a745!important;" mat-fab  >
-               <i class="pi pi-save" style="font-size: 28px; color: white;" > </i>
-        
-               
-           </button>
-           <button  *ngIf="showDelet && autorise && !(affaire?.arrestation?.liberation)"   (click)="isDelet = true"
-           style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab  >
-              <i class="pi pi-trash" style="font-size: 30px; color: white;" > </i>
-        
-              
-          </button>
-      </div>
-      <div style="text-align: center;" *ngIf="isDelet">
-      <label style="color: red; font-family: 'Amiri', Times, serif;"> هل أنت متأكد من عملية الحذف ؟ 
-        <button pButton type="button" label="نعم  " (click)="yesDelet()"
-        style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;margin-right: 10px;"
-        class="ui-button-success">
-    </button>
-       <button pButton type="button" label="لا" (click)="isDelet = false"
-        style="margin-bottom:10px; padding: 0.5em;margin-right: 10px;" class="ui-button-danger">
-    </button>  
-    
-    </label>
-       </div>
-       </p-footer>
-    </p-dialog>
-    
-    
-    
-    <p-dialog  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}" 
-    appendTo="body"
-    [closable]="false" [draggable]="false"
-                                            [(visible)]="showRefuseRevue"  *ngIf="refuseRevue"
-                                                                    modal="true"  >
-                                                                    <p-header >                          
-                                                                        <label class="d" *ngIf="refuseRevue"  >
-                                                                                 {{refuseRevue.documentId.numOrdinalDocByAffaire}}/
-                                                                                                                                      
-                                                                              <span     style="color: #ff3434 !important;">رفض مراجعة</span>
-                                                                     </label>
-                                                                  </p-header>
-       
-       <app-show-refuse-revue   [refuseRevue]="refuseRevue"></app-show-refuse-revue>                                                  
-         <p-footer>
-     
-    
-          <div style="text-align: center;" *ngIf="!isDelet">
-    
-             
-            <button  (click)="showRefuseRevue = false"
-            style="background-color: #28a745!important;" mat-fab  >
-               <i class="pi pi-save" style="font-size: 28px; color: white;" > </i>
-        
-               
-           </button>
-           <button  *ngIf="showDelet && autorise && !(affaire?.arrestation?.liberation)"   (click)="isDelet = true"
-           style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab  >
-              <i class="pi pi-trash" style="font-size: 30px; color: white;" > </i>
-        
-              
-          </button>
-      </div>
-      <div style="text-align: center;" *ngIf="isDelet">
-      <label style="color: red; font-family: 'Amiri', Times, serif;"> هل أنت متأكد من عملية الحذف ؟ 
-        <button pButton type="button" label="نعم  " (click)="yesDelet()"
-        style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;margin-right: 10px;"
-        class="ui-button-success">
-    </button>
-       <button pButton type="button" label="لا" (click)="isDelet = false"
-        style="margin-bottom:10px; padding: 0.5em;margin-right: 10px;" class="ui-button-danger">
-    </button>  
-    
-    </label>
-       </div>
-       </p-footer>
-    </p-dialog>
-    
-    <p-dialog  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}" 
-    appendTo="body"
-    [closable]="false" [draggable]="false"
-                                            [(visible)]="showArreterlexecution"  *ngIf="arreterlexecution"
-                                                                    modal="true"  >
-                                                                    <p-header >                          
-                                                                        <label class="d" *ngIf="arreterlexecution"  >
-                                                                                 {{arreterlexecution.documentId.numOrdinalDocByAffaire}}/
-                                                                                                                                      
-                                                                              
-                                                                              <span  style="color: rgb(1, 151, 1) !important;"
-                                                                                *ngIf="arreterlexecution.typeDocument == 'AEX' && (arreterlexecution?.typeFile=='AEX' ||  !arreterlexecution?.typeFile) ">
-                                                                                إيقاف تنفيذ الحكم
-                                                                              </span>
-                                                                              <span  style="color: rgb(1, 151, 1) !important;" *ngIf="arreterlexecution.typeDocument == 'AEX' && (arreterlexecution?.typeFile=='L')">
-                                                                                ســــــــــــراح
-                                                                              </span>
-                                                                              
-                                                                     </label>
-                                                                  </p-header>
-       
-       <app-show-arreter-lexecution   [arreterlexecution]="arreterlexecution"></app-show-arreter-lexecution>                                                  
-         <p-footer>
-         
-    
-          
-          <div style="text-align: center;" *ngIf="!isDelet">
-    
-             
-            <button  (click)="showArreterlexecution = false"
-            style="background-color: #28a745!important;" mat-fab  >
-               <i class="pi pi-save" style="font-size: 28px; color: white;" > </i>
-        
-               
-           </button>
-           <button  *ngIf="showDelet && autorise && !(affaire?.arrestation?.liberation)"   (click)="isDelet = true"
-           style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab  >
-              <i class="pi pi-trash" style="font-size: 30px; color: white;" > </i>
-        
-              
-          </button>
-      </div>
-      <div style="text-align: center;" *ngIf="isDelet">
-      <label style="color: red; font-family: 'Amiri', Times, serif;"> هل أنت متأكد من عملية الحذف ؟ 
-        <button pButton type="button" label="نعم  " (click)="yesDelet()"
-        style="margin-bottom:10px;padding: 0.5em;margin-left: 10px;margin-right: 10px;"
-        class="ui-button-success">
-    </button>
-       <button pButton type="button" label="لا" (click)="isDelet = false"
-        style="margin-bottom:10px; padding: 0.5em;margin-right: 10px;" class="ui-button-danger">
-    </button>  
-    
-    </label>
-       </div>
-       </p-footer>
-    </p-dialog>
-     
-    <p-dialog  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"  appendTo="body"
-    [closable]="false" [draggable]="false" *ngIf="carteRecup"
-                                            [(visible)]="editCarteRecup"
-                                                                    [modal]="true"  >
-                                                                    <p-header >   
-                                                                        <div class="p-grid">
-                                                                            <div class="p-col-3 neons" *ngIf="carteRecup">
-                                                                                     <span     style="color: red; font-size: 20px;"  >تحييـــن مضمون حكم عدد {{carteRecup.documentId.numOrdinalDocByAffaire}}
-                                                                                  
-                                                                                  
-                                                                                  
-                                                                                  </span>
-                                                                                 
-                                                                                      
-                                                                                     
-                                                                                 </div>
-                                                                                 <div class="p-col-3">
-                                                                                    <label class="enLabel" style="color: red;">المعــــرف: <span  > {{carteRecup?.affaire?.arrestation?.enfant?.id}} </span> </label>
-                                 
-                                                                                      </div>
-                                                                                      <div class="p-col-3">
-                                                                                        <label class="enLabel" style="color: red;">الهويــــة: <span> {{carteRecup?.affaire?.arrestation?.enfant?.nom}} بن {{carteRecup?.affaire?.arrestation?.enfant?.nomPere}} بن
-                                                                                            {{carteRecup?.affaire?.arrestation?.enfant?.nomGrandPere}} {{carteRecup?.affaire?.arrestation?.enfant?.prenom}}</span> </label>
-                                                                       
-                                                                                          </div>
-                                                                               <div class="p-col-3">
-                                                                                <i (click)="editCarteRecup = false"  class="pi pi-power-off" 
-                                                                                style="font-size: 20px; color: white; background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 90%;" > </i>    
-                                                                                             
-                                                                            </div>
-                                                                               </div>
 
-                                                                       
-    
-                                                                    
-                                                                           
-                                                                     
-                                                                  </p-header>
-        
-    
-    
-     
-       <app-carte-recup
-      
-      
-            [carteRecup] = "carteRecup" > 
-    
-         
-    </app-carte-recup>                                                 
-     
-    </p-dialog>
-    
-    
-    
-    <p-dialog   
-    [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}" 
-    appendTo="body"
-    [closable]="false"
-    
-    *ngIf="carteDepot"
-                                            [(visible)]="editCarteDepot"
-                                                                    modal="true"  >
-                                                                    <p-header >   
-                                                                           
-                                                                                 
-                                                                        <label   *ngIf="carteDepot"  >
-                                                                                                                             
-                                                                              <span    style="color: red;"  >تحييـــن   بطاقة إيداع عدد {{carteDepot.documentId.numOrdinalDocByAffaire}}
-                                                                            
-                                                                            
-                                                                            
-                                                                            </span>
-                                                                           
-                                                                                
-                                                                              <i (click)="editCarteDepot = false"  class="pi pi-power-off" 
-                                                                     style="font-size: 30px; color: white; background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 90%;" > </i>    
-                                                                              
-                                                                     </label>
-    
-                                                                    
-                                                                           
-                                                                     
-                                                                  </p-header>
-        
-    
-    
-     
-       <app-carte-depot 
-      [carteDepot] = "carteDepot"  >    
-    </app-carte-depot>                                                 
-     
-    </p-dialog>
-    
-    
-    
-    
-    
-    
-    <p-dialog
-      [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
-      appendTo="body" [closable]="false" *ngIf="carteHeber" [(visible)]="editCarteHeber" modal="true">
-      <p-header>
-    
-    
-        <label   *ngIf="carteHeber">
-    
-          <span style="color: rgb(47, 0, 255);">تحييـــن بطاقة  إيواء عدد {{carteHeber.documentId.numOrdinalDocByAffaire}}
-    
-    
-    
-          </span>
-    
-    
-          <i (click)="editCarteHeber = false" class="pi pi-power-off"
-            style="font-size: 30px; color: white; background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 90%;">
-          </i>
-    
-        </label>
-    
-    
-    
-    
-      </p-header>
-    
-    
-    
-    
-      <app-carte-hebergement [carteHeber]="carteHeber" >
-      </app-carte-hebergement>
-    
-    </p-dialog>
-    
-    
-    
-    
-    
-    
-    
-    <p-dialog  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}" 
-    appendTo="body"
-    [closable]="false" [draggable]="false"  *ngIf="transfert"
-                                            [(visible)]="editTransfert"
-                                                                    modal="true"  >
-                                                                    <p-header >   
-                                                                           
-                                                                                 
-                                                                        <label class="neons" *ngIf="transfert"  >
-                                                                                                                             
-                                                                              <span    style="color: red;"  >تحييـــن   إحالة عدد {{transfert.documentId.numOrdinalDocByAffaire}}
-                                                                            
-                                                                            
-                                                                            
-                                                                            </span>
-                                                                           
-                                                                                
-                                                                              <i (click)="editTransfert = false"  class="pi pi-power-off" 
-                                                                     style="font-size: 30px; color: white; background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 90%;" > </i>    
-                                                                              
-                                                                     </label>
-    
-                                                                    
-                                                                           
-                                                                     
-                                                                  </p-header>
-        
-    
-    
-     
-      <app-add-transfert
-      
-      
-            [transfert] = "transfert"
-        
-        
-      >   
-    </app-add-transfert>                                                
-     
-    </p-dialog>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <p-dialog  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}" 
-    appendTo="body"
-    [closable]="false" [draggable]="false" *ngIf="arreterlexecution"
-                                            [(visible)]="editArreterlexecution"
-                                                                    modal="true"  >
-                                                                    <p-header >   
-                                                                           
-                                                                                 
-                                                                        <label class="neons" *ngIf="arreterlexecution"  >
-                                                                                                                             
-                                                                              <span    style="color: red;"  >تحييـــن     إيقاف تنفيذ الحكم عدد {{arreterlexecution.documentId.numOrdinalDocByAffaire}}
-                                                                            
-                                                                            
-                                                                            
-                                                                            </span>
-                                                                           
-                                                                                
-                                                                              <i (click)="editArreterlexecution = false"  class="pi pi-power-off" 
-                                                                     style="font-size: 30px; color: white; background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 90%;" > </i>    
-                                                                              
-                                                                     </label>
-    
-                                                                    
-                                                                           
-                                                                     
-                                                                  </p-header>
-        
-    
-    
-     
-      <app-add-arreter-lexecution
-      
-      
-            [arreterlexecution] = "arreterlexecution"
-        
-        
-      >   
-    </app-add-arreter-lexecution>                                                
-     
-    </p-dialog>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <p-dialog  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}" 
-    appendTo="body"
-    [closable]="false" [draggable]="false" *ngIf="appelParquet"
-                                            [(visible)]="editAppelParquet"
-                                                                    modal="true"  >
-                                                                    <p-header >   
-                                                                           
-                                                                                 
-                                                                        <label class="neons" *ngIf="appelParquet"  >
-                                                                                                                             
-                                                                              <span    style="color: red;"  >تحييـــن     إيقاف تنفيذ الحكم عدد {{appelParquet.documentId.numOrdinalDocByAffaire}}
-                                                                            
-                                                                            
-                                                                            
-                                                                            </span>
-                                                                           
-                                                                                
-                                                                              <i (click)="editAppelParquet = false"  class="pi pi-power-off" 
-                                                                     style="font-size: 30px; color: white; background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 90%;" > </i>    
-                                                                              
-                                                                     </label>
-    
-                                                                    
-                                                                           
-                                                                     
-                                                                  </p-header>
-        
-    
-    
-     
-      <app-add-appel-parquet
-      
-      
-            [appelParquet] = "appelParquet"
-        
-        
-      >   
-    </app-add-appel-parquet>                                                
-     
-    </p-dialog>
-    
-    
-    
-    
-    
-    
-    
-    <p-dialog  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}" 
-    appendTo="body"
-    [closable]="false" [draggable]="false" *ngIf="appelEnfant"
-                                            [(visible)]="editAppelEnfant"
-                                                                    modal="true"  >
-                                                                    <p-header >   
-                                                                           
-                                                                                 
-                                                                        <label class="neons" *ngIf="appelEnfant"  >
-                                                                                                                             
-                                                                              <span    style="color: red;"  >تحييـــن     إيقاف تنفيذ الحكم عدد {{appelEnfant.documentId.numOrdinalDocByAffaire}}
-                                                                            
-                                                                            
-                                                                            
-                                                                            </span>
-                                                                           
-                                                                                
-                                                                              <i (click)="editAppelEnfant = false"  class="pi pi-power-off" 
-                                                                     style="font-size: 30px; color: white; background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 90%;" > </i>    
-                                                                              
-                                                                     </label>
-    
-                                                                    
-                                                                           
-                                                                     
-                                                                  </p-header>
-        
-    
-    
-     
-      <app-add-appel-enfant
-      
-      
-            [appelEnfant] = "appelEnfant"
-        
-        
-      >   
-    </app-add-appel-enfant>                                                
-     
-    </p-dialog>
-    
-    
-    
-    
-    
-    
-    
-    
-    <p-dialog  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}" 
-    appendTo="body"
-    [closable]="false" [draggable]="false" *ngIf="revue"
-                                            [(visible)]="editRevue"
-                                                                    modal="true"  >
-                                                                    <p-header >   
-                                                                           
-                                                                                 
-                                                                        <label class="neons" *ngIf="revue"  >
-                                                                                                                             
-                                                                              <span    style="color: red;"  >تحييـــن     إيقاف تنفيذ الحكم عدد {{revue.documentId.numOrdinalDocByAffaire}}
-                                                                            
-                                                                            
-                                                                            
-                                                                            </span>
-                                                                           
-                                                                                
-                                                                              <i (click)="editRevue = false"  class="pi pi-power-off" 
-                                                                     style="font-size: 30px; color: white; background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 90%;" > </i>    
-                                                                              
-                                                                     </label>
-    
-                                                                    
-                                                                           
-                                                                     
-                                                                  </p-header>
-        
-    
-    
-     
-      <app-add-revue
-      
-      
-            [revue] = "revue"
-        
-        
-      >   
-    </app-add-revue>                                                
-     
-    </p-dialog>
+  </p-header>
 
-    
+
+
+
+  <app-carte-recup [carteRecup]="carteRecup">
+
+
+  </app-carte-recup>
+
+</p-dialog>
+
+
+
+<p-dialog
+  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+  appendTo="body" [closable]="false" *ngIf="carteDepot" [(visible)]="editCarteDepot" modal="true">
+  <p-header>
+
+
+    <label *ngIf="carteDepot">
+
+      <span style="color: red;">تحييـــن بطاقة إيداع عدد {{carteDepot.documentId.numOrdinalDocByAffaire}}
+
+
+
+      </span>
+
+
+      <i (click)="editCarteDepot = false" class="pi pi-power-off"
+        style="font-size: 30px; color: white; background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 90%;">
+      </i>
+
+    </label>
+
+
+
+
+  </p-header>
+
+
+
+
+  <app-carte-depot [carteDepot]="carteDepot">
+  </app-carte-depot>
+
+</p-dialog>
+
+
+
+
+
+
+<p-dialog
+  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+  appendTo="body" [closable]="false" *ngIf="carteHeber" [(visible)]="editCarteHeber" modal="true">
+  <p-header>
+
+
+    <label *ngIf="carteHeber">
+
+      <span style="color: rgb(47, 0, 255);">تحييـــن بطاقة إيواء عدد {{carteHeber.documentId.numOrdinalDocByAffaire}}
+
+
+
+      </span>
+
+
+      <i (click)="editCarteHeber = false" class="pi pi-power-off"
+        style="font-size: 30px; color: white; background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 90%;">
+      </i>
+
+    </label>
+
+
+
+
+  </p-header>
+
+
+
+
+  <app-carte-hebergement [carteHeber]="carteHeber">
+  </app-carte-hebergement>
+
+</p-dialog>
+
+
+
+
+
+
+
+<p-dialog
+  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+  appendTo="body" [closable]="false" [draggable]="false" *ngIf="transfert" [(visible)]="editTransfert" modal="true">
+  <p-header>
+
+
+    <label class="neons" *ngIf="transfert">
+
+      <span style="color: red;">تحييـــن إحالة عدد {{transfert.documentId.numOrdinalDocByAffaire}}
+
+
+
+      </span>
+
+
+      <i (click)="editTransfert = false" class="pi pi-power-off"
+        style="font-size: 30px; color: white; background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 90%;">
+      </i>
+
+    </label>
+
+
+
+
+  </p-header>
+
+
+
+
+  <app-add-transfert [transfert]="transfert">
+  </app-add-transfert>
+
+</p-dialog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p-dialog
+  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+  appendTo="body" [closable]="false" [draggable]="false" *ngIf="arreterlexecution" [(visible)]="editArreterlexecution"
+  modal="true">
+  <p-header>
+
+
+    <label class="neons" *ngIf="arreterlexecution">
+
+      <span style="color: red;">تحييـــن إيقاف تنفيذ الحكم عدد {{arreterlexecution.documentId.numOrdinalDocByAffaire}}
+
+
+
+      </span>
+
+
+      <i (click)="editArreterlexecution = false" class="pi pi-power-off"
+        style="font-size: 30px; color: white; background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 90%;">
+      </i>
+
+    </label>
+
+
+
+
+  </p-header>
+
+
+
+
+  <app-add-arreter-lexecution [arreterlexecution]="arreterlexecution">
+  </app-add-arreter-lexecution>
+
+</p-dialog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p-dialog
+  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+  appendTo="body" [closable]="false" [draggable]="false" *ngIf="appelParquet" [(visible)]="editAppelParquet"
+  modal="true">
+  <p-header>
+
+
+    <label class="neons" *ngIf="appelParquet">
+
+      <span style="color: red;">تحييـــن إيقاف تنفيذ الحكم عدد {{appelParquet.documentId.numOrdinalDocByAffaire}}
+
+
+
+      </span>
+
+
+      <i (click)="editAppelParquet = false" class="pi pi-power-off"
+        style="font-size: 30px; color: white; background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 90%;">
+      </i>
+
+    </label>
+
+
+
+
+  </p-header>
+
+
+
+
+  <app-add-appel-parquet [appelParquet]="appelParquet">
+  </app-add-appel-parquet>
+
+</p-dialog>
+
+
+
+
+
+
+
+<p-dialog
+  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+  appendTo="body" [closable]="false" [draggable]="false" *ngIf="appelEnfant" [(visible)]="editAppelEnfant" modal="true">
+  <p-header>
+
+
+    <label class="neons" *ngIf="appelEnfant">
+
+      <span style="color: red;">تحييـــن إيقاف تنفيذ الحكم عدد {{appelEnfant.documentId.numOrdinalDocByAffaire}}
+
+
+
+      </span>
+
+
+      <i (click)="editAppelEnfant = false" class="pi pi-power-off"
+        style="font-size: 30px; color: white; background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 90%;">
+      </i>
+
+    </label>
+
+
+
+
+  </p-header>
+
+
+
+
+  <app-add-appel-enfant [appelEnfant]="appelEnfant">
+  </app-add-appel-enfant>
+
+</p-dialog>
+
+
+
+
+
+
+
+
+<p-dialog
+  [style]="{'width': '90vw', 'max-height': '40vw' , 'background-color': 'white' , 'background-image': 'url(assets/layout/images/bg.png)'}"
+  appendTo="body" [closable]="false" [draggable]="false" *ngIf="revue" [(visible)]="editRevue" modal="true">
+  <p-header>
+
+
+    <label class="neons" *ngIf="revue">
+
+      <span style="color: red;">تحييـــن إيقاف تنفيذ الحكم عدد {{revue.documentId.numOrdinalDocByAffaire}}
+
+
+
+      </span>
+
+
+      <i (click)="editRevue = false" class="pi pi-power-off"
+        style="font-size: 30px; color: white; background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 90%;">
+      </i>
+
+    </label>
+
+
+
+
+  </p-header>
+
+
+
+
+  <app-add-revue [revue]="revue">
+  </app-add-revue>
+
+</p-dialog>

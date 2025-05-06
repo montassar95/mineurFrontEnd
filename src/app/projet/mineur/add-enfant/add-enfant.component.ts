@@ -35,6 +35,8 @@ import { SituationSocial } from "src/app/domain/situationSocial";
 import { EnfantAddDTO } from "src/app/domain/enfantAddDTO";
 import { AppConfigService } from "../app-config.service";
 import { DetentionService } from "src/app/demo/service/detention.service";
+import { Etablissement } from "src/app/domain/etablissement";
+import { EtabChangeManiere } from "src/app/domain/etabChangeManiere";
 
 @Component({
   selector: "app-add-enfant",
@@ -82,6 +84,10 @@ export class AddEnfantComponent implements OnInit {
   entitiesGouvernorat: Gouvernorat[];
   entitiesDelegation: Delegation[];
   entitiesClassePenale: ClassePenale[];
+  entitiesEtablissementPassage: Etablissement[];
+  etablissementPassageLocal: Etablissement;
+  entitiesEtabChangeManiereEntree: EtabChangeManiere[];
+  etabChangeManiereEntreeLocal: EtabChangeManiere;
   entitiesSituationSocial: SituationSocial[];
   entitiesMetier: Metier[];
   currentUser: any;
@@ -92,7 +98,7 @@ export class AddEnfantComponent implements OnInit {
   numOrdinale = "";
   numArrestation = "";
   dateEntreLocal;
-
+  datePassage;
   @Input()
   residenceEdit: Residence;
   @Input()
@@ -106,6 +112,10 @@ export class AddEnfantComponent implements OnInit {
   @Output() refreshEvent = new EventEmitter<string>();
 
   @Output() pathEvent = new EventEmitter<string>();
+
+  displayEtablissementPassage = false;
+  displayEtabChangeManiereEntree = false;
+  etablissementLocal: Etablissement;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -223,6 +233,11 @@ export class AddEnfantComponent implements OnInit {
       alias: [""],
       numArrestation: ["", Validators.required],
       dateEntreLocal: ["", Validators.required],
+      datePassage: [""],
+      etablissementPassageCode: [""],
+      etablissementPassageLibelle: [""],
+      etabChangeManiereEntreeCode: [""],
+      etabChangeManiereEntreeLibelle: [""],
     };
   }
   private patchFormsWithExistingData(enfant: Enfant): void {
@@ -276,6 +291,23 @@ export class AddEnfantComponent implements OnInit {
       alias: enfant.alias,
       numArrestation: this.residenceEdit.numArrestation,
       dateEntreLocal: new Date(this.residenceEdit.dateEntree),
+      datePassage: this.residenceEdit.datePassage
+        ? new Date(this.residenceEdit.datePassage)
+        : null,
+
+      etablissementPassageCode: this.residenceEdit.etablissementPassage
+        ? this.residenceEdit.etablissementPassage.id
+        : null,
+      etablissementPassageLibelle: this.residenceEdit.etablissementPassage
+        ? this.residenceEdit.etablissementPassage.libelle_etablissement
+        : null,
+
+      etabChangeManiereEntreeCode: this.residenceEdit.etabChangeManiereEntree
+        ? this.residenceEdit.etabChangeManiereEntree.id
+        : null,
+      etabChangeManiereEntreeLibelle: this.residenceEdit.etabChangeManiereEntree
+        ? this.residenceEdit.etabChangeManiereEntree.libelle_etabChangeManiere
+        : null,
     });
   }
 
@@ -310,8 +342,7 @@ export class AddEnfantComponent implements OnInit {
 
   validerNumeroEcrou() {
     const numeroEcrou = this.addForm3.get("numArrestation")?.value;
-    const etablissementId =
-      this.token?.getUser()?.etablissement?.id;
+    const etablissementId = this.token?.getUser()?.etablissement?.id;
     if (this.update || !numeroEcrou || !etablissementId) {
       return; // Sortir de la méthode
     }
@@ -376,13 +407,22 @@ export class AddEnfantComponent implements OnInit {
       this.addForm3.get("dateEntreLocal").value,
       "yyyy-MM-dd"
     );
-    arrestation.numAffairePricipale = "0";
+
+    // arrestation.numAffairePricipale = "0";
     enfantAddDTO.arrestation = arrestation;
 
     // Information sur la résidence
     let residence = new Residence();
     residence.numArrestation = this.addForm3.get("numArrestation").value;
     residence.dateEntree = arrestation.date;
+    residence.etablissementPassage = this.etablissementPassageLocal;
+
+    residence.etabChangeManiereEntree = this.etabChangeManiereEntreeLocal;
+
+    residence.datePassage = this.datepipe.transform(
+      this.addForm3.get("datePassage").value,
+      "yyyy-MM-dd"
+    );
     residence.etablissement = this.currentUser.etablissement;
     enfantAddDTO.residence = residence;
 
@@ -794,7 +834,7 @@ export class AddEnfantComponent implements OnInit {
             summary: ".   خطأ    ",
             detail: "تثبت من رمز الصنف الجزائي  ",
           });
-          this.addForm2.get("classePenaleLibelle").setValue("");
+          this.addForm3.get("classePenaleLibelle").setValue("");
         }
       });
   }
@@ -1071,10 +1111,89 @@ export class AddEnfantComponent implements OnInit {
         this.entitiesClassePenale = entities.classePenale;
         this.entitiesSituationSocial = entities.situationSocial;
         this.entitiesMetier = entities.metier;
+        this.entitiesEtablissementPassage = entities.etablissement;
+        this.entitiesEtabChangeManiereEntree = entities.etabChangeManiere;
       },
       (error) => {
         console.error("Erreur lors du chargement des entités:", error);
       }
     );
+  }
+  //----------------------------------------------------------etabChangeManiere   ----------------------------------------------------
+  saveEtabChangeManiereEntree(etabChangeManiereEntree) {
+    this.addForm3
+      .get("etabChangeManiereEntreeCode")
+      .setValue(etabChangeManiereEntree.id);
+    this.etabChangeManiereEntreeLocal = etabChangeManiereEntree;
+    this.addForm3
+      .get("etabChangeManiereEntreeLibelle")
+      .setValue(etabChangeManiereEntree.libelle_etabChangeManiere);
+    this.displayEtabChangeManiereEntree = false;
+  }
+
+  showListEtabChangeManiereEntree() {
+    this.displayEtabChangeManiereEntree = true;
+  }
+  getEtabChangeManiereEntree() {
+    this.crudservice
+      .getLigneById(
+        "etabChangeManiere",
+        this.addForm3.get("etabChangeManiereEntreeCode").value
+      )
+      .subscribe((data) => {
+        if (data.result != null) {
+          this.etabChangeManiereEntreeLocal = data.result;
+          this.addForm3
+            .get("etabChangeManiereEntreeLibelle")
+            .setValue(data.result.libelle_etabChangeManiere);
+        } else {
+          this.service.add({
+            key: "tst",
+            severity: "error",
+            summary: ".   خطأ    ",
+            detail: "تثبت من رمز المركز     ",
+          });
+          this.addForm3.get("etabChangeManiereEntreeLibelle").setValue("");
+        }
+      });
+  }
+
+  //----------------------------------------------------------etablissement passage ----------------------------------------------------
+  saveEtablissementPassage(etablissementPassage) {
+    this.addForm3
+      .get("etablissementPassageCode")
+      .setValue(etablissementPassage.id);
+    this.etablissementPassageLocal = etablissementPassage;
+    this.addForm3
+      .get("etablissementPassageLibelle")
+      .setValue(etablissementPassage.libelle_etablissement);
+    this.displayEtablissementPassage = false;
+  }
+
+  showListEtablissementPassage() {
+    this.displayEtablissementPassage = true;
+  }
+  getEtablissementPassage() {
+    this.crudservice
+      .getLigneById(
+        "etablissement",
+        this.addForm3.get("etablissementPassageCode").value
+      )
+      .subscribe((data) => {
+        if (data.result != null) {
+          this.etablissementPassageLocal = data.result;
+          this.addForm3
+            .get("etablissementPassageLibelle")
+            .setValue(data.result.libelle_etablissement);
+        } else {
+          this.service.add({
+            key: "tst",
+            severity: "error",
+            summary: ".   خطأ    ",
+            detail: "تثبت من رمز المركز     ",
+          });
+          this.addForm3.get("etablissementPassageLibelle").setValue("");
+        }
+      });
   }
 }

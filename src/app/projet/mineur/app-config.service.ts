@@ -15,6 +15,8 @@ export class AppConfigService {
     "classePenale",
     "situationSocial",
     "metier",
+    "etablissement",
+    "etabChangeManiere",
   ];
 
   constructor(private crudService: CrudEnfantService) {}

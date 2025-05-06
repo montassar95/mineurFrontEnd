@@ -42,6 +42,19 @@ export class AffaireService {
     );
   }
 
+  // trouverDetenusParNumAffaireEtTribunalId(
+  //   numAffaire: any,
+  //   tribunalId: any
+  // ): Observable<ApiResponse> {
+  //   return this.httpClient.get<ApiResponse>(
+  //     environment.baseUrl +
+  //       "affaire/trouverDetenusParNumAffaireEtTribunalId/" +
+  //       numAffaire +
+  //       "/" +
+  //       tribunalId
+  //   );
+  // }
+
   trouverAffairesParAction(
     action: string,
     idEnfant: any,

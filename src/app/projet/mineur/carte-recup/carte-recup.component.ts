@@ -401,12 +401,12 @@ export class CarteRecupComponent implements OnInit, OnDestroy {
       .subscribe((data) => {
         this.enfantLocal = data.result.enfant;
         this.msg = data.result.situation;
-        this.years = "";
-        this.years =
-          this.years +
-          (new Date(this.enfantLocal?.dateNaissance).getFullYear() + 13) +
-          ":" +
-          new Date().getFullYear();
+        this.years = "2022 : 2025";
+        // this.years =
+        //   this.years +
+        //   (new Date(this.enfantLocal?.dateNaissance).getFullYear() + 13) +
+        //   ":" +
+        //   new Date().getFullYear();
         this.allowNewAddArrestation = data.result.allowNewAddArrestation;
         this.allowNewCarte = data.result.allowNewCarte;
         this.alerte = data.result.alerte;
@@ -441,6 +441,10 @@ export class CarteRecupComponent implements OnInit, OnDestroy {
             });
         }
       });
+  }
+  accepter() {
+    this.displayNext = false;
+    this.nextBoolean = true;
   }
   //------------------------------------------------------------end trouverDetenuAvecSonStatutActuel-----------------------------------------------------------------------------------------------
 
@@ -506,8 +510,7 @@ export class CarteRecupComponent implements OnInit, OnDestroy {
   }
 
   addArrestatione() {
-    this.centre =
-      this.currentUser.etablissement.libelle_etablissement;
+    this.centre = this.currentUser.etablissement.libelle_etablissement;
 
     this.detentionService
       .calculerNombreDetentionsParIdDetenu("arrestation", this.enfantLocal.id)
@@ -632,7 +635,7 @@ export class CarteRecupComponent implements OnInit, OnDestroy {
   saveTribunal3(tribunal) {
     this.tribunal3 = tribunal.nom_tribunal;
     this.codeTribunal3 = tribunal.id;
-
+    this.tribunal3Objet = tribunal;
     this.displayTribunal3 = false;
   }
   getTribunal3() {
@@ -706,11 +709,11 @@ export class CarteRecupComponent implements OnInit, OnDestroy {
   }
 
   saveAffaireAffecter(affaireAffecter: Affaire) {
+    console.log(affaireAffecter);
     this.tribunal3 = affaireAffecter.tribunal.nom_tribunal;
     this.codeTribunal3 = affaireAffecter.tribunal.id;
-
     this.numAffaireT3 = affaireAffecter.affaireId.numAffaire;
-
+    this.tribunal3Objet = affaireAffecter.tribunal;
     this.affaireAffecter = affaireAffecter;
     this.displayAfferAffecter = false;
   }
@@ -1523,9 +1526,11 @@ export class CarteRecupComponent implements OnInit, OnDestroy {
       affaireData.tribunal1 = this.tribunal1Objet;
       affaireData.numAffaire2 = this.numAffaireT2;
       affaireData.tribunal2 = this.tribunal2Objet;
+      affaireData.numAffaire3 = this.numAffaireT3;
+      affaireData.tribunal3 = this.tribunal3Objet;
       affaireData.affaireOrigine = this.affaireOrigine;
       affaireData.arrestation = this.arrestation;
-
+      console.log(affaireData);
       this.affaireService.validerAffaire(affaireData).subscribe((data) => {
         verifierAffaire = data.result;
         this.affaireOrigine = verifierAffaire.affaire;
@@ -1544,6 +1549,10 @@ export class CarteRecupComponent implements OnInit, OnDestroy {
           verifierAffaire.displayAlertLienAutreArrestation;
         this.displayNext = verifierAffaire.displayNext;
         this.isLoading = false;
+
+        //--------------- debut  traitement de affaire affecter ------------------//
+        this.affaireOrigine;
+        //--------------- debut  traitement de affaire affecter ------------------//
       });
     }
   }

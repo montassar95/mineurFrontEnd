@@ -206,6 +206,7 @@ import { AddObservationComponent } from './add-observation/add-observation.compo
 import { ShowObservationComponent } from './show/show-observation/show-observation.component';
 import { ShowOppositionComponent } from './show/show-opposition/show-opposition.component';
 import { ShowPenaleComponent } from './show-penale/show-penale.component';
+import { DetailleAffaireComponent } from './detaille-affaire/detaille-affaire.component';
 
 @NgModule({
   declarations: [
@@ -318,6 +319,7 @@ import { ShowPenaleComponent } from './show-penale/show-penale.component';
     ShowObservationComponent,
     ShowOppositionComponent,
     ShowPenaleComponent,
+    DetailleAffaireComponent,
   ],
   imports: [
     CommonModule,

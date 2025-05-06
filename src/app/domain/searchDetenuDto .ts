@@ -1,5 +1,7 @@
 export class SearchDetenuDto {
   detenuId: string;
+  numOrdinaleArrestation: number;
+  numOrdinaleResidence: number;
   nom: string;
   prenom: string;
   nomPere: string;

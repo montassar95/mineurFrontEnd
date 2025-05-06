@@ -729,12 +729,12 @@ body.hidden-overflow {
   }
 }
 
-/* *********************menu css ******************************************************************/
+/* ********************* menu css ******************************************************************/
 @media (min-width: 992px) {
   .layout-wrapper.layout-horizontal .layout-sidebar {
     width: max-content;
     height: 50px;
-    top: 35px;
+    top: 15px;
     
      
     margin-left: auto;
@@ -896,6 +896,7 @@ body.hidden-overflow {
     box-shadow: none;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
+    
   }
   .layout-wrapper.layout-horizontal .layout-topbar .layout-topbar-logo-wrapper {
     display: -webkit-box;
@@ -6286,7 +6287,7 @@ color: #1a69a1;
 
 .layout-topbar {
   font-family: 'Amiri', Times, serif;
-background-image: linear-gradient(#0f2740,  white);
+/* background-image: linear-gradient(#0f2740,  white); */
     /* background-image: linear-gradient(#0f3845, white);   */
         
       /* color: white; */
@@ -6297,8 +6298,9 @@ background-image: linear-gradient(#0f2740,  white);
      /* background-image: url("../../images/montaa.jpg");     */
     /* background-image: url("../../images/flag-tunsia-bg1.jpg");   */
     /* background-image: url("../../images/Themis_homepage.jpg");      */
-    background-image: url("../../images/realistic-spider-web-background_107791-26720.avif");
-    
+    /* background-image: url("../../images/realistic-spider-web-background_107791-26720.avif"); */
+    /* background-image: url("../../images/tete.jpg") no-repeat ; */
+background: linear-gradient(to right, #0b1e2d, #536475);
     /* Couleur d'arrière-plan */
   position: fixed;
   top: 0;
@@ -7653,10 +7655,10 @@ background-image: linear-gradient(#0f2740,  white);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* margin-top:-110px; */
-  -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.500);
-  -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.500);
-  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.500);
+   margin-top:-10px;  
+    -moz-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.500);
+  -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.500);
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.500);  
  
 }
 .layout-breadcrumb .breadcrumb .route-bar-breadcrumb {
@@ -7670,7 +7672,7 @@ background-image: linear-gradient(#0f2740,  white);
 }
 .layout-breadcrumb .breadcrumb .route-bar-breadcrumb li {
   padding: 0 5px;
-  font-size: 20px;
+  font-size: 18px;
   color: #67748f;
 }
 .layout-breadcrumb .breadcrumb .route-bar-breadcrumb li:first-child {

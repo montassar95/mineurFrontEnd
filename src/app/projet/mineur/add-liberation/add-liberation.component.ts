@@ -26,6 +26,8 @@ import { AppConfigService } from "../app-config.service";
 import { DetentionService } from "src/app/demo/service/detention.service";
 import { AffaireService } from "src/app/demo/service/affaire.service";
 import { FicheDeDetentionDto } from "src/app/domain/ficheDeDetentionDto";
+import { RapportService } from "src/app/demo/service/rapport.service";
+import { PDFPenaleDTO } from "src/app/domain/pDFPenaleDTO";
 
 @Component({
   selector: "app-add-liberation",
@@ -81,7 +83,9 @@ export class AddLiberationComponent implements OnInit, OnDestroy {
   displayAddArrestation = false;
   residenceId: any;
   nextAdd: boolean;
-
+  pDFPenaleDTO: PDFPenaleDTO;
+  sansDetail = false;
+  sansImage = false;
   constructor(
     private crudservice: CrudEnfantService,
     private detentionService: DetentionService,
@@ -94,7 +98,8 @@ export class AddLiberationComponent implements OnInit, OnDestroy {
     private service: MessageService,
     private breadcrumbService: BreadcrumbService,
     private router: Router,
-    private appConfigService: AppConfigService
+    private appConfigService: AppConfigService,
+    private rapportService: RapportService
   ) {}
   ngOnDestroy() {
     window.localStorage.removeItem("idValide");
@@ -162,6 +167,7 @@ export class AddLiberationComponent implements OnInit, OnDestroy {
   allowNewAddArrestation = false;
   allowNewCarte = false;
   alerte = true;
+  libre = false;
   search(id: String) {
     this.detentionService
       .trouverDetenuAvecSonStatutActuel(
@@ -169,8 +175,10 @@ export class AddLiberationComponent implements OnInit, OnDestroy {
         this.token.getUser().etablissement.id
       )
       .subscribe((data) => {
+        console.log(data.result);
         this.enfantLocal = data.result.enfant;
         this.msg = data.result.situation;
+        this.libre = data.result.libre;
         this.years = "";
         this.years =
           this.years +
@@ -270,8 +278,7 @@ export class AddLiberationComponent implements OnInit, OnDestroy {
   }
 
   addResidence() {
-    this.centre =
-      this.currentUser.etablissement.libelle_etablissement;
+    this.centre = this.currentUser.etablissement.libelle_etablissement;
 
     this.detentionService
       .calculerNombreDetentionsParIdDetenu("arrestation", this.enfantLocal.id)
@@ -331,5 +338,30 @@ export class AddLiberationComponent implements OnInit, OnDestroy {
         detail: "تثبت من إدراج المعطيات ",
       });
     }
+  }
+
+  downloadPdf() {
+    this.pDFPenaleDTO = new PDFPenaleDTO();
+    this.pDFPenaleDTO.sansDetail = this.sansDetail;
+    this.pDFPenaleDTO.sansImage = this.sansImage;
+    this.pDFPenaleDTO.idEnfant = this.arrestation.arrestationId.idEnfant;
+    this.pDFPenaleDTO.numOrdinale =
+      this.arrestation.arrestationId.numOrdinale;
+
+    this.rapportService
+      .genererFicheDeLiberationPdf(this.pDFPenaleDTO)
+      .subscribe((x) => {
+        const blob = new Blob([x], { type: "application/pdf" });
+        const data = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = data;
+        link.download = "enfant.pdf";
+
+        window.open(
+          data,
+          "_blank",
+          "top=0,left=0,bottom= 0, right= 0,height=100%,width=auto"
+        );
+      });
   }
 }

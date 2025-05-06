@@ -111,7 +111,7 @@ td{
      
       text-align: center;
       background-color: transparent;
-      margin-top: 30px;
+      color: green;
    }
    
    @-webkit-keyframes glow4 {
@@ -132,6 +132,30 @@ td{
      text-align: center;
       font-weight: bold;
     font-family: 'Amiri', Times, serif;
-     animation: glow4 0.5s ease-in-out infinite alternate;
+   
      text-decoration: underline;
    }
+
+
+     .button-download {
+       background-color: #007bff;
+       /* Bleu vif */
+       color: white;
+       border: none;
+       padding: 10px 15px;
+       font-size: 25px;
+       font-weight: bold;
+       border-radius: 8px;
+       cursor: pointer;
+       display: flex;
+       align-items: center;
+       gap: 8px;
+       transition: background 0.3s ease-in-out, transform 0.2s;
+       text-align: center;
+     }
+        .button-download:hover {
+      background-color: #0056b3;
+      /* Bleu foncé au survol */
+      transform: scale(1.05);
+    }
+    

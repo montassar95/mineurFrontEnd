@@ -40,6 +40,7 @@ import { AppConfigService } from "../app-config.service";
 import { DocumentService } from "src/app/demo/service/document.service";
 import { AffaireService } from "src/app/demo/service/affaire.service";
 import { DetentionService } from "src/app/demo/service/detention.service";
+import { EtabChangeManiere } from "src/app/domain/etabChangeManiere";
 
 @Component({
   selector: "app-carte-depot",
@@ -49,6 +50,13 @@ import { DetentionService } from "src/app/demo/service/detention.service";
 })
 export class CarteDepotComponent implements OnInit, OnDestroy {
   alertTypeAffaire = "";
+  displayEtabChangeManiere: boolean;
+  etabChangeManiereLocal: EtabChangeManiere;
+  cause_etabChangeManiere = "";
+
+  entitesEtabChangeManiere: EtabChangeManiere[];
+  displayAfferOrigine = false;
+  displayAfferLier = false;
   refresh() {
     this.documentService
       .calculerNombreDocumentsJudiciairesParDetention(
@@ -245,6 +253,8 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
     this.showAllTypeAffaire();
 
     this.calendar_ar = this.appConfigService.calendarConfig;
+
+    this.getEtabChangeManiere();
   }
   saveTitreAccusation(titreAccusation: TitreAccusation) {
     console.log(titreAccusation);
@@ -458,8 +468,7 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
   }
 
   addArrestatione() {
-    this.centre =
-      this.currentUser.etablissement.libelle_etablissement;
+    this.centre = this.currentUser.etablissement.libelle_etablissement;
 
     this.detentionService
       .calculerNombreDetentionsParIdDetenu("arrestation", this.enfantLocal.id)
@@ -683,6 +692,7 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+     
     this.alertTypeAffaire = "";
     if (
       !this.dateEmission ||
@@ -777,7 +787,7 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
               "yyyy-MM-dd"
             );
             this.carteDepot.titreAccusations = this.entitiesTitreAccusation;
-
+            this.carteDepot.etabChangeManiere = this.etabChangeManiereLocal;
             this.showCarteDepot = true;
           });
       } else {
@@ -863,5 +873,72 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
         this.typeAffaireSwich = [];
       }
     });
+  }
+
+  showListEtabChangeManiere() {
+    this.displayEtabChangeManiere = true;
+  }
+  getEtabChangeManiere() {
+    this.crudservice.getlistEntity("etabChangeManiere").subscribe((data) => {
+      console.log(data);
+      this.entitesEtabChangeManiere = data.result;
+    });
+  }
+
+  saveEtabChangeManiere(etabChangeManiere: EtabChangeManiere) {
+    this.etabChangeManiereLocal = etabChangeManiere;
+    this.cause_etabChangeManiere =
+      this.etabChangeManiereLocal.libelle_etabChangeManiere;
+    this.displayEtabChangeManiere = false;
+  }
+  deleteEtabChangeManiere() {
+    this.etabChangeManiereLocal = undefined;
+    this.cause_etabChangeManiere =undefined;
+    this.displayEtabChangeManiere = false;
+  }
+  showListAffaireOrigine() {
+    this.displayAfferOrigine = true;
+  }
+
+  saveAffaireOrigine(affaireOrigine: Affaire) {
+    this.tribunal1 = affaireOrigine.tribunal.nom_tribunal;
+    this.codeTribunal1 = affaireOrigine.tribunal.id;
+
+    this.numAffaireT1 = affaireOrigine.affaireId.numAffaire;
+    this.tribunal1Objet = affaireOrigine.tribunal;
+    this.affaireOrigine = affaireOrigine;
+    this.displayAfferOrigine = false;
+  }
+
+  deleteOrigine() {
+    this.tribunal1 = "";
+    this.codeTribunal1 = "";
+    this.tribunal1Objet = null;
+    this.numAffaireT1 = null;
+
+    this.affaireOrigine = null;
+  }
+
+  showListAffaireLier() {
+    this.displayAfferLier = true;
+  }
+
+  saveAffaireLier(affaireLien: Affaire) {
+    this.tribunal2 = affaireLien.tribunal.nom_tribunal;
+    this.codeTribunal2 = affaireLien.tribunal.id;
+
+    this.numAffaireT2 = affaireLien.affaireId.numAffaire;
+    this.tribunal2Objet = affaireLien.tribunal;
+    this.affaireLien = affaireLien;
+    this.displayAfferLier = false;
+  }
+
+  deleteLier() {
+    this.tribunal2 = "";
+    this.codeTribunal2 = "";
+    this.tribunal2Objet = null;
+    this.numAffaireT2 = null;
+
+    this.affaireLien = null;
   }
 }

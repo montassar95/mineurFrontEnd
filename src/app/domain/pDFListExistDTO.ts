@@ -49,4 +49,7 @@ export class PDFListExistDTO {
   checkUniqueAff: any;
 
   datePrintAllCentre: any;
+
+  numAffaire: String;
+  tribunalId: number;
 }

@@ -23,6 +23,12 @@ export class DetentionService {
     );
   }
 
+  trouverAmenPhoto(idOjet1: any): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(
+      environment.baseUrl + "photos/trouverAmenPhoto/" + idOjet1
+    );
+  }
+
   creerAdmissionDetenu(ojet: any): Observable<ApiResponse> {
     return this.httpClient.post<ApiResponse>(
       environment.baseUrl + "enfant/creerAdmissionDetenu",
@@ -76,6 +82,17 @@ export class DetentionService {
       environment.baseUrl + "enfant/trouverResidencesParNumeroEcrou/" + idOjet
     );
   }
+
+  trouverDetenusParNumeroEcrouDansPrisons(
+    idOjet: any
+  ): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(
+      environment.baseUrl +
+        "enfant/trouverDetenusParNumeroEcrouDansPrisons/" +
+        idOjet
+    );
+  }
+
   trouverDetenuAvecSonStatutActuel(
     idOjet1: String,
     idOjet2: String
@@ -127,7 +144,15 @@ export class DetentionService {
         idOjet2
     );
   }
-
+  trouverToutDetentionInfosParPrisonerIdDansPrisons(
+    idOjet: any
+  ): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(
+      environment.baseUrl +
+        "enfant/trouverToutDetentionInfosParPrisonerIdDansPrisons/" +
+        idOjet
+    );
+  }
   calculerNombreDetentionsParIdDetenu(
     ojetUrl: any,
     idOjet: any
@@ -150,6 +175,167 @@ export class DetentionService {
         idEnfant +
         "/" +
         numOrdinaleArrestation
+    );
+  }
+
+  findPrisonerPenalByPrisonerId(idEnfant: any): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(
+      environment.baseUrl + "enfant/findPrisonerPenalByPrisonerId/" + idEnfant
+    );
+  }
+
+  findAffairesByNumideAndCoddet(
+    prisonerId: any,
+    numArr: any
+  ): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(
+      environment.baseUrl +
+        "enfant/findAffairesByNumideAndCoddet/" +
+        prisonerId +
+        "/" +
+        numArr
+    );
+  }
+
+  getMandatDepot(
+    tnumide: any,
+    tcoddet: any,
+    tnumseqaff: any,
+    tcodma: any
+  ): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(
+      environment.baseUrl +
+        "enfant/getMandatDepot/" +
+        tnumide +
+        "/" +
+        tcoddet +
+        "/" +
+        tnumseqaff +
+        "/" +
+        tcodma
+    );
+  }
+
+  getTransfert(
+    tnumide: any,
+    tcoddet: any,
+    tnumseqaff: any,
+    tcodma: any
+  ): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(
+      environment.baseUrl +
+        "enfant/getTransfert/" +
+        tnumide +
+        "/" +
+        tcoddet +
+        "/" +
+        tnumseqaff +
+        "/" +
+        tcodma
+    );
+  }
+
+  getContestation(
+    tnumide: any,
+    tcoddet: any,
+    tnumseqaff: any,
+    tcodma: any,
+    codeDocumentSecondaire: any
+  ): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(
+      environment.baseUrl +
+        "enfant/getContestation/" +
+        tnumide +
+        "/" +
+        tcoddet +
+        "/" +
+        tnumseqaff +
+        "/" +
+        tcodma +
+        "/" +
+        codeDocumentSecondaire
+    );
+  }
+
+  getAccusationsParDetenu(
+    tnumide: any,
+    tcoddet: any,
+
+    codExtj: any
+  ): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(
+      environment.baseUrl +
+        "enfant/getAccusationsParDetenu/" +
+        tnumide +
+        "/" +
+        tcoddet +
+        "/" +
+        codExtj
+    );
+  }
+  getActesJudiciaires(
+    tnumide: any,
+    tcoddet: any,
+
+    tnumseqaff: any
+  ): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(
+      environment.baseUrl +
+        "enfant/getActesJudiciaires/" +
+        tnumide +
+        "/" +
+        tcoddet +
+        "/" +
+        tnumseqaff
+    );
+  }
+  getArretExecutionParTypeActe(
+    tnumide: any,
+    tcoddet: any,
+
+    tnumseqaff: any,
+    typeActe: any
+  ): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(
+      environment.baseUrl +
+        "enfant/getArretExecutionParTypeActe/" +
+        tnumide +
+        "/" +
+        tcoddet +
+        "/" +
+        tnumseqaff +
+        "/" +
+        typeActe
+    );
+  }
+
+  trouverDetenusParPrisonerIdDansPrisons(
+    prisonerId: any
+  ): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(
+      environment.baseUrl +
+        "enfant/trouverDetenusParPrisonerIdDansPrisons/" +
+        prisonerId
+    );
+  }
+
+  trouverDetenusParDetenuIdMineurDansPrisons(
+    prisonerIdMineur: any
+  ): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(
+      environment.baseUrl +
+        "enfant/trouverDetenusParDetenuIdMineurDansPrisons/" +
+        prisonerIdMineur
+    );
+  }
+
+  trouverDetenusParDetenuIdMajeurDansCentres(
+    prisonerIdMajeur: any
+  ): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(
+      environment.baseUrl +
+        "enfant/trouverDetenusParDetenuIdMajeurDansCentres/" +
+        prisonerIdMajeur
     );
   }
 

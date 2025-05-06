@@ -13,9 +13,9 @@ export class Arrestation {
   statut: number;
   etatJuridique?: any;
   liberation: Liberation;
-  numOrdinalAffairePricipale?: String;
-  numAffairePricipale?: any;
+  // numOrdinalAffairePricipale?: String;
+  // numAffairePricipale?: any;
   tribunalPricipale: Tribunal;
-  typeAffairePricipale: TypeAffaire;
+  // typeAffairePricipale: TypeAffaire;
    
 }

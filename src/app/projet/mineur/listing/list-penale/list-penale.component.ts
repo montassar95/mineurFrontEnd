@@ -153,25 +153,25 @@ export class ListPenaleComponent implements OnInit {
 
   ngOnInit(): void {
     this.accusationsToAdd = [
-      // { label: "المقيمين بمختلف وضعيتهم", value: "all" },
+      { label: "المقيمين بمختلف وضعيتهم", value: "all" },
       { label: "المفرج عنهم", value: "seraLibere" },
       { label: "البالغين لسن الرشد ", value: "devenuMajeur" },
+      { label: "المقيمين دون قضايا", value: "nonAff" },
       { label: "الموقوفين ", value: "arret" },
       { label: "المحكومين", value: "juge" },
+      { label: "    إستئناف النيابة  ", value: "attetAP" },
+      { label: "    إستئناف الطفل  ", value: "attetAE" },
+      { label: "    إحالة   ", value: "attetT" },
+
+      { label: "     مراجعة  ", value: "jugeR" },
 
       { label: "السراحات", value: "libere" },
+      { label: "تغيير وسيلة ", value: "chanLieu" },
 
-      { label: " داخلون  ", value: "entreReelle" },
-
-      { label: " جلسات   ", value: "audience" },
-
-      { label: "الواقع نقلتهم إلى مراكز إصلاح", value: "sortieMutation" },
-      { label: "الوافدون من مراكز إصلاح", value: "entreeMutation" },
-      { label: "المقيمين دون قضايا", value: "nonAff" },
-      { label: "الموقوفين ( إحالة ) ", value: "attetT" },
-      { label: "الموقوفين ( إستئناف النيابة )", value: "attetAP" },
-      { label: "الموقوفين ( إستئناف الطفل )", value: "attetAE" },
-      { label: "المحكومين ( مراجعة )", value: "jugeR" },
+      { label: "  داخلون جدد   ", value: "entreReelle" },
+      { label: "   داخلون نقل    ", value: "entreeMutation" },
+      { label: "     الخارجون نقل     ", value: "sortieMutation" },
+      { label: " تغيرات و جلسات    ", value: "audience" },
     ];
     this.ageToAdd1 = [
       { label: "empty", value: 0 },
@@ -216,6 +216,9 @@ export class ListPenaleComponent implements OnInit {
     });
     this.crudservice.getlistEntity("causeLiberation").subscribe((data) => {
       this.entitiesCauseLiberation = data.result;
+      this.entitiesCauseLiberation = this.entitiesCauseLiberation.filter(
+        (u) => u.id !== 50
+      );
     });
 
     this.crudservice.getlistEntity("situationSocial").subscribe((data) => {

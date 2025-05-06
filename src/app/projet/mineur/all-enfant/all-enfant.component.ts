@@ -78,7 +78,8 @@ export class AllEnfantComponent implements OnInit {
 
   sexe: any;
   selectedValue: string = "val1";
-
+  idDetenu;
+  numArrDetenu;
   residenceEdit: Residence;
   click = false;
   update = true;
@@ -122,7 +123,7 @@ export class AllEnfantComponent implements OnInit {
 
   ngOnInit() {
     this.currentUser = this.token.getUser();
-
+    console.log(this.currentUser);
     this.searchForm = this.formBuilder.group({
       nom: ["", Validators.required],
       prenom: ["", Validators.required],
@@ -148,8 +149,17 @@ export class AllEnfantComponent implements OnInit {
   //   };
   // }
 
-  showVisite(residence) {
-    this.residenceVisite = residence;
+  showVisite(searchDetenuDto) {
+    this.detentionService
+      .trouverDerniereResidenceParNumDetentionEtIdDetenu(
+        "residence",
+        searchDetenuDto.detenuId,
+        searchDetenuDto.numOrdinaleArrestation
+      )
+      .subscribe((data) => {
+        this.residenceVisite = data.result;
+      });
+
     this.displayVisite = true;
   }
   handleFormData(formData: { year: number; month: number; value: number }) {
@@ -181,8 +191,12 @@ export class AllEnfantComponent implements OnInit {
     // this.searchForm.reset();
     if (this.selectedValue == "val1") {
       this.numArr = null;
+      this.idDetenu = null;
+      this.numArrDetenu = null;
     } else {
       this.id = null;
+      this.idDetenu = null;
+      this.numArrDetenu = null;
     }
   }
 
@@ -221,16 +235,35 @@ export class AllEnfantComponent implements OnInit {
 
     this.prenomMere = this.searchForm.get("prenomMere").value;
 
-    this.dateNaissance = this.searchForm?.get("dateNaissance")?.value;
+    // this.dateNaissance = this.searchForm?.get("dateNaissance")?.value;
 
-    this.searchForm
-      .get("dateNaissance")
-      .setValue(
-        this.datepipe.transform(
-          this.searchForm.get("dateNaissance").value,
-          "yyyy-MM-dd"
-        )
-      );
+    // this.searchForm
+    //   .get("dateNaissance")
+    //   .setValue(
+    //     this.datepipe.transform(
+    //       this.searchForm.get("dateNaissance").value,
+    //       "yyyy-MM-dd"
+    //     )
+    //   );
+
+
+const rawDate = this.searchForm.get("dateNaissance").value;
+const parsedDate = new Date(rawDate);
+
+// Check if it's a valid date
+if (!isNaN(parsedDate.getTime())) {
+  this.searchForm
+    .get("dateNaissance")
+    .setValue(this.datepipe.transform(parsedDate, "yyyy-MM-dd"));
+} else {
+  // Optional: reset the field or handle the invalid input
+  this.searchForm.get("dateNaissance").setValue(null);
+  // Or display a message to the user if needed
+}
+
+
+
+
     this.sexe = this.searchForm.get("sexe").value;
 
     this.detentionService
@@ -264,6 +297,8 @@ export class AllEnfantComponent implements OnInit {
 
     // this.viewportscroller.scrollToAnchor("dt" );
     // this.selectedIndex=0;
+
+    console.log(this.source);
   }
   onSubmitSearchForm() {
     this.source = "Mineur";
@@ -367,11 +402,11 @@ export class AllEnfantComponent implements OnInit {
     }
   }
   onSubmitId() {
-    this.source = "Mineur";
     //  this.searchForm.reset();
     console.log(this.selectedValue);
 
     if (this.selectedValue == "val1") {
+      this.source = "Mineur";
       if (this.id) {
         this.detentionService
           .trouverDerniereResidenceParIdDetenu(this.id)
@@ -401,10 +436,73 @@ export class AllEnfantComponent implements OnInit {
             }
           );
       }
-    } else {
+    } else if (this.selectedValue == "val2") {
+      this.source = "Mineur";
       if (this.numArr) {
         this.detentionService
           .trouverResidencesParNumeroEcrou(this.numArr)
+          .subscribe(
+            (data) => {
+              if (data.result) {
+                this.detenus = [];
+
+                this.detenus = data.result;
+                this.searchBoolean = false;
+              } else {
+                this.detenus = [];
+
+                this.searchBoolean = false;
+              }
+            },
+            (error) => {
+              // Handle error here
+              console.error(
+                "An error occurred while generating the report PDF:",
+                error
+              );
+              this.click = false;
+              // You can show an alert or display a user-friendly message if needed
+              alert("فشل إنشاء التقرير. يرجى المحاولة مرة أخرى.");
+            }
+          );
+      }
+    } else if (this.selectedValue == "val3") {
+      this.source = "Penale";
+      if (this.idDetenu) {
+        this.detentionService
+          .trouverDetenusParPrisonerIdDansPrisons(this.idDetenu)
+          .subscribe(
+            (data) => {
+              console.log(data);
+              if (data.result) {
+                this.detenus = [];
+
+                this.detenus.push(data.result);
+                console.log(this.detenus);
+                this.searchBoolean = false;
+              } else {
+                this.detenus = [];
+
+                this.searchBoolean = false;
+              }
+            },
+            (error) => {
+              // Handle error here
+              console.error(
+                "An error occurred while generating the report PDF:",
+                error
+              );
+              this.click = false;
+              // You can show an alert or display a user-friendly message if needed
+              alert("فشل إنشاء التقرير. يرجى المحاولة مرة أخرى.");
+            }
+          );
+      }
+    } else if (this.selectedValue == "val4") {
+      this.source = "Penale";
+      if (this.numArrDetenu) {
+        this.detentionService
+          .trouverDetenusParNumeroEcrouDansPrisons(this.numArrDetenu)
           .subscribe(
             (data) => {
               if (data.result) {
@@ -435,6 +533,215 @@ export class AllEnfantComponent implements OnInit {
     //  this.viewportscroller.scrollToAnchor("dt" );
   }
 
+  onSubmitIdDansPrision() {
+    //  this.searchForm.reset();
+    console.log(this.selectedValue);
+
+    if (this.selectedValue == "val1") {
+      this.source = "Penale";
+      if (this.id) {
+        this.detentionService
+          .trouverDetenusParDetenuIdMineurDansPrisons(this.id)
+          .subscribe(
+            (data) => {
+              console.log(data);
+              if (data.result) {
+                this.detenus = [];
+                console.log(data.result);
+                this.detenus = data.result;
+                this.searchBoolean = false;
+              } else {
+                this.detenus = [];
+
+                this.searchBoolean = false;
+              }
+            },
+            (error) => {
+              // Handle error here
+              console.error(
+                "An error occurred while generating the report PDF:",
+                error
+              );
+              this.click = false;
+              // You can show an alert or display a user-friendly message if needed
+              alert("فشل إنشاء التقرير. يرجى المحاولة مرة أخرى.");
+            }
+          );
+      }
+    } else if (this.selectedValue == "val2") {
+      this.detenus = [];
+
+      this.searchBoolean = false;
+      alert("لا يمكنك البحث بعدد إيقاف خاص بالمراكز داخل السجن");
+    } else if (this.selectedValue == "val3") {
+      this.source = "Penale";
+      if (this.idDetenu) {
+        this.detentionService
+          .trouverDetenusParPrisonerIdDansPrisons(this.idDetenu)
+          .subscribe(
+            (data) => {
+              console.log(data);
+              if (data.result) {
+                this.detenus = [];
+
+                this.detenus.push(data.result);
+                console.log(this.detenus);
+                this.searchBoolean = false;
+              } else {
+                this.detenus = [];
+
+                this.searchBoolean = false;
+              }
+            },
+            (error) => {
+              // Handle error here
+              console.error(
+                "An error occurred while generating the report PDF:",
+                error
+              );
+              this.click = false;
+              // You can show an alert or display a user-friendly message if needed
+              alert("فشل إنشاء التقرير. يرجى المحاولة مرة أخرى.");
+            }
+          );
+      }
+    } else if (this.selectedValue == "val4") {
+      this.source = "Penale";
+      if (this.numArrDetenu) {
+        this.detentionService
+          .trouverDetenusParNumeroEcrouDansPrisons(this.numArrDetenu)
+          .subscribe(
+            (data) => {
+              if (data.result) {
+                this.detenus = [];
+
+                this.detenus = data.result;
+                this.searchBoolean = false;
+              } else {
+                this.detenus = [];
+
+                this.searchBoolean = false;
+              }
+            },
+            (error) => {
+              // Handle error here
+              console.error(
+                "An error occurred while generating the report PDF:",
+                error
+              );
+              this.click = false;
+              // You can show an alert or display a user-friendly message if needed
+              alert("فشل إنشاء التقرير. يرجى المحاولة مرة أخرى.");
+            }
+          );
+      }
+    }
+  }
+
+  onSubmitIdDansCentre() {
+    if (this.selectedValue == "val1") {
+      this.source = "Mineur";
+      if (this.id) {
+        this.detentionService
+          .trouverDerniereResidenceParIdDetenu(this.id)
+          .subscribe(
+            (data) => {
+              console.log(data);
+              if (data.result) {
+                this.detenus = [];
+                console.log(data.result);
+                this.detenus.push(data.result);
+                this.searchBoolean = false;
+              } else {
+                this.detenus = [];
+
+                this.searchBoolean = false;
+              }
+            },
+            (error) => {
+              // Handle error here
+              console.error(
+                "An error occurred while generating the report PDF:",
+                error
+              );
+              this.click = false;
+              // You can show an alert or display a user-friendly message if needed
+              alert("فشل إنشاء التقرير. يرجى المحاولة مرة أخرى.");
+            }
+          );
+      }
+    } else if (this.selectedValue == "val2") {
+      this.source = "Mineur";
+      if (this.numArr) {
+        this.detentionService
+          .trouverResidencesParNumeroEcrou(this.numArr)
+          .subscribe(
+            (data) => {
+              if (data.result) {
+                this.detenus = [];
+
+                this.detenus = data.result;
+                this.searchBoolean = false;
+              } else {
+                this.detenus = [];
+
+                this.searchBoolean = false;
+              }
+            },
+            (error) => {
+              // Handle error here
+              console.error(
+                "An error occurred while generating the report PDF:",
+                error
+              );
+              this.click = false;
+              // You can show an alert or display a user-friendly message if needed
+              alert("فشل إنشاء التقرير. يرجى المحاولة مرة أخرى.");
+            }
+          );
+      }
+    }
+    //  this.searchForm.reset();
+    /// console.log(this.selectedValue);
+    else if (this.selectedValue == "val3") {
+      this.source = "Mineur";
+      if (this.idDetenu) {
+        this.detentionService
+          .trouverDetenusParDetenuIdMajeurDansCentres(this.idDetenu)
+          .subscribe(
+            (data) => {
+              console.log(data);
+              if (data.result) {
+                this.detenus = [];
+                console.log(data.result);
+                this.detenus = data.result;
+                this.searchBoolean = false;
+              } else {
+                this.detenus = [];
+
+                this.searchBoolean = false;
+              }
+            },
+            (error) => {
+              // Handle error here
+              console.error(
+                "An error occurred while generating the report PDF:",
+                error
+              );
+              this.click = false;
+              // You can show an alert or display a user-friendly message if needed
+              alert("فشل إنشاء التقرير. يرجى المحاولة مرة أخرى.");
+            }
+          );
+      }
+    } else if (this.selectedValue == "val4") {
+      this.detenus = [];
+
+      this.searchBoolean = false;
+      alert("لا يمكنك البحث بعدد إيقاف خاص بالسجون داخل مركز ");
+    }
+  }
+
   showSearch() {
     this.searchBoolean = true;
   }
@@ -443,17 +750,27 @@ export class AllEnfantComponent implements OnInit {
     this.addBoolean = true;
   }
 
-  showEdit(residence: Residence) {
-    this.residenceEdit = residence;
+  showEdit(searchDetenuDto) {
+    this.detentionService
+      .trouverDerniereResidenceParNumDetentionEtIdDetenu(
+        "residence",
+        searchDetenuDto.detenuId,
+        searchDetenuDto.numOrdinaleArrestation
+      )
+      .subscribe((data) => {
+        this.residenceEdit = data.result;
+      });
+
     this.displayEdit = true;
   }
 
   showFolderEnfant(detenuId: string) {
+    console.log(this.source);
     // Logique de navigation
     if (this.source == "Mineur") {
       this.router.navigate(["/mineur/MoreInformation", detenuId, this.source]);
     } else if (this.source == "Penale") {
-      this.router.navigate(["/mineur/showPenale", detenuId]);
+      this.router.navigate(["/mineur/showPenale", detenuId, this.source]);
     } else {
       alert("erreur");
     }

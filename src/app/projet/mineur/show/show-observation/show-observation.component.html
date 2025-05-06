@@ -79,8 +79,8 @@
         </div>
 
         <div class="footer">
-            <label>المدرج: <span>{{ observation?.user?.nom +' '+ observation?.user?.prenom }}</span>
-                <p>{{ observation?.etablissement?.libelle_etablissement }} في {{ observation?.dateInsertion |
+            <!-- <label>المدرج: <span>{{ observation?.user?.nom +' '+ observation?.user?.prenom }}</span> -->
+            <label>  <p>{{ observation?.etablissement?.libelle_etablissement }} في {{ observation?.dateInsertion |
                     date:'yyyy/MM/dd' }} </p>
             </label>
         </div>

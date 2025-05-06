@@ -20,6 +20,16 @@ export class RapportService {
     );
   }
 
+  genererFicheDeLiberationPdf(ojet: any): Observable<Blob> {
+    return this.httpClient.post(
+      environment.baseUrl + "rapportPdf/genererFicheDeLiberationPdf",
+      ojet,
+      {
+        responseType: "blob",
+      }
+    );
+  }
+
   genererRapportPdfActuel(ojet: any): Observable<Blob> {
     return this.httpClient.post(
       environment.baseUrl + "rapportPdf/genererRapportPdfActuel",
@@ -45,6 +55,13 @@ export class RapportService {
       {
         responseType: "blob",
       }
+    );
+  }
+
+  genererRapportJsonActuel(ojet: any): Observable<ApiResponse> {
+    return this.httpClient.post<ApiResponse>(
+      environment.baseUrl + "rapportPdf/genererRapportJsonActuel",
+      ojet
     );
   }
 }

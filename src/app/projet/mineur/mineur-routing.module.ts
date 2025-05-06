@@ -75,6 +75,7 @@ import { ModifyPasswordComponent } from "./modify-password/modify-password.compo
 import { OppositionComponent } from "./opposition/opposition.component";
 import { ObservationComponent } from "./observation/observation.component";
 import { ShowPenaleComponent } from "./show-penale/show-penale.component";
+import { DetailleAffaireComponent } from "./detaille-affaire/detaille-affaire.component";
 
 const routes: Routes = [
   {
@@ -91,7 +92,7 @@ const routes: Routes = [
       },
 
       {
-        path: "showPenale/:id",
+        path: "showPenale/:id/:source",
         component: ShowPenaleComponent,
       },
 
@@ -126,7 +127,8 @@ const routes: Routes = [
       { path: "code", component: CodeComponent },
       { path: "ProcedureAppel", component: ProcedureAppelComponent },
       { path: "Affaire", component: AffaireComponent },
-
+      { path: "detailleAffaire", component: DetailleAffaireComponent },
+ 
       { path: "Changement", component: ChangementComponent },
       { path: "AppelParquet", component: AppelParquetComponent },
       { path: "AppelEnfant", component: AppelEnfantComponent },

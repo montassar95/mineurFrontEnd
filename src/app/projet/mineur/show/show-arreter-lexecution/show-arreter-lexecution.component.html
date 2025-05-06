@@ -1,29 +1,27 @@
- 
- 
 <div dir="rtl" *ngIf="  arreterlexecution" class="judicial-document">
     <div class="document-header">
         <div class="header-left">
             <h1>الجمهورية التونسية</h1>
             <h2>وزارة العدل</h2>
-            <h3>{{  arreterlexecution?.affaire?.tribunal?.nom_tribunal }}</h3>
+            <h3>{{ arreterlexecution?.affaire?.tribunal?.nom_tribunal }}</h3>
         </div>
 
         <div class="header-center">
             <h1 class="document-title">
-                
-<b *ngIf="arreterlexecution?.typeFile=='AEX' ||  !arreterlexecution?.typeFile ">
-    إيقاف تنفيذ الحكم
-</b>
-<b *ngIf="arreterlexecution?.typeFile=='L'">
-    ســــــــــــراح
-</b>
+
+                <b *ngIf="arreterlexecution?.typeFile=='ArretEx' ||  !arreterlexecution?.typeFile ">
+                    إيقاف تنفيذ الحكم
+                </b>
+                <b *ngIf="arreterlexecution?.typeFile=='L'">
+                    ســــــــــــراح
+                </b>
             </h1>
         </div>
 
         <div class="header-right">
             <h3>
-                <b>{{  arreterlexecution?.affaire?.tribunal?.gouvernorat?.libelle_gouvernorat}}</b>
-                <b> في {{  arreterlexecution?.dateEmission | date:'yyyy/MM/dd' }}</b>
+                <b>{{ arreterlexecution?.affaire?.tribunal?.gouvernorat?.libelle_gouvernorat}}</b>
+                <b> في {{ arreterlexecution?.dateEmission | date:'yyyy/MM/dd' }}</b>
             </h3>
         </div>
     </div>
@@ -36,27 +34,28 @@
             <div class="p-col-10">
                 <ul>
                     <li style="font-weight: bold;">
-                        {{  arreterlexecution?.affaire?.arrestation?.enfant?.nom }} بن
-                        {{  arreterlexecution?.affaire?.arrestation?.enfant?.nomPere }} بن
-                        {{  arreterlexecution?.affaire?.arrestation?.enfant?.nomGrandPere }}
-                        {{  arreterlexecution?.affaire?.arrestation?.enfant?.prenom }}
+                        {{ arreterlexecution?.affaire?.arrestation?.enfant?.nom }} بن
+                        {{ arreterlexecution?.affaire?.arrestation?.enfant?.nomPere }} بن
+                        {{ arreterlexecution?.affaire?.arrestation?.enfant?.nomGrandPere }}
+                        {{ arreterlexecution?.affaire?.arrestation?.enfant?.prenom }}
                         <br>
                         إبن
-                        {{  arreterlexecution?.affaire?.arrestation?.enfant?.nomMere + ' ' +
-                         arreterlexecution?.affaire?.arrestation?.enfant?.prenomMere }}
+                        {{ arreterlexecution?.affaire?.arrestation?.enfant?.nomMere + ' ' +
+                        arreterlexecution?.affaire?.arrestation?.enfant?.prenomMere }}
                     </li>
                     <li style="color: red;">
                         البلغ (ة) من العمر: XX سنة
 
                         و المولود (ة) بــــ:
-                        {{  arreterlexecution?.affaire?.arrestation?.enfant?.lieuNaissance }}
-                        {{  arreterlexecution?.affaire?.arrestation?.enfant?.dateNaissance | date:'yyyy/MM/dd' }}
+                        {{ arreterlexecution?.affaire?.arrestation?.enfant?.lieuNaissance }}
+                        {{ arreterlexecution?.affaire?.arrestation?.enfant?.dateNaissance | date:'yyyy/MM/dd' }}
                     </li>
                     <li>
                         القاطن (ة):
-                        {{  arreterlexecution?.affaire?.arrestation?.enfant?.adresse + ' ' }}
-                        {{  arreterlexecution?.affaire?.arrestation?.enfant?.delegation?.libelle_delegation + ' ' }}
-                        {{  arreterlexecution?.affaire?.arrestation?.enfant?.delegation?.gouvernorat?.libelle_gouvernorat }}
+                        {{ arreterlexecution?.affaire?.arrestation?.enfant?.adresse + ' ' }}
+                        {{ arreterlexecution?.affaire?.arrestation?.enfant?.delegation?.libelle_delegation + ' ' }}
+                        {{ arreterlexecution?.affaire?.arrestation?.enfant?.delegation?.gouvernorat?.libelle_gouvernorat
+                        }}
                     </li>
                 </ul>
             </div>
@@ -65,78 +64,79 @@
         <div class="p-grid" *ngIf="arreterlexecution.affaire">
             <div class="p-col-2">
                 <label style="background-color: rgb(241, 241, 241);">
-                     قضية السراح :
-        
+                    قضية السراح :
+
                 </label>
             </div>
             <div class="p-col-10">
-                
-        
-                    <span style="text-decoration: underline  rgba(255, 0, 0, 0.650);"> {{
-                        arreterlexecution.affaire?.affaireId.numAffaire }}</span>
-                    <span style="text-decoration: underline  rgba(255, 0, 0, 0.650);"> {{
-                        arreterlexecution.affaire?.tribunal.nom_tribunal }}</span>
-        
-                 
+
+
+                <span style="text-decoration: underline  rgba(255, 0, 0, 0.650);"> {{
+                    arreterlexecution.affaire?.affaireId.numAffaire }}</span>
+                <span style="text-decoration: underline  rgba(255, 0, 0, 0.650);"> {{
+                    arreterlexecution.affaire?.tribunal.nom_tribunal }}</span>
+
+
             </div>
         </div>
-        
-        
+
+
         <div class="p-grid" *ngIf="arreterlexecution.affaire">
             <div class="p-col-2" *ngIf="arreterlexecution.affaire.affaireLien">
                 <label style="background-color: rgb(241, 241, 241);">
                     القضية الرئسية:
-        
+
                 </label>
             </div>
             <div class="p-col-10">
-                
-                    <span *ngIf="arreterlexecution.affaire.affaireLien"> {{
-                        arreterlexecution.affaire.affaireLien.affaireId.numAffaire }}</span>
-                    <span *ngIf="arreterlexecution.affaire.affaireLien"> {{
-                        arreterlexecution.affaire.affaireLien.tribunal.nom_tribunal }}</span>
-        
-        
-               
+
+                <span *ngIf="arreterlexecution.affaire.affaireLien"> {{
+                    arreterlexecution.affaire.affaireLien.affaireId.numAffaire }}</span>
+                <span *ngIf="arreterlexecution.affaire.affaireLien"> {{
+                    arreterlexecution.affaire.affaireLien.tribunal.nom_tribunal }}</span>
+
+
+
             </div>
         </div>
-        
+
         <div class="p-grid">
             <div class="p-col-2">
                 <label style="background-color: rgb(241, 241, 241);">
                     أسباب السراح
-        
+
                 </label>
             </div>
             <div class="p-col-10">
-              
-        
-                    <span>{{arreterlexecution?.motifArreterlexecution?.libelleMotifArretere}}</span>
-                 
+
+
+                <span>{{arreterlexecution?.motifArreterlexecution?.libelleMotifArretere}}</span>
+
             </div>
         </div>
-        
-        
+
+
         <div class="p-grid">
             <div class="p-col-2">
                 <label style="background-color: rgb(241, 241, 241);">
                     تاريخ إيقاف تنفيذ
-        
+
                 </label>
             </div>
             <div class="p-col-10">
-                
-        
-                    <span dir="rtl">{{ arreterlexecution.dateDepotCarte }}</span>
-                 
+
+
+                <span dir="rtl">{{ arreterlexecution.dateDepotCarte }}</span>
+
             </div>
         </div>
         <div class="footer">
-            <label>المدرج: <span>{{  arreterlexecution?.user?.nom +' '+  arreterlexecution?.user?.prenom }}</span>
-                <p>{{  arreterlexecution?.etablissement?.libelle_etablissement }} في {{  arreterlexecution?.dateInsertion |
+            <!-- <label>المدرج: <span>{{  arreterlexecution?.user?.nom +' '+  arreterlexecution?.user?.prenom }}</span> -->
+            <label>
+                <p>{{ arreterlexecution?.etablissement?.libelle_etablissement }} في {{ arreterlexecution?.dateInsertion
+                    |
                     date:'yyyy/MM/dd' }} </p>
             </label>
         </div>
     </div>
 </div>
- 

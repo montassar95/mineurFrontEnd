@@ -25,7 +25,7 @@
 
     <div class="p-grid" style="width: 100%;">
         <div class="p-col-3" *ngIf="!selectedIndex">
-            <div class="court-document" style="width: 70%;">
+            <div class="court-document " style="width: 90%;  ">
 
                 <p-tabView>
 
@@ -36,8 +36,9 @@
 
                             <!-- Identifiant de l'enfant -->
                             <div class="p-col-5">
-                                <h2>معرف الطفل</h2>
+                                <h2> عدد مذكرة طفل </h2>
                             </div>
+
                             <div class="p-col-1" style="margin-top: 7px;">
                                 <p-radioButton name="groupname" value="val1" [(ngModel)]="selectedValue"
                                     (click)="show()"></p-radioButton>
@@ -51,7 +52,7 @@
 
                             <!-- Nombre d'arrêts -->
                             <div class="p-col-5">
-                                <h2>عدد الإيقاف</h2>
+                                <h2>عدد إيقاف طفل </h2>
                             </div>
                             <div class="p-col-1" style="margin-top: 5px;">
                                 <p-radioButton name="groupname" value="val2" [(ngModel)]="selectedValue"
@@ -63,15 +64,53 @@
                                     [(ngModel)]="numArr" mask="999999" slotChar="------" (keyup.enter)="onSubmitId()"
                                     placeholder="عدد"></p-inputMask>
                             </div>
+                            <div class="p-col-5">
+                                <h2>عدد مذكرة سجين </h2>
+                            </div>
+                            <div class="p-col-1" style="margin-top: 7px;">
+                                <p-radioButton name="groupname" value="val3" [(ngModel)]="selectedValue"
+                                    (click)="show()"></p-radioButton>
+                            </div>
+                            <div class="p-col-6">
+                                <p-inputMask *ngIf="selectedValue == 'val3'"
+                                    [style]="{'font-weight': '400', 'width': '100%', 'font-size': '18px', 'color': 'black', 'margin-bottom': '10px'}"
+                                    dir="rtl" [(ngModel)]="idDetenu" mask="9999999999" slotChar="------------"
+                                    (keyup.enter)="onSubmitId()" placeholder="معرف"></p-inputMask>
+                            </div>
 
+                            <div class="p-col-5">
+                                <h2>عدد إيقاف سجين </h2>
+                            </div>
+                            <div class="p-col-1" style="margin-top: 5px;">
+                                <p-radioButton name="groupname" value="val4" [(ngModel)]="selectedValue"
+                                    (click)="show()"></p-radioButton>
+                            </div>
+                            <div class="p-col-6">
+                                <p-inputMask *ngIf="selectedValue == 'val4'"
+                                    [style]="{'font-weight': '400', 'font-size': '18px', 'color': 'black'}" dir="rtl"
+                                    [(ngModel)]="numArrDetenu" mask="99999" slotChar="-----"
+                                    (keyup.enter)="onSubmitId()" placeholder="عدد"></p-inputMask>
+                            </div>
                         </div>
 
-                        <div class="p-col-12 p-md-12" style="text-align: center;">
+                        <!-- <div class="p-col-12 p-md-12" style="text-align: center;">
                             <button (click)="onSubmitId()" style="background-color: #28a745!important;" mat-fab>
                                 <i class="pi pi-search" style="font-size: 25px;"></i>
                             </button>
-                        </div>
+                        </div> -->
+                        <div class="button-container" style="text-align: center;">
+                            <!-- Bouton 1 : البحث داخل مراكز الإصلاح -->
+                            <button class="custom-button green-button" (click)="onSubmitIdDansCentre()">
+                                <i class="pi pi-search"></i>
+                                <span> داخل مراكز الإصلاح</span>
+                            </button>
 
+                            <!-- Bouton 2 : البحث داخل الوحدات السجنية -->
+                            <button class="custom-button blue-button" (click)="onSubmitIdDansPrision()">
+                                <i class="pi pi-search"></i>
+                                <span> داخل الوحدات السجنية </span>
+                            </button>
+                        </div>
                     </p-tabPanel>
 
                     <!-- Tab Panel: الهوية العربية -->
@@ -173,13 +212,13 @@
                                 <!-- Bouton 1 : البحث داخل مراكز الإصلاح -->
                                 <button class="custom-button green-button" (click)="onSubmitSearchForm()">
                                     <i class="pi pi-search"></i>
-                                    <span> مراكز الإصلاح</span>
+                                    <span> داخل مراكز الإصلاح</span>
                                 </button>
 
                                 <!-- Bouton 2 : البحث داخل الوحدات السجنية -->
                                 <button class="custom-button blue-button" (click)="onSubmitSearchForm2()">
                                     <i class="pi pi-search"></i>
-                                    <span> الوحدات السجنية</span>
+                                    <span> داخل الوحدات السجنية</span>
                                 </button>
                             </div>
 
@@ -202,6 +241,7 @@
 
         <!-- Table Section -->
         <div class="p-col-9">
+
             <div class="p-grid" style="background-color: white;">
                 <p-table [value]="detenus" *ngIf="detenus.length" id="dt" #dt dataKey="numOrdinale"
                     paginatorPosition="bottom" [rowsPerPageOptions]="[4,10,20,50]" [rows]="4" [paginator]="true"
@@ -216,8 +256,8 @@
 
                     <ng-template pTemplate="header">
                         <tr style="background-color: rgb(233, 233, 233);">
-                            <th style="width: 9%;" pSortableColumn="residence.arrestation.enfant.id">المعرف
-                                <p-sortIcon field="residence.arrestation.enfant.id"></p-sortIcon>
+                            <th style="width: 9%;" pSortableColumn="detenu?.detenuId">المعرف
+                                <p-sortIcon field="detenu?.detenuId"></p-sortIcon>
                             </th>
                             <th style="width: 25%;">الهوية</th>
                             <th style="width: 12%;">هوية الأم</th>
@@ -250,23 +290,23 @@
                             <td *ngIf="detenu?.statut != 2">{{ detenu?.dateEntree + ' ' +
                                 detenu?.nomEtablissement + ' ' + detenu?.numeroEcrou }}
                             </td>
-                            <td style="color:red;" *ngIf="residence?.statut == 2">
-                                {{ 'نقلة جارية إلى ' + detenu?.nomEtablissement }}
+                            <td style="color:red;" *ngIf="detenu?.statut == 2">
+                                {{ 'نقلة جارية ' + detenu?.nomEtablissement }}
                             </td>
                             <td>
                                 <div class="example-button-container">
-                                    <button (click)="showFolderEnfant(detenu?.detenuId )" mat-mini-fab
-                                        color="primary" aria-label="Example icon button with a home icon">
+                                    <button (click)="showFolderEnfant(detenu?.detenuId )" mat-mini-fab color="primary"
+                                        aria-label="Example icon button with a home icon">
                                         <i class="pi pi-folder-open" style="font-size: 25px;"></i>
                                     </button>
                                     <button
-                                        *ngIf="detenu?.statut==0 && currentUser?.etablissement?.id == detenu?.etablissement?.id"
+                                        *ngIf="detenu?.statut==0 && currentUser?.etablissement?.libelle_etablissement == detenu?.nomEtablissement"
                                         style="background-color: white!important; margin-right: 15px;"
                                         (click)="showEdit(detenu)" mat-mini-fab>
                                         <i class="pi pi-pencil" style="font-size: 30px; color: blue;"></i>
                                     </button>
                                     <button
-                                        *ngIf="detenu?.statut==0 && currentUser?.etablissement?.id == detenu?.etablissement?.id"
+                                        *ngIf="detenu?.statut==0 && currentUser?.etablissement?.libelle_etablissement == detenu?.nomEtablissement"
                                         style="background-color: white!important; margin-right: 15px;"
                                         (click)="showVisite(detenu)" mat-mini-fab>
                                         <i class="pi pi-home" style="font-size: 30px; color: brown;"></i>

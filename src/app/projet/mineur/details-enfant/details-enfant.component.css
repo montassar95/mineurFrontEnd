@@ -84,3 +84,20 @@
 .profile-img:hover {
     transform: scale(1.05);
 }
+
+  .profile-img-card3 {
+
+      margin-top: 10px;
+      width: 230px;
+      height: 300px;
+      max-height: 350px;
+
+      display: block;
+      -moz-border-radius: 50%;
+      -webkit-border-radius: 50%;
+      border-radius: 10%;
+
+      -moz-box-shadow: 1px 5px 5px rgba(99, 99, 99, 0.979);
+      -webkit-box-shadow: 1px 5px 5px rgba(99, 99, 99, 0.979);
+      box-shadow: 1px 5px 5px rgba(99, 99, 99, 0.979);
+  }

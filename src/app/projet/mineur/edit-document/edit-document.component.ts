@@ -229,7 +229,7 @@ export class EditDocumentComponent implements OnInit {
       this.refuseRevue = row;
 
       this.showRefuseRevue = true;
-    } else if (row.typeDocument == "AEX") {
+    } else if (row.typeDocument == "ArretEx") {
       this.arreterlexecution = row;
 
       this.showArreterlexecution = true;
@@ -260,7 +260,7 @@ export class EditDocumentComponent implements OnInit {
       this.showAppelParquet = false;
     } else if (this.document.typeDocument == "CR") {
       this.showRevue = false;
-    } else if (this.document.typeDocument == "AEX") {
+    } else if (this.document.typeDocument == "ArretEx") {
       this.showArreterlexecution = false;
     }
   }
@@ -290,7 +290,7 @@ export class EditDocumentComponent implements OnInit {
           this.carteDepot = row;
 
           this.editCarteDepot = true;
-        } else if (row.typeDocument == "AEX") {
+        } else if (row.typeDocument == "ArretEx") {
           this.arreterlexecution = row;
 
           this.editArreterlexecution = true;
