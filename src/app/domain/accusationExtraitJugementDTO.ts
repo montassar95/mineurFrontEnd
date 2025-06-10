@@ -19,5 +19,6 @@ export class AccusationExtraitJugementDTO {
   tduraccj!: number;
   tduraccm!: number;
   tduracca!: number;
+  periodeTotale:string
   
 }

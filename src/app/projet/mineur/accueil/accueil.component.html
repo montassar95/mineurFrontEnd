@@ -1,3 +1,35 @@
+
+
+<div dir="rtl" class="chat-container">
+
+     <div class="form-group">
+          <textarea [(ngModel)]="question" placeholder="اكتب سؤالك هنا..." rows="4" class="question-textarea"
+               [disabled]="loading"></textarea>
+     </div>
+
+     <div class="form-group">
+          <button (click)="ask()" class="send-button" [disabled]="loading || !question.trim()">
+               إرسال
+          </button>
+     </div>
+
+     <div *ngIf="loading" class="loading-text">
+          جاري التحميل...
+     </div>
+
+     <div *ngIf="answer" class="answer-box">
+          <h3>الإجابة:</h3>
+          <pre>{{ answer }}</pre>
+     </div>
+
+     <div *ngIf="error" class="error-text">
+          {{ error }}
+     </div>
+</div>
+   
+
+
+
 <!--  
     
 <div class="ui-g">

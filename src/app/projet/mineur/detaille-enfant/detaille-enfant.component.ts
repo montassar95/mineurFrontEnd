@@ -25,6 +25,7 @@ export class DetailleEnfantComponent implements OnInit {
   gouvernoratSwich: SelectItem[];
   numAffaireT1 = "";
   tribunal1 = "";
+  currentUser: any;
 
   constructor(
     private crudservice: CrudEnfantService,
@@ -51,13 +52,18 @@ export class DetailleEnfantComponent implements OnInit {
       },
       {
         label: "  معطيــات",
-      } 
+      },
     ]);
   }
   showListTribunal1() {
     this.displayTribunal1 = true;
   }
   ngOnInit(): void {
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
     this.chargerDropDownListGouv();
     this.chargerDropDownListTypeTribunal();
     this.chargerDropDownListTribunal();

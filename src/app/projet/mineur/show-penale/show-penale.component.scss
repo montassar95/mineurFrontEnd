@@ -1,112 +1,188 @@
- 
+ .button-card3 {
+     background-color: rgb(235, 235, 235);
+     width: auto;
+     font-family: 'Amiri', Times, serif;
+     font-size: 20px;
+     color: black;
+     border: 2px solid #347688;
+     border-radius: 8px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     margin: 0 auto 10px;
+ }
 
 
-.container {
-    position: relative;
-    max-width: 85%;
 
-    /* Largeur maximale */
-    background: linear-gradient(to right, #ffffff, #f0efef);
-    /* Dégradé subtil pour simuler une texture papier */
-    margin: 00px auto;
-    /* Centré avec un espacement autour */
-    padding: 20px;
-    /* Espacement interne */
-    border: 3px solid #4a4a4a;
-    /* Bordure épaisse sombre */
-    border-right: 15px solid #333;
-    /* Bande latérale moderne plus fine */
 
-    -moz-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
-    -webkit-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
-    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
-    /* Coins légèrement arrondis */
-    // box-shadow: 0 12px 18px rgba(0, 0, 0, 0.35), 0 12px 18px rgba(0, 0, 0, 0.35);
-    /* Ombres plus nettes pour une meilleure profondeur */
-    // font-family: 'Times New Roman', serif;
-    /* Police officielle classique */
-    // line-height: 1.8;
-    /* Espacement des lignes pour lisibilité */
-    color: #333;
-    // /* Texte sombre */
-    overflow: hidden;
-    // /* Empêche tout débordement */
-    position: relative;
-    z-index: 1;
-    // /* Placer le contenu au-dessus des ombres */
-}
 
-.profile-img-card3 {
 
-    margin-top: 10px;
-    width: 280px;
-    height: 300px;
-    max-height: 350px;
 
-    display: block;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-    border-radius: 10%;
 
-    -moz-box-shadow: 1px 5px 5px rgba(99, 99, 99, 0.979);
-    -webkit-box-shadow: 1px 5px 5px rgba(99, 99, 99, 0.979);
-    box-shadow: 1px 5px 5px rgba(99, 99, 99, 0.979);
-}
+ .checkbox-row {
+     display: flex;
+     align-items: center;
+     margin-bottom: 5px;
+     font-size: 18px;
+ }
 
-.button-card3 {
-    background-color: rgb(235, 235, 235);
-    width: auto;
-    font-family: 'Amiri', Times, serif;
-    font-size: 20px;
-    color: black;
-    border: 2px solid #347688;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 10px;
-}
 
-.text {
-    // font-family: 'Droid Arabic Naskh';
-    // font-family: 'Times New Roman',
 
-    letter-spacing: 2px;
-    /* Couleur du texte */
-    font-size: 50px;
-    /* Taille de la police */
-    font-weight: bold;
 
-    /* Gras */
 
-    text-align: center;
 
-    font-family: 'Arabic Typesetting', serif;
-    /* Ombre du texte */
-}
 
-.textDepot {
-    // font-family: 'Droid Arabic Naskh';
-    // font-family: 'Times New Roman',
 
-    letter-spacing: 2px;
-    /* Couleur du texte */
-    font-size: 25px;
-    /* Taille de la police */
-    font-weight: bold;
 
-    /* Gras */
 
-    text-align: center;
 
-    font-family: 'Arabic Typesetting', serif;
-    /* Ombre du texte */
-}
+
+
+ .profile-img-card3 {
+    
+      margin-top: 20px;
+    width: 320px;
+        height: 380px;
+     max-height: 500px;
+
+     display: block;
+     -moz-border-radius: 50%;
+     -webkit-border-radius: 50%;
+     border-radius: 10%;
+
+     -moz-box-shadow: 1px 5px 5px rgba(99, 99, 99, 0.979);
+     -webkit-box-shadow: 1px 5px 5px rgba(99, 99, 99, 0.979);
+     box-shadow: 1px 5px 5px rgba(99, 99, 99, 0.979);
+ }
+
+
+
+ .container {
+     padding: 2px 16px;
+ }
+
  tr {
      font-family: 'Amiri', Times, serif;
      font-weight: bold;
      font-size: 20px;
  }
+
+
+
+
+ .neonsBlack b {
+     font-size: 24px;
+     text-align: center;
+     font-weight: bold;
+
+
+ }
+
+ @-webkit-keyframes glow3 {
+     from {
+         color: #015ac7 !important;
+
+     }
+
+     to {
+         color: rgb(230, 230, 230);
+
+     }
+ }
+
+
+
+
+
+
+
+
+
+
+ .filter-container {
+     text-align: center;
+ }
+
+
+
+
+ .ui-panel-content {
+     padding: 0.5em;
+ }
+
+ @media (max-width: 1024px) {
+     .car-details-list img {
+         width: 75px;
+     }
+
+     .filter-container {
+         text-align: left;
+     }
+ }
+
+ .item {
+     font-family: 'Amiri', Times, serif;
+     font-weight: bold;
+     font-size: 16px;
+     margin-top: 10px;
+     color: #4c566ad0;
+ }
+
+
+
+
+
+ :host ::ng-deep .carda {
+     /* Ajoutez de l'espace autour du div */
+     padding: 10px;
+     /* Définissez une largeur maximale pour éviter qu'ils ne deviennent trop petits */
+     max-width: 300px;
+     /* ou une valeur qui convient à votre mise en page */
+     /* Ajoutez de l'espace entre les div si nécessaire */
+     margin-bottom: 20px;
+     margin-left: 20px;
+     /* ou une valeur qui convient à votre mise en page */
+
+     border: none;
+     /* Supprimer les bordures */
+
+     /* Ajouter un peu d'espace autour du texte */
+     display: inline-block;
+     /* Pour que les éléments se comportent comme des boutons */
+     text-align: center;
+     /* Centrer le texte */
+     text-decoration: none;
+     /* Supprimer la décoration de texte */
+     color: inherit;
+     /* Utiliser la couleur de texte héritée */
+     background-color: #e9e9e9;
+     /* Couleur de fond par défaut */
+     box-shadow: 0px 5px 0px rgba(0, 0, 0, 0.2);
+     /* Ombre par défaut */
+     transition: transform 0.3s, box-shadow 0.3s;
+     /* Transition pour l'effet 3D */
+     perspective: 1000px;
+     /* Perspective pour l'effet 3D */
+     cursor: pointer;
+     /* Ajout d'un curseur pointer pour indiquer l'interactivité */
+ }
+
+ :host ::ng-deep .carda:hover {
+     transform: translateY(-2px) rotateX(3deg);
+     /* Légère rotation vers le haut au survol */
+     box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.3);
+     /* Ombre plus prononcée au survol */
+ }
+
+ :host ::ng-deep .carda:active {
+     transform: translateY(1px) rotateX(-3deg);
+     /* Légère rotation vers le bas lorsqu'il est cliqué */
+     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+     /* Ombre légère lors du clic */
+ }
+
+
+
  th {
 
      background-color: #dfdfdf;
@@ -122,3 +198,680 @@
      font-weight: bold;
      /* Police en gras */
  }
+
+
+
+ .container {
+     position: relative;
+     max-width: 80%;
+
+     /* Largeur maximale */
+     background: linear-gradient(to right, #ffffff, #f0efef);
+     /* Dégradé subtil pour simuler une texture papier */
+     margin: 00px auto;
+     /* Centré avec un espacement autour */
+     padding: 20px;
+     /* Espacement interne */
+     border: 3px solid #4a4a4a;
+     /* Bordure épaisse sombre */
+     border-right: 15px solid #333;
+     /* Bande latérale moderne plus fine */
+
+     -moz-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+     -webkit-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+     /* Coins légèrement arrondis */
+     // box-shadow: 0 12px 18px rgba(0, 0, 0, 0.35), 0 12px 18px rgba(0, 0, 0, 0.35);
+     /* Ombres plus nettes pour une meilleure profondeur */
+     // font-family: 'Times New Roman', serif;
+     /* Police officielle classique */
+     // line-height: 1.8;
+     /* Espacement des lignes pour lisibilité */
+     color: #333;
+     // /* Texte sombre */
+     overflow: hidden;
+     // /* Empêche tout débordement */
+     position: relative;
+     z-index: 1;
+     // /* Placer le contenu au-dessus des ombres */
+ }
+
+
+ .li {
+     margin: .5em 0;
+     line-height: 1.3;
+ }
+
+ .dateDocument {
+     color: #525252 !important;
+
+ }
+
+ .arrete {
+     color: #0099ff !important;
+     text-align: center;
+ }
+
+ .jugee {
+     color: #ff3434 !important;
+     text-align: center;
+ }
+
+ .libre {
+     color: rgb(1, 151, 1) !important;
+     text-align: center;
+ }
+
+ .bloc {
+     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+     transition: 0.3s;
+     text-align: center;
+     border-radius: 5px;
+ }
+
+ .bloc:hover {
+     box-shadow: 0 8px 16px 0 rgba(26, 25, 25, 0.2);
+ }
+
+//  h3 {
+
+//      font-size: 30px;
+//      /* Titres de 40 pixels */
+
+//      font-weight: bold;
+//      width: 200px;
+//      background-color: transparent;
+//  }
+
+ .container h1 {
+
+     color: #246b86 !important;
+     /* Bleu plus doux et élégant */
+     font-family: 'Amiri', 'Arabic Typesetting', Times, serif;
+     /* Polices compatibles avec l'arabe */
+     font-weight: bold;
+     /* Gras */
+     letter-spacing: 2px;
+     /* Espacement des lettres */
+     font-size: 50px;
+     /* Taille de la police */
+     text-align: center;
+     /* Aligner le texte à droite (pour l'arabe) */
+     direction: rtl;
+     /* Direction de texte de droite à gauche */
+     margin-bottom: 20px;
+     /* Un petit espacement sous le titre */
+ }
+
+
+
+ .item {
+     font-family: 'Amiri', Times, serif;
+     font-weight: bold;
+     font-size: 20px;
+     margin-top: 10px;
+     color: #4c566a;
+     margin-top: 15px;
+ }
+
+ b {
+     color: #0f4983;
+     font-weight: 900;
+     line-height: norma;
+     padding-right: 5px;
+ }
+
+
+ .text {
+     // font-family: 'Droid Arabic Naskh';
+     // font-family: 'Times New Roman',
+
+     letter-spacing: 2px;
+     /* Couleur du texte */
+     font-size: 50px;
+     /* Taille de la police */
+     font-weight: bold;
+
+     /* Gras */
+
+     text-align: center;
+
+     font-family: 'Arabic Typesetting', serif;
+     /* Ombre du texte */
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ @keyframes textclip {
+     to {
+         background-position: 400% center;
+     }
+ }
+
+ .zoom-in {
+     animation: zoom-in 1s infinite alternate;
+ }
+
+ .zoom-out {
+
+     animation: zoom-out 1s infinite alternate;
+ }
+
+ @keyframes zoom-in {
+     0% {
+         transform: scale(1);
+     }
+
+     100% {
+         transform: scale(1.4);
+     }
+ }
+
+ @keyframes zoom-out {
+     0% {
+         transform: scale(1.4);
+     }
+
+     100% {
+         transform: scale(1);
+     }
+ }
+
+ .wrapper {
+
+     background-color: #fff;
+
+     b {
+
+         font-size: 30px;
+
+         font-weight: bolder;
+
+
+
+         background: linear-gradient(to right, rgb(192, 36, 36) 10%,
+                 rgb(23, 150, 23) 90%);
+         background-size: auto auto;
+         background-clip: border-box;
+         background-size: 200% auto;
+
+         background-clip: text;
+
+         -webkit-background-clip: text;
+         -webkit-text-fill-color: transparent;
+         animation: textclip 2s linear infinite;
+         display: inline-block;
+     }
+ }
+
+ .cercle {
+     text-align: center;
+     display: inline-block;
+
+     border-radius: 40%;
+     /* Rend le label sphérique */
+     color: white;
+     /* Couleur du texte */
+     text-align: center;
+     /* Centrer le texte */
+     font-weight: bold;
+     /* Met le texte en gras */
+     box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+     background-color: red;
+     /* Ombre pour un effet néon */
+ }
+
+ .neons {
+     padding: 15px;
+     text-align: center;
+
+ }
+
+ .neons span {
+     font-size: 30px;
+     font-weight: bold;
+     font-family: 'Amiri', Times, serif;
+     animation: glow2 0.5s ease-in-out infinite alternate;
+ }
+
+ @-webkit-keyframes glow2 {
+     from {
+         color: rgb(228, 228, 228);
+     }
+
+     to {
+         color: #ffffff;
+     }
+ }
+
+ @keyframes glow2 {
+     from {
+         color: rgb(255, 255, 255);
+     }
+
+     to {
+         //  color:#2448ff
+         color: red;
+     }
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ .court-document {
+
+     margin: 5px auto;
+     padding: 30px;
+     background: linear-gradient(to right, #ffffff, #e0e0e0);
+     border-radius: 10px;
+     box-shadow: 0 4px 20px rgba(204, 204, 204, 0.1);
+     font-family: 'Amiri', Times, serif;
+     max-width: 100%;
+ }
+
+ .court-content {
+     line-height: 1.3;
+     /* Augmente l'interligne pour plus de lisibilité */
+ }
+
+ /* Spinner CSS */
+ .spinner {
+     border: 4px solid #f3f3f3;
+     /* Light grey */
+     border-top: 4px solid #3498db;
+     /* Blue */
+     border-radius: 50%;
+     width: 50px;
+     height: 50px;
+     animation: spin 1s linear infinite;
+     margin: auto;
+     display: block;
+ }
+
+ /* Animation pour le spinner */
+ @keyframes spin {
+     0% {
+         transform: rotate(0deg);
+     }
+
+     100% {
+         transform: rotate(360deg);
+     }
+ }
+
+
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ .container {
+     position: relative;
+     max-width: 85%;
+
+     /* Largeur maximale */
+     background: linear-gradient(to right, #ffffff, #f0efef);
+     /* Dégradé subtil pour simuler une texture papier */
+     margin: 00px auto;
+     /* Centré avec un espacement autour */
+     padding: 20px;
+     /* Espacement interne */
+     border: 3px solid #4a4a4a;
+     /* Bordure épaisse sombre */
+     border-right: 15px solid #333;
+     /* Bande latérale moderne plus fine */
+
+     -moz-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+     -webkit-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+     /* Coins légèrement arrondis */
+     // box-shadow: 0 12px 18px rgba(0, 0, 0, 0.35), 0 12px 18px rgba(0, 0, 0, 0.35);
+     /* Ombres plus nettes pour une meilleure profondeur */
+     // font-family: 'Times New Roman', serif;
+     /* Police officielle classique */
+     // line-height: 1.8;
+     /* Espacement des lignes pour lisibilité */
+     color: #333;
+     // /* Texte sombre */
+     overflow: hidden;
+     // /* Empêche tout débordement */
+     position: relative;
+     z-index: 1;
+     // /* Placer le contenu au-dessus des ombres */
+ }
+
+  
+
+ .button-card3 {
+     background-color: rgb(235, 235, 235);
+     width: auto;
+     font-family: 'Amiri', Times, serif;
+     font-size: 20px;
+     color: black;
+     border: 2px solid #347688;
+     border-radius: 8px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     margin: 0 auto 10px;
+ }
+
+ .text {
+     // font-family: 'Droid Arabic Naskh';
+     // font-family: 'Times New Roman',
+
+     letter-spacing: 2px;
+     /* Couleur du texte */
+     font-size: 50px;
+     /* Taille de la police */
+     font-weight: bold;
+
+     /* Gras */
+
+     text-align: center;
+
+     font-family: 'Arabic Typesetting', serif;
+     /* Ombre du texte */
+ }
+
+ .textDepot {
+     // font-family: 'Droid Arabic Naskh';
+     // font-family: 'Times New Roman',
+
+     letter-spacing: 2px;
+     /* Couleur du texte */
+     font-size: 28px;
+     /* Taille de la police */
+     font-weight: bold;
+
+     /* Gras */
+
+     // text-align: center;
+
+     font-family: 'Arabic Typesetting', serif;
+     /* Ombre du texte */
+ }
+
+ tr {
+     font-family: 'Amiri', Times, serif;
+     font-weight: bold;
+     font-size: 20px;
+ }
+
+ th {
+
+     background-color: #dfdfdf;
+     /* Couleur de fond */
+     color: #333;
+     /* Couleur du texte */
+     padding: 10px;
+     /* Espacement interne */
+     text-align: center;
+     /* Centrage du texte */
+     border-bottom: 2px solid #c2c2c2;
+     /* Bordure inférieure */
+     font-weight: bold;
+     /* Police en gras */
+ }
+
+
+ .container h1 {
+
+     color: #246b86 !important;
+     /* Bleu plus doux et élégant */
+     font-family: 'Amiri', 'Arabic Typesetting', Times, serif;
+     /* Polices compatibles avec l'arabe */
+     font-weight: bold;
+     /* Gras */
+     letter-spacing: 2px;
+     /* Espacement des lettres */
+     font-size: 50px;
+     /* Taille de la police */
+     text-align: center;
+     /* Aligner le texte à droite (pour l'arabe) */
+     direction: rtl;
+     /* Direction de texte de droite à gauche */
+     margin-bottom: 20px;
+     /* Un petit espacement sous le titre */
+ }
+
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+ .judicial-document {
+     //     /* width: 3000px; */
+     //     margin: 20px auto;
+     //    // padding: 40px;
+     //     /* Augmenté */
+     //     background: linear-gradient(to right, #cccccc, #ffffff);
+     //  //  border: 1px solid black;
+     //     border-radius:  0px;
+     //    // box-shadow: 0 4px 30px rgba(0, 0, 0, 1);
+     //     /* Ombre plus douce */
+     //   //  font-family: 'Amiri', Times, serif;
+     //     line-height: 1.6;
+     //     max-width: 1300px;
+     //     direction: rtl;
+     //         overflow-y: auto;
+     /* width: 3000px; */
+     margin: 20px auto;
+     padding: 40px;
+     /* Augmenté */
+     background: linear-gradient(to right, #e4e4e4, #ffffff);
+     border: none;
+     border-radius: 10px;
+     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+     /* Ombre plus douce */
+     font-family: 'Amiri', Times, serif;
+     line-height: 1.6;
+     max-width: 1300px;
+     direction: rtl;
+     overflow-y: auto;
+ }
+
+ .document-header {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     margin-bottom: 40px;
+     /* Augmenté */
+     border-bottom: 3px solid #007BFF;
+     /* Épaissi */
+     padding-bottom: 20px;
+     color: #343a40;
+ }
+
+ .header-left,
+ .header-center,
+ .header-right {
+     flex: 1;
+ }
+
+ .header-left {
+     text-align: right;
+ }
+
+ .header-center {
+     text-align: center;
+ }
+
+ .header-right {
+     text-align: left;
+ }
+
+ .document-title {
+     font-size: 45px;
+     /* Plus grand */
+     color: #007BFF;
+     font-weight: bold;
+     text-transform: uppercase;
+     letter-spacing: 2px;
+     /* Espacement accru */
+     font-family: 'Amiri', 'Arabic Typesetting', Times, serif;
+ }
+
+ h1,
+ h2,
+ h3 {
+     margin: 0;
+     font-family: 'Amiri', Times, serif;
+ }
+
+ h1 {
+     font-size: 32px;
+     /* Plus grand */
+     color: #007BFF;
+ }
+
+ h2 {
+     font-size: 28px;
+     /* Plus grand */
+     color: #34495E;
+ }
+
+ h3 {
+     font-size: 24px;
+     /* Plus grand */
+     color: #636363;
+ }
+
+ .p-grid {
+     display: flex;
+     /*  margin-bottom: 10px; Augmenté */
+ }
+
+ .p-col-2 .p-col-3 {
+     flex: 0 0 25%;
+     font-weight: bold;
+     color: #333;
+     font-size: 20px;
+     font-style: normal;
+     font-variant: no-common-ligatures proportional-nums;
+     /* Plus grand */
+ }
+
+ .p-col-10 {
+     flex: 0 0 75%;
+     font-size: 20px;
+     /* Plus grand */
+     font-style: normal;
+     font-variant: no-common-ligatures proportional-nums;
+ }
+
+ label {
+     /* background-color: #f8f9fa;  */
+     display: block;
+     font-size: 22px;
+     line-height: 1.0;
+     /* Adjust line height for spacing */
+     /* Plus grand */
+     /*   padding: 10px; Ajusté */
+ }
+
+ span {
+     color: #000;
+     font-size: 22px;
+     /* Plus grand */
+ }
+
+ .note {
+     color: #e74c3c;
+     font-weight: bold;
+     font-size: 22px;
+     /* Plus grand */
+ }
+
+ .footer {
+     margin-top: 40px;
+     /* Augmenté */
+     border-top: 1px solid #aaa;
+     padding-top: 10px;
+     font-weight: bold;
+     text-align: left;
+     font-size: 22px;
+     /* Plus grand */
+ }
+
+ .footer label {
+     background-color: #f8f9fa;
+     display: block;
+     /* margin-top: 5px; */
+ }
+
+ .accusations p {
+     margin-top: 10px;
+     /* Adjust margin as needed */
+     font-size: 1.1rem;
+     /* Adjust font size as needed */
+     line-height: 1.5;
+     /* Improve line height for readability */
+ }
+
+
+
+
+ ul {
+     margin: 0;
+     /* Remove default margin */
+     padding: 0;
+     /* Remove default padding */
+ }
+
+ li {
+     margin-bottom: 5px;
+     /* Space between list items */
+     line-height: 1.5;
+     /* Adjust line height for readability */
+ }
+
+ // ----------------------------------------------------------------
+
+
+ .action-icon {
+     cursor: pointer;
+     text-align: center;
+     padding: 4px;
+     border-radius: 7px;
+     background: linear-gradient(145deg, #acacac, #ffffff);
+     color: #4c566a;
+     box-shadow: 3px 3px 7px #888888, -3px -3px 7px #b9b9b9;
+     transition: all 0.2s ease-in-out;
+     width: fit-content;
+     margin: auto;
+     margin-top: 3px;
+ }
+
+ .action-icon:hover {
+     box-shadow: inset 2px 2px 3px #bcbcbc, inset -2px -2px 3px #ffffff;
+ }
+
+ .action-icon i {
+     font-size: 30px; }
+
+
+         .evade-non-capture {
+             background-color: #ffe3e6 !important;
+             /* Rouge clair doux */
+             color: #721c24 !important;
+             /* Texte rouge foncé */
+             border-right-color: #721c24 !important;
+             /* Bordure rose claire */
+
+            border-right: 5px solid #490101;
+         }
+     

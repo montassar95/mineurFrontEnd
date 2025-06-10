@@ -5,6 +5,7 @@ import { Residence } from "src/app/domain/residence";
 import { BreadcrumbService } from "src/app/shared/breadcrumb/breadcrumb.service";
 import { TokenStorageService } from "src/app/_services/token-storage.service";
 import { DetentionService } from "src/app/demo/service/detention.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-echappes",
@@ -15,12 +16,14 @@ export class EchappesComponent implements OnInit {
   idValide: string;
 
   echappess: Echappes[] = [];
+  currentUser: any;
 
   constructor(
     private breadcrumbService: BreadcrumbService,
     private crudservice: CrudEnfantService,
     private detentionService: DetentionService,
-    private token: TokenStorageService
+    private token: TokenStorageService,
+    private router: Router
   ) {
     this.breadcrumbService.setItems([
       { label: "الإستقبال", routerLink: ["/"] },
@@ -34,6 +37,11 @@ export class EchappesComponent implements OnInit {
     window.localStorage.removeItem("idValide");
   }
   ngOnInit() {
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
     let idValide = window.localStorage.getItem("idValide");
     console.log(idValide);
     if (idValide) {

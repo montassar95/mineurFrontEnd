@@ -11,6 +11,7 @@ import { StatisticsDTO } from "src/app/domain/statisticsDTO";
 import * as Highcharts from "highcharts";
 import { Etablissement } from "src/app/domain/etablissement";
 import { ThrowStmt } from "@angular/compiler";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-statique",
@@ -21,6 +22,7 @@ export class StatiqueComponent implements OnInit {
   displayCentre: boolean;
   valid: boolean;
   centreLibelle: string;
+  currentUser: any;
   showListCentre() {
     this.displayCentre = true;
   }
@@ -285,7 +287,8 @@ export class StatiqueComponent implements OnInit {
     private eventService: EventService,
     private token: TokenStorageService,
     public datepipe: DatePipe,
-    private nodeService: NodeService
+    private nodeService: NodeService,
+    private router: Router
   ) {
     this.breadcrumbService.setItems([
       { label: "الإستقبال" },
@@ -294,7 +297,12 @@ export class StatiqueComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.saveCentre(this.token?.getUser()?.etablissement);
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
+    this.saveCentre(this.token?.getUserFromTokenFromToken()?.etablissement);
     this.crudservice
       .trouverEtablissementsActifs("etablissement")
       .subscribe((data) => {

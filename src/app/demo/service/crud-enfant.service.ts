@@ -122,4 +122,12 @@ export class CrudEnfantService {
         idOjet2
     );
   }
+
+  askQuestion(question: string): Observable<string> {
+    const body = { question }; // Crée un objet { question: "..." }
+    return this.httpClient.post<string>(environment.baseUrl + "ai", body, {
+      headers: { "Content-Type": "application/json" },
+      responseType: "text" as "json", // important pour éviter l’erreur de type
+    });
+  }
 }

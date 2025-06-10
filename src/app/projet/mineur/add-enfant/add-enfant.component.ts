@@ -159,7 +159,12 @@ export class AddEnfantComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currentUser = this.token.getUser();
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
+    this.currentUser = this.token.getUserFromTokenFromToken();
     this.loadEntities();
 
     this.setupCalendarConfig();
@@ -342,7 +347,8 @@ export class AddEnfantComponent implements OnInit {
 
   validerNumeroEcrou() {
     const numeroEcrou = this.addForm3.get("numArrestation")?.value;
-    const etablissementId = this.token?.getUser()?.etablissement?.id;
+    const etablissementId =
+      this.token?.getUserFromTokenFromToken()?.etablissement?.id;
     if (this.update || !numeroEcrou || !etablissementId) {
       return; // Sortir de la méthode
     }

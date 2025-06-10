@@ -1,40 +1,46 @@
-<div dir="rtl" class="container">
+<div dir="rtl" class="container"   style="margin-bottom: 50px;">
 
-    <div class="p-grid ">
-        <div class="p-col-2">
-            <button mat-raised-button class="button-card3" (click)="displayAllArrestation = true">
-
-                <i class="pi pi-cog" style="font-size: 35px;  color:   #214954;"></i>
-            </button>
-        </div>
-        <div class="p-col-6">
-
-
-            <h1 class="text"> {{prisonerPenaleDto?.nom}} بن {{prisonerPenaleDto?.nomPere}} بن
-                {{prisonerPenaleDto?.nomGrandPere}} {{prisonerPenaleDto?.prenom}}</h1>
-
-        </div>
-        <div class="p-col-1">
-            <label class="neons cercle" *ngIf="affairePrincipale?.typeAffaire?.id==5"> <span>
-                    {{affairePrincipale?.typeAffaire?.libelle_typeAffaire}}</span></label>
-        </div>
-        <div class="p-col-3" style="display: flex; align-items: center;">
-
-
-        </div>
-    </div>
 
     <div class="p-grid">
 
 
         <div class="p-col-9 court-document ">
+            <div class="p-grid ">
+                <div class="p-col-2">
+                    <button mat-raised-button class="button-card3" (click)="displayAllArrestation = true">
+                        <span style="font-family: 'Amiri', Times, serif; font-size: 20px; color:   black;">
+                            الإيقــــاف:
+                            <b style="color: #ff3434;  ; font-weight: bold;">{{
+                                prisonerPenaleDto?.numOrdinaleArrestation }}</b></span>
+                        <i class="pi pi-cog" style="font-size: 35px;  color:   #214954;"></i>
+                    </button>
+                </div>
+                <div class="p-col-6">
+
+
+                    <h1 style="text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.37);"> {{prisonerPenaleDto?.nom}} بن
+                        {{prisonerPenaleDto?.nomPere}} بن
+                        {{prisonerPenaleDto?.nomGrandPere}} {{prisonerPenaleDto?.prenom}}</h1>
+
+                </div>
+                <div class="p-col-1">
+                    <label class="neons cercle" *ngIf="affairePrincipale?.typeAffaire?.id==5"> <span>
+                            {{affairePrincipale?.typeAffaire?.libelle_typeAffaire}}</span></label>
+                </div>
+                <div class="p-col-3" style="display: flex; align-items: center;">
+
+
+                </div>
+
+            </div>
 
             <p-card>
                 <div class="p-grid court-content ">
                     <div class="p-col-6">
                         <label>
                             المعــــرف الوحيد :
-                            <b style="color: #ff3434;  ; font-weight: bold;">
+                            <b
+                                style="color: #ff3434;  ; font-weight: bold;  font-weight: bold; text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.37);">
                                 {{prisonerPenaleDto?.detenuId }}
 
                             </b>
@@ -67,18 +73,7 @@
                                 {{prisonerPenaleDto?.niveauCulturel }}
                             </b>
                         </label>
-                        <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
 
-                        <label for="firstname3">تــــاريخ الــــولادة : <b
-                                dir="rtl">{{prisonerPenaleDto?.dateNaissance}}</b></label>
-                        <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
-                        <label for="firstname3">مكـــان الــــولادة : <b
-                                dir="rtl">{{prisonerPenaleDto?.lieuNaissance}}</b></label>
-                        <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
-                        <label for="firstname3">الســــن : <b dir="rtl">{{ prisonerPenaleDto?.age !== null &&
-                                prisonerPenaleDto?.age !== undefined
-                                ? prisonerPenaleDto?.age
-                                : calculateAge(prisonerPenaleDto?.dateNaissance) }} عــــام</b></label>
                         <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
 
                         <label>الجنس :
@@ -87,14 +82,7 @@
                             <b *ngIf="prisonerPenaleDto?.sexe ==   0 ">أنثى</b>
 
                         </label>
-                        <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
 
-                        <label *ngIf="prisonerPenaleDto?.typeClassementPenal">العقوبات السابقة :
-
-
-                            <b>{{prisonerPenaleDto?.typeClassementPenal}}</b>
-
-                        </label>
                         <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
 
                         <label *ngIf="prisonerPenaleDto?.nomPartenaire"> الــزوج(ة) :
@@ -126,12 +114,38 @@
                         <label>عــــدد الإيقــــاف : <b dir="rtl"
                                 style="color: blueviolet;">{{prisonerPenaleDto?.numeroEcrou}}</b></label>
                         <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+
                         <label for="firstname3">تــاريخ الإيـداع بالسجن :
                             <b style="color: blueviolet;" dir="rtl">{{prisonerPenaleDto?.dateEntree}}</b>
                         </label>
                         <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
 
-                        <label for="firstname3" *ngIf="prisonerPenaleDto?.natureAffaire">نــوع القضيــة :
+
+                        <label *ngIf="prisonerPenaleDto?.typeClassementPenal">العقوبات السابقة :
+
+
+                            <b>{{prisonerPenaleDto?.typeClassementPenal}}</b>
+
+                        </label>
+                        <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                        <label for="firstname3">تــــاريخ الــــولادة : <b
+                                dir="rtl">{{prisonerPenaleDto?.dateNaissance}}</b></label>
+                        <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+                        <label for="firstname3">مكـــان الــــولادة : <b
+                                dir="rtl">{{prisonerPenaleDto?.lieuNaissance}}</b></label>
+                        <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
+
+
+
+                        <label for="firstname3" *ngIf="  !prisonerPenaleDto?.motifLiberation">الســــن : <b dir="rtl">{{
+                                prisonerPenaleDto?.age !== null &&
+                                prisonerPenaleDto?.age !== undefined
+                                ? prisonerPenaleDto?.age
+                                : calculateAge(prisonerPenaleDto?.dateNaissance) }} عــــام</b></label>
+
+
+
+                        <!-- <label for="firstname3" *ngIf="prisonerPenaleDto?.natureAffaire">نــوع القضيــة :
                             <b style="color: blueviolet;" dir="rtl">{{prisonerPenaleDto?.natureAffaire}}</b>
                         </label>
                         <hr style="border:0.1px solid rgba(194, 193, 193, 0.4);">
@@ -186,12 +200,7 @@
                         <label for="firstname3" *ngIf="prisonerPenaleDto?.motifLiberation"> ســــراح :
                             <b style="color: green;" dir="rtl">{{prisonerPenaleDto?.motifLiberation +' '}}</b>
                             <b style="color: green;" dir="rtl">{{prisonerPenaleDto?.dateLiberation}}</b>
-                        </label>
-
-
-
-
-
+                        </label> -->
 
 
                     </div>
@@ -212,189 +221,1233 @@
             <img (click)="swipe()" style="margin-right: 10%;" *ngIf="photo" [src]="photo" class="profile-img-card3" />
             <img (click)="swipe()" style="margin-right: 10%;" *ngIf="!photo"
                 [src]="photo ? photo : 'assets/layout/images/cameraa.png'" class="profile-img-card3" />
-
+            <label style="background-color: #ff0000;" *ngIf="prisonerPenaleDto?.phraseDeces"  >
+                <b style=" text-align: center;">
+                    <span style="color: white;  font-size: 30px;">{{prisonerPenaleDto?.phraseDeces}} </span>
+                </b>
+            </label>
         </div>
-        <p-card>
-            <p-table [value]="affairePenaleDtos" #dt dataKey="numOrdinale" selectionMode="single" [paginator]="true"
-                [rows]="10" [globalFilterFields]="['tnumseqaff', 'tnumjafFormatte', 'libelleTribunal']">>
 
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th>ع.ر القـضـية</th>
-
-                        <th>المحـكـمة</th>
-                        <th>عدد القضية</th>
-                       
-                        <th>  نوع القضية  </th>
-                       <!-- <th>عدد الإيقاف</th> -->
-                        <th>نوع الوثيقة</th>
-                        <th>وضعيتها</th>
-                        <!-- <th>عددها</th> -->
-                        <th style="width: 6em;">
-                        سجل قضية
-                        </th>
-                        <!-- <th style="width: 6em;">
-                            كشف وثيقة
-                        </th> -->
-                    </tr>
-                </ng-template>
-
-                <ng-template pTemplate="body" let-row>
-                    <tr [ngStyle]="{
-  'background-color': row.etatAffaire === 'مغـلـقـة' ? '#ffcccc' :
-                      row.etatAffaire === 'محـالــــة' ? '#ffcccc' :
-                      'white'
-}">
-                        <td>{{ row?.tnumseqaff }}</td>
-                        <td>{{ row?.libelleTribunal }}</td>
-                        <td>{{ row?.tnumjafFormatte }}</td>
-                       
-                        <td>{{ row?.libelleNature }}</td>
-                        <!-- <td>{{ row?.numeroEcrou }}</td> -->
-                        <td>{{ row?.typeMandat }}</td>
-                        <td>{{ row?.etatAffaire }}</td>
-                        <!-- <td>{{ row?.tntypema }}</td> -->
-                        <td style="text-align: center;">
-                            <button mat-mini-fab color="primary" style="background-color: white !important; color: #214954;"
-                                aria-label="Example icon button with a menu icon" (click)="historique(row?.tnumseqaff)">
-                                <i class="pi pi-folder-open" style="font-size: 30px;"></i>
-                            </button>
-                        </td>
-                        <!-- <td style="text-align: center;">
-                            <button mat-mini-fab color="primary"
-                                style="background-color: white !important; color: #214954;"
-                                aria-label="Example icon button with a menu icon"
-                                (click)="getDocumentByAffaireConsult(row)">
-                                <i class="pi pi-eye" style="font-size: 30px;"></i>
-                            </button>
-                        </td> -->
-
-                    </tr>
-                </ng-template>
-
-            </p-table>
-        </p-card>
     </div>
+    <p *ngIf="loading" class="spinner-container">
+        <i class="pi pi-spin pi-spinner" style="font-size: 2em; color: #214954;"></i> Chargement...
+    </p>
 
-    <p-dialog [style]="{'width': '60vw', 'max-height': '40vw' , 'background-color': 'white' }" [closable]="false"
-        [(visible)]="displayAffaireConsult" modal="true" appendTo="body"    >
-        <p-header>
+
+
+
+
+    <div style="width: 100%; " class="court-document">
+        <mat-tab-group mat-align-tabs="center" [(selectedIndex)]="selectedIndex" animationDuration="600ms">
+
+
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <i class="pi pi-search" style="font-size: 25px;   "></i>
+                    <span style="font-family: 'Amiri', Times, serif; font-size: 20px;     ">معطيات جزائية </span>
+                </ng-template>
+                <p-card>
+
+                    <div class="p-grid" style=" text-align: center;">
+                        <div class="p-col-12" *ngIf="prisonerPenaleDto?.typeContestation">
+                            <b style=" text-align: center;" class="neons"> <span>
+                                    {{prisonerPenaleDto?.typeContestation }}</span>
+                                <span>
+                                    {{ prisonerPenaleDto?.dateContestation | date:'dd-MM-yyyy'}}</span> </b>
+
+                        </div>
+                    </div>
+                    <div class="p-grid">
+
+                        <div class="p-col-3">
+                            <label>عــــ<b style="color: #ff3434; font-size: 25px;">{{'
+                                    '+penalSyntheseDto?.totalCount +' '}}</b>ـــدد القضية : <b
+                                    dir="rtl">{{penalSyntheseDto?.numAffaire}}</b>
+                            </label>
+                            <hr style="      border:0.1px solid rgba(175, 175, 175, 0.4); ">
+                            <label for="firstname3"> لـــدى :
+                                <b style=" line-height: 1.3;">{{penalSyntheseDto?.tribunal}}</b></label>
+                            <hr style="      border:0.1px solid rgba(175, 175, 175, 0.4);">
+                            <label>تاريخ الحكـــــــــــــــــم :
+                                <b dir="rtl"> {{ penalSyntheseDto?.dateJugement }} </b> </label>
+                        </div>
+                        <div class="p-col-6" style="text-align: center;">
+                            <!-- الوضعية الجزائية : -->
+
+
+                            <label [ngClass]="{ 'zoom-in': zoomIn, 'zoom-out': zoomOut }">
+                                <b style=" text-align: center;">
+                                    <span style="color: #ff3434; font-size: 35px;" *ngIf="prisonerPenaleDto?.etat !== 'E'">{{prisonerPenaleDto?.etat}} </span>
+                                    <span *ngIf="prisonerPenaleDto?.etat === 'E'" style="color: #ff3434; font-size: 35px;">
+                                        فرار
+                                    </span>
+                                </b>
+                            </label>
+
+                            <hr style="      border:0.1px solid rgba(175, 175, 175, 0.4);">
+                            <label for="firstname3" class="neons"> قضــايــــا : <span>
+                                    {{penalSyntheseDto?.typeAffaire }}</span></label>
+
+                            <hr style="      border:0.1px solid rgba(175, 175, 175, 0.4);">
+                            <label>
+                                التهمة :
+                                <b style="  line-height: 1.2;"> {{penalSyntheseDto?.accusation }}</b>
+                            </label>
+                            <hr style="      border:0.1px solid rgba(175, 175, 175, 0.4);">
+                        </div>
+                        <div class="p-col-3">
+                            <label for="firstname3"> الحكـــــــــــــم : <b
+                                    style="font-size: 24px; font-weight: bold; color: rgb(255, 100, 0);">
+                                    {{prisonerPenaleDto?.punition}}
+                                </b></label>
+                            <hr style="      border:0.1px solid rgba(175, 175, 175, 0.4);">
+                            <label for="firstname3"> تــاريخ بــداية
+                                العقــاب : <b dir="rtl" style="text-decoration: underline  rgba(255, 0, 0, 0.650) ;">
+                                    {{prisonerPenaleDto?.debutPunition}}</b></label>
+
+                            <hr style="      border:0.1px solid rgba(175, 175, 175, 0.4);">
+                            <label for="firstname3">
+                                تــاريخ نهاية العقــاب : <b dir="rtl"
+                                    style="text-decoration: underline  rgba(255, 0, 0, 0.650);">
+                                    {{prisonerPenaleDto?.finPunition}}</b></label>
+                            <hr style="      border:0.1px solid rgba(175, 175, 175, 0.4);">
+                            <label for="firstname3" *ngIf="prisonerPenaleDto?.motifLiberation"> ســــراح :
+                                <b style="color: green;" dir="rtl">{{prisonerPenaleDto?.motifLiberation +' '}}</b>
+                                <b style="color: green;" dir="rtl">{{prisonerPenaleDto?.dateLiberation}}</b>
+                            </label>
+                            <hr style="      border:0.1px solid rgba(175, 175, 175, 0.4);">
+
+                            <label>
+                                إيقاف تحفظي:
+                                <b>
+                                    {{prisonerPenaleDto?.arretProvisoire}}
+                                </b>
+                            </label>
+                            <hr style=" border:0.1px solid rgba(175, 175, 175, 0.4);">
+                        </div>
+
+                    </div>
+                </p-card>
+
+
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <i class="pi pi-copy" style="font-size: 25px;   "></i>
+                    <span style="font-family: 'Amiri', Times, serif; font-size: 20px;    ">قائمة القضايا </span>
+                </ng-template>
+                <p-card>
+
+
+                    <!-- <p-card>
+                                        <p-table [value]="affairePenaleDtos" #dt dataKey="numOrdinale" selectionMode="single" [paginator]="true"
+                                            [rows]="10" [globalFilterFields]="['tnumseqaff', 'tnumjafFormatte', 'libelleTribunal']">>
+                        
+                                            <ng-template pTemplate="header">
+                                                <tr>
+                                                    <th>ع.ر القـضـية</th>
+                        
+                                                    <th>المحـكـمة</th>
+                                                    <th>عدد القضية</th>
+                        
+                                                    <th> نوع القضية </th>
+                        
+                                                    <th>نوع الوثيقة</th>
+                                                    <th>وضعيتها</th>
+                        
+                                                    <th style="width: 6em;">
+                                                        سجل قضية
+                                                    </th>
+                        
+                                                </tr>
+                                            </ng-template>
+                        
+                                            <ng-template pTemplate="body" let-row>
+                                                <tr [ngStyle]="{
+                                          'background-color': row.etatAffaire === 'مغـلـقـة' ? '#ffcccc' :
+                                                              row.etatAffaire === 'محـالــــة' ? '#ffcccc' :
+                                                              'white'  }">
+                        
+                                                    <td>{{ row?.tnumseqaff }}</td>
+                                                    <td>{{ row?.libelleTribunal }}</td>
+                                                    <td>{{ row?.tnumjafFormatte }}</td>
+                        
+                                                    <td>{{ row?.libelleNature }}</td>
+                        
+                                                    <td>{{ row?.typeMandat }}</td>
+                                                    <td>{{ row?.etatAffaire }}</td>
+                        
+                                                    <td style="text-align: center;">
+                                                        <button mat-mini-fab color="primary"
+                                                            style="background-color: white !important; color: #214954;"
+                                                            aria-label="Example icon button with a menu icon"
+                                                            (click)="historique(row?.tnumseqaff)">
+                                                            <i class="pi pi-folder-open" style="font-size: 30px;"></i>
+                                                        </button>
+                                                    </td>
+                        
+                        
+                                                </tr>
+                                            </ng-template>
+                        
+                                        </p-table>
+                                    </p-card> -->
+
+                    <!-- [value]="penalAffaireDTOs" #dt dataKey="numOrdinale" selectionMode="single" [paginator]="true"
+                                    [rows]="10" [globalFilterFields]="['tnumseqaff', 'tnumjafFormatte', 'libelleTribunal']" -->
+                    <p-table [value]="penalAffaireDTOs" [paginator]="true" [rows]="5" [lazy]="true"
+                        (onLazyLoad)="loadData($event)" [totalRecords]="totalRecords" paginatorPosition="both"
+                        [globalFilterFields]="['tnumseqaff', 'tnumjafFormatte', 'libelleTribunal']"
+                        [rowsPerPageOptions]="[5,10,20,50,100,200,500 ]">
+                        <!-- [totalRecords]="20" -->
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 6em;">ع.ر القـضـية</th>
+                                <th> نوع القضية </th>
+                                <th>المحـكـمة</th>
+                                <th>عدد القضية</th>
+                                <th>تهمة</th>
+
+
+                                <th> نص الحكم</th>
+                                <th> نوع الوثيقة وضعيتها</th>
+
+                                <th style="width: 6em;">
+                                    سجل قضية
+                                </th>
+
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="body" let-row>
+                            <tr [ngStyle]="{
+                          'background-color': row.etatAffaire === 'مغـلـقـة' ? '#ffcccc' :
+                                              row.etatAffaire === 'محـالــــة' ? '#ffcccc' :
+                                              'white'
+                        }">
+                            <tr [ngStyle]="{
+                            'background-color': row.tnumjafFormatte === penalSyntheseDto?.numAffaire ? '#ccffcc' :   'white'
+                          }">
+                                <td>{{ row?.tnumseqaff }} </td>
+                                <td>{{ row?.libelleNature }}</td>
+
+                                <td>{{ row?.libelleTribunal }}</td>
+                                <td>{{ row?.tnumjafFormatte }}</td>
+
+                                <td>{{row?.accusationsConcatenees}}</td>
+
+                                <td>
+                                    <p *ngIf="row?.textJugement">{{row?.textJugement + ' '}}</p>
+                                    <p *ngIf="row?.libelleJugement">{{ row?.libelleJugement}}</p>
+                                </td>
+                                <td>
+                                    <p>{{ row?.typeMandat + ' (' + row?.etatAffaire + ') ' }}<br>{{ row?.tdatdep }}</p>
+                                </td>
+
+                                <td style="text-align: center;">
+                                    <button mat-mini-fab color="primary"
+                                        style="background-color: white !important; color: #214954;"
+                                        aria-label="Example icon button with a menu icon"
+                                        (click)="historique(row?.tnumseqaff)">
+                                        <i class="pi pi-folder-open" style="font-size: 30px;"></i>
+                                    </button>
+                                </td>
+
+
+                            </tr>
+                        </ng-template>
+
+                    </p-table>
+                </p-card>
+                -----------------------------
+                <div style="width: 100%; height: min-content;" *ngIf="displayAffaireDetails && !displayAffaire">
+                    ---------------------------------------
+                </div>
+            </mat-tab>
+
+
+
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <i class="pi pi-thumbs-up" style="font-size: 25px;   "></i>
+                    <span style="font-family: 'Amiri', Times, serif; font-size: 20px;     ">قائمة العفو </span>
+                    <!-- <h2 style="font-family: 'Amiri', serif; color: #2c3e50; margin-bottom: 15px;" dir="rtl">قائمة العفو</h2> -->
+                </ng-template>
+
+
+
+
+                <ul class="list-group" dir="rtl">
+                    <li *ngFor="let grace of penalGraceDtos" class="list-group-item" style="
+                        font-size: 18px;
+                        font-family: 'Amiri', serif;
+                        color: #2c3e50;
+                        background-color: #f8f9fa;
+                        border-right: 5px solid #176ca5;
+                        margin-bottom: 10px;
+                        padding: 12px 16px;
+                        line-height: 1.8;
+                        border-radius: 8px;
+                        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+                      ">
+                        <span style="font-weight: bold;">العفو عدد {{ grace.tngrace }}:</span>
+                        <span style="font-weight: bold; margin-right: 10px;">تمتع ب</span>
+                        <span>{{ grace.libelleChange }}</span>
+
+                        <span style="color: #0b6351;">
+                            {{ grace.textDuree }}
+                        </span>
+
+                        <span>بتاريخ</span>
+                        <span style="color: #a02417;">
+                            {{ grace.dateGrace | date:'dd-MM-yyyy' }}
+                        </span>
+                    </li>
+                </ul>
+
+
+
+
+
+
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <i class="pi pi-home" style="font-size: 25px;    "></i>
+                    <span style="font-family: 'Amiri', Times, serif; font-size: 20px;    "> التنقلات والإقامات
+                    </span>
+                </ng-template>
+
+
+                <div dir="rtl" style="margin: 20px;">
+                    <!-- <h2 style="font-family: 'Amiri', serif; text-align: center; color: #176ca5;">قائمة التنقلات والإقامات</h2> -->
+
+                    <ul class="list-group">
+                        <li *ngFor="let row of mutationResidenceDtos; let i = index" class="list-group-item" [ngStyle]="i === mutationResidenceDtos.length - 1
+                                                  ? row?.dateFin?.length > 1
+                                                    ? 
+                                                    {
+                                                    backgroundColor: '#e6f4ea',
+                                                    borderRight: '5px solid #0b6351',
+                                                    color: '#0b6351'
+                                                    }
+                                                    : 
+                                                    {
+                                                    backgroundColor: '#fcebea',
+                                                    borderRight: '5px solid #a02417',
+                                                    color: '#a02417'
+                                                    }
+                                                  : {}" style="
+                                                  font-size: 18px;
+                                                  font-family: 'Amiri', serif;
+                                                  background-color: #f8f9fa;
+                                                  border-right: 5px solid #176ca5;
+                                                  margin-bottom: 12px;
+                                                  padding: 16px;
+                                                  line-height: 2;
+                                                  border-radius: 10px;
+                                                  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+                                                ">
+
+                            <div dir="rtl" style="margin: 15px;">
+
+                                <div
+                                    style="display: flex; flex-wrap: wrap; gap: 15px; font-family: 'Amiri', serif; font-size: 18px; line-height: 2;">
+                                    <span *ngIf="row?.numeroSequentielle?.length>1"
+                                        style="min-width: 220px;"><strong>الرقم التسلسلي:</strong> {{
+                                        row?.numeroSequentielle }}</span>
+                                    <span style="min-width: 220px;"><strong>عـدد الإيقاف :</strong> <span
+                                            style="color: #0b6351;">{{ row.numeroEcrou }}</span></span>
+                                    <span style="min-width: 220px;"><strong>السجن:</strong> {{ row.prision }}</span>
+                                    <span style="min-width: 220px;"><strong>تاريخ البداية:</strong> {{ row.dateDebut |
+                                        date: 'dd-MM-yyyy' }}</span>
+                                    <span *ngIf="row?.dateFin?.length>1" style="min-width: 220px;"><strong>تاريخ
+                                            النهاية: </strong> <span style="color: #a02417;">{{ row?.dateFin | date:
+                                            'dd-MM-yyyy' }}</span></span>
+                                    <span *ngIf="row?.dateMutation?.length>1" style="min-width: 220px;"><strong>تاريخ
+                                            التنقل: </strong> {{ row?.dateMutation |
+                                        date: 'dd-MM-yyyy' }}</span>
+
+
+                                    <span *ngIf="row?.dateMutation?.length>1" style="min-width: 220px;"><strong
+                                            style="color: #176ca5;"> سبب التنقل: </strong> <span>{{ row?.motifMutation
+                                            }}</span></span>
+
+                                </div>
+                            </div>
+
+
+                        </li>
+                    </ul>
+                </div>
+
+
+            </mat-tab>
+
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <i class="pi pi-thumbs-up" style="font-size: 25px;   "></i>
+                    <span style="font-family: 'Amiri', Times, serif; font-size: 20px;     ">قائمة فَرَارات </span>
+                    <!-- <h2 style="font-family: 'Amiri', serif; color: #2c3e50; margin-bottom: 15px;" dir="rtl">قائمة العفو</h2> -->
+                </ng-template>
+            
+            
+            
+                <ul class="list-group" dir="rtl" style="padding: 0; list-style: none; margin: 20px; ">
+                    <li *ngFor="let evasion of evasionCaptureDTOs" class="list-group-item" 
+                    [ngClass]="{
+                        'evade-non-capture': !evasion.dateCapture && !evasion.dateEntree && !evasion.prisonCapture
+                      }"
+                      style="
+                         font-size: 18px;
+                                          font-family: 'Amiri', serif;
+                                          color: #333;
+                                          background-color: #f8f9fa;
+                                          border-right: 5px solid #4CAF50;
+                                          margin-bottom: 12px;
+                                          padding: 14px 20px;
+                                          line-height: 1.8;
+                                          border-radius: 8px;
+                                          box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+                                          display: flex;
+                                          flex-direction: column;
+                      ">
+                        
+                        <div>
+                            <span style="font-weight: bold; margin-right: 8px;">تاريخ الفرار:</span>
+                            <span style="color: #a02417; margin-right: 5px;">{{ evasion.dateEvasion }}</span>
+                            <span style="margin-right: 5px;">الساعة: </span>
+                            <span style="color: #a02417;">{{ evasion.heureEvasion }}</span>
+                        </div>
+                        <div>
+                            <span style="font-weight: bold; margin-right: 8px;">طريقة الفرار
+                           
+                                :</span>
+                            <span>{{ evasion.procedureEvasion }}</span>
+                        </div>
+                        <div *ngIf="evasion.dateCapture || evasion.dateEntree || evasion.prisonCapture; else enFuite"
+                            style="margin-top: 10px; padding-top: 10px; border-top: 2px solid #b9b9b9;">
+                            <span style="font-weight: bold; margin-right: 8px;">تاريخ القبض:</span>
+                            <span>{{ evasion.dateCapture || '-' }}</span>
+                            <span style="margin-right: 5px;">تاريخ الدخول:</span>
+                            <span>{{ evasion.dateEntree || '-' }}</span>
+                            <div *ngIf="evasion.dateCapture || evasion.dateEntree || evasion.prisonCapture; else enFuite">
+                                <span style="font-weight: bold; margin-right: 8px;">السجن (قبض):</span>
+                                <span style="margin-right: 5px;">{{ evasion.prisonCapture || '-' }}</span>
+                                </div>
+                        </div>
+                       
+                        
+                        <ng-template #enFuite>
+                            <div style="margin-top: 10px; font-weight: bold; color: #a02417; font-size: 30px;">
+                                سجين ما زال بحالة فرار
+                            </div>
+                        </ng-template>
+
+                    </li>
+                </ul>
+                  
+            
+            
+            
+            
+            
+            
+            </mat-tab>
+
+
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <i class="pi pi-users" style="font-size: 25px;"></i>
+                    <span style="font-family: 'Amiri', Times, serif; font-size: 20px;">شركاء في نفس القضية</span>
+                </ng-template>
+            
+                <ul class="list-group" dir="rtl" style="padding: 0; list-style: none; margin: 20px;">
+                    <li *ngFor="let participant of participantsAffaireDTOs; let i = index" class="list-group-item" style="
+                                          font-size: 19px;
+                                          font-family: 'Amiri', serif;
+                                          color: #2c3e50;
+                                          background: linear-gradient(145deg, #f0f4f7, #ffffff);
+                                          border-right: 6px solid #17a2b8;
+                                          margin-bottom: 16px;
+                                          padding: 18px 24px;
+                                          line-height: 2;
+                                          border-radius: 10px;
+                                          box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+                                          display: flex;
+                                          flex-direction: column;
+                                        ">
+                
+                        <!-- Numéro de l’élément -->
+                         
+                
+                        <!-- Bloc informations personnelles -->
+                        <div style="display: flex; flex-wrap: wrap; gap: 20px; font-size: 19px; font-family: 'Amiri', serif;">
+                            <span><strong style="font-size: 20px; font-weight: bold; color: #007bff; margin-bottom: 10px;"> #{{ i + 1 }}   </strong>  </span>
+                            <span><strong>عدد مذكرة:</strong> {{ participant.tnumide }}</span>
+                            <span><strong>الاسم:</strong> {{ participant.firstname }} بن {{ participant.fatherName }} بن {{
+                                participant.grandfatherName }} {{ participant.lastname }}</span>
+                            <span><strong>تاريخ الولادة:</strong> {{ participant.birthDate | date:'yyyy/MM/dd' }}</span>
+                            <span><strong>اسم الأم:</strong> {{ participant.motherName }} بنت {{ participant.maternalGrandmotherName
+                                }}</span>
+                            <span><strong>العنوان:</strong> {{ participant.adresse }}</span>
+                        </div>
+                
+                        <hr style="width: 100%; border-top: 1px dashed #17a2b8; margin: 15px 0;">
+                
+                        <!-- Bloc informations sur l'affaire -->
+                        <div style="display: flex; flex-wrap: wrap; gap: 20px; font-size: 19px; font-family: 'Amiri', serif;">
+                            <span><strong>ع/ ر الإيقاف:</strong> {{ participant.tcoddet }}</span>
+                            <span><strong>رقم القضية:</strong> {{ participant.tnumjafFormatte2 }}</span>
+                            <span><strong>المحكمة:</strong> {{ participant.libelleTribunal }}</span>
+                            <span style="color: #a02417;"><strong>نوع القضية:</strong> {{ participant.libelleNature }}</span>
+                        </div>
+                
+                    </li>
+                </ul>
+                  
+                  
+            </mat-tab>
+              
+        </mat-tab-group>
+    </div>
+    <p-dialog [style]="{ 'width': '70vw', 'height': 'auto', 'padding': '0', 'background-color': 'transparent' }"
+        [contentStyle]="{ 'padding': '0', 'height': '100%'  }" [closable]="false" [(visible)]="displayAffaireConsult"
+        modal="true" appendTo="body">
+        <!-- <p-header>
 
 
             <div class="p-grid" style="text-align:center;">
 
                 <div class="p-col-12 p-md-4">
-                    <label> <b   style="color: red;"> {{displayExtraitJugement}} الكشــــف عــــن الوثيقــــة </b>
+                    <label> <b style="color: red;"> {{displayExtraitJugement}} الكشــــف عــــن الوثيقــــة </b>
                     </label>
                 </div>
 
             </div>
 
-        </p-header>
-
-        <div class="textDepot" *ngIf="displayExtraitJugement == 'contestation' && penalContestationDto">
-        
-            <p><b> رقم المذكرة
-                    :</b> {{ penalContestationDto?.tnumide }}</p>
-            <p><b> العدد الرتبي للإيقاف
-                    :</b> {{ penalContestationDto?.tcoddet }}</p>
-            <p><b> العدد الرتبي للقضية
-                    :</b> {{ penalContestationDto?.tnumseqaff }}</p>
-            <p><b> العدد الرتبي للوثيقة
-                    :</b> {{ penalContestationDto.tcodco }}</p>
-            <p><b> تاريخ الإعتراض :</b> {{ penalContestationDto?.tdatco | date:'dd-MM-yyyy' }}</p>
-            
-            <p><b> نوع الإعتراض :</b> {{ penalContestationDto?.tlibtco }}</p>
-        
-        
-        </div>
-
-
-        <div class="textDepot" *ngIf="displayExtraitJugement == 'depot' && penalMandatDepotDTO">
-
-            <p><b> رقم المذكرة
-                    :</b> {{ penalMandatDepotDTO.tnumide }}</p>
-            <p><b> العدد الرتبي للإيقاف
-                    :</b> {{ penalMandatDepotDTO.tcoddet }}</p>
-            <p><b> العدد الرتبي للقضية
-                    :</b> {{ penalMandatDepotDTO.tnumseqaff }}</p>
-            <p><b> العدد الرتبي للوثيقة
-                    :</b> {{ penalMandatDepotDTO.tcodma }}</p>
-            <p><b>تاريخ صدور البطاقة :</b> {{ penalMandatDepotDTO.tdatdma | date:'dd-MM-yyyy' }}</p>
-            <p><b>تاريخ إيداع البطاقة
-                    :</b> {{ penalMandatDepotDTO.tdatama | date:'dd-MM-yyyy' }}</p>
-            <p><b>نص التهمة :</b> {{ penalMandatDepotDTO.ttextma }}</p>
-
-
-        </div>
-
-
-        <div class="textDepot" *ngIf="displayExtraitJugement == 'arretExecution' && arretExecutionPenalDTO">
-        
-            <p><b> رقم المذكرة
-                    :</b> {{ arretExecutionPenalDTO.tnumide }}</p>
-            <p><b> العدد الرتبي للإيقاف
-                    :</b> {{ arretExecutionPenalDTO.tcoddet }}</p>
-            <p><b> العدد الرتبي للقضية
-                    :</b> {{ arretExecutionPenalDTO.tnumseqaff }}</p>
-            <p><b> العدد الرتبي للوثيقة
-                    :</b> {{ arretExecutionPenalDTO.codeDocument }}</p>
-            <p><b>تاريخ صدور البطاقة :</b> {{ arretExecutionPenalDTO.dateActe | date:'dd-MM-yyyy' }}</p>
            
-            <p><b>نص   :</b> {{ arretExecutionPenalDTO.libelleMotif }}</p>
-        
-        
+        </p-header> -->
+
+        <div class="judicial-document" *ngIf="displayExtraitJugement == 'contestation' && penalContestationDto">
+            <div class="document-header">
+                <div class="header-left">
+                    <h1>الجمهورية التونسية</h1>
+                    <h2>وزارة العدل</h2>
+                    <h3>{{ penalContestationDto?.libelleTribunal }}</h3>
+                </div>
+
+                <div class="header-center">
+                    <h1 class="document-title"><b> إستئنـــــــــاف </b></h1>
+                </div>
+
+                <div class="header-right">
+                    <h3>
+
+                        <!-- <b>{{ penalContestationDto.prision }}</b> -->
+                    </h3>
+                </div>
+            </div>
+            <!-- Identité et informations personnelles -->
+            <div class="p-grid" style="font-size: 18px;">
+                <div class="p-col-8">
+
+
+
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-2" style="font-weight: bold;"> الهوية :</div>
+                        <div class="p-col-10">{{ penalContestationDto?.firstname }} &nbsp;|&nbsp; و المولود (ة) بــــ:
+                            {{
+                            penalContestationDto?.birthDate |  date:'yyyy/MM/dd' }} &nbsp;
+                        </div>
+                        <div class="p-col-2" style="font-weight: bold;"> اسم الأم ولقبها :</div>
+                        <div class="p-col-10">{{ penalContestationDto?.motherName }}
+                        </div>
+                    </div>
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-2" style="font-weight: bold;"> القاطن (ة): </div>
+                        <div class="p-col-10">{{ penalContestationDto?.adresse }}</div>
+                    </div>
+
+
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-3" style="font-weight: bold;"> عدد قضية و المحكمة:</div>
+                        <div class="p-col-9">{{ penalContestationDto?.numAffaire + ' '+
+                            penalContestationDto?.libelleTribunal}}
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-3" style="font-weight: bold;"> تاريخ الطعن:</div>
+                        <div class="p-col-9">{{ penalContestationDto?.dateContestation | date:'yyyy-MM-dd' }}</div>
+
+
+                    </div>
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-3" style="font-weight: bold;"> نوع الطعن:</div>
+                        <div class="p-col-9">{{ penalContestationDto?.libelleContestation }}</div>
+
+
+                    </div>
+
+
+                </div>
+                <div class="p-col-4" style="text-align: left; color: #4b4b4b; font-family:  'Times New Roman' , Times, serif;
+                    font-style: italic;">
+
+                    <div class="p-col-12">
+                        <ul style="margin: 0; padding-left: 1rem; list-style-type: none;">
+                            <li style="font-weight: bold;"> عدد المذكرة:{{ penalContestationDto?.tnumide }}</li>
+
+                            <li> العدد الرتبي للإيقاف : {{ penalContestationDto?.tcoddet }} </li>
+                            <li> العدد الرتبي للقضية: {{ penalContestationDto?.tnumseqaff }} </li>
+                            <li>العدد الرتبي لوثيقة الطعن :{{ penalContestationDto?.codeDocument }} </li>
+                            <li> العدد الرتبي لمضمون الحكم: {{ penalContestationDto?.codeDocumentJugement }} </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+
+
         </div>
 
-        <div class="textDepot" *ngIf="displayExtraitJugement == 'transfert' && penalTransfertDto">
 
-            <p><b> رقم المذكرة
-                    :</b> {{ penalTransfertDto.tnumide }}</p>
-            <p><b> العدد الرتبي للإيقاف
-                    :</b> {{ penalTransfertDto.tcoddet }}</p>
-            <p><b> العدد الرتبي للقضية
-                    :</b> {{ penalTransfertDto.tnumseqaff }}</p>
-            <p><b> العدد الرتبي للوثيقة
-                    :</b> {{ penalTransfertDto.tcodtraf }}</p>
-            <p><b>تاريخ الإحالة :</b> {{ penalTransfertDto.tdattran | date:'dd-MM-yyyy' }}</p>
-            <p><b style="color: #ff3434;"> أحيلت من </b> </p>
-            <p><b> عدد القضية :</b> {{ penalTransfertDto.tnumjaf }}</p>
-            <p><b> المحكمة :</b> {{ penalTransfertDto.libelleTribunalDepart }}</p>
-            <p><b style="color: #ff3434;"> إلــــى</b> </p>
-            <p><b> عدد القضية :</b> {{ penalTransfertDto.tnumjafn }}</p>
-            <p><b> المحكمة :</b> {{ penalTransfertDto.libelleTribunalArrivee }}</p>
+        <div class="judicial-document  " *ngIf="displayExtraitJugement == 'depot' && penalMandatDepotDTO">
+            <div class="document-header">
+                <div class="header-left">
+                    <h1>الجمهورية التونسية</h1>
+                    <h2>وزارة العدل</h2>
+                    <h3>{{ penalMandatDepotDTO.libelleTribunal }}</h3>
+                </div>
+
+                <div class="header-center">
+                    <h1 class="document-title"><b> بطــاقــة إيــداع</b></h1>
+                </div>
+
+                <div class="header-right">
+                    <h3>
+                        <b> سجن {{ penalMandatDepotDTO.prision }} </b>
+                    </h3>
+                    {{ penalMandatDepotDTO.dateDepot | date:'yyyy/MM/dd' }}
+                </div>
+            </div>
+            <!-- Identité et informations personnelles -->
+            <div class="p-grid" style="font-size: 18px;">
+                <div class="p-col-8">
+
+
+
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-2" style="font-weight: bold;"> الهوية :</div>
+                        <div class="p-col-10">{{ penalMandatDepotDTO.firstname }} &nbsp;|&nbsp; و المولود (ة) بــــ: {{
+                            penalMandatDepotDTO.birthDate |
+                            date:'yyyy/MM/dd' }} &nbsp;
+                        </div>
+                        <div class="p-col-2" style="font-weight: bold;"> اسم الأم ولقبها :</div>
+                        <div class="p-col-10">{{ penalMandatDepotDTO?.motherName }}
+                        </div>
+                    </div>
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-2" style="font-weight: bold;"> القاطن (ة): </div>
+                        <div class="p-col-10">{{ penalMandatDepotDTO.adresse }}</div>
+                    </div>
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-2" style="font-weight: bold;"> عدد الإيقاف و السجن:</div>
+                        <div class="p-col-10">{{ penalMandatDepotDTO.numeroEcrou + ' '+ penalMandatDepotDTO.prision }}
+                        </div>
+                    </div>
+
+
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-2" style="font-weight: bold;"> عدد لقضية و المحكمة:</div>
+                        <div class="p-col-10">{{ penalMandatDepotDTO.numAffaire + ' '+
+                            penalMandatDepotDTO.libelleTribunal}}
+                        </div>
+                    </div>
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-2" style="font-weight: bold;">تاريخ صدور البطاقة:</div>
+                        <div class="p-col-10">{{ penalMandatDepotDTO.dateEmissionMandat | date:'yyyy-MM-dd' }}</div>
+
+                        <div class="p-col-2" style="font-weight: bold;">تاريخ إيداع البطاقة:</div>
+                        <div class="p-col-10">{{ penalMandatDepotDTO.dateDepotMandat | date:'yyyy-MM-dd' }}</div>
+                    </div>
+
+                    <div class="p-grid" style="line-height: 1.6;">
+                        <div class="p-col-2" style="font-weight: bold;">نص التهمة:</div>
+                        <div class="p-col-10">{{ penalMandatDepotDTO.texteMandat }}</div>
+                    </div>
+
+                </div>
+                <div class="p-col-4" style="text-align: left; color: #4b4b4b; font-family:  'Times New Roman' , Times, serif;
+                    font-style: italic;">
+
+                    <div class="p-col-12">
+                        <ul style="margin: 0; padding-left: 1rem; list-style-type: none;">
+                            <li style="font-weight: bold;"> عدد المذكرة:{{ penalMandatDepotDTO.tnumide }}</li>
+
+                            <li> العدد الرتبي للإيقاف: {{ penalMandatDepotDTO.tcoddet }} </li>
+                            <li> العدد الرتبي للقضية: {{ penalMandatDepotDTO.tnumseqaff }} </li>
+                            <li> العدد الرتبي للوثيقة: {{ penalMandatDepotDTO.codeDocument }} </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+
 
         </div>
 
-        <div class="textDepot" *ngIf="displayExtraitJugement  == 'jugement'  && penalJugementDTO">
 
-            <p><b> رقم المذكرة
-                    :</b> {{ penalJugementDTO.tnumide }}</p>
-            <p><b> العدد الرتبي للإيقاف
-                    :</b> {{ penalJugementDTO.tcoddet }}</p>
-            <p><b> العدد الرتبي للقضية
-                    :</b> {{ penalJugementDTO.tnumseqaff }}</p>
-            <p><b> العدد الرتبي للوثيقة
-                    :</b> {{ penalJugementDTO.tcodextj }}</p>
-            <p><b>تاريخ الحكم:</b> {{ penalJugementDTO.dateJugement | date:'dd-MM-yyyy' }}</p>
-            <p><b>تاريخ إيداع البطاقة
-                    :</b> {{ penalJugementDTO.dateDepot | date:'dd-MM-yyyy' }}</p>
-            <p><b>نص الحكم:</b> {{ penalJugementDTO.ttexjug }}</p>
-            <p><b>نوع الحكم:</b> {{ penalJugementDTO.libelleTjugement }}</p>
-            <p><b>تاريخ بداية العقوبة:</b> {{ penalJugementDTO.dateDebutPunition | date:'dd-MM-yyyy' }}</p>
-            <p><b>تاريخ نهاية العقوبة:</b> {{ penalJugementDTO.dateFinPunition | date:'dd-MM-yyyy' }}</p>
+        <div class="judicial-document " *ngIf="displayExtraitJugement == 'arretExecution' && arretExecutionPenalDTO">
+
+
+            <div class="document-header">
+                <div class="header-left">
+                    <h1>الجمهورية التونسية</h1>
+                    <h2>وزارة العدل</h2>
+                    <h3>{{ arretExecutionPenalDTO.libelleTribunal }}</h3>
+                </div>
+
+                <div class="header-center">
+                    <h1 class="document-title"><b> ســـــــــــــــراح </b></h1>
+                </div>
+
+                <div class="header-right">
+                    <h3>
+                        <b> سجن {{ arretExecutionPenalDTO.prision }} </b>
+                    </h3>
+                    {{ arretExecutionPenalDTO.dateActe | date:'yyyy/MM/dd' }}
+                </div>
+            </div>
+            <!-- Identité et informations personnelles -->
+            <div class="p-grid" style="font-size: 18px;">
+                <div class="p-col-8">
+
+
+
+
+                    <!-- <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-2" style="font-weight: bold;"> الهوية :</div>
+                        <div class="p-col-10">{{ penalContestationDto?.firstname }} &nbsp;|&nbsp; و المولود (ة) بــــ: {{
+                            penalContestationDto?.birthDate |
+                            date:'yyyy/MM/dd' }} &nbsp;
+                        </div>
+                    </div>
+            
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-2" style="font-weight: bold;"> القاطن (ة): </div>
+                        <div class="p-col-10">{{ penalContestationDto?.adresse }}</div>
+                    </div>
+            
+            
+            
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-3" style="font-weight: bold;"> عدد قضية و المحكمة:</div>
+                        <div class="p-col-9">{{ penalContestationDto?.numAffaire + ' '+
+                            penalContestationDto?.libelleTribunal}}
+                        </div>
+                    </div>
+             -->
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-2" style="font-weight: bold;"> الهوية :</div>
+                        <div class="p-col-10">{{ arretExecutionPenalDTO.firstname }} &nbsp;|&nbsp; و المولود (ة) بــــ:
+                            {{
+                            arretExecutionPenalDTO.birthDate |
+                            date:'yyyy/MM/dd' }} &nbsp;
+                        </div>
+                        <div class="p-col-2" style="font-weight: bold;"> اسم الأم ولقبها :</div>
+                        <div class="p-col-10">{{ arretExecutionPenalDTO?.motherName }}
+                        </div>
+                    </div>
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-2" style="font-weight: bold;"> القاطن (ة): </div>
+                        <div class="p-col-10">{{ arretExecutionPenalDTO.adresse }}</div>
+                    </div>
+
+                    <div class="p-grid" style="line-height: 1.6;  "
+                        *ngIf="(arretExecutionPenalDTO.numeroEcrou || arretExecutionPenalDTO.prision)">
+                        <div class="p-col-2" style="font-weight: bold;"> عدد الإيقاف و السجن:</div>
+                        <div class="p-col-10">{{ arretExecutionPenalDTO.numeroEcrou + ' '+
+                            arretExecutionPenalDTO.prision }}
+                        </div>
+                    </div>
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-3" style="font-weight: bold;"> عدد قضية و المحكمة:</div>
+                        <div class="p-col-9">{{ arretExecutionPenalDTO.numAffaire + ' '+
+                            arretExecutionPenalDTO.libelleTribunal}}
+                        </div>
+                    </div>
+
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-3" style="font-weight: bold;"> تاريخ الســراح:</div>
+                        <div class="p-col-9">{{ arretExecutionPenalDTO.dateActe | date:'yyyy-MM-dd' }}</div>
+
+
+                    </div>
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-3" style="font-weight: bold;"> نوع الســراح:</div>
+                        <div class="p-col-9">{{ arretExecutionPenalDTO.libelleMotif }}</div>
+
+
+                    </div>
+
+
+
+
+                </div>
+                <div class="p-col-4" style="text-align: left; color: #4b4b4b; font-family:  'Times New Roman' , Times, serif;
+                    font-style: italic;">
+
+                    <div class="p-col-12">
+                        <ul style="margin: 0; padding-left: 1rem; list-style-type: none;">
+                            <li style="font-weight: bold;"> عدد المذكرة:{{ arretExecutionPenalDTO.tnumide }}</li>
+
+                            <li> العدد الرتبي للإيقاف : {{ arretExecutionPenalDTO.tcoddet }} </li>
+                            <li> العدد الرتبي للقضية: {{ arretExecutionPenalDTO.tnumseqaff }} </li>
+                            <li>العدد الرتبي للوثيقة :{{ arretExecutionPenalDTO.codeDocument }} </li>
+
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+
+
 
         </div>
 
-        <table class="table table-bordered" *ngIf="displayExtraitJugement == 'jugement' "  dir="rtl" >
+        <div class="judicial-document" *ngIf="displayExtraitJugement == 'transfert' && penalTransfertDto">
+            <div class="document-header">
+                <div class="header-left">
+                    <h1>الجمهورية التونسية</h1>
+                    <h2>وزارة العدل</h2>
+                    <h3>{{ penalTransfertDto?.libelleTribunalDepart }}</h3>
+                </div>
+
+                <div class="header-center">
+                    <h1 class="document-title"><b> إحـالــــة </b></h1>
+                </div>
+
+                <div class="header-right">
+                    <h3>
+
+                        <!-- <b>{{ penalMandatDepotDTO.prision }}</b> -->
+                    </h3>
+                </div>
+            </div>
+            <!-- Identité et informations personnelles -->
+            <div class="p-grid" style="font-size: 18px;">
+                <div class="p-col-8">
+
+
+
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-2" style="font-weight: bold;"> الهوية :</div>
+                        <div class="p-col-10">{{ penalTransfertDto?.firstname }} &nbsp;|&nbsp; و المولود (ة) بــــ: {{
+                            penalTransfertDto?.birthDate |
+                            date:'yyyy/MM/dd' }} &nbsp;
+                        </div>
+                        <div class="p-col-2" style="font-weight: bold;"> اسم الأم ولقبها :</div>
+                        <div class="p-col-10">{{ penalTransfertDto?.motherName }}
+                        </div>
+                    </div>
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-2" style="font-weight: bold;"> القاطن (ة): </div>
+                        <div class="p-col-10">{{ penalTransfertDto?.adresse }}</div>
+                    </div>
+
+
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-4" style="font-weight: bold;"> عدد قضية و المحكمة:</div>
+                        <div class="p-col-8">{{ penalTransfertDto?.numAffaireArrivee + ' '+
+                            penalTransfertDto?.libelleTribunalArrivee}}
+                        </div>
+                    </div>
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-4" style="font-weight: bold;"> عدد قضية و المحكمة ( الربط ) :</div>
+                        <div class="p-col-8">{{ penalTransfertDto?.numAffaireDepart + ' '+
+                            penalTransfertDto?.libelleTribunalDepart}}
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-3" style="font-weight: bold;">تاريخ الإحالة:</div>
+                        <div class="p-col-9">{{ penalTransfertDto?.dateTransfert | date:'yyyy-MM-dd' }}</div>
+
+
+                    </div>
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-3" style="font-weight: bold;">نوع الإحالة :</div>
+                        <div class="p-col-9">{{ penalTransfertDto?.typeTransfert }}</div>
+
+
+                    </div>
+
+
+
+                </div>
+                <div class="p-col-4" style="text-align: left; color: #4b4b4b; font-family:  'Times New Roman' , Times, serif;
+                    font-style: italic;">
+
+                    <div class="p-col-12">
+                        <ul style="margin: 0; padding-left: 1rem; list-style-type: none;">
+                            <li style="font-weight: bold;"> عدد المذكرة:{{ penalTransfertDto?.tnumide }}</li>
+
+                            <li> العدد الرتبي للإيقاف: {{ penalTransfertDto?.tcoddet }} </li>
+                            <li> العدد الرتبي للقضية: {{ penalTransfertDto?.tnumseqaff }} </li>
+                            <li> العدد الرتبي للوثيقة: {{ penalTransfertDto?.codeDocument }} </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="judicial-document " *ngIf="displayExtraitJugement  == 'jugement'  && penalJugementDTO">
+            <div class="document-header">
+                <div class="header-left">
+                    <h1>الجمهورية التونسية</h1>
+                    <h2>وزارة العدل</h2>
+                    <h3>{{ penalJugementDTO.libelleTribunal }}</h3>
+                </div>
+
+                <div class="header-center">
+                    <h1 class="document-title"><b> مضمـــــون حكـــــــــــم </b></h1>
+                </div>
+
+                <div class="header-right">
+                    <h3>
+                        <b> سجن {{ penalJugementDTO.prision }} </b>
+                    </h3>
+                    {{ penalJugementDTO.dateDepot | date:'yyyy/MM/dd' }}
+
+                </div>
+            </div>
+            <!-- Identité et informations personnelles -->
+            <div class="p-grid" style="font-size: 18px;">
+                <div class="p-col-8">
+
+
+
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-2" style="font-weight: bold;"> الهوية :</div>
+                        <div class="p-col-10">{{ penalJugementDTO.firstname }} &nbsp;|&nbsp; و المولود (ة) بــــ: {{
+                            penalJugementDTO.birthDate |
+                            date:'yyyy/MM/dd' }} &nbsp;
+                        </div>
+                        <div class="p-col-2" style="font-weight: bold;"> اسم الأم ولقبها :</div>
+                        <div class="p-col-10">{{ penalJugementDTO?.motherName }}
+                        </div>
+                    </div>
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-2" style="font-weight: bold;"> القاطن (ة): </div>
+                        <div class="p-col-10">{{ penalJugementDTO.adresse }}</div>
+                    </div>
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-2" style="font-weight: bold;"> عدد الإيقاف و السجن:</div>
+                        <div class="p-col-10">{{ penalJugementDTO.numeroEcrou + ' '+ penalJugementDTO.prision }}
+                        </div>
+                    </div>
+
+
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-2" style="font-weight: bold;"> عدد لقضية و المحكمة:</div>
+                        <div class="p-col-10">{{ penalJugementDTO.numAffaire + ' '+
+                            penalJugementDTO.libelleTribunal}}
+                        </div>
+                    </div>
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-2" style="font-weight: bold;">تاريخ الحكم :</div>
+                        <div class="p-col-10">{{ penalJugementDTO.dateJugement | date:'yyyy-MM-dd' }}</div>
+
+                        <div class="p-col-2" style="font-weight: bold;">تاريخ إيداع المضمون:</div>
+                        <div class="p-col-10">{{ penalJugementDTO.dateDepot | date:'yyyy-MM-dd' }}</div>
+                    </div>
+
+                    <div *ngIf="penalJugementDTO.texjug" class="p-grid" style="line-height: 1.6;">
+                        <div class="p-col-2" style="font-weight: bold;">نص الحكم:</div>
+                        <div class="p-col-10">{{ penalJugementDTO.texjug }}</div>
+                    </div>
+                    <div class="p-grid" style="line-height: 1.6;">
+                        <div class="p-col-2" style="font-weight: bold;"> مدة الحكم و نوعه :</div>
+                        <div class="p-col-10">{{ penalJugementDTO.libelleTjugement }}</div>
+                    </div>
+
+
+                    <div class="p-grid" style="line-height: 1.6;">
+                        <div class="p-col-2">تاريخ بداية العقوبة :</div>
+                        <div class="p-col-10">{{ penalJugementDTO.dateDebutPunition }}</div>
+                    </div>
+                    <div class="p-grid" style="line-height: 1.6;">
+                        <div class="p-col-2">تاريخ نهاية العقوبة :</div>
+                        <div class="p-col-10">{{ penalJugementDTO.dateFinPunition }}</div>
+                    </div>
+
+
+
+
+
+
+                </div>
+                <div class="p-col-4" style="text-align: left; color: #4b4b4b; font-family:  'Times New Roman' , Times, serif;
+                    font-style: italic; ">
+
+                    <div class="p-col-12">
+                        <ul style="margin: 0; padding-left: 1rem; list-style-type: none;">
+                            <li style="font-weight: bold;"> عدد المذكرة:{{ penalJugementDTO.tnumide }}</li>
+
+                            <li> العدد الرتبي للإيقاف: {{ penalJugementDTO.tcoddet }} </li>
+                            <li> العدد الرتبي للقضية: {{ penalJugementDTO.tnumseqaff }} </li>
+                            <li> العدد الرتبي للوثيقة: {{ penalJugementDTO.codeDocument }} </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="p-col-12">
+                    <ul *ngIf="displayExtraitJugement == 'jugement'" dir="rtl" class="list-group">
+                        <li *ngFor="let acc of accusationExtraitJugements" class="list-group-item"
+                            style="  border-radius: 8px;   box-shadow: 0 2px 4px rgba(0,0,0,0.05); font-size: 16px; line-height: 1.8; background-color: #fdfdfd;">
+
+                            <span style="font-weight: bold;">التهمة عدد {{ acc.tcodacc }}:</span>
+
+                            <span style="margin-right: 10px;  "> {{ acc.libelleFamilleAcc }} ،</span>
+
+                            <span style="margin-right: 10px;  " *ngIf="acc.periodeTotale">
+                                الحكم بـ
+                                <span style="color: #f81414;">{{ acc.periodeTotale }} </span>
+
+                            </span>
+
+                            <span *ngIf="acc.tdatdacc && acc.tdatfacc && (acc.tdatdacc !=  acc.tdatfacc)">
+                                ، من تاريخ
+                                <span style="font-weight: bold; color: #024daf;">{{ acc.tdatdacc | date:'dd-MM-yyyy'
+                                    }}</span>
+                                إلى
+                                <span style="font-weight: bold;color: #024daf;">{{ acc.tdatfacc | date:'dd-MM-yyyy' }}
+                                </span>
+
+                            </span>.
+
+                        </li>
+
+                    </ul>
+                </div>
+
+
+
+
+
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+        <div class="judicial-document " *ngIf="displayExtraitJugement  == 'tcontrainte'  && penalContrainteDto">
+            <div class="document-header">
+                <div class="header-left">
+                    <h1>الجمهورية التونسية</h1>
+                    <h2>وزارة العدل</h2>
+                    <h3>{{ penalContrainteDto?.libelleTribunal }}</h3>
+                </div>
+
+                <div class="header-center">
+                    <h1 class="document-title"><b>جبــر بالسّجــن</b></h1>
+                </div>
+
+                <div class="header-right">
+                    <h3>
+                        <b> سجن {{ penalContrainteDto?.prision }} </b>
+                    </h3>
+                    {{ penalContrainteDto?.dateDepot | date:'yyyy/MM/dd' }}
+
+                </div>
+            </div>
+            <!-- Identité et informations personnelles -->
+            <div class="p-grid" style="font-size: 18px;">
+                <div class="p-col-8">
+
+
+
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-3" style="font-weight: bold;"> الهوية :</div>
+                        <div class="p-col-9">{{ penalContrainteDto?.firstname }} &nbsp;|&nbsp; و المولود (ة) بــــ: {{
+                            penalContrainteDto?.birthDate |
+                            date:'yyyy/MM/dd' }} &nbsp;
+                        </div>
+                        <div class="p-col-3" style="font-weight: bold;"> اسم الأم ولقبها :</div>
+                        <div class="p-col-9">{{ penalContrainteDto?.motherName }}
+                        </div>
+
+                    </div>
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-3" style="font-weight: bold;"> القاطن (ة): </div>
+                        <div class="p-col-9">{{ penalContrainteDto?.adresse }}</div>
+                    </div>
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-3" style="font-weight: bold;"> عدد الإيقاف و السجن:</div>
+                        <div class="p-col-9">{{ penalContrainteDto?.numeroEcrou + ' '+ penalContrainteDto?.prision }}
+                        </div>
+                    </div>
+
+
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-3" style="font-weight: bold;"> عدد لقضية و المحكمة:</div>
+                        <div class="p-col-9">{{ penalContrainteDto?.numAffaire + ' '+
+                            penalContrainteDto?.libelleTribunal}}
+                        </div>
+                    </div>
+
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+                        <div class="p-col-3" style="font-weight: bold;">تاريخ الحكم :</div>
+                        <div class="p-col-9">{{ penalContrainteDto?.dateJugement | date:'yyyy-MM-dd' }}</div>
+
+                        <div class="p-col-3" style="font-weight: bold;"> إيداع البطاقة :</div>
+                        <div class="p-col-9">{{ penalContrainteDto?.dateDepot | date:'yyyy-MM-dd' }}</div>
+                    </div>
+
+                    <div class="p-grid" style="line-height: 1.6;  ">
+
+
+                        <div class="p-col-3" style="font-weight: bold;"> التهمة :</div>
+                        <div class="p-col-9">{{ penalContrainteDto?.libelleFamilleAcc }}</div>
+
+                    </div>
+
+                    <div class="p-grid" style="line-height: 1.6;">
+                        <div class="p-col-3" style="font-weight: bold;">تاريخ بداية العقوبة :</div>
+                        <div class="p-col-9">{{ penalContrainteDto?.dateDebutPeine }}</div>
+                    </div>
+                    <div class="p-grid" style="line-height: 1.6;">
+                        <div class="p-col-3" style="font-weight: bold;">تاريخ نهاية العقوبة :</div>
+                        <div class="p-col-9">{{ penalContrainteDto?.dateFinPeine }}</div>
+                    </div>
+
+                    <div class="p-grid" style=" border: 1px solid #ccc;
+        border-radius: 12px;
+        box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        margin-top: 10px;
+        background-color: #fff;
+        line-height: 1.6;" dir="rtl">
+                        <div class="p-col-3  " style="font-weight: bold;  color: #0254ac;">مقدار الخطيّة :</div>
+                        <div class="p-col-3 ">{{ penalContrainteDto?.montantAmende }}</div>
+
+                        <div class="p-col-3  " style="font-weight: bold;   color: #0254ac;">المصـــاريف :</div>
+                        <div class="p-col-3">{{ penalContrainteDto?.fraisJudiciaires }}</div>
+
+                        <div class="p-col-3 " style=" font-weight: bold;  color: #0254ac;">أقسـاط مدفوعة :</div>
+                        <div class="p-col-3">{{ penalContrainteDto?.versementsPayes }}</div>
+
+                        <div class="p-col-3  " style=" font-weight: bold;  color: #0254ac;">مدة الأيام المحسوبـة :</div>
+                        <div class="p-col-3">{{ penalContrainteDto?.joursComptabilises }}</div>
+
+                        <div class="p-col-3  " style=" font-weight: bold;  color: #0254ac;">الباقـي بالذّمــة :</div>
+                        <div class="p-col-3">{{ penalContrainteDto?.resteDu }}</div>
+
+                        <div class="p-col-3  " style=" font-weight: bold;  color: #0254ac;">المدة المطابقة للقضيّـة :
+                        </div>
+                        <div class="p-col-3">{{ penalContrainteDto?.dureeAffaire }}</div>
+
+                        <div class="p-col-3  " style=" font-weight: bold;  color: #0254ac;">تعديل الجبر بتاريخ :</div>
+                        <div class="p-col-3">{{ penalContrainteDto?.dateRevisionJbr | date:'yyyy-MM-dd' }}</div>
+
+                        <div class="p-col-3  " style=" font-weight: bold;  color: #0254ac; ">المدة بعد التعديل :</div>
+                        <div class="p-col-3">{{ penalContrainteDto?.dureeApresRevision }}</div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="p-col-4" style="text-align: left; color: #4b4b4b; font-family:  'Times New Roman' , Times, serif;
+                                font-style: italic; ">
+
+                    <div class="p-col-12">
+                        <ul style="margin: 0; padding-left: 1rem; list-style-type: none;">
+                            <li style="font-weight: bold;"> عدد المذكرة:{{ penalContrainteDto?.tnumide }}</li>
+
+                            <li> العدد الرتبي للإيقاف: {{ penalContrainteDto?.tcoddet }} </li>
+                            <li> العدد الرتبي للقضية: {{ penalContrainteDto?.tnumseqaff }} </li>
+                            <li> العدد الرتبي للوثيقة: {{ penalContrainteDto?.codeDocument }} </li>
+                        </ul>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <!-- <table class="table table-bordered" *ngIf="displayExtraitJugement == 'jugement' " dir="rtl">
             <thead>
                 <tr>
-                    <th>عدد</th> <!-- tcodacc -->
-                    <th>نص التهمة</th> <!-- libelleFamilleAcc -->
+                    <th>عدد</th>  
+                    <th>نص التهمة</th>  
 
-                    <th>مدة العقوبة</th> <!-- tduracca -->
-                    <th>بداية من</th> <!-- tdatdacc -->
-                    <th>الى</th> <!-- tdatfacc -->
+                    <th>مدة العقوبة</th>  
+                    <th>بداية من</th> 
+                    <th>الى</th>  
                 </tr>
             </thead>
             <tbody>
@@ -412,7 +1465,7 @@
 
                 </tr>
             </tbody>
-        </table>
+        </table> -->
 
         <p-footer>
             <div style="text-align: center;">
@@ -426,63 +1479,69 @@
 
 
     <p-dialog [style]="{'width': '60vw', 'max-height': '40vw' , 'background-color': 'white' }" [closable]="false"
-        [(visible)]="displayActeJudiciaire" modal="true" appendTo="body"  dir="rtl" >
+        [(visible)]="displayActeJudiciaire" modal="true" appendTo="body" dir="rtl">
         <p-header>
-    
-    
+
+
             <div class="p-grid" style="text-align:center;">
-    
+
                 <div class="p-col-12 p-md-4">
-                    <label> <b  *ngIf="acteJudiciaires && acteJudiciaires.length > 0"  style="color: red;"> سجــل قضيــة عدد : {{ acteJudiciaires[0].tnumseqaff }}  </b>
+                    <label> <b *ngIf="acteJudiciaires && acteJudiciaires.length > 0" style="color: red;"> سجــل قضيــة
+                            عدد : {{ acteJudiciaires[0].tnumseqaff }} </b>
                     </label>
                 </div>
-    
+
             </div>
-    
+
         </p-header>
-      
-    
-        
-        
-    
-        
-    
-        <table class="table table-bordered"  dir="rtl" >
+
+
+
+
+
+
+
+        <table class="table table-bordered" dir="rtl">
             <thead>
                 <tr>
-                   
+
                     <th> عدد القضية</th> <!-- libelleFamilleAcc -->
-    
+
                     <th> المحكمــة</th> <!-- tduracca -->
                     <th> تــاريخ</th> <!-- tduracca -->
                     <th> الإجـــراء </th> <!-- tdatdacc -->
-                   
+
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let acc of acteJudiciaires">
-                  
+
                     <td>{{ acc.numAffaire }}</td>
-     
-    
-    
-     
+
+
+
+
                     <td>{{ acc.libelleTribunal }}</td>
                     <td>{{ acc.dateActe }}</td>
-        <td>{{ acc.typeDocument }}</td>
-        <!-- <td>{{ acc.typeActe }}</td> -->
+                    <td>{{ acc.typeDocument }}</td>
+                    <!-- <td>{{ acc.typeActe }}</td> -->
 
-         <td style="text-align: center;">
-            <button mat-mini-fab color="primary" style="background-color: white !important; color: #214954;"
-                aria-label="Example icon button with a menu icon" (click)="getDocumentByAffaireConsult(acc)">
-                <i class="pi pi-eye" style="font-size: 25px;"></i>
-            </button>
-        </td> 
+                    <td style="text-align: center;">
+                        <!-- <button mat-mini-fab color="primary" style="background-color: white !important; color: #214954;"
+                            aria-label="Example icon button with a menu icon"
+                            (click)="getDocumentByAffaireConsult(acc)">
+                            <i class="pi pi-eye" style="font-size: 25px;"></i>
+                        </button> -->
+                        <div class="action-icon" (click)="getDocumentByAffaireConsult(acc)">
+
+                            <i class="pi pi-file"></i>
+                        </div>
+                    </td>
 
                 </tr>
             </tbody>
         </table>
-    
+
         <p-footer>
             <div style="text-align: center;">
                 <button pButton type="button" label="واضح" style="margin-right: 2px;" class="ui-button-danger"
@@ -494,8 +1553,8 @@
 
 
 
-    <p-dialog header="  قائمة الإيقافات  " dir="rtl" [(visible)]="displayAllArrestation" [baseZIndex]="10000" modal="true"
-        appendTo="body" showEffect="fade">
+    <p-dialog header="  قائمة الإيقافات  " dir="rtl" [(visible)]="displayAllArrestation" [baseZIndex]="10000"
+        modal="true" appendTo="body" showEffect="fade">
         <div style="width:800px;">
             <p-table [value]="penaleDetentionInfoDtos" #dtAllArrestation [paginator]="true" [rows]="4"
                 [globalFilterFields]="['arrestationId.numOrdinale','date' ]" dir="rtl">
@@ -513,12 +1572,12 @@
                         <th>السجن </th>
                         <th> عدد الإيقاف </th>
                         <th> تاريخ الإيقاف</th>
-    <th> تاريخ السراح </th>
-   
+                        <th> تاريخ السراح </th>
+
                         <th style="width:  4em;">
                         </th>
                     </tr>
-    
+
                 </ng-template>
                 <ng-template pTemplate="body" let-row>
                     <tr style="color: black;">
@@ -527,11 +1586,11 @@
                         <td><b style="font-size: 20px;">{{row?.numeroEcrou}}</b></td>
                         <td><b style="font-size: 20px;">{{row?.dateEntre}} </b></td>
                         <td><b style="font-size: 20px;">{{row?.dateSortie}}</b></td>
-                  
-    
-  
-                        
-    
+
+
+
+
+
                         <td style="text-align: center;">
                             <button mat-mini-fab color="primary"
                                 style="background-color: transparent; color: black !important;"

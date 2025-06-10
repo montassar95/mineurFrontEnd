@@ -204,6 +204,12 @@ export class CarteHebergementComponent implements OnInit {
     window.localStorage.removeItem("idValide");
   }
   ngOnInit() {
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
+
     let idValide = window.localStorage.getItem("idValide");
     let idValideNav = window.localStorage.getItem("idValideNav");
     console.log(idValide);
@@ -228,7 +234,7 @@ export class CarteHebergementComponent implements OnInit {
     });
     this.entitiesTitreAccusation = [];
     this.entitiesAllTitreAccusation = [];
-    this.currentUser = this.token.getUser();
+    this.currentUser = this.token.getUserFromTokenFromToken();
     this.showAllGouvernorat();
     this.showAllTypeTribunal();
     this.showAllTypeAffaire();
@@ -264,7 +270,7 @@ export class CarteHebergementComponent implements OnInit {
     this.detentionService
       .trouverDetenuAvecSonStatutActuel(
         id,
-        this.token.getUser().etablissement.id
+        this.token.getUserFromTokenFromToken().etablissement.id
       )
       .subscribe((data) => {
         this.enfantLocal = data.result.enfant;
@@ -702,7 +708,7 @@ export class CarteHebergementComponent implements OnInit {
 
             this.carteHeber.numArrestation = this.residence.numArrestation;
             this.carteHeber.etablissement = this.residence.etablissement;
-            this.carteHeber.user = this.token.getUser();
+            this.carteHeber.user = this.token.getUserFromTokenFromToken();
 
             this.carteHeber.dateInsertion = this.datepipe.transform(
               new Date(),

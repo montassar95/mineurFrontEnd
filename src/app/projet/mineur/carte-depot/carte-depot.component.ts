@@ -221,6 +221,11 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
     window.localStorage.removeItem("idValide");
   }
   ngOnInit() {
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
     let idValide = window.localStorage.getItem("idValide");
     let idValideNav = window.localStorage.getItem("idValideNav");
     console.log(idValide);
@@ -247,7 +252,7 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
     });
     this.entitiesTitreAccusation = [];
     this.entitiesAllTitreAccusation = [];
-    this.currentUser = this.token.getUser();
+    this.currentUser = this.token.getUserFromTokenFromToken();
     this.showAllGouvernorat();
     this.showAllTypeTribunal();
     this.showAllTypeAffaire();
@@ -289,7 +294,7 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
     this.detentionService
       .trouverDetenuAvecSonStatutActuel(
         id,
-        this.token.getUser().etablissement.id
+        this.token.getUserFromTokenFromToken().etablissement.id
       )
       .subscribe((data) => {
         this.enfantLocal = data.result.enfant;
@@ -380,7 +385,7 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
 
   //         if (
   //           data.result.etablissement.id !=
-  //           this.token.getUser().personelle.etablissement.id
+  //           this.token.getUserFromTokenFromToken().personelle.etablissement.id
   //         ) {
   //           this.allowNewCarte = false;
   //           this.msg =
@@ -413,6 +418,9 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
     );
   }
   save() {
+
+
+    console.log(this.dateEntreLocal);
     if (this.dateEntreLocal && this.numArrestation) {
       this.arrestation = new Arrestation();
       this.arrestationId = new ArrestationId();
@@ -692,7 +700,6 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-     
     this.alertTypeAffaire = "";
     if (
       !this.dateEmission ||
@@ -780,7 +787,7 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
 
             this.carteDepot.numArrestation = this.residence.numArrestation;
             this.carteDepot.etablissement = this.residence.etablissement;
-            //this.carteDepot.user = this.token.getUser() ;
+            //this.carteDepot.user = this.token.getUserFromTokenFromToken() ;
 
             this.carteDepot.dateInsertion = this.datepipe.transform(
               new Date(),
@@ -893,7 +900,7 @@ export class CarteDepotComponent implements OnInit, OnDestroy {
   }
   deleteEtabChangeManiere() {
     this.etabChangeManiereLocal = undefined;
-    this.cause_etabChangeManiere =undefined;
+    this.cause_etabChangeManiere = undefined;
     this.displayEtabChangeManiere = false;
   }
   showListAffaireOrigine() {

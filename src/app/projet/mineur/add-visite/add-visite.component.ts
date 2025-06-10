@@ -46,6 +46,7 @@ export class AddVisiteComponent implements OnInit {
     month: number;
     value: number;
   }> = new EventEmitter();
+  currentUser: any;
 
   constructor(
     private crudservice: CrudEnfantService,
@@ -62,7 +63,13 @@ export class AddVisiteComponent implements OnInit {
     this.currentYear = new Date().getFullYear();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
+  }
 
   onSubmit() {
     // console.log(this.currentYear);

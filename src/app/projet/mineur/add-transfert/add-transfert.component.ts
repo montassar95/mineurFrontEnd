@@ -39,6 +39,7 @@ export class AddTransfertComponent implements OnInit {
   stateOptions: any[];
   value1: string = "off";
   affaires: Affaire[];
+  currentUser: any;
   refresh() {
     this.documentService
       .calculerNombreDocumentsJudiciairesParDetention(
@@ -165,6 +166,11 @@ export class AddTransfertComponent implements OnInit {
     window.localStorage.removeItem("idValide");
   }
   ngOnInit() {
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
     console.log("this.selectedType");
     console.log(this.selectedType);
     this.types = [];
@@ -204,7 +210,7 @@ export class AddTransfertComponent implements OnInit {
     this.detentionService
       .trouverDetenuAvecSonStatutActuel(
         id,
-        this.token.getUser().etablissement.id
+        this.token.getUserFromTokenFromToken().etablissement.id
       )
       .subscribe((data) => {
         this.enfantLocal = data.result.enfant;
@@ -429,7 +435,7 @@ export class AddTransfertComponent implements OnInit {
 
                   this.transfert.numArrestation = this.residence.numArrestation;
                   this.transfert.etablissement = this.residence.etablissement;
-                  // this.transfert.user = this.token.getUser();
+                  // this.transfert.user = this.token.getUserFromTokenFromToken();
                   this.transfert.dateInsertion = this.datepipe.transform(
                     new Date(),
                     "yyyy-MM-dd"

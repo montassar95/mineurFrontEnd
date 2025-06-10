@@ -1,112 +1,106 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
-import { CrudEnfantService } from 'src/app/demo/service/crud-enfant.service';
-import { TypeAffaire } from 'src/app/domain/typeAffaire';
-import { BreadcrumbService } from 'src/app/shared/breadcrumb/breadcrumb.service';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { MessageService } from "primeng/api";
+import { TokenStorageService } from "src/app/_services/token-storage.service";
+import { CrudEnfantService } from "src/app/demo/service/crud-enfant.service";
+import { TypeAffaire } from "src/app/domain/typeAffaire";
+import { BreadcrumbService } from "src/app/shared/breadcrumb/breadcrumb.service";
 
 @Component({
-  selector: 'app-type-affaire',
-  templateUrl: './type-affaire.component.html',
-  styleUrls: ['./type-affaire.component.css']
-  ,providers: [MessageService]
+  selector: "app-type-affaire",
+  templateUrl: "./type-affaire.component.html",
+  styleUrls: ["./type-affaire.component.css"],
+  providers: [MessageService],
 })
 export class TypeAffaireComponent implements OnInit {
+  id;
+  nom;
+  degre1;
+  degre2;
+  display = false;
+  typeAffaire: TypeAffaire;
+  currentUser: any;
 
-id;
-nom;
-degre1;
-degre2;
-  display=false;
-  typeAffaire:TypeAffaire
-  
-  constructor(  private crudservice: CrudEnfantService,  private service: MessageService,
-     private breadcrumbService: BreadcrumbService,private router: Router) { 
+  constructor(
+    private crudservice: CrudEnfantService,
+    private service: MessageService,
+    private breadcrumbService: BreadcrumbService,
+    private router: Router,
+    private token: TokenStorageService
+  ) {
     this.breadcrumbService.setItems([
-      {label: 'الإستقبال', routerLink: ['/']},
-  
-      {label: 'رموز القضايا' },
-      {label: ' قائمة  أنواع القضايا   ' },
-  ]);}
+      { label: "الإستقبال", routerLink: ["/"] },
+
+      { label: "رموز القضايا" },
+      { label: " قائمة  أنواع القضايا   " },
+    ]);
+  }
 
   ngOnInit(): void {
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
     this.showAllTypeAffaire();
   }
-  typeAffaires : TypeAffaire[]= [];
+  typeAffaires: TypeAffaire[] = [];
 
   showAllTypeAffaire() {
-      
-        
-    this.crudservice.getlistEntity("typeAffaire")
-    .subscribe( data => {
-      if(data.result){
-     
-        this.typeAffaires= data.result;
-        
-     
-       
+    this.crudservice.getlistEntity("typeAffaire").subscribe((data) => {
+      if (data.result) {
+        this.typeAffaires = data.result;
+      } else {
+        this.typeAffaires = [];
       }
-      else{
-        
-        this.typeAffaires= [];
-        
-     
-      }
-    
     });
-  
-  
-}
+  }
 
-addTyAf(){
-  
-  this.typeAffaire= new TypeAffaire();
-  this.typeAffaire.id=this.id;
-  this.typeAffaire.libelle_typeAffaire=this.nom;
- 
-  this.typeAffaire.statutException=this.degre1;
-  this.typeAffaire.statutNiveau=this.degre2;
+  addTyAf() {
+    this.typeAffaire = new TypeAffaire();
+    this.typeAffaire.id = this.id;
+    this.typeAffaire.libelle_typeAffaire = this.nom;
 
-  this.crudservice.createLigne("typeAffaire",   this.typeAffaire)
-  .subscribe(data => {
-    if(data.result){
-      console.log( data.result );
-      this. showAllTypeAffaire();
-    
-     
-    }
-  
-    
-  });
-  this.display=false;
-}
+    this.typeAffaire.statutException = this.degre1;
+    this.typeAffaire.statutNiveau = this.degre2;
 
-add(){
-  this.id="";
-  this.nom="";
-  this.degre1="";
-  this.degre2="";
-  this.display=true;
-}
+    this.crudservice
+      .createLigne("typeAffaire", this.typeAffaire)
+      .subscribe((data) => {
+        if (data.result) {
+          console.log(data.result);
+          this.showAllTypeAffaire();
+        }
+      });
+    this.display = false;
+  }
 
-update(){
-  this.display=true;
-}
+  add() {
+    this.id = "";
+    this.nom = "";
+    this.degre1 = "";
+    this.degre2 = "";
+    this.display = true;
+  }
 
+  update() {
+    this.display = true;
+  }
 
-delete(typeAffaire: TypeAffaire){
- 
-  this.crudservice.deleteLigne("typeAffaire", typeAffaire.id) .subscribe(data => {
-    if(data.status == 417){
-      this.service.add({ key: 'tst', severity: 'error', summary: '.   خطأ    ', detail: ' عليك تثبت     '  });
-    }
-    else{
-      this.showAllTypeAffaire();
-    }
-    
-  });
- 
-
-}
-
+  delete(typeAffaire: TypeAffaire) {
+    this.crudservice
+      .deleteLigne("typeAffaire", typeAffaire.id)
+      .subscribe((data) => {
+        if (data.status == 417) {
+          this.service.add({
+            key: "tst",
+            severity: "error",
+            summary: ".   خطأ    ",
+            detail: " عليك تثبت     ",
+          });
+        } else {
+          this.showAllTypeAffaire();
+        }
+      });
+  }
 }

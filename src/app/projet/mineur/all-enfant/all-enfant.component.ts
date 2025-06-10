@@ -35,6 +35,8 @@ import { Visite } from "src/app/domain/visite";
 import { DetentionService } from "src/app/demo/service/detention.service";
 import { DocumentService } from "src/app/demo/service/document.service";
 import { SearchDetenuDto } from "src/app/domain/searchDetenuDto ";
+import { PDFPenaleDTO } from "src/app/domain/pDFPenaleDTO";
+import { RapportService } from "src/app/demo/service/rapport.service";
 @Component({
   selector: "app-all-enfant",
   templateUrl: "./all-enfant.component.html",
@@ -45,7 +47,7 @@ import { SearchDetenuDto } from "src/app/domain/searchDetenuDto ";
 export class AllEnfantComponent implements OnInit {
   selectedIndex;
   displayEdit: boolean;
-
+  pDFPenaleDTO: PDFPenaleDTO;
   enfantLocal: Enfant;
   detenus: SearchDetenuDto[] = [];
   path: string;
@@ -90,6 +92,7 @@ export class AllEnfantComponent implements OnInit {
   selectedTab: string; // Définit l'onglet par défaut
 
   source: string;
+  errorMessage: null;
 
   selectTab(tab: string) {
     this.selectedTab = tab; // Met à jour l'onglet sélectionné
@@ -106,7 +109,9 @@ export class AllEnfantComponent implements OnInit {
     private formBuilder: FormBuilder,
     private token: TokenStorageService,
     private breadcrumbService: BreadcrumbService,
-    public datepipe: DatePipe
+    public datepipe: DatePipe,
+    private routerSec: Router,
+    private rapportService: RapportService
   ) {
     this.breadcrumbService.setItems([
       { label: "الإستقبال", routerLink: ["/"] },
@@ -120,10 +125,31 @@ export class AllEnfantComponent implements OnInit {
   //   window.localStorage.removeItem("enfant");
   //   window.localStorage.removeItem("id");
   // }
-
+  acceeSoujoun = false;
   ngOnInit() {
-    this.currentUser = this.token.getUser();
+    this.currentUser = this.token.getUserFromTokenFromToken();
+    console.log("this.currentUser");
     console.log(this.currentUser);
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.routerSec.navigate(["/logoutpage"]);
+    }
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (
+      this.currentUser.username == "test" ||
+      this.currentUser.username == "ibtissem" ||
+      this.currentUser.username == "zied" ||
+      this.currentUser.username == "montassar" ||
+      this.currentUser.username == "mouhamed"
+    ) {
+      this.acceeSoujoun = true;
+    }
+
     this.searchForm = this.formBuilder.group({
       nom: ["", Validators.required],
       prenom: ["", Validators.required],
@@ -246,23 +272,21 @@ export class AllEnfantComponent implements OnInit {
     //     )
     //   );
 
+    const rawDate = this.searchForm.get("dateNaissance").value;
 
-const rawDate = this.searchForm.get("dateNaissance").value;
-const parsedDate = new Date(rawDate);
+    if (rawDate) {
+      const parsedDate = new Date(rawDate);
 
-// Check if it's a valid date
-if (!isNaN(parsedDate.getTime())) {
-  this.searchForm
-    .get("dateNaissance")
-    .setValue(this.datepipe.transform(parsedDate, "yyyy-MM-dd"));
-} else {
-  // Optional: reset the field or handle the invalid input
-  this.searchForm.get("dateNaissance").setValue(null);
-  // Or display a message to the user if needed
-}
-
-
-
+      if (!isNaN(parsedDate.getTime())) {
+        this.searchForm
+          .get("dateNaissance")
+          .setValue(this.datepipe.transform(parsedDate, "yyyy-MM-dd"));
+      } else {
+        this.searchForm.get("dateNaissance").setValue(null);
+      }
+    } else {
+      this.searchForm.get("dateNaissance").setValue(null);
+    }
 
     this.sexe = this.searchForm.get("sexe").value;
 
@@ -412,10 +436,10 @@ if (!isNaN(parsedDate.getTime())) {
           .trouverDerniereResidenceParIdDetenu(this.id)
           .subscribe(
             (data) => {
-              console.log(data);
+              console.log(data.result);
               if (data.result) {
                 this.detenus = [];
-                console.log(data.result);
+
                 this.detenus.push(data.result);
                 this.searchBoolean = false;
               } else {
@@ -476,7 +500,7 @@ if (!isNaN(parsedDate.getTime())) {
               console.log(data);
               if (data.result) {
                 this.detenus = [];
-
+                console.log(data.result);
                 this.detenus.push(data.result);
                 console.log(this.detenus);
                 this.searchBoolean = false;
@@ -764,13 +788,19 @@ if (!isNaN(parsedDate.getTime())) {
     this.displayEdit = true;
   }
 
-  showFolderEnfant(detenuId: string) {
+  showFolderEnfant(detenuId: string, numOrdinaleArrestation: string) {
     console.log(this.source);
     // Logique de navigation
     if (this.source == "Mineur") {
       this.router.navigate(["/mineur/MoreInformation", detenuId, this.source]);
     } else if (this.source == "Penale") {
-      this.router.navigate(["/mineur/showPenale", detenuId, this.source]);
+      this.router.navigate([
+        "/mineur/showPenale",
+        detenuId,
+        numOrdinaleArrestation,
+
+        this.source,
+      ]);
     } else {
       alert("erreur");
     }
@@ -807,4 +837,46 @@ if (!isNaN(parsedDate.getTime())) {
         }
       });
   }
+
+  print(detenu) {
+    this.click = true; // Activer le loading
+    this.errorMessage = null;
+
+    this.pDFPenaleDTO = new PDFPenaleDTO();
+    this.pDFPenaleDTO.sansDetail = true;
+    this.pDFPenaleDTO.sansImage = true;
+    this.pDFPenaleDTO.idEnfant = detenu.detenuId;
+    this.pDFPenaleDTO.numOrdinale = detenu.numOrdinaleArrestation;
+
+    this.rapportService
+      .genererFicheDeDetentionPdf(this.pDFPenaleDTO)
+      .subscribe({
+        next: (x) => {
+          const blob = new Blob([x], { type: "application/pdf" });
+          const data = window.URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = data;
+          link.download = "enfant.pdf";
+
+          window.open(
+            data,
+            "_blank",
+            "top=0,left=0,bottom=0,right=0,height=100%,width=auto"
+          );
+          this.click = false; // Désactiver le loading après succès
+        },
+        error: (err) => {
+          this.click = false; // Désactiver le loading même en cas d'erreur
+          console.error("Erreur de génération du PDF :", err);
+          this.service.add({
+            key: "tst",
+            severity: "error",
+            summary: "⚠ Échec",
+            detail: "Échec de la génération du PDF, veuillez réessayer.",
+          });
+        },
+      });
+  }
+/////////////////////////////////////////////////////////////////////////
+
 }

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { MessageService } from 'primeng';
-import { CrudEnfantService } from 'src/app/demo/service/crud-enfant.service';
-import { BreadcrumbService } from 'src/app/shared/breadcrumb/breadcrumb.service';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { MessageService } from "primeng";
+import { TokenStorageService } from "src/app/_services/token-storage.service";
+import { CrudEnfantService } from "src/app/demo/service/crud-enfant.service";
+import { BreadcrumbService } from "src/app/shared/breadcrumb/breadcrumb.service";
 
 @Component({
   selector: "app-procedure-appel",
@@ -18,12 +19,14 @@ export class ProcedureAppelComponent implements OnInit {
   idRevue: number;
   msg = "";
   isExist: boolean;
+  currentUser: any;
 
   constructor(
     private breadcrumbService: BreadcrumbService,
     private crudservice: CrudEnfantService,
     private router: Router,
-    private service: MessageService
+    private service: MessageService,
+    private token: TokenStorageService
   ) {
     this.breadcrumbService.setItems([
       { label: "الإستقبال", routerLink: ["/"] },
@@ -32,7 +35,13 @@ export class ProcedureAppelComponent implements OnInit {
     ]);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
+  }
   dirOpposition() {
     this.crudservice
       .getLigneById("enfant", this.idOpposition)

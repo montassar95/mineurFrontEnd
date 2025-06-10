@@ -13,11 +13,26 @@ import { TypeAffaire } from "./typeAffaire";
 import { TypeJuge } from "./typeJuge";
 
 export class PenalMandatDepotDTO {
+  // Identifiants
   tnumide: string;
   tcoddet: string;
   tnumseqaff: string;
-  tcodma: string;
-  tdatdma: string;
-  tdatama: string;
-  ttextma: string;
+
+  // Informations personnelles
+  firstname: string; // exemple : "أحمد بن محمد بن علي"
+  motherName: string; // exemple : "فاطمة بن زينب"
+  birthDate: string; // format YYYY-MM-DD
+  adresse: string;
+
+  // Détention
+  numeroEcrou: string;
+  prision: string;
+
+  // Mandat
+  codeDocument: string;
+  numAffaire: string;
+  libelleTribunal: string;
+  dateEmissionMandat: string; // format YYYY-MM-DD
+  dateDepotMandat: string; // format YYYY-MM-DD
+  texteMandat: string;
 }

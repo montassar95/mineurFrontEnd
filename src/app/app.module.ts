@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HashLocationStrategy, LocationStrategy } from "@angular/common";
@@ -133,7 +133,10 @@ import { MatSelectModule } from "@angular/material/select";
 
 import { LoginComponent } from "./login/login.component";
 
-import { authInterceptorProviders } from "./_helpers/auth.interceptor";
+import {
+  AuthInterceptor,
+  authInterceptorProviders,
+} from "./_helpers/auth.interceptor";
 import { LogoutpageComponent } from "./logoutpage/logoutpage.component";
 import { DatePipe } from "@angular/common";
 import { NgxImageCompressService } from "ngx-image-compress";
@@ -236,28 +239,28 @@ import { MineurModule } from "./projet/mineur/mineur.module";
   declarations: [
     AppComponent,
     AppMainComponent,
-    BlankComponent,
-    AppMenuComponent,
-    AppMenuitemComponent,
+      BlankComponent,
+     AppMenuComponent,
+     AppMenuitemComponent,
     AppTopBarComponent,
-    AppFooterComponent,
-    AppRightPanelComponent,
-    AppConfigComponent,
-    AppBreadcrumbComponent,
-    DashboardDemoComponent,
-    SampleDemoComponent,
-    FormsDemoComponent,
-    DataDemoComponent,
-    PanelsDemoComponent,
-    OverlaysDemoComponent,
-    MenusDemoComponent,
-    MessagesDemoComponent,
-    MessagesDemoComponent,
-    MiscDemoComponent,
-    ChartsDemoComponent,
-    EmptyDemoComponent,
-    FileDemoComponent,
-    DocumentationComponent,
+     AppFooterComponent,
+     AppRightPanelComponent,
+     AppConfigComponent,
+     AppBreadcrumbComponent,
+    // DashboardDemoComponent,
+    // SampleDemoComponent,
+    // FormsDemoComponent,
+    // DataDemoComponent,
+    // PanelsDemoComponent,
+    // OverlaysDemoComponent,
+    // MenusDemoComponent,
+    // MessagesDemoComponent,
+    // MessagesDemoComponent,
+    // MiscDemoComponent,
+    // ChartsDemoComponent,
+    // EmptyDemoComponent,
+    // FileDemoComponent,
+    // DocumentationComponent,
 
     LoginComponent,
     LogoutpageComponent,
@@ -266,9 +269,12 @@ import { MineurModule } from "./projet/mineur/mineur.module";
   ],
 
   providers: [
-    authInterceptorProviders,
+    //authInterceptorProviders,
     DatePipe,
     { provide: LocationStrategy, useClass: HashLocationStrategy },
+
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+
     CarService,
     CountryService,
     EventService,

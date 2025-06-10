@@ -207,6 +207,11 @@ import { ShowObservationComponent } from './show/show-observation/show-observati
 import { ShowOppositionComponent } from './show/show-opposition/show-opposition.component';
 import { ShowPenaleComponent } from './show-penale/show-penale.component';
 import { DetailleAffaireComponent } from './detaille-affaire/detaille-affaire.component';
+import { SocialGlobalComponent } from './social-global/social-global.component';
+import { VisitFamilyComponent } from './visit-family/visit-family.component';
+import { FormationComponent } from './formation/formation.component';
+import { SupportServicesComponent } from './support-services/support-services.component';
+import { JudicialDisciplinaryComponent } from './judicial-disciplinary/judicial-disciplinary.component';
 
 @NgModule({
   declarations: [
@@ -320,6 +325,11 @@ import { DetailleAffaireComponent } from './detaille-affaire/detaille-affaire.co
     ShowOppositionComponent,
     ShowPenaleComponent,
     DetailleAffaireComponent,
+    SocialGlobalComponent,
+    VisitFamilyComponent,
+    FormationComponent,
+    SupportServicesComponent,
+    JudicialDisciplinaryComponent,
   ],
   imports: [
     CommonModule,

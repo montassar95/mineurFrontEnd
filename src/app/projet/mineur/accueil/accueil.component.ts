@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { TokenStorageService } from "src/app/_services/token-storage.service";
 import { Product } from "src/app/demo/domain/product";
 import { CrudEnfantService } from "src/app/demo/service/crud-enfant.service";
 import { AppMainComponent } from "src/app/layouts/full/app.main.component";
@@ -13,11 +15,14 @@ export class AccueilComponent implements OnInit {
   products: Product[];
 
   responsiveOptions;
+  currentUser: any;
 
   constructor(
     public app: AppMainComponent,
-    private crudEnfantService: CrudEnfantService,
-    private breadcrumbService: BreadcrumbService
+    private crudservice: CrudEnfantService,
+    private breadcrumbService: BreadcrumbService,
+    private router: Router,
+    private token: TokenStorageService
   ) {
     this.breadcrumbService.setItems([{ label: "الإستقبال" }]);
     this.responsiveOptions = [
@@ -43,6 +48,12 @@ export class AccueilComponent implements OnInit {
   ageMoyen = 34; // Exemple de valeur
   affairesDangereuses = 3; // Exemple de valeur
   ngOnInit() {
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
+
     // this.enfantList();
     this.products = this.products = [
       {
@@ -83,10 +94,30 @@ export class AccueilComponent implements OnInit {
       },
     ];
   }
+  question: string = "";
+  answer: string = "";
+  loading: boolean = false;
+  error: string | null = null;
 
-  enfantList() {
-    this.crudEnfantService.getlistEntity("enfant").subscribe((data) => {
-      console.log(data.result);
+  ask() {
+    this.loading = true;
+    this.error = null;
+    this.answer = "";
+
+    this.crudservice.askQuestion(this.question).subscribe({
+      next: (res) => {
+        this.answer = res;
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = "Erreur lors de la requête";
+        this.loading = false;
+      },
     });
   }
+  // enfantList() {
+  //   this.crudEnfantService.getlistEntity("enfant").subscribe((data) => {
+  //     console.log(data.result);
+  //   });
+  // }
 }

@@ -181,7 +181,12 @@ export class AddChangementLieuComponent implements OnInit {
       });
   }
   ngOnInit() {
-    this.currentUser = this.token.getUser();
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
+    this.currentUser = this.token.getUserFromTokenFromToken();
     let idValide = window.localStorage.getItem("idValide");
     let idValideNav = window.localStorage.getItem("idValideNav");
     console.log(idValide);
@@ -218,7 +223,7 @@ export class AddChangementLieuComponent implements OnInit {
     this.detentionService
       .trouverDetenuAvecSonStatutActuel(
         id,
-        this.token.getUser().etablissement.id
+        this.token.getUserFromTokenFromToken().etablissement.id
       )
       .subscribe((data) => {
         this.enfantLocal = data.result.enfant;
@@ -447,7 +452,7 @@ export class AddChangementLieuComponent implements OnInit {
               this.changementLieu.numArrestation =
                 this.residence.numArrestation;
               this.changementLieu.etablissement = this.residence.etablissement;
-              // this.changementLieu.user = this.token.getUser();
+              // this.changementLieu.user = this.token.getUserFromTokenFromToken();
               this.changementLieu.etablissementMutation =
                 this.etablissementLocal;
               this.changementLieu.dateInsertion = this.datepipe.transform(

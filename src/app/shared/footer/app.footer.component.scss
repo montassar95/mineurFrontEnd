@@ -1,21 +1,21 @@
 .neons h1 {
-
     font-size: 25px;
     text-align: center;
     font-weight: bold;
-
-    animation: xx 0.20s ease-in-out infinite alternate;
-
+    font-family: 'Amiri', Times, serif;
+    color: rgb(199, 198, 198);
+    animation: softBlink 1.5s infinite ease-in-out;
 }
 
-@-webkit-keyframes xx {
-    from {
-        color: #ff0000 !important;
+@keyframes softBlink {
 
+    0%,
+    100% {
+        opacity: 1;
     }
 
-    to {
-        color: rgb(230, 230, 230);
-
+    50% {
+        opacity: 0.5;
     }
 }
+ 

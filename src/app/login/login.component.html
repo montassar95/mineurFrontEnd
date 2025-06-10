@@ -1,10 +1,27 @@
+
+<!-- Warnings après login -->
+<div *ngIf="warningMessages.length > 0" class="warning-wrapper">
+  <div class="warning-container">
+    <ul class="warning-list">
+      <li *ngFor="let warning of warningMessages" class="warning-item">
+        ⚠️ {{ warning }}
+      </li>
+    </ul>
+    <button class="btn-continue" (click)="redirectPage()">مواصلة</button>
+  </div>
+</div>
+
+
+
+
 <div class="login-container">
   <div class="login-box">
     <div class="logo">
       <img src="assets/layout/images/Drapeau-Tunisie_180-gif.gif" alt="Logo" />
     </div>
-    <h2 class="title">المنظومــــــة الجــــزئيــــــة</h2>
-
+    <h2 class="title">المنظومــــــة الجــــزائيــــــة</h2>
+<!-- Message d'expiration uniquement si loginExpired = true -->
+ 
     <form *ngIf="!isLoggedIn" (ngSubmit)="onSubmit()" #f="ngForm" novalidate>
       <div class="input-group">
         <label for="username">إسم المستعمل</label>

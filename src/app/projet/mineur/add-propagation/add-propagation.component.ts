@@ -29,6 +29,7 @@ import { AffaireService } from "src/app/demo/service/affaire.service";
   providers: [MessageService],
 })
 export class AddPropagationComponent implements OnInit {
+  currentUser: any;
   refresh() {
     this.documentService
       .calculerNombreDocumentsJudiciairesParDetention(
@@ -153,6 +154,11 @@ export class AddPropagationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
     let idValide = window.localStorage.getItem("idValide");
     let idValideNav = window.localStorage.getItem("idValideNav");
     console.log(idValide);
@@ -189,7 +195,7 @@ export class AddPropagationComponent implements OnInit {
     this.detentionService
       .trouverDetenuAvecSonStatutActuel(
         id,
-        this.token.getUser().etablissement.id
+        this.token.getUserFromTokenFromToken().etablissement.id
       )
       .subscribe((data) => {
         this.enfantLocal = data.result.enfant;
@@ -295,7 +301,7 @@ export class AddPropagationComponent implements OnInit {
   //                                 });
   //                               if (
   //                                 data.result.etablissement.id !=
-  //                                 this.token.getUser().personelle.etablissement
+  //                                 this.token.getUserFromTokenFromToken().personelle.etablissement
   //                                   .id
   //                               ) {
   //                                 this.isExist = false;
@@ -442,7 +448,7 @@ export class AddPropagationComponent implements OnInit {
 
           this.cartePropagation.numArrestation = this.residence.numArrestation;
           this.cartePropagation.etablissement = this.residence.etablissement;
-          // this.cartePropagation.user = this.token.getUser();
+          // this.cartePropagation.user = this.token.getUserFromTokenFromToken();
           this.cartePropagation.dateInsertion = this.datepipe.transform(
             new Date(),
             "yyyy-MM-dd"

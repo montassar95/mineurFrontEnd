@@ -28,6 +28,7 @@ import { AffaireService } from "src/app/demo/service/affaire.service";
   providers: [MessageService],
 })
 export class AddAppelEnfantComponent implements OnInit {
+  currentUser: any;
   refresh() {
     this.documentService
       .calculerNombreDocumentsJudiciairesParDetention(
@@ -131,6 +132,12 @@ export class AddAppelEnfantComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
+
     let idValide = window.localStorage.getItem("idValide");
     let idValideNav = window.localStorage.getItem("idValideNav");
     console.log(idValide);
@@ -166,7 +173,7 @@ export class AddAppelEnfantComponent implements OnInit {
     this.detentionService
       .trouverDetenuAvecSonStatutActuel(
         id,
-        this.token.getUser().etablissement.id
+        this.token.getUserFromTokenFromToken().etablissement.id
       )
       .subscribe((data) => {
         this.enfantLocal = data.result.enfant;
@@ -213,8 +220,6 @@ export class AddAppelEnfantComponent implements OnInit {
       });
   }
   //------------------------------------------------------------enfant-----------------------------------------------------------------------------------------------
-
-  
 
   showImg() {
     this.displayImg = true;
@@ -295,7 +300,7 @@ export class AddAppelEnfantComponent implements OnInit {
 
           this.appelEnfant.numArrestation = this.residence.numArrestation;
           this.appelEnfant.etablissement = this.residence.etablissement;
-          //this.appelEnfant.user = this.token.getUser();
+          //this.appelEnfant.user = this.token.getUserFromTokenFromToken();
           this.appelEnfant.dateInsertion = this.datepipe.transform(
             new Date(),
             "yyyy-MM-dd"

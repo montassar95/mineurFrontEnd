@@ -1,8 +1,8 @@
-import { Gouvernorat } from './gouvernorat';
+import { Gouvernorat } from "./gouvernorat";
 
 export class Etablissement {
-    id?;
-     
-    gouvernorat :Gouvernorat
-    libelle_etablissement : string; 
+  id?;
+
+  gouvernorat: Gouvernorat;
+  libelle_etablissement: string;
 }

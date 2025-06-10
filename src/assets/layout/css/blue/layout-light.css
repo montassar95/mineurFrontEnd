@@ -1010,6 +1010,7 @@ body.hidden-overflow {
   .layout-menu-light.layout-horizontal .layout-sidebar .layout-menu > li > a .menuitem-text {
     /* color: #1a69a1; couleur text de menu  */
 color: #1a69a1;
+
     /* color: #000000; */
   }
   .layout-menu-light.layout-horizontal .layout-sidebar .layout-menu > li > a i {

@@ -1,3 +1,5 @@
+import { PenalSyntheseDto } from "./penalSyntheseDto";
+
 export class PrisonerPenaleDto {
   detenuId: string;
   numOrdinaleArrestation: string;
@@ -33,4 +35,7 @@ export class PrisonerPenaleDto {
   profession: string;
   niveauCulturel: string;
   codeImage: string;
+
+  phraseDeces: string;
+  //penalSyntheseDto : PenalSyntheseDto;
 }

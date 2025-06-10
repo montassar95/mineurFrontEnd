@@ -43,7 +43,8 @@ export class LiberationComponent implements OnInit {
     private service: MessageService,
     private breadcrumbService: BreadcrumbService,
     private router: Router,
-    private token: TokenStorageService
+    private token: TokenStorageService,
+   
   ) {
     this.breadcrumbService.setItems([
       { label: "الإستقبال", routerLink: ["/"] },
@@ -57,16 +58,20 @@ export class LiberationComponent implements OnInit {
     window.localStorage.removeItem("idValide");
   }
   ngOnInit() {
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
     this.idValide = window.localStorage.getItem("idValide");
 
     this.refrech();
   }
   refrech() {
- 
     this.detentionService
       .trouverDetenuAvecSonStatutActuel(
         this.idValide,
-        this.token.getUser().etablissement.id
+        this.token.getUserFromTokenFromToken().etablissement.id
       )
       .subscribe((data) => {
         if (data.result == null) {
@@ -82,15 +87,13 @@ export class LiberationComponent implements OnInit {
             .subscribe((data) => {
               if (
                 data.result?.etablissement?.id ==
-                this.token?.getUser()?.etablissement?.id
+                this.token?.getUserFromTokenFromToken()?.etablissement?.id
               ) {
                 this.autorise = true;
               }
             });
         }
       });
-     
-      
   }
   delete(arrestation: Arrestation) {
     this.isDelet = true;

@@ -105,7 +105,12 @@ export class AddLiberationComponent implements OnInit, OnDestroy {
     window.localStorage.removeItem("idValide");
   }
   ngOnInit() {
-    this.currentUser = this.token.getUser();
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
+    this.currentUser = this.token.getUserFromTokenFromToken();
 
     let idValide = window.localStorage.getItem("idValide");
 
@@ -116,7 +121,7 @@ export class AddLiberationComponent implements OnInit, OnDestroy {
       this.router.navigate(["/mineur/Changement"]);
     }
 
-    this.currentUser = this.token.getUser();
+    this.currentUser = this.token.getUserFromTokenFromToken();
     console.log(this.currentUser);
 
     this.crudservice.getlistEntity("causeLiberation").subscribe((data) => {
@@ -172,7 +177,7 @@ export class AddLiberationComponent implements OnInit, OnDestroy {
     this.detentionService
       .trouverDetenuAvecSonStatutActuel(
         id,
-        this.token.getUser().etablissement.id
+        this.token.getUserFromTokenFromToken().etablissement.id
       )
       .subscribe((data) => {
         console.log(data.result);
@@ -345,8 +350,7 @@ export class AddLiberationComponent implements OnInit, OnDestroy {
     this.pDFPenaleDTO.sansDetail = this.sansDetail;
     this.pDFPenaleDTO.sansImage = this.sansImage;
     this.pDFPenaleDTO.idEnfant = this.arrestation.arrestationId.idEnfant;
-    this.pDFPenaleDTO.numOrdinale =
-      this.arrestation.arrestationId.numOrdinale;
+    this.pDFPenaleDTO.numOrdinale = this.arrestation.arrestationId.numOrdinale;
 
     this.rapportService
       .genererFicheDeLiberationPdf(this.pDFPenaleDTO)

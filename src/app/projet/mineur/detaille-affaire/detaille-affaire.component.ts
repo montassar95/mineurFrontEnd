@@ -30,6 +30,7 @@ export class DetailleAffaireComponent implements OnInit {
   tribunal1 = "";
   click: boolean;
   sizeFile = 0;
+  currentUser: any;
 
   constructor(
     private crudservice: CrudEnfantService,
@@ -64,6 +65,11 @@ export class DetailleAffaireComponent implements OnInit {
     this.displayTribunal1 = true;
   }
   ngOnInit(): void {
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
     this.chargerDropDownListGouv();
     this.chargerDropDownListTypeTribunal();
     this.chargerDropDownListTribunal();
@@ -126,12 +132,12 @@ export class DetailleAffaireComponent implements OnInit {
     if (this.numAffaireT1 && this.tribunal1Id) {
       pDFListExistDTO.numAffaire = this.numAffaireT1;
       pDFListExistDTO.tribunalId = this.tribunal1Id;
-      pDFListExistDTO.etablissement = this.token?.getUser()?.etablissement;
+      pDFListExistDTO.etablissement =
+        this.token?.getUserFromTokenFromToken()?.etablissement;
 
+      //  pDFListExistDTO.etablissements = [];
+      // pDFListExistDTO.etablissements.push(this.token?.getUserFromTokenFromToken()?.etablissement);
 
-      //  pDFListExistDTO.etablissements = []; 
-      // pDFListExistDTO.etablissements.push(this.token?.getUser()?.etablissement);
-     
       this.rapportService.genererRapportPdfActuel(pDFListExistDTO).subscribe(
         (x) => {
           // this.crudservice.exportAllEtat(pDFListExistDTO).subscribe((x) => {
@@ -168,7 +174,7 @@ export class DetailleAffaireComponent implements OnInit {
         }
       );
     } else {
-      console.log("errur")
+      console.log("errur");
       this.service.add({
         key: "tst",
         severity: "error",

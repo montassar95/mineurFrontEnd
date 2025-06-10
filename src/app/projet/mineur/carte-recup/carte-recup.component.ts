@@ -322,6 +322,11 @@ export class CarteRecupComponent implements OnInit, OnDestroy {
       });
   }
   ngOnInit() {
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
     let idValide = window.localStorage.getItem("idValide");
     let idValideNav = window.localStorage.getItem("idValideNav");
     console.log(idValide);
@@ -371,7 +376,7 @@ export class CarteRecupComponent implements OnInit, OnDestroy {
     this.chargerDropDownListTribunal();
     this.chargerDropDownListGouv();
     this.chargerDropDownListTypeTribunal();
-    this.currentUser = this.token.getUser();
+    this.currentUser = this.token.getUserFromTokenFromToken();
     this.accusationsToAdd = [];
     this.accusationsToAdd.push({ label: "empty", value: null });
     this.calendar_ar = this.appConfigService.calendarConfig;
@@ -396,7 +401,7 @@ export class CarteRecupComponent implements OnInit, OnDestroy {
     this.detentionService
       .trouverDetenuAvecSonStatutActuel(
         id,
-        this.token.getUser().etablissement.id
+        this.token.getUserFromTokenFromToken().etablissement.id
       )
       .subscribe((data) => {
         this.enfantLocal = data.result.enfant;
@@ -1216,7 +1221,7 @@ export class CarteRecupComponent implements OnInit, OnDestroy {
   //         this.carteRecup.jourArretProvisoire = this.jourArretProvisoire;
   //         this.carteRecup.numArrestation = this.residence.numArrestation;
   //         this.carteRecup.etablissement = this.residence.etablissement;
-  //         this.carteRecup.personelle = this.token.getUser().personelle;
+  //         this.carteRecup.personelle = this.token.getUserFromTokenFromToken().personelle;
 
   //         this.carteRecup.dateInsertion = this.datepipe.transform(
   //           new Date(),
@@ -1424,7 +1429,7 @@ export class CarteRecupComponent implements OnInit, OnDestroy {
     carteRecup.jourArretProvisoire = this.jourArretProvisoire;
     carteRecup.numArrestation = this.residence.numArrestation;
     carteRecup.etablissement = this.residence.etablissement;
-    //carteRecup.user = this.token.getUser();
+    //carteRecup.user = this.token.getUserFromTokenFromToken();
     carteRecup.dateInsertion = this.datepipe.transform(
       new Date(),
       "yyyy-MM-dd"

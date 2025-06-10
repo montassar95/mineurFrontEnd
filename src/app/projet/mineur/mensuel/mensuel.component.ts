@@ -122,7 +122,10 @@ export class MensuelComponent implements OnInit {
     //     this.selectedYear,
     //     this.selectedMonth
     //   );
-    this.firstDay = this.datepipe.transform(this.dateDebutGlobale, "yyyy-MM-dd");
+    this.firstDay = this.datepipe.transform(
+      this.dateDebutGlobale,
+      "yyyy-MM-dd"
+    );
     this.lastDay = this.datepipe.transform(this.dateFinGlobale, "yyyy-MM-dd");
     console.log(this.lastDay);
     // this.lastDay = lastDayDate.toLocaleDateString("en-CA").split("T")[0]; // Formate en yyyy-MM-dd
@@ -184,7 +187,8 @@ export class MensuelComponent implements OnInit {
     public datepipe: DatePipe,
 
     private datePipe: DatePipe,
-    private appConfigService: AppConfigService
+    private appConfigService: AppConfigService,
+    private router: Router
   ) {
     this.breadcrumbService.setItems([
       { label: "الإستقبال", routerLink: ["/"] },
@@ -193,7 +197,12 @@ export class MensuelComponent implements OnInit {
     ]);
   }
   ngOnInit(): void {
-    this.currentUser = this.token.getUser();
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
+    this.currentUser = this.token.getUserFromTokenFromToken();
 
     this.calendar_ar = this.calendar_ar = this.appConfigService.calendarConfig;
     this.years =

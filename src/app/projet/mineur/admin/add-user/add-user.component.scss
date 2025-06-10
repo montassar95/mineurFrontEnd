@@ -1,0 +1,98 @@
+ /* Input and Sorting */
+ input {
+     font-weight: bold;
+     font-size: 16px;
+     padding: 0.5rem;
+     border-radius: 8px;
+     border: 1px solid #ccc;
+     width: 250px;
+ }
+
+ .password-summary-box {
+     width: 500px;
+     margin: 20px auto;
+     padding: 15px;
+     border-radius: 10px;
+     background-color: #f4f6f9;
+     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+     direction: rtl;
+     /* Pour un bon alignement arabe */
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ }
+
+ .summary-line {
+     margin-bottom: 12px;
+ }
+
+ .label {
+     font-weight: bold;
+     color: #2f4f4f;
+ }
+
+ .value {
+    
+     
+     color: #333;
+    
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 1.2em;
+        text-align: center;
+ }
+
+ .generated-password {
+     display: inline-block;
+     background-color: #e8f5e9;
+     color: #2e7d32;
+     padding: 8px 16px;
+     border-radius: 8px;
+     font-weight: bold;
+     font-size: 1.2em;
+     text-align: center;
+     animation: pulse 1.5s infinite;
+ }
+
+ @keyframes pulse {
+     0% {
+         box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.4);
+     }
+
+     70% {
+         box-shadow: 0 0 0 10px rgba(46, 125, 50, 0);
+     }
+
+     100% {
+         box-shadow: 0 0 0 0 rgba(46, 125, 50, 0);
+     }
+ }
+
+
+ .save-btn {
+     background-color: #28a745 !important;
+     color: white;
+     border: none;
+     padding: 10px 20px;
+     font-size: 1.1em;
+     border-radius: 30px;
+     cursor: pointer;
+     display: inline-flex;
+     align-items: center;
+     gap: 10px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+     transition: background-color 0.3s ease;
+     font-family: 'Cairo', sans-serif;
+ }
+
+ .save-btn:hover {
+     background-color: #218838 !important;
+ }
+
+ .save-btn .icon {
+     font-size: 20px;
+     color: white;
+ }
+
+ .btn-text {
+     margin-right: 5px;
+ }

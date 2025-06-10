@@ -29,6 +29,7 @@ import { AffaireService } from "src/app/demo/service/affaire.service";
   providers: [MessageService],
 })
 export class AddAppelParquetComponent implements OnInit {
+  currentUser: any;
   refresh() {
     this.documentService
       .calculerNombreDocumentsJudiciairesParDetention(
@@ -129,6 +130,11 @@ export class AddAppelParquetComponent implements OnInit {
     window.localStorage.removeItem("idValide");
   }
   ngOnInit() {
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
     let idValide = window.localStorage.getItem("idValide");
     let idValideNav = window.localStorage.getItem("idValideNav");
     console.log(idValide);
@@ -165,7 +171,7 @@ export class AddAppelParquetComponent implements OnInit {
     this.detentionService
       .trouverDetenuAvecSonStatutActuel(
         id,
-        this.token.getUser().etablissement.id
+        this.token.getUserFromTokenFromToken().etablissement.id
       )
       .subscribe((data) => {
         this.enfantLocal = data.result.enfant;
@@ -291,7 +297,7 @@ export class AddAppelParquetComponent implements OnInit {
 
           this.appelParquet.numArrestation = this.residence.numArrestation;
           this.appelParquet.etablissement = this.residence.etablissement;
-          // this.appelParquet.user = this.token.getUser();
+          // this.appelParquet.user = this.token.getUserFromTokenFromToken();
           this.appelParquet.dateInsertion = this.datepipe.transform(
             new Date(),
             "yyyy-MM-dd"

@@ -1,79 +1,86 @@
-<div  dir="rtl"  class="layout-topbar"    >
-    <div class="layout-topbar-wrapper"  >
+<div dir="rtl" class="layout-topbar" *ngIf="currentUser">
+    <div class="layout-topbar-wrapper">
         <div class="layout-topbar-left ">
             <div class="layout-topbar-logo-wrapper">
-<!--                 
+                <!--                 
                 <a href="#" class="layout-topbar-logo"  >
                 <img id="logo-topbar" src="assets/layout/images/logo-justice-tunisie.png" alt="mirage-layout"/>
                
             </a> -->
                 <a href="#" class="layout-topbar-logo">
                     <!-- <img id="logo-topbar" src="assets/layout/images/Ministere.png" alt="mirage-layout"/> -->
-                   <img id="logo-topbar" src="assets/layout/images/cgprr.png" alt="mirage-layout" />
+                    <img id="logo-topbar" src="assets/layout/images/tounes.png" style=" width: 300px; height: 160px;"
+                        alt="mirage-layout" />
+                    <!-- <img id="logo-topbar" src="assets/layout/images/logotounes.png" style=" width: 45px; height: auto;" alt="mirage-layout" /> -->
+                    <img id="logo-topbar" src="assets/layout/images/cgprr.png" alt="mirage-layout" />
+
                 </a>
-                
-            </div> 
+
+            </div>
         </div>
 
         <div class="layout-topbar-right fadeInDown">
-            <ul class="layout-topbar-actions" >
-          
-                 <li  >
-                    <a  style="background-color: white; border-radius: 50%;" href="#" class="layout-rightpanel-button" (click)="app.onRightPanelButtonClick($event)">
+            <ul class="layout-topbar-actions">
+
+                <li>
+                    <a style="background-color: white; border-radius: 50%;" href="#" class="layout-rightpanel-button"
+                        (click)="app.onRightPanelButtonClick($event)">
                         <i class="pi pi-bell" style="color: #1a69a1;  "></i>
                     </a>
-                </li>  
+                </li>
                 <li>
-                    <a  style="background-color: white; border-radius: 50%;" >
+                    <a style="background-color: white; border-radius: 50%;">
                         <i class="pi pi-envelope" style="color: #1a69a1;   font-size: 30px;
                         font-weight: bold;"></i>
                     </a>
-                </li>   
+                </li>
 
-                <li #profile class="topbar-item profile-item" [ngClass]="{'active-topmenuitem': app.activeTopbarItem === profile}">
+                <li #profile class="topbar-item profile-item"
+                    [ngClass]="{'active-topmenuitem': app.activeTopbarItem === profile}">
                     <a href="#" (click)="app.onTopbarItemClick($event,profile)">
-                    <span class="profile-image-wrapper">
-                        <!-- [src]="img" -->
-                        <img src="assets/layout/images/police.png"  class="profile-img" alt="mirage-layout" />
-                    </span>
+                        <span class="profile-image-wrapper">
+                            <!-- [src]="img" -->
+                            <img src="assets/layout/images/police.png" class="profile-img" alt="mirage-layout" />
+                        </span>
                         <span class="profile-info-wrapper">
-                        <h3 style="color: #cfd1d4;"> {{currentUser?.nom +' '+ currentUser?.prenom}}</h3>
-                        <span  style="color: #cfd1d4;">جزائية</span>
-                    </span>
+                            <h3 style="color: #cfd1d4;"> {{currentUser?.nom +' '+ currentUser?.prenom}}</h3>
+                            <span style="color: #cfd1d4;">جزائية</span>
+                        </span>
                     </a>
-                    <ul  class="profile-item-submenu fadeInDown" >
-                        <li class="profile-submenu-header" >
+                    <ul class="profile-item-submenu fadeInDown">
+                        <li class="profile-submenu-header">
                             <div class="performance">
-                                <span style="font-weight: bold;">{{currentUser.nom +' '+ currentUser.prenom}}</span>
-                             
+                                <span style="font-weight: bold;">{{currentUser?.nom +' '+ currentUser?.prenom}}</span>
+
                             </div>
                             <div class="profile">
-                                
-                                <h1>{{currentUser.etablissement.libelle_etablissement }}</h1>
+
+                                <h1>{{currentUser?.etablissement?.libelle_etablissement }}</h1>
                                 <span>جزائية</span>
                             </div>
                         </li>
-                      
-                      
+
+
                         <li class="layout-submenu-footer">
                             <i class="pi pi-users icon icon-3"></i>
-                           
-                            <button class="signout-button"  (click)="changerPwd()"> <i class="pi pi-angle-left" style="color: green;  font-weight: bold;"> تغير كلمة السر</i></button>
+
+                            <button class="signout-button" (click)="changerPwd()"> <i class="pi pi-angle-left"
+                                    style="color: green;  font-weight: bold;"> تغير كلمة السر</i></button>
                         </li>
                         <li class="layout-submenu-footer">
-                            <button class="signout-button"     (click)="signout()"    > <i class="pi pi-fw pi-power-off" style="color: red; background-color:
+                            <button class="signout-button" (click)="signout()"> <i class="pi pi-fw pi-power-off" style="color: red; background-color:
                              transparent; font-weight: bold; width: 
-                             10px; margin-right: 110px;" > خروج</i></button>
-                            
+                             10px; margin-right: 110px;"> خروج</i></button>
+
                         </li>
                     </ul>
                 </li>
-             
+
             </ul>
 
-         
-         </div>
-         
+
+        </div>
+
     </div>
 </div>
 
@@ -100,7 +107,7 @@
 
     </p-header>
 
-     <!-- <app-add-user (closeEvent)="close($event)"></app-add-user> -->
+    <!-- <app-add-user (closeEvent)="close($event)"></app-add-user> -->
 
 
 </p-dialog>

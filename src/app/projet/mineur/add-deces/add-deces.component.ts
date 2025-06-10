@@ -82,7 +82,12 @@ export class AddDecesComponent implements OnInit, OnDestroy {
     window.localStorage.removeItem("idValide");
   }
   ngOnInit() {
-    this.currentUser = this.token.getUser();
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
+    this.currentUser = this.token.getUserFromTokenFromToken();
 
     let idValide = window.localStorage.getItem("idValide");
     console.log(idValide);
@@ -92,7 +97,7 @@ export class AddDecesComponent implements OnInit, OnDestroy {
       this.router.navigate(["/mineur/Changement"]);
     }
 
-    this.currentUser = this.token.getUser();
+    this.currentUser = this.token.getUserFromTokenFromToken();
     console.log(this.currentUser);
 
     this.crudservice.getlistEntity("causeDeces").subscribe((data) => {
@@ -168,7 +173,7 @@ export class AddDecesComponent implements OnInit, OnDestroy {
 
       //                     if (
       //                       this.residence.etablissement.id !=
-      //                       this.token.getUser().personelle.etablissement.id
+      //                       this.token.getUserFromTokenFromToken().personelle.etablissement.id
       //                     ) {
       //                       this.isMutation = true;
 
@@ -196,7 +201,7 @@ export class AddDecesComponent implements OnInit, OnDestroy {
       //                               } else {
       //                                 if (
       //                                   this.residence.etablissement.id !=
-      //                                   this.token.getUser().personelle
+      //                                   this.token.getUserFromTokenFromToken().personelle
       //                                     .etablissement.id
       //                                 ) {
       //                                   this.isMutation = true;
@@ -221,7 +226,7 @@ export class AddDecesComponent implements OnInit, OnDestroy {
       //                           this.isEchappes = true;
       //                           if (
       //                             this.residence.etablissement.id !=
-      //                             this.token.getUser().personelle.etablissement
+      //                             this.token.getUserFromTokenFromToken().personelle.etablissement
       //                               .id
       //                           ) {
       //                             this.isMutation = true;
@@ -272,7 +277,7 @@ export class AddDecesComponent implements OnInit, OnDestroy {
       //                   if (this.deces == null) {
       //                     if (
       //                       this.residence.etablissement.id !=
-      //                       this.token.getUser().personelle.etablissement.id
+      //                       this.token.getUserFromTokenFromToken().personelle.etablissement.id
       //                     ) {
       //                       this.isMutation = true;
 

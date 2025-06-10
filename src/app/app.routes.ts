@@ -36,19 +36,19 @@ export const routes: Routes = [
     path: "",
     component: AppMainComponent,
     children: [
-      { path: "dashboard", component: DashboardDemoComponent },
-      { path: "components/sample", component: SampleDemoComponent },
-      { path: "components/forms", component: FormsDemoComponent },
-      { path: "components/data", component: DataDemoComponent },
-      { path: "components/panels", component: PanelsDemoComponent },
-      { path: "components/overlays", component: OverlaysDemoComponent },
-      { path: "components/menus", component: MenusDemoComponent },
-      { path: "components/messages", component: MessagesDemoComponent },
-      { path: "components/misc", component: MiscDemoComponent },
-      { path: "pages/empty", component: EmptyDemoComponent },
-      { path: "components/charts", component: ChartsDemoComponent },
-      { path: "components/file", component: FileDemoComponent },
-      { path: "documentation", component: DocumentationComponent },
+      // { path: "dashboard", component: DashboardDemoComponent },
+      // { path: "components/sample", component: SampleDemoComponent },
+      // { path: "components/forms", component: FormsDemoComponent },
+      // { path: "components/data", component: DataDemoComponent },
+      // { path: "components/panels", component: PanelsDemoComponent },
+      // { path: "components/overlays", component: OverlaysDemoComponent },
+      // { path: "components/menus", component: MenusDemoComponent },
+      // { path: "components/messages", component: MessagesDemoComponent },
+      // { path: "components/misc", component: MiscDemoComponent },
+      // { path: "pages/empty", component: EmptyDemoComponent },
+      // { path: "components/charts", component: ChartsDemoComponent },
+      // { path: "components/file", component: FileDemoComponent },
+      // { path: "documentation", component: DocumentationComponent },
       { path: "logoutpage", component: LogoutpageComponent },
 
       {
@@ -56,30 +56,30 @@ export const routes: Routes = [
         loadChildren: () =>
           import("./projet/mineur/mineur.module").then((m) => m.MineurModule),
       },
-      {
-        path: "cupo",
-        loadChildren: () =>
-          import("./pages/matriculacion/cupo/cupo.module").then(
-            (m) => m.CupoModule
-          ),
-      },
-      {
-        path: "dashboard",
-        loadChildren: () =>
-          import("./pages/matriculacion/dashboards/dashboard.module").then(
-            (m) => m.DashboardModule
-          ),
-      },
+      // {
+      //   path: "cupo",
+      //   loadChildren: () =>
+      //     import("./pages/matriculacion/cupo/cupo.module").then(
+      //       (m) => m.CupoModule
+      //     ),
+      // },
+      // {
+      //   path: "dashboard",
+      //   loadChildren: () =>
+      //     import("./pages/matriculacion/dashboards/dashboard.module").then(
+      //       (m) => m.DashboardModule
+      //     ),
+      // },
     ],
   },
-  {
-    path: "authentication",
-    component: BlankComponent,
-    loadChildren: () =>
-      import("./pages/authentication/authentication.module").then(
-        (m) => m.AuthenticationModule
-      ),
-  },
+  // {
+  //   path: "authentication",
+  //   component: BlankComponent,
+  //   loadChildren: () =>
+  //     import("./pages/authentication/authentication.module").then(
+  //       (m) => m.AuthenticationModule
+  //     ),
+  // },
   { path: "**", redirectTo: "/authentication/404" },
 ];
 

@@ -26,7 +26,7 @@ import { RefuseRevue } from "src/app/domain/refuseRevue";
 import { CartePropagation } from "src/app/domain/cartePropagation";
 import { ChangementLieu } from "src/app/domain/changementLieu";
 import { FicheDeDetentionDto } from "src/app/domain/ficheDeDetentionDto";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { DetentionService } from "src/app/demo/service/detention.service";
 import { AffaireService } from "src/app/demo/service/affaire.service";
 import { DocumentService } from "src/app/demo/service/document.service";
@@ -50,7 +50,8 @@ export class MoreInformatonComponent implements OnInit {
     private token: TokenStorageService,
     public datepipe: DatePipe,
     private nodeService: NodeService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private routerSec: Router
   ) {}
 
   swipe() {
@@ -62,6 +63,7 @@ export class MoreInformatonComponent implements OnInit {
   }
 
   enfantLocal: Enfant;
+  firstResidence: Residence;
   arrestations: Arrestation[];
   titreAccusations: TitreAccusation[];
   arretProvisoires: ArretProvisoire[];
@@ -125,8 +127,13 @@ export class MoreInformatonComponent implements OnInit {
   idEnfant: string;
 
   ngOnInit(): void {
-    console.log(this.token.getUser());
-    this.currentUser = this.token.getUser();
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.routerSec.navigate(["/logoutpage"]);
+    }
+    console.log(this.token.getUserFromTokenFromToken());
+    this.currentUser = this.token.getUserFromTokenFromToken();
     if (this.idEnfant) {
       this.search(this.idEnfant);
     }
@@ -158,7 +165,7 @@ export class MoreInformatonComponent implements OnInit {
     this.detentionService
       .trouverDetenuAvecSonStatutActuel(
         id,
-        this.token.getUser().etablissement.id
+        this.token.getUserFromTokenFromToken().etablissement.id
       )
       .subscribe((data) => {
         this.enfantLocal = data.result.enfant;
@@ -239,6 +246,7 @@ export class MoreInformatonComponent implements OnInit {
         this.residences = this.ficheDeDetentionDto.residences;
         this.getTitreAccusation(this.affairePrincipale);
         this.getRecidence(this.ficheDeDetentionDto.residences[0]);
+        this.firstResidence = this.ficheDeDetentionDto.residences[0];
         this.displayAffaire = true;
 
         console.log(
@@ -259,31 +267,28 @@ export class MoreInformatonComponent implements OnInit {
   private trouverAffairePrincipale(liste: Affaire[]): Affaire | undefined {
     return liste.find((affaire) => affaire.affairePrincipale === true);
   }
-
+  
   private getRecidence(residence: Residence) {
-     this.infoResidence =" ";
+    this.infoResidence = " ";
     if (residence.statut == 2) {
-      this.numArrestation = "نقلة جارية";
-      this.centre =
+      this.infoResidence +=   "نقلة جارية";
+      this.infoResidence +=
         "نحو " + " " + residence.etablissement.libelle_etablissement;
-    } else {
-      this.numArrestation = residence.numArrestation;
-      this.centre = residence.etablissement.libelle_etablissement;
+    }  
+
+    const libelleEtab =
+      residence.etabChangeManiereEntree?.libelle_etabChangeManiere;
+    const libellePassage =
+      residence.etablissementPassage?.libelle_etablissement;
+
+    if (libelleEtab) {
+      this.infoResidence += "قدِم من " + libelleEtab;
     }
- 
 
-  const libelleEtab =
-    residence.etabChangeManiereEntree?.libelle_etabChangeManiere;
-  const libellePassage = residence.etablissementPassage?.libelle_etablissement;
-
-  if (libelleEtab) {
-    this.infoResidence += "قدِم من " + libelleEtab;
-  }
-
-  if (libellePassage) {
-    this.infoResidence +=
-      (libelleEtab ? " ، " : "") + "مرّ بـمركز " + libellePassage;
-  }
+    if (libellePassage) {
+      this.infoResidence +=
+        (libelleEtab ? " ، " : "") + "مرّ بـمركز " + libellePassage;
+    }
   }
 
   private getTitreAccusation(affaire: Affaire) {
@@ -335,7 +340,7 @@ export class MoreInformatonComponent implements OnInit {
     if (row.typeDocumentActuelle == "CHL") {
       this.changementLieu = row;
       this.showChangementLieu = true;
-    } else if (row.typeDocument == "CJ") {
+    } else if (row.typeDocument == "CJ" || row.typeDocument == "CJA") {
       this.carteRecup = row;
       console.log("this.carteRecup");
       console.log(this.carteRecup);

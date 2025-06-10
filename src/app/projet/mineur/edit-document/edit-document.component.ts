@@ -78,6 +78,7 @@ export class EditDocumentComponent implements OnInit {
   affaire: Affaire;
   arrestation: Arrestation;
   autorise = false;
+  currentUser: any;
 
   constructor(
     private crudservice: CrudEnfantService,
@@ -106,6 +107,11 @@ export class EditDocumentComponent implements OnInit {
     console.log("xxxxxx");
   }
   ngOnInit() {
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
     // let idValide = window.localStorage.getItem("idValide");
     // console.log(idValide);
     // if (idValide) {
@@ -139,7 +145,7 @@ export class EditDocumentComponent implements OnInit {
             .subscribe((data) => {
               if (
                 data.result?.etablissement?.id ==
-                this.token?.getUser()?.etablissement?.id
+                this.token?.getUserFromTokenFromToken()?.etablissement?.id
               ) {
                 this.autorise = true;
               }

@@ -34,6 +34,7 @@ import { DetentionService } from "src/app/demo/service/detention.service";
 export class AddRevueComponent implements OnInit {
   refuse: boolean = false;
   displayTribunalTransfere = false;
+  currentUser: any;
   refresh() {
     this.documentService
       .calculerNombreDocumentsJudiciairesParDetention(
@@ -158,6 +159,11 @@ export class AddRevueComponent implements OnInit {
     window.localStorage.removeItem("idValide");
   }
   ngOnInit() {
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
     let idValide = window.localStorage.getItem("idValide");
     let idValideNav = window.localStorage.getItem("idValideNav");
     console.log(idValide);
@@ -202,7 +208,7 @@ export class AddRevueComponent implements OnInit {
     this.detentionService
       .trouverDetenuAvecSonStatutActuel(
         id,
-        this.token.getUser().etablissement.id
+        this.token.getUserFromTokenFromToken().etablissement.id
       )
       .subscribe((data) => {
         this.enfantLocal = data.result.enfant;
@@ -290,7 +296,7 @@ export class AddRevueComponent implements OnInit {
   //                       }
 
   //                         });
-  //                         if(data.result.etablissement.id != this.token.getUser().personelle.etablissement.id){
+  //                         if(data.result.etablissement.id != this.token.getUserFromTokenFromToken().personelle.etablissement.id){
 
   //                           this.isExist = false;
   //                           this.statEchappesOrlibre=3;
@@ -407,6 +413,8 @@ export class AddRevueComponent implements OnInit {
         this.affaireIdOrigine.idEnfant = this.enfantLocal.id;
         this.affaireIdOrigine.idTribunal = this.tribunalTransfereObjet.id;
         this.affaireIdOrigine.numAffaire = this.numAffaireTransfere;
+        this.affaireIdOrigine.numOrdinaleArrestation =
+          this.arrestation.arrestationId.numOrdinale;
 
         this.affaireOrigine.arrestation = this.arrestation;
         this.affaireOrigine.tribunal = this.tribunalTransfereObjet;
@@ -460,7 +468,7 @@ export class AddRevueComponent implements OnInit {
 
               this.revue.numArrestation = this.residence.numArrestation;
               this.revue.etablissement = this.residence.etablissement;
-              //this.revue.user = this.token.getUser();
+              //this.revue.user = this.token.getUserFromTokenFromToken();
               this.revue.dateInsertion = this.datepipe.transform(
                 new Date(),
                 "yyyy-MM-dd"

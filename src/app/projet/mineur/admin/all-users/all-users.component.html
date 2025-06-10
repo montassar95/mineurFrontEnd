@@ -17,9 +17,16 @@
       <!-- Table Header -->
       <ng-template pTemplate="header">
          <tr>
-            <th pSortableColumn="id"> معـــرف ألـــي <p-sortIcon field="id"></p-sortIcon></th>
-            <th pSortableColumn="personelleId"> رقـــم الإداري <p-sortIcon field="personelleId"></p-sortIcon></th>
+            <th pSortableColumn="id" style="width: 50px;"> معـــرف ألـــي <p-sortIcon field="id"></p-sortIcon></th>
+            <th pSortableColumn="personelleId" style="width: 50px;"> رقـــم الإداري <p-sortIcon
+                  field="personelleId"></p-sortIcon></th>
             <th pSortableColumn="fullName">الهويـــة <p-sortIcon field="fullName"></p-sortIcon></th>
+            <th pSortableColumn="telephone">رقم الهاتف <p-sortIcon field="telephone"></p-sortIcon></th>
+
+            <th pSortableColumn="lastPasswordModifiedDate" style="width: 200px;"> تاريخ آخر تغيير لكلمة السر <p-sortIcon
+                  field="lastPasswordModifiedDate"></p-sortIcon></th>
+            <th pSortableColumn="lastLogin" style="width: 200px;"> تاريخ آخر دخول <p-sortIcon
+                  field="lastLogin"></p-sortIcon></th>
             <th pSortableColumn="username">إســـم المستعمـــل <p-sortIcon field="username"></p-sortIcon></th>
             <th pSortableColumn="roleName" style="width: 10%;">المهــــام
                <p-sortIcon field="roleName"></p-sortIcon>
@@ -37,22 +44,26 @@
 
       <!-- Table Body -->
       <ng-template pTemplate="body" let-user>
-         <tr>
-            <td>{{user?.id}}</td>
-            <td> <b>{{user?.personelleId}}</b> </td>
-            <td>{{user?.fullName}} </td>
-            <td>{{user?.username}}</td>
-            <td>{{user?.roleName}}</td>
+         <tr
+            [ngStyle]="isLoginExpired(user ) ? {'background-color': '#f8d7da', 'color': '#721c24'} : {'background-color': '#fff', 'color': '#000'}">
+       
 
-
-            <td>{{user?.etablissement}}</td>
+            <td>{{user?.id}}</td> <!-- معرف آلي -->
+            <td><b>{{user?.personelleId}}</b></td> <!-- رقم إداري -->
+            <td>{{user?.fullName}}</td> <!-- الهوية -->
+            <td>{{user?.telephone}}</td> <!-- رقم الهاتف -->
+            <td>{{user?.lastPasswordModifiedDate | date:'HH:mm yyyy-MM-dd'}}</td> <!-- تاريخ آخر تغيير لكلمة السر -->
+            <td>{{user?.lastLogin | date:'HH:mm yyyy-MM-dd'}}</td> <!-- تاريخ آخر دخول -->
+            <td>{{user?.username}}</td> <!-- اسم المستعمل -->
+            <td>{{user?.roleName}}</td> <!-- المهام -->
+            <td>{{user?.etablissement}}</td> <!-- المؤسسة -->
             <td *ngIf="user?.id != 41">
                <button mat-mini-fab (click)="editUser(user)" class="edit-btn"><i class="pi pi-pencil"></i></button>
                <button mat-mini-fab (click)="deleteUser(user)" class="delete-btn" style="margin-right: 10px;"><i
                      class="pi pi-trash"></i></button>
             </td>
-
          </tr>
+
       </ng-template>
    </p-table>
 
@@ -64,6 +75,7 @@
          </div>
       </p-header>
       <app-add-user [user]="selectedUser" (closeEvent)="close($event)"></app-add-user>
+
    </p-dialog>
 
 
@@ -103,7 +115,7 @@
                <td>{{selectedUser?.etablissement}}</td>
 
                <td>
-                  <button (click)="displayDeleteUser=false" style="background-color: white!important;" mat-fab>
+                  <button (click)="closeDelete()" style="background-color: white!important;" mat-fab>
                      <i class="pi pi-undo" style="font-size: 30px; font-weight: bolder; color:green;"> </i>
 
 

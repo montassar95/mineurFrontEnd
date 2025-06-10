@@ -34,6 +34,7 @@ import { Arrestation } from "src/app/domain/arrestation";
 })
 export class AddArreterLexecutionComponent implements OnInit {
   affaires: Affaire[];
+  currentUser: any;
   refresh() {
     this.documentService
       .calculerNombreDocumentsJudiciairesParDetention(
@@ -166,6 +167,11 @@ export class AddArreterLexecutionComponent implements OnInit {
       });
   }
   ngOnInit() {
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
     this.types = [];
     this.types.push({ label: "إيقاف تنفيذ الحكم ", value: "ArretEx" });
     this.types.push({ label: "ســــــــــــراح", value: "L" });
@@ -203,7 +209,7 @@ export class AddArreterLexecutionComponent implements OnInit {
     this.detentionService
       .trouverDetenuAvecSonStatutActuel(
         id,
-        this.token.getUser().etablissement.id
+        this.token.getUserFromTokenFromToken().etablissement.id
       )
       .subscribe((data) => {
         this.enfantLocal = data.result.enfant;
@@ -310,7 +316,7 @@ export class AddArreterLexecutionComponent implements OnInit {
   //                                 });
   //                               if (
   //                                 data.result.etablissement.id !=
-  //                                 this.token.getUser().personelle.etablissement
+  //                                 this.token.getUserFromTokenFromToken().personelle.etablissement
   //                                   .id
   //                               ) {
   //                                 this.isExist = false;
@@ -589,7 +595,7 @@ export class AddArreterLexecutionComponent implements OnInit {
                 this.residence.numArrestation;
               this.arreterlexecution.etablissement =
                 this.residence.etablissement;
-              // this.arreterlexecution.user = this.token.getUser();
+              // this.arreterlexecution.user = this.token.getUserFromTokenFromToken();
               this.arreterlexecution.dateInsertion = this.datepipe.transform(
                 new Date(),
                 "yyyy-MM-dd"

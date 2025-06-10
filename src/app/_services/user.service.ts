@@ -3,8 +3,6 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 
- 
-
 @Injectable({
   providedIn: "root",
 })
@@ -15,8 +13,10 @@ export class UserService {
     return this.http.get(environment.baseUrl + "all", { responseType: "text" });
   }
 
-  getUserBoard(): Observable<any> {
-    return this.http.get(environment.baseUrl + "user", { responseType: "text" });
+  getUserFromTokenFromTokenBoard(): Observable<any> {
+    return this.http.get(environment.baseUrl + "user", {
+      responseType: "text",
+    });
   }
 
   getModeratorBoard(): Observable<any> {
@@ -26,6 +26,8 @@ export class UserService {
     return this.http.get(environment.baseUrl + "dir", { responseType: "text" });
   }
   getAdminBoard(): Observable<any> {
-    return this.http.get(environment.baseUrl + "admin", { responseType: "text" });
+    return this.http.get(environment.baseUrl + "admin", {
+      responseType: "text",
+    });
   }
 }

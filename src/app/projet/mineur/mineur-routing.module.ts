@@ -76,6 +76,11 @@ import { OppositionComponent } from "./opposition/opposition.component";
 import { ObservationComponent } from "./observation/observation.component";
 import { ShowPenaleComponent } from "./show-penale/show-penale.component";
 import { DetailleAffaireComponent } from "./detaille-affaire/detaille-affaire.component";
+import { SocialGlobalComponent } from "./social-global/social-global.component";
+import { FormationComponent } from "./formation/formation.component";
+import { SupportServicesComponent } from "./support-services/support-services.component";
+import { VisitFamilyComponent } from "./visit-family/visit-family.component";
+import { JudicialDisciplinaryComponent } from "./judicial-disciplinary/judicial-disciplinary.component";
 
 const routes: Routes = [
   {
@@ -92,7 +97,7 @@ const routes: Routes = [
       },
 
       {
-        path: "showPenale/:id/:source",
+        path: "showPenale/:id/:tcoddet/:source",
         component: ShowPenaleComponent,
       },
 
@@ -128,7 +133,7 @@ const routes: Routes = [
       { path: "ProcedureAppel", component: ProcedureAppelComponent },
       { path: "Affaire", component: AffaireComponent },
       { path: "detailleAffaire", component: DetailleAffaireComponent },
- 
+
       { path: "Changement", component: ChangementComponent },
       { path: "AppelParquet", component: AppelParquetComponent },
       { path: "AppelEnfant", component: AppelEnfantComponent },
@@ -188,6 +193,14 @@ const routes: Routes = [
       { path: "Propagation", component: PropagationComponent },
 
       { path: "ChangementLieu", component: ChangementLieuComponent },
+      { path: "socialGlobal", component: SocialGlobalComponent },
+      { path: "visitFamily", component: VisitFamilyComponent },
+      { path: "formation", component: FormationComponent },
+      { path: "supportServices", component: SupportServicesComponent },
+      {
+        path: "judicialDisciplinary",
+        component: JudicialDisciplinaryComponent,
+      },
     ],
   },
 ];

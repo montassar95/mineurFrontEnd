@@ -25,14 +25,12 @@ export class AppTopBarComponent implements OnInit {
     this.activeItem = this.activeItem === index ? null : index;
   }
   ngOnInit() {
-    this.currentUser = this.token.getUser();
+    this.currentUser = this.token.getUserFromTokenFromToken();
     //this.img = this.currentUser.img;
   }
 
   changerPwd() {
-    this.router.navigate([
-      "/mineur/ModifyPassword" 
-    ]);
+    this.router.navigate(["/mineur/ModifyPassword"]);
   }
   close(display: boolean) {
     this.displayUpdateUser = display;

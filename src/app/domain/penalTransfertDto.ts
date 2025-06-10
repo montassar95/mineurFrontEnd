@@ -16,10 +16,15 @@ export class PenalTransfertDto {
   tnumide: string;
   tcoddet: string;
   tnumseqaff: string;
-  tcodtraf: string;
-  tdattran: string;
-  tnumjaf: string;
+  firstname: string;
+  motherName: string;
+  birthDate: string;
+  adresse: string;
+  codeDocument: string;
+  dateTransfert: string;
+  numAffaireDepart: string;
   libelleTribunalDepart: string;
-  tnumjafn: string;
+  numAffaireArrivee: string;
   libelleTribunalArrivee: string;
+  typeTransfert: string;
 }

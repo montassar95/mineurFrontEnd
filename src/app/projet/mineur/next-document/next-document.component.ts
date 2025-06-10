@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { TokenStorageService } from "src/app/_services/token-storage.service";
 
 @Component({
   selector: "app-next-document",
@@ -7,11 +8,18 @@ import { Router } from "@angular/router";
   styleUrls: ["./next-document.component.css"],
 })
 export class NextDocumentComponent implements OnInit {
-  constructor(private router: Router) {}
+  currentUser: any;
+  constructor(private router: Router, private token: TokenStorageService) {}
 
   @Input() childId: string;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
+  }
   directions = [
     { label: "  بطاقات الإيواء    ", value: "/mineur/docHeber" },
     { label: "    بطاقات الإيداع ", value: "/mineur/docHeber" },

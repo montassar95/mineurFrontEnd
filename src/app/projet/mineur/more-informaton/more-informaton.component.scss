@@ -43,10 +43,10 @@
     
          .profile-img-card3 {
     
-          margin-top: 10px;
-           width: 230px;
-           height: 300px;
-           max-height: 350px;
+          margin-top: 20px;
+          width: 320px;
+            height: 380px;
+           max-height: 500px;
            
            display: block;
            -moz-border-radius: 50%;
@@ -519,3 +519,26 @@ background-color: red;
     }
 
  
+// ----------------------------------------------------------------
+
+
+.action-icon {
+  cursor: pointer;
+  text-align: center;
+  padding: 6px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #acacac, #ffffff);
+  color: #4c566a;
+  box-shadow: 4px 4px 8px #9e9e9e, -4px -4px 8px #cfcfcf;
+  transition: all 0.2s ease-in-out;
+  width: fit-content;
+  margin: auto;
+}
+
+.action-icon:hover {
+  box-shadow: inset 3px 3px 6px #bcbcbc, inset -3px -3px 6px #ffffff;
+}
+
+.action-icon i {
+  font-size: 45px;
+}

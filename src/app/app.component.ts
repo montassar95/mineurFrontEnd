@@ -1,17 +1,10 @@
-import {Component, ViewChild} from '@angular/core';
-import {SettingsService} from './services/matriculacion/settings.service';
+import { Component, ViewChild } from "@angular/core";
+import { SettingsService } from "./services/matriculacion/settings.service";
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
+  selector: "app-root",
+  templateUrl: "./app.component.html",
 })
 export class AppComponent {
-
-    
-    constructor(public ajustes: SettingsService) {
-        
-    }
-
-   
-
+  constructor(public ajustes: SettingsService) {}
 }

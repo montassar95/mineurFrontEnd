@@ -83,7 +83,12 @@ export class AddMutationComponent implements OnInit, OnDestroy {
     window.localStorage.removeItem("idValide");
   }
   ngOnInit() {
-    this.currentUser = this.token.getUser();
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
+    this.currentUser = this.token.getUserFromTokenFromToken();
 
     let idValide = window.localStorage.getItem("idValide");
     console.log(idValide);
@@ -120,7 +125,7 @@ export class AddMutationComponent implements OnInit, OnDestroy {
     this.detentionService
       .trouverDetenuAvecSonStatutActuel(
         id,
-        this.token.getUser().etablissement.id
+        this.token.getUserFromTokenFromToken().etablissement.id
       )
       .subscribe((data) => {
         this.enfantLocal = data.result.enfant;
@@ -132,12 +137,12 @@ export class AddMutationComponent implements OnInit, OnDestroy {
 
         if (
           data.result?.residenceEncour?.etablissement.id ==
-          this.token.getUser().etablissement.id
+          this.token.getUserFromTokenFromToken().etablissement.id
         ) {
           this.accepte = true;
         } else if (
           data.result?.residenceEncour?.etablissementEntree.id ==
-          this.token.getUser().etablissement.id
+          this.token.getUserFromTokenFromToken().etablissement.id
         ) {
           this.edit = true;
         }

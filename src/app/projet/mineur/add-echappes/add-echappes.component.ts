@@ -98,7 +98,12 @@ export class AddEchappesComponent implements OnInit, OnDestroy {
     window.localStorage.removeItem("idValide");
   }
   ngOnInit() {
-    this.currentUser = this.token.getUser();
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
+    this.currentUser = this.token.getUserFromTokenFromToken();
 
     let idValide = window.localStorage.getItem("idValide");
     console.log(idValide);
@@ -108,7 +113,7 @@ export class AddEchappesComponent implements OnInit, OnDestroy {
       this.router.navigate(["/mineur/Changement"]);
     }
 
-    this.currentUser = this.token.getUser();
+    this.currentUser = this.token.getUserFromTokenFromToken();
     console.log(this.currentUser);
 
     this.crudservice.getlistEntity("commentEchapper").subscribe((data) => {

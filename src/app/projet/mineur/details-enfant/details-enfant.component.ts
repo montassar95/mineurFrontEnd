@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { TokenStorageService } from "src/app/_services/token-storage.service";
 import { DetentionService } from "src/app/demo/service/detention.service";
 
 @Component({
@@ -14,12 +16,22 @@ export class DetailsEnfantComponent implements OnInit {
   @Input() msg: string;
   @Input() isSaved: boolean;
   @Input() allowNewAddArrestation: boolean;
+  currentUser: any;
   showImg() {
     // Logique pour afficher l'image
   }
-  constructor(private detentionService: DetentionService) {}
+  constructor(
+    private detentionService: DetentionService,
+    private router: Router,
+    private token: TokenStorageService
+  ) {}
 
   ngOnInit(): void {
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
     this.getPhotoById(
       this.arrestation?.arrestationId?.idEnfant,
       this.arrestation?.arrestationId?.numOrdinale

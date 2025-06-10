@@ -1,105 +1,167 @@
-<div style="height: 500px ; width: 500px;">
-
 <p-toast key="tst" [style]="{marginTop: '150px'}"></p-toast>
+<div *ngIf="!generatedPassword && !afficheDataUpdated" style="height: auto ; width: 500px;">
 
-<div class="p-field p-grid">
-    <label for="lastname3" class="p-col-fixed" style="width: 180px;">رقـــم الإداري   :</label>
-    <div class="p-col">
-        <input         [(ngModel)]="id"   type="number" pInputText>
-    </div>
-</div>
 
-<div class="p-field p-grid">
-    <label for="lastname3" class="p-col-fixed " style="width: 180px;">  الإســـم     :</label>
-    <div class="p-col">
-        <input   [(ngModel)]="nom"  type="text" pInputText>
+    <div *ngIf="errorMessage" class="p-error" style="text-align:center; margin-bottom:10px;">
+        {{ errorMessage }}
     </div>
-</div>
-<div class="p-field p-grid">
-    <label for="lastname3" class="p-col-fixed" style="width: 180px;">اللقــب    :</label>
-    <div class="p-col">
-        <input   [(ngModel)]="prenom"    type="text" pInputText>
-    </div>
-</div>
+    <div class="p-field p-grid">
+        {{errorMessage}}
+        <label for="lastname3" class="p-col-fixed" style="width: 180px;">رقـــم الإداري :</label>
+        <div class="p-col">
+            <input [(ngModel)]="id" type="number" pInputText>
+            <small *ngIf="fieldErrors.numAdministratif" class="p-error">{{ fieldErrors.numAdministratif }}</small>
 
- 
-<div class="p-field p-grid">
-    <label   class="p-col-fixed" style="width:180px">  المـــؤسسة    :  </label>
-    <div class="p-col">
-        <p-dropdown  [(ngModel)]="etablissementLocal"   [options]="etablissements" placeholder=" المـــؤسسة  "   [filter]="true" id="etablissement"  
-                  [style]="{'width':'220px', 'min-height' : '10px' }"   name="etablissement">
-                
-        <ng-template let-eta pTemplate="item">
-            <div class="item">
-        
-                <div>{{eta.label }}</div>
-            </div>
-        </ng-template>
-    </p-dropdown>
-    </div>
- </div>
-
- <div class="p-field p-grid">
-    <label   class="p-col-fixed" style="width:180px"> المهــــام  :  </label>
-    <div class="p-col">
-        <p-dropdown   [(ngModel)]="role"   [options]="roles" placeholder="  المهــــام "  [filter]="true" id="role"
-          [style]="{'width':'220px'}" name="role">
-    <ng-template let-role pTemplate="item">
-        <div class="item">
-    
-            <div>{{role.label }}</div>
         </div>
-    </ng-template>
-    
-    </p-dropdown>
     </div>
- </div>
 
-<div class="p-field p-grid"  >
-    <label for="lastname3" class="p-col-fixed " style="width: 180px;">  إســـم المستعمـــل   :</label>
-    <div class="p-col">
-        <input    [(ngModel)]="login"   type="text" pInputText>
+    <div class="p-field p-grid">
+        <label for="lastname3" class="p-col-fixed " style="width: 180px;"> الإســـم :</label>
+        <div class="p-col">
+            <input [(ngModel)]="nom" type="text" pInputText>
+            <small *ngIf="fieldErrors.nom" class="p-error">{{ fieldErrors.nom }}</small>
+
+        </div>
     </div>
-</div>
-<div class="p-field p-grid" >
-    <label *ngIf="!update" for="lastname3" class="p-col-fixed" style="width: 180px;">كلمة السر      :</label>
-    <label *ngIf="update" for="lastname3" class="p-col-fixed" style="width: 180px;"> تغير كلمة السر :</label>
-   
-    <div class="p-col"  >
-        <input      [(ngModel)]="pwd"     type="text" pInputText>
+    <div class="p-field p-grid">
+        <label for="lastname3" class="p-col-fixed" style="width: 180px;">اللقــب :</label>
+        <div class="p-col">
+            <input [(ngModel)]="prenom" type="text" pInputText>
+            <small *ngIf="fieldErrors.prenom" class="p-error">{{ fieldErrors.prenom }}</small>
+        </div>
     </div>
-    <!-- <button *ngIf="update  " (click)="toggleUpdatePassword()" style="background-color: white; " mat-fab>
-        <i class="pi pi-lock" style="font-size: 35px; color: #007bff;"></i>
-    
-    </button>
-    <button *ngIf="update   && pwd === '' " (click)="toggleUpdatePassword()" style="background-color: white;"
-        mat-fab>
-        <i class="pi pi-lock-open" style="font-size: 35px; color: #007bff;"></i>
-    
-    </button> -->
-</div>
- 
-
- 
 
 
- 
-           
-   
- <div style="text-align: center; margin-top: 20%;">
-            
+    <div class="p-field p-grid">
+        <label for="lastname3" class="p-col-fixed" style="width: 180px;">رقم الهاتف :</label>
+        <div class="p-col">
+            <input [(ngModel)]="telephone" type="text" name="telephone" pInputText>
+            <small *ngIf="fieldErrors.telephone" class="p-error">{{ fieldErrors.telephone }}</small>
+        </div>
+    </div>
+
+
+    <div class="p-field p-grid">
+        <label class="p-col-fixed" style="width:180px"> المـــؤسسة :  </label>
+        <div class="p-col">
+            <p-dropdown appendTo="body" [(ngModel)]="etablissementId" [options]="etablissements"
+                placeholder=" المـــؤسسة  " [filter]="true" id="etablissementId"
+                [style]="{'width':'220px', 'min-height' : '10px' }" name="etablissementId">
+
+                <ng-template let-eta pTemplate="item">
+                    <div class="item">
+
+                        <div>{{eta.label }}</div>
+                    </div>
+                </ng-template>
+            </p-dropdown>
+        </div>
+    </div>
+
+    <div class="p-field p-grid">
+        <label class="p-col-fixed" style="width:180px"> المهــــام : </label>
+        <div class="p-col">
+            <p-dropdown appendTo="body" [(ngModel)]="role" [options]="roles" placeholder="  المهــــام " [filter]="true"
+                id="role" [style]="{'width':'220px'}" name="role">
+                <ng-template let-role pTemplate="item">
+                    <div class="item">
+
+                        <div>{{role.label }}</div>
+                    </div>
+                </ng-template>
+
+            </p-dropdown>
+        </div>
+    </div>
+
+    <div class="p-field p-grid">
+        <label for="lastname3" class="p-col-fixed " style="width: 180px;"> إســـم المستعمـــل :</label>
+        <div class="p-col">
+            <input [(ngModel)]="login" type="text" pInputText>
+            <small *ngIf="fieldErrors.username" class="p-error">{{ fieldErrors.username }}</small>
+        </div>
+    </div>
+    <!-- <div class="p-field p-grid">
      
-                   
-    <button (click)="close()"
-       style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;" mat-fab>
-       <i class="pi pi-power-off" style="font-size: 30px; color: white;"> </i>
+        <label *ngIf="update" for="lastname3" class="p-col-fixed" style="width: 180px;"> تغير كلمة السر :</label>
+
+        <div *ngIf="update" class="p-col">
+            <input [(ngModel)]="pwd" type="text" pInputText>
+            <small *ngIf="fieldErrors.password" class="p-error">{{ fieldErrors.password }}</small>
+            
+
+        </div>
 
 
-    </button>
-    <button (click)="addUser()" style="background-color: #28a745!important;" mat-fab>
-        <i class="pi pi-save" style="font-size: 30px; color: white;"> </i>
-    
-    
-    </button>
- </div>
+
+    </div> -->
+
+
+
+    <div class="p-field p-grid" style="text-align: center; margin-top: 10%;">
+        <label for="lastname3" class="p-col-fixed " style="width: 180px;"> </label>
+        <div class="p-col-fixed">
+
+            <button (click)="close()" style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;"
+                mat-fab>
+                <i class="pi pi-power-off" style="font-size: 30px; color: white;"> </i>
+            </button>
+        </div>
+
+
+
+
+
+        <div class="p-col-fixed">
+            <button (click)="addUser()" style="background-color: #28a745!important;" mat-fab>
+                <i class="pi pi-save" style="font-size: 30px; color: white;"> </i>
+
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
 </div>
+<!-- <div *ngIf="!generatedPassword" style="text-align: center; margin-top: 70px;">
+
+
+
+</div> -->
+
+<div *ngIf="generatedPassword || afficheDataUpdated" class="password-summary-box">
+    <div class="p-field p-grid summary-line">
+        <label class="p-col-fixed label" style="width: 180px;">الهـويـــــــــــــــــة :</label>
+        <div class="p-col value">{{ user?.nom + ' ' + user?.prenom }}</div>
+    </div>
+
+    <div class="p-field p-grid summary-line">
+        <label class="p-col-fixed label" style="width: 180px;">إســـم المستعمـــــل :</label>
+        <div class="p-col value">{{ user?.username }}</div>
+    </div>
+    <div class="p-field p-grid summary-line">
+        <label class="p-col-fixed label" style="width: 180px;"> رقم الهاتف :</label>
+        <div class="p-col value">{{ user?.telephone }}</div>
+    </div>
+
+    <div class="p-field p-grid summary-line" *ngIf="generatedPassword && !afficheDataUpdated">
+        <label class="p-col-fixed label" style="width: 180px;">كلمـة السـر المُنشأة :</label>
+        <div class="p-col generated-password">
+            {{ generatedPassword }}
+        </div>
+    </div>
+</div>
+
+
+
+
+<div *ngIf="generatedPassword ||  afficheDataUpdated" style="text-align: center; margin-top: 30px;">
+    <button (click)="close()" class="save-btn">
+        <i class="pi pi-save icon"></i>
+        <span class="btn-text">تم الحفظ     </span>
+    </button>
+</div>
+

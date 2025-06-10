@@ -12,7 +12,7 @@ import { TokenStorageService } from "src/app/_services/token-storage.service";
 @Component({
   selector: "app-add-user",
   templateUrl: "./add-user.component.html",
-  styleUrls: ["./add-user.component.css"],
+  styleUrls: ["./add-user.component.scss"],
   providers: [MessageService],
 })
 export class AddUserComponent implements OnInit {
@@ -21,10 +21,12 @@ export class AddUserComponent implements OnInit {
   id;
   nom;
   prenom;
+  telephone;
   login;
   pwd;
   update = false;
-  etablissementLocal: Etablissement;
+
+  etablissementId: any = null; // ici tu stockes juste l'ID
   @Output() closeEvent = new EventEmitter<boolean>();
   idUser = 0;
 
@@ -33,12 +35,14 @@ export class AddUserComponent implements OnInit {
   roles = [
     { label: "المكتب الجزائي ", value: "user" },
     { label: "مشرف على التطبيق", value: "mod" },
+    { label: "المكتب الإجتماعي", value: "soc" },
     { label: "  متــــابعة  ", value: "dir" },
   ];
 
   role = null;
 
   form: any = {};
+  currentUser: any;
   constructor(
     private authService: AuthService,
     private crudservice: CrudEnfantService,
@@ -49,16 +53,24 @@ export class AddUserComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.reset();
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
+
     // this.personelle = new Personelle();
-    // this.id = this.token.getUser().personelle.id;
-    // this.nom = this.token.getUser().personelle.nom;
-    // this.prenom = this.token.getUser().personelle.prenom;
-    // this.etablissementLocal = this.token.getUser().personelle.etablissement;
+    // this.id = this.token.getUserFromTokenFromToken().personelle.id;
+    // this.nom = this.token.getUserFromTokenFromToken().personelle.nom;
+    // this.prenom = this.token.getUserFromTokenFromToken().personelle.prenom;
+    // this.etablissementId = this.token.getUserFromTokenFromToken().personelle.etablissement;
     //this.showPwd=true;
     this.listEtab();
   }
 
   ngOnChanges() {
+    this.reset();
     console.log(this.user);
     if (this.user) {
       this.crudservice.getLigneById("user", this.user.id).subscribe((data) => {
@@ -69,21 +81,23 @@ export class AddUserComponent implements OnInit {
           this.login = data.result.username;
           this.role = data.result.roles[0];
           if (data.result.roles[0].name == "ROLE_USER") {
-            console.log("hhhhhhhhhhhhhhhhhh");
             this.role = "user";
             console.log(this.role);
           } else if (data.result.roles[0].name == "ROLE_MODERATOR") {
             this.role = "mod";
           } else if (data.result.roles[0].name == "ROLE_DIRECTEUR") {
             this.role = "dir";
+          } else if (data.result.roles[0].name == "ROLE_SOCIAL_USER") {
+            this.role = "soc";
           }
           // Assuming roles is an array
           this.pwd = ""; // You might want to reset the password to allow the user to enter a new one
           //   this.personelle = data.result.personelle;
           this.nom = data.result.nom;
           this.prenom = data.result.prenom;
+          this.telephone = data.result.telephone;
 
-          this.etablissementLocal = data.result.etablissement;
+          this.etablissementId = data.result.etablissement.id;
           this.update = true;
           // this.showPwd = false;
         }
@@ -92,29 +106,42 @@ export class AddUserComponent implements OnInit {
       // this.showPwd = true;
     }
   }
+
+  // methode rest utuliser dans compent parent
   reset() {
     this.id = null;
     this.nom = "";
     this.prenom = "";
+    this.telephone = "";
     this.login = "";
     this.pwd = "";
-    this.etablissementLocal = null;
+    this.etablissementId = null;
     this.role = null;
     this.update = false;
+    this.generatedPassword = null;
+    this.afficheDataUpdated = false;
+    this.errorMessage = null;
+    this.fieldErrors = {};
   }
-  close() {
-    // Reset all form fields
-    this.reset();
+  // close() {
+  //   // Emit the close event to notify the parent component
+  //   this.closeEvent.emit(false);
 
-    // Emit the close event to notify the parent component
-    this.closeEvent.emit(false);
-  }
-  // showPwd = true;
-  // toggleUpdatePassword() {
-  //   this.showPwd = !this.showPwd;
+  //   // Reset all form fields
   // }
+
+  close() {
+    // Fermer immédiatement la fenêtre
+    this.closeEvent.emit(false);
+
+    // Faire le reset un petit moment après (par ex. 100 ms)
+    setTimeout(() => {
+      this.reset();
+    }, 100);
+  }
+
   onChangeEta(event) {
-    this.etablissementLocal = event.value;
+    this.etablissementId = event.value;
   }
   listEtab() {
     this.crudservice.getlistEntity("etablissement").subscribe((data) => {
@@ -122,7 +149,7 @@ export class AddUserComponent implements OnInit {
       data.result.forEach((etablissement: Etablissement, value: any) => {
         this.etablissements.push({
           label: etablissement.libelle_etablissement,
-          value: etablissement,
+          value: etablissement.id,
         });
       });
     });
@@ -137,7 +164,7 @@ export class AddUserComponent implements OnInit {
   //   this.personelle.id = this.id;
   //   this.personelle.nom = this.nom;
   //   this.personelle.prenom = this.prenom;
-  //   this.personelle.etablissement = this.etablissementLocal;
+  //   this.personelle.etablissement = this.etablissementId;
 
   //   this.crudservice
   //     .createLigne("personelle", this.personelle)
@@ -155,67 +182,85 @@ export class AddUserComponent implements OnInit {
   //     });
   // }
 
+  errorMessage: string | null = null;
+  fieldErrors: { [key: string]: string } = {};
+  generatedPassword: string | null = null; // mot de passe généré par le backend (optionnel)
+  afficheDataUpdated = false;
   addUser(): void {
+    // Préparer les données utilisateur à envoyer
+    const userData = {
+      username: this.login,
+      role: [this.role],
+      password: this.pwd,
+      nom: this.nom,
+      prenom: this.prenom,
+      telephone: this.telephone,
+      numAdministratif: this.id,
+      etablissementId: this.etablissementId,
+    };
+
+    // Fonction pour gérer le succès de la requête
+    const onSuccess = (response: any) => {
+      this.errorMessage = null;
+      this.fieldErrors = {};
+      this.generatedPassword = response.password || null;
+      this.user = {
+        username: this.login,
+        role: [this.role],
+        password: this.generatedPassword, // temporairement stocké
+        nom: this.nom,
+        prenom: this.prenom,
+        telephone: this.telephone,
+        numAdministratif: this.id,
+        etablissement: this.etablissements.find(
+          (e) => e.value.id === this.etablissementId
+        )?.value,
+        block: null,
+      };
+      let message = response.message || "Opération réussie";
+      if (this.generatedPassword) {
+        message += ` | Mot de passe initial : ${this.generatedPassword}`;
+      } else {
+        this.afficheDataUpdated = true;
+      }
+
+      this.service.add({
+        key: "tst",
+        severity: "success",
+        summary: "✔ Succès",
+        detail: message,
+      });
+    };
+
+    // Fonction pour gérer l’erreur de la requête
+    const onError = (error: any) => {
+      this.fieldErrors = {};
+
+      if (error?.status === 400 && typeof error.error === "object") {
+        // Erreurs sur des champs spécifiques
+        this.fieldErrors = error.error;
+        this.errorMessage = "Veuillez corriger les erreurs indiquées.";
+      } else {
+        this.errorMessage =
+          error?.error?.message ||
+          "Une erreur est survenue, veuillez réessayer.";
+      }
+
+      this.service.add({
+        key: "tst",
+        severity: "error",
+        summary: "⚠ Erreur",
+        detail: this.errorMessage,
+      });
+    };
+
+    // Appeler le backend selon mode ajout ou mise à jour
     if (!this.update) {
-      this.form = {
-        username: this.login,
-        role: this.role,
-        password: this.pwd,
-        nom: this.nom,
-        prenom: this.prenom,
-        numAdministratif: this.id,
-        etablissement: this.etablissementLocal,
-      };
-
-      this.user = this.form;
-
-      this.user.role = [this.role];
-      this.authService.register(this.user).subscribe(
-        (data) => {
-          console.log(data);
-          this.closeEvent.emit(false);
-          this.reset();
-        },
-        (err) => {
-          this.service.add({
-            key: "tst",
-            severity: "error",
-            summary: ".   تثبت من إسم مستعمل أو كلمة السر     ",
-            detail: this.user.username,
-          });
-        }
-      );
+      this.authService.register(userData).subscribe(onSuccess, onError);
     } else {
-      this.form = {
-        username: this.login,
-        role: this.role,
-        password: this.pwd,
-        nom: this.nom,
-        prenom: this.prenom,
-        numAdministratif: this.id,
-        etablissement: this.etablissementLocal,
-      };
-
-      this.user = this.form;
-
-      this.user.role = [this.role];
-      console.log(this.user);
-      this.authService.updateUser(this.user, this.idUser).subscribe(
-        (data) => {
-          console.log(data);
-          this.closeEvent.emit(false);
-          this.user = undefined;
-          this.reset();
-        },
-        (err) => {
-          this.service.add({
-            key: "tst",
-            severity: "error",
-            summary: ".   تثبت من إسم مستعمل أو كلمة السر     ",
-            detail: this.user.username,
-          });
-        }
-      );
+      this.authService
+        .updateUser(userData, this.idUser)
+        .subscribe(onSuccess, onError);
     }
   }
 }

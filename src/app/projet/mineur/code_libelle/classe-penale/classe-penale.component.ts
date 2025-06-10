@@ -1,104 +1,98 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
-import { CrudEnfantService } from 'src/app/demo/service/crud-enfant.service';
-import { ClassePenale } from 'src/app/domain/classePenale';
-import { BreadcrumbService } from 'src/app/shared/breadcrumb/breadcrumb.service';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { MessageService } from "primeng/api";
+import { TokenStorageService } from "src/app/_services/token-storage.service";
+import { CrudEnfantService } from "src/app/demo/service/crud-enfant.service";
+import { ClassePenale } from "src/app/domain/classePenale";
+import { BreadcrumbService } from "src/app/shared/breadcrumb/breadcrumb.service";
 
 @Component({
-  selector: 'app-classe-penale',
-  templateUrl: './classe-penale.component.html',
-  styleUrls: ['./classe-penale.component.css']
-  ,providers: [MessageService]
+  selector: "app-classe-penale",
+  templateUrl: "./classe-penale.component.html",
+  styleUrls: ["./classe-penale.component.css"],
+  providers: [MessageService],
 })
 export class ClassePenaleComponent implements OnInit {
-
-  display=false;
-id;
-nom;
-classePenale:ClassePenale;
-  constructor(  private crudservice: CrudEnfantService,  private service: MessageService,
-    private breadcrumbService: BreadcrumbService,private router: Router) { 
+  display = false;
+  id;
+  nom;
+  classePenale: ClassePenale;
+  currentUser: any;
+  constructor(
+    private crudservice: CrudEnfantService,
+    private service: MessageService,
+    private breadcrumbService: BreadcrumbService,
+    private router: Router,
+    private token: TokenStorageService
+  ) {
     this.breadcrumbService.setItems([
-      {label: 'الإستقبال', routerLink: ['/']},
-  
-      {label: 'رموز الهوية' },
-      {label: ' الصنف الجزائي   ' },
-  ]);}
+      { label: "الإستقبال", routerLink: ["/"] },
 
-  ngOnInit(): void {
-    this.showAllClassePenale(); 
+      { label: "رموز الهوية" },
+      { label: " الصنف الجزائي   " },
+    ]);
   }
 
-  classePenales : ClassePenale[]= [];
+  ngOnInit(): void {
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
+    this.showAllClassePenale();
+  }
+
+  classePenales: ClassePenale[] = [];
 
   showAllClassePenale() {
-      
-        
-    this.crudservice.getlistEntity("classePenale")
-    .subscribe( data => {
-      if(data.result){
-     
-        this.classePenales= data.result;
-        
-     
-       
+    this.crudservice.getlistEntity("classePenale").subscribe((data) => {
+      if (data.result) {
+        this.classePenales = data.result;
+      } else {
+        this.classePenales = [];
       }
-      else{
-        
-        this.classePenales= [];
-        
-     
-      }
-    
     });
-  
-  
-}
+  }
 
-addClPe(){
-  
-  this.classePenale= new ClassePenale();
-  this.classePenale.id=this.id;
-  this.classePenale.libelle_classe_penale=this.nom;
- 
-  
+  addClPe() {
+    this.classePenale = new ClassePenale();
+    this.classePenale.id = this.id;
+    this.classePenale.libelle_classe_penale = this.nom;
 
-  this.crudservice.createLigne("classePenale",   this.classePenale)
-  .subscribe(data => {
-    if(data.result){
-      console.log( data.result );
-      this. showAllClassePenale();
-    
-     
-    }
-  
-    
-  });
-  this.display=false;
-}
-add(){
-  this.id="";
-  this.nom="";
-  this.display=true;
-}
+    this.crudservice
+      .createLigne("classePenale", this.classePenale)
+      .subscribe((data) => {
+        if (data.result) {
+          console.log(data.result);
+          this.showAllClassePenale();
+        }
+      });
+    this.display = false;
+  }
+  add() {
+    this.id = "";
+    this.nom = "";
+    this.display = true;
+  }
 
-update(){
-  this.display=true;
-}
-delete(classePenale: ClassePenale){
- 
-  this.crudservice.deleteLigne("classePenale", classePenale.id) .subscribe(data => {
-    console.log(data.status)
-    if(data.status == 417){
-      this.service.add({ key: 'tst', severity: 'error', summary: '.   خطأ    ', detail: ' عليك تثبت     '  });
-    }
-    else{
-      this.showAllClassePenale();
-    }
-   
-  });
- 
-
-}
+  update() {
+    this.display = true;
+  }
+  delete(classePenale: ClassePenale) {
+    this.crudservice
+      .deleteLigne("classePenale", classePenale.id)
+      .subscribe((data) => {
+        console.log(data.status);
+        if (data.status == 417) {
+          this.service.add({
+            key: "tst",
+            severity: "error",
+            summary: ".   خطأ    ",
+            detail: " عليك تثبت     ",
+          });
+        } else {
+          this.showAllClassePenale();
+        }
+      });
+  }
 }

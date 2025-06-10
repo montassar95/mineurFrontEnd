@@ -3,8 +3,6 @@ import { AuthService } from "../_services/auth.service";
 import { TokenStorageService } from "../_services/token-storage.service";
 import { Router } from "@angular/router";
 
-import { User } from "../domain/user";
-
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
@@ -14,10 +12,9 @@ export class LoginComponent implements OnInit {
   form: any = {};
   isLoggedIn = false;
   isLoginFailed = false;
-
   errorMessage = "";
   roles: string[] = [];
-  currentUser: any;
+  warningMessages: string[] = [];
 
   constructor(
     private zone: NgZone,
@@ -27,23 +24,37 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.tokenStorage.getToken()) {
+    const token = this.tokenStorage.getToken();
+    if (token) {
       this.isLoggedIn = true;
-      this.roles = this.tokenStorage.getUser().roles;
-
+      // Récupère les rôles directement depuis le token décodé (méthode dans TokenStorageService)
+      const user = this.tokenStorage.getUserFromToken();
+      if (user && user.roles) {
+        this.roles = user.roles;
+      }
       this.redirectPage();
     }
   }
-
   onSubmit(): void {
     this.authService.login(this.form).subscribe(
       (data) => {
+        // Enregistre le token et l'utilisateur
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUser(data);
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.chekBlock(this.tokenStorage.getUser());
+
+        const user = this.tokenStorage.getUserFromTokenFromToken();
+        this.roles = user?.roles || [];
+
+        // 👉 Affiche les warnings s'ils existent
+        if (data.warnings && data.warnings.length > 0) {
+          this.warningMessages = data.warnings;
+        } else {
+          this.redirectPage();
+        }
+        
       },
       (err) => {
         this.errorMessage =
@@ -52,28 +63,8 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-  chekBlock(user: User) {
-    if (user.block == 1) {
-      this.router.navigate(["404"]);
-      setTimeout(() => {
-        this.router.navigate(["geo/logoutpage"]);
-      }, 2000);
-    } else {
-      this.roles = this.tokenStorage.getUser().roles;
 
-      this.redirectPage();
-    }
-  }
   redirectPage(): void {
     this.router.navigate(["mineur"]);
-    //   if (this.roles.some((item) => item == ('ROLE_USER' || 'ROLE_MODERATOR'))) {
-    //     this.router.navigate(['mineur']);
-    // }
-    //   else if (this.roles.some((item) => item == 'ROLE_MODERATOR')) {
-    //     this.router.navigate(['geo/allreclamation']);
-    // }
-  }
-  reloadPage(): void {
-    window.location.reload();
   }
 }

@@ -14,6 +14,7 @@ import { Residence } from "src/app/domain/residence";
 import { ResidenceId } from "src/app/domain/residanceId";
 import { BreadcrumbService } from "src/app/shared/breadcrumb/breadcrumb.service";
 import { DetentionService } from "src/app/demo/service/detention.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-add-num-arret",
@@ -46,7 +47,8 @@ export class AddNumArretComponent implements OnInit {
     public datepipe: DatePipe,
     private nodeService: NodeService,
     private service: MessageService,
-    private breadcrumbService: BreadcrumbService
+    private breadcrumbService: BreadcrumbService,
+    private router: Router
   ) {
     this.breadcrumbService.setItems([
       { label: "الإستقبال", routerLink: ["/"] },
@@ -56,7 +58,12 @@ export class AddNumArretComponent implements OnInit {
     ]);
   }
   ngOnInit() {
-    this.currentUser = this.token.getUser();
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
+    this.currentUser = this.token.getUserFromTokenFromToken();
     console.log(this.currentUser);
   }
 

@@ -130,6 +130,7 @@ export class ListPenaleComponent implements OnInit {
   datePrintAllCentre: any;
   checkEtranger: String;
   checkUniqueAff: String;
+  currentUser: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -152,6 +153,11 @@ export class ListPenaleComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
     this.accusationsToAdd = [
       { label: "المقيمين بمختلف وضعيتهم", value: "all" },
       { label: "المفرج عنهم", value: "seraLibere" },
@@ -247,9 +253,9 @@ export class ListPenaleComponent implements OnInit {
       this.entitiesTypeAffaire = data.result;
     });
 
-    this.centre = this.token?.getUser()?.etablissement;
+    this.centre = this.token?.getUserFromTokenFromToken()?.etablissement;
     this.centreLibelle =
-      this.token?.getUser()?.etablissement.libelle_etablissement;
+      this.token?.getUserFromTokenFromToken()?.etablissement.libelle_etablissement;
 
     this.accusationsToAddValue = "all";
     this.accusationsToAddLabel = "المقيمين بمختلف وضعيتهم";

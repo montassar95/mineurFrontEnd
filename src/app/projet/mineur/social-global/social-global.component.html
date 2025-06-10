@@ -1,0 +1,92 @@
+<p-toast key="tst" [style]="{marginTop: '150px'}"></p-toast>
+<div style=" margin-bottom: 60px;">
+    <div class="wrapper">
+
+
+        <div class="card">
+            <label for="card2" class="titre" aria-hidden="true">
+                بحث إجتماعي ميداني
+            </label>
+            <input type="checkbox" id="card2" class="more">
+            <div class="content">
+                <div class="front">
+                    <div class="inner">
+
+
+                        <img src="assets/layout/images/inspection.png" class="image-adjust " />
+                        <p-inputMask
+                            [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black' , 'margin-top': '15px' }"
+                            dir="rtl" [(ngModel)]="idLiberation" mask="99999999" slotChar="----------"
+                            (keyup.enter)="dirLiberation()" placeholder=" معرف الطفل   ">
+                        </p-inputMask>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+        <!-- style="width: max-content; text-align: center;" -->
+
+
+
+        <div class="card">
+            <label for="card6" class="titre" aria-hidden="true">
+                بحث إجتماعي إبتدائي
+            </label>
+            <div class="content">
+                <div class="front">
+                    <div class="inner">
+
+                        <img src="assets/layout/images/behavior.png" class="image-adjust " />
+                        <p-inputMask
+                            [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black' , 'margin-top': '15px' }"
+                            dir="rtl" [(ngModel)]="idRevue" mask="99999999" slotChar="----------"
+                            (keyup.enter)="dirRevue()" placeholder=" معرف الطفل   ">
+                        </p-inputMask>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="card">
+            <label for="card7" class="titre" aria-hidden="true">
+                بطاقة ارشادات شخصية
+            </label>
+            <input type="checkbox" id="card7" class="more">
+            <div class="content">
+                <div class="front">
+                    <div class="inner">
+
+                        <img src="assets/layout/images/search.png" class="image-adjust " />
+                        <p-inputMask
+                            [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black' , 'margin-top': '15px' }"
+                            dir="rtl" [(ngModel)]="idChangementLieu" mask="99999999" slotChar="----------"
+                            (keyup.enter)="dirChangementLieu()" placeholder=" معرف الطفل   ">
+                        </p-inputMask>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <div style="text-align: center; margin-top: 50px;" *ngIf="isExist">
+            <h1 style="color: crimson; font-family: 'Amiri', Times, serif;"> {{msg}} </h1>
+        </div>
+    </div>

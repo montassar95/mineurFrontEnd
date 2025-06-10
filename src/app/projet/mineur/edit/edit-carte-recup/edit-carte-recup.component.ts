@@ -339,6 +339,11 @@ export class EditCarteRecupComponent implements OnInit {
     window.localStorage.removeItem("idValide");
   }
   ngOnInit() {
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
     let idValide = window.localStorage.getItem("idValide");
     let idValideNav = window.localStorage.getItem("idValideNav");
     console.log(idValide);
@@ -376,7 +381,7 @@ export class EditCarteRecupComponent implements OnInit {
     this.chargerDropDownListTribunal();
     this.chargerDropDownListGouv();
     this.chargerDropDownListTypeTribunal();
-    this.currentUser = this.token.getUser();
+    this.currentUser = this.token.getUserFromTokenFromToken();
     this.accusationsToAdd = [];
     this.accusationsToAdd.push({ label: "empty", value: null });
   }
@@ -447,7 +452,7 @@ export class EditCarteRecupComponent implements OnInit {
       //                 //           //   });
       //                 //           if (
       //                 //             data.result.etablissement.id !=
-      //                 //             this.token.getUser().personelle.etablissement
+      //                 //             this.token.getUserFromTokenFromToken().personelle.etablissement
       //                 //               .id
       //                 //           ) {
       //                 //             this.isExist = false;
@@ -1200,7 +1205,7 @@ export class EditCarteRecupComponent implements OnInit {
 
         this.carteRecup.numArrestation = this.residence.numArrestation;
         this.carteRecup.etablissement = this.residence.etablissement;
-        // this.carteRecup.user = this.token.getUser();
+        // this.carteRecup.user = this.token.getUserFromTokenFromToken();
 
         this.carteRecup.dateInsertion = this.datepipe.transform(
           new Date(),
@@ -1563,9 +1568,7 @@ export class EditCarteRecupComponent implements OnInit {
       this.affaireOrigine.affaireLien = null;
 
       this.affaireService
-        .mettreAJourNumeroOrdinal(
-          this.affaireOrigine 
-        )
+        .mettreAJourNumeroOrdinal(this.affaireOrigine)
         .subscribe((data) => {
           this.affaireOrigine = data.result;
           this.affaireOrigine.numOrdinalAffaire = this.numOrd;
@@ -1586,9 +1589,7 @@ export class EditCarteRecupComponent implements OnInit {
     this.affaireOrigine.affaireLien = this.affaireLien;
 
     this.affaireService
-      .mettreAJourNumeroOrdinal(
-        this.affaireOrigine 
-      )
+      .mettreAJourNumeroOrdinal(this.affaireOrigine)
       .subscribe((data) => {
         this.affaireOrigine = data.result;
       });

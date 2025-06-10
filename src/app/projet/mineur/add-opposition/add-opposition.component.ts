@@ -1,25 +1,25 @@
-import { DatePipe } from '@angular/common';
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
-import { MessageService } from 'primeng';
-import { TokenStorageService } from 'src/app/_services/token-storage.service';
-import { AffaireService } from 'src/app/demo/service/affaire.service';
-import { CrudEnfantService } from 'src/app/demo/service/crud-enfant.service';
-import { DetentionService } from 'src/app/demo/service/detention.service';
-import { DocumentService } from 'src/app/demo/service/document.service';
-import { EventService } from 'src/app/demo/service/eventservice';
-import { NodeService } from 'src/app/demo/service/nodeservice';
-import { Affaire } from 'src/app/domain/affaire';
-import { AffaireId } from 'src/app/domain/affaireId';
-import { DocumentId } from 'src/app/domain/documentId';
-import { Enfant } from 'src/app/domain/enfant';
-import { Opposition } from 'src/app/domain/opposition';
-import { Residence } from 'src/app/domain/residence';
-import { Tribunal } from 'src/app/domain/tribunal';
-import { TypeAffaire } from 'src/app/domain/typeAffaire';
-import { BreadcrumbService } from 'src/app/shared/breadcrumb/breadcrumb.service';
-import { AppConfigService } from '../app-config.service';
+import { DatePipe } from "@angular/common";
+import { Component, Input, OnInit, SimpleChanges } from "@angular/core";
+import { FormBuilder } from "@angular/forms";
+import { Router } from "@angular/router";
+import { MessageService } from "primeng";
+import { TokenStorageService } from "src/app/_services/token-storage.service";
+import { AffaireService } from "src/app/demo/service/affaire.service";
+import { CrudEnfantService } from "src/app/demo/service/crud-enfant.service";
+import { DetentionService } from "src/app/demo/service/detention.service";
+import { DocumentService } from "src/app/demo/service/document.service";
+import { EventService } from "src/app/demo/service/eventservice";
+import { NodeService } from "src/app/demo/service/nodeservice";
+import { Affaire } from "src/app/domain/affaire";
+import { AffaireId } from "src/app/domain/affaireId";
+import { DocumentId } from "src/app/domain/documentId";
+import { Enfant } from "src/app/domain/enfant";
+import { Opposition } from "src/app/domain/opposition";
+import { Residence } from "src/app/domain/residence";
+import { Tribunal } from "src/app/domain/tribunal";
+import { TypeAffaire } from "src/app/domain/typeAffaire";
+import { BreadcrumbService } from "src/app/shared/breadcrumb/breadcrumb.service";
+import { AppConfigService } from "../app-config.service";
 
 @Component({
   selector: "app-add-opposition",
@@ -28,6 +28,7 @@ import { AppConfigService } from '../app-config.service';
   providers: [MessageService],
 })
 export class AddOppositionComponent implements OnInit {
+  currentUser: any;
   refresh() {
     this.documentService
       .calculerNombreDocumentsJudiciairesParDetention(
@@ -131,6 +132,11 @@ export class AddOppositionComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
     let idValide = window.localStorage.getItem("idValide");
     let idValideNav = window.localStorage.getItem("idValideNav");
     console.log(idValide);
@@ -166,7 +172,7 @@ export class AddOppositionComponent implements OnInit {
     this.detentionService
       .trouverDetenuAvecSonStatutActuel(
         id,
-        this.token.getUser().etablissement.id
+        this.token.getUserFromTokenFromToken().etablissement.id
       )
       .subscribe((data) => {
         this.enfantLocal = data.result.enfant;
@@ -293,7 +299,7 @@ export class AddOppositionComponent implements OnInit {
 
           this.opposition.numArrestation = this.residence.numArrestation;
           this.opposition.etablissement = this.residence.etablissement;
-          //this.opposition.user = this.token.getUser();
+          //this.opposition.user = this.token.getUserFromTokenFromToken();
           this.opposition.dateInsertion = this.datepipe.transform(
             new Date(),
             "yyyy-MM-dd"

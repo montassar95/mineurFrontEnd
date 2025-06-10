@@ -7,7 +7,7 @@
 
 body {
    font-family: 'Amiri', Times, serif;
-   font-size: 16px;
+   font-size: 12px;
    background-color: #f4f4f4;
 }
 
@@ -45,7 +45,7 @@ th {
 
 td {
    font-weight: lighter;
-   background-color: #fff;
+  // background-color: #fff;
 }
 
 button.add-btn,
@@ -93,5 +93,10 @@ input:focus {
    color: #28a745;
    font-weight: bold;
 }
-
+// .expired-login {
+//    background-color: #f8d7da !important;
+//    /* rouge clair */
+//    color: #721c24 !important;
+//    /* texte rouge foncé */
+// }
 

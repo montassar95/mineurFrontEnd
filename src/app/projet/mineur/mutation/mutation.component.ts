@@ -27,6 +27,7 @@ export class MutationComponent implements OnInit {
 
   @ViewChild(AddMutationComponent)
   private addMutationComponent: AddMutationComponent;
+  currentUser: any;
 
   constructor(
     private breadcrumbService: BreadcrumbService,
@@ -48,6 +49,11 @@ export class MutationComponent implements OnInit {
     window.localStorage.removeItem("idValide");
   }
   ngOnInit() {
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
     let idValide = window.localStorage.getItem("idValide");
     console.log(idValide);
     if (idValide) {
@@ -76,14 +82,14 @@ export class MutationComponent implements OnInit {
             if (this.residences[0].statut == 2) {
               if (
                 this.residences[1].etablissement.id ==
-                this.token.getUser().etablissement.id
+                this.token.getUserFromTokenFromToken().etablissement.id
               ) {
                 this.autoriseDelet = true;
               }
             } else if (this.residences[0].statut == 0) {
               if (
                 this.residences[0].etablissement.id ==
-                this.token.getUser().etablissement.id
+                this.token.getUserFromTokenFromToken().etablissement.id
               ) {
                 this.autoriseDelet = true;
               }

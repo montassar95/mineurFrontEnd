@@ -11,6 +11,7 @@ import { MenuService } from "./app.menu.service";
 import { SettingsService } from "../../services/matriculacion/settings.service";
 import { AuthService } from "src/app/_services/auth.service";
 import { TokenStorageService } from "src/app/_services/token-storage.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-menu",
@@ -41,28 +42,17 @@ export class AppMenuComponent implements OnInit {
     public app: AppMainComponent,
     public ajustesService: SettingsService,
     private authService: AuthService,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
+    private router: Router
   ) {}
 
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
-      this.roles = this.tokenStorage.getUser().roles;
-
+      //this.roles = this.tokenStorage.getUserFromTokenFromToken().roles;
+      this.roles = this.tokenStorage.getUserFromTokenFromToken().roles;
+      console.log(this.roles);
       if (this.roles.some((item) => item == "ROLE_USER")) {
         this.model = [
-          //  {label: 'الرموز' , routerLink: ['/mineur/code']},
-          //       {label: 'ملفات الطفل' ,
-
-          //       items: [
-          //           {label: 'الهوية', routerLink: ['/mineur/all']},
-          //           {label: 'معطيــات ', routerLink: ['/mineur/DetailleEnfant']},
-          //         //   {label: 'الإيقافات', routerLink: ['/mineur/AddNumArret']},
-          //           // {label: 'تحيين معطيات نقلة طفل', routerLink: ['/mineur/modifierMutation']},
-          //           // {label: 'إجراءات إلقاء القبض علي طفل فار', routerLink: ['/mineur/attrape']},
-
-          //       ]
-
-          //   },
           { label: "الهويــة", routerLink: ["/mineur/all"] },
           { label: "معطيــات", routerLink: ["/mineur/DetailleEnfant"] },
           { label: "القضايا", routerLink: ["/mineur/Affaire"] },
@@ -74,45 +64,21 @@ export class AppMenuComponent implements OnInit {
           {
             label: "التغيرات الطارئة ",
             routerLink: ["/mineur/Changement"],
-            //     items: [
-            //    {label: 'النقل', routerLink: ['/mineur/mutation']},
-            //      {label: 'الفرارات', routerLink: ['/mineur/echappes']},
-
-            //      {label: 'إجراءات السراح', routerLink: ['/mineur/liberation']},
-            //      {label: 'الوفاة', routerLink: ['/mineur/deces']},
-
-            //    ]
           },
-          //   {label: 'الوضعيات الجزائية' , routerLink: ['/mineur/dashboard/coordinador']},
 
           {
             label: "القائمات",
             routerLink: ["/mineur/ListPenale"],
-            // items: [
-            //   { label: "  الحالية", routerLink: ["/mineur/ListPenale"] },
-            //   { label: "الشهرية", routerLink: ["/mineur/mensuel"] },
-            // ],
           },
           {
             label: "الاحصائيات ",
             routerLink: ["/mineur/mensuel"],
-            // items: [
-            //   {
-            //     label: "   عـــامة    ",
-            //     routerLink: ["/mineur/Statique"],
-            //   },
-            //   {
-            //     label: " خـــاصة     ",
-            //     routerLink: ["/mineur/StatistiqueSpec"],
-            //   },
-            // ],
           },
         ];
       } else if (this.roles.some((item) => item == "ROLE_DIRECTEUR")) {
         this.model = [
           { label: "الهويــة", routerLink: ["/mineur/all"] },
 
-          //   {label: 'الوضعيات الجزائية' , routerLink: ['/mineur/dashboard/coordinador']},
           {
             label: "القائمات",
             routerLink: ["/mineur/ListPenale"],
@@ -185,7 +151,6 @@ export class AppMenuComponent implements OnInit {
                 routerLink: ["/mineur/TypeTribunal"],
               },
               { label: " المحاكم    ", routerLink: ["/mineur/Tribunal"] },
-              // { label: " القضاة      ", routerLink: ["/mineur/Juge"] },
               {
                 label: " نتائج الإحالة    ",
                 routerLink: ["/mineur/ResultatTransfert"],
@@ -218,6 +183,33 @@ export class AppMenuComponent implements OnInit {
             ],
           },
         ];
+      } else if (this.roles.some((item) => item == "ROLE_SOCIAL_USER")) {
+        this.model = [
+          { label: "الهويـــــة", routerLink: ["/mineur/all"] },
+          {
+            label: "التقييم الاجتماعي ",
+            routerLink: ["/mineur/socialGlobal"],
+          },
+          {
+            label: "  الخدمات",
+            routerLink: ["/mineur/supportServices"],
+          },
+          {
+            label: "الزيارات",
+            routerLink: ["/mineur/visitFamily"],
+          },
+
+          {
+            label: "السجل العدلي والسلوكي",
+            routerLink: ["/mineur/judicialDisciplinary"],
+          },
+          {
+            label: "التكوين",
+            routerLink: ["/mineur/formation"],
+          },
+        ];
+      } else {
+        this.router.navigate(["/logoutpage"]);
       }
     }
   }

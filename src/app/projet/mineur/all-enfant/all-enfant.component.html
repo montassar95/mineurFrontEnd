@@ -1,8 +1,8 @@
 <div dir="rtl" style="margin-bottom: 100px;">
 
-
+ 
     <p-toast key="tst" [style]="{marginTop: '150px'}"></p-toast>
-
+    
     <div *ngIf="existBoolean" class="ui-messages ui-widget ui-corner-all ui-messages-warn" style="margin: 0 0 1em 0;">
         <ul>
             <li>
@@ -64,28 +64,28 @@
                                     [(ngModel)]="numArr" mask="999999" slotChar="------" (keyup.enter)="onSubmitId()"
                                     placeholder="عدد"></p-inputMask>
                             </div>
-                            <div class="p-col-5">
+                            <div *ngIf="acceeSoujoun" class="p-col-5">
                                 <h2>عدد مذكرة سجين </h2>
                             </div>
-                            <div class="p-col-1" style="margin-top: 7px;">
+                            <div *ngIf="acceeSoujoun" class="p-col-1" style="margin-top: 7px;">
                                 <p-radioButton name="groupname" value="val3" [(ngModel)]="selectedValue"
                                     (click)="show()"></p-radioButton>
                             </div>
-                            <div class="p-col-6">
+                            <div  *ngIf="acceeSoujoun" class="p-col-6">
                                 <p-inputMask *ngIf="selectedValue == 'val3'"
                                     [style]="{'font-weight': '400', 'width': '100%', 'font-size': '18px', 'color': 'black', 'margin-bottom': '10px'}"
                                     dir="rtl" [(ngModel)]="idDetenu" mask="9999999999" slotChar="------------"
                                     (keyup.enter)="onSubmitId()" placeholder="معرف"></p-inputMask>
                             </div>
 
-                            <div class="p-col-5">
+                            <div *ngIf="acceeSoujoun" class="p-col-5">
                                 <h2>عدد إيقاف سجين </h2>
                             </div>
-                            <div class="p-col-1" style="margin-top: 5px;">
+                            <div *ngIf="acceeSoujoun" class="p-col-1" style="margin-top: 5px;">
                                 <p-radioButton name="groupname" value="val4" [(ngModel)]="selectedValue"
                                     (click)="show()"></p-radioButton>
                             </div>
-                            <div class="p-col-6">
+                            <div  *ngIf="acceeSoujoun" class="p-col-6">
                                 <p-inputMask *ngIf="selectedValue == 'val4'"
                                     [style]="{'font-weight': '400', 'font-size': '18px', 'color': 'black'}" dir="rtl"
                                     [(ngModel)]="numArrDetenu" mask="99999" slotChar="-----"
@@ -93,11 +93,7 @@
                             </div>
                         </div>
 
-                        <!-- <div class="p-col-12 p-md-12" style="text-align: center;">
-                            <button (click)="onSubmitId()" style="background-color: #28a745!important;" mat-fab>
-                                <i class="pi pi-search" style="font-size: 25px;"></i>
-                            </button>
-                        </div> -->
+                  
                         <div class="button-container" style="text-align: center;">
                             <!-- Bouton 1 : البحث داخل مراكز الإصلاح -->
                             <button class="custom-button green-button" (click)="onSubmitIdDansCentre()">
@@ -106,7 +102,7 @@
                             </button>
 
                             <!-- Bouton 2 : البحث داخل الوحدات السجنية -->
-                            <button class="custom-button blue-button" (click)="onSubmitIdDansPrision()">
+                            <button  *ngIf="acceeSoujoun" class="custom-button blue-button" (click)="onSubmitIdDansPrision()">
                                 <i class="pi pi-search"></i>
                                 <span> داخل الوحدات السجنية </span>
                             </button>
@@ -216,20 +212,14 @@
                                 </button>
 
                                 <!-- Bouton 2 : البحث داخل الوحدات السجنية -->
-                                <button class="custom-button blue-button" (click)="onSubmitSearchForm2()">
+                                <button *ngIf="acceeSoujoun" class="custom-button blue-button" (click)="onSubmitSearchForm2()">
                                     <i class="pi pi-search"></i>
                                     <span> داخل الوحدات السجنية</span>
                                 </button>
                             </div>
 
 
-                            <!-- 
-                            <div class="p-col-12 p-md-12" style="text-align: center;">
-                                <button (click)="onSubmitSearchForm()" style="background-color: #28a745!important;"
-                                    mat-fab>
-                                    <i class="pi pi-search" style="font-size: 25px;"></i>
-                                </button>
-                            </div> -->
+                        
 
                         </form>
                     </p-tabPanel>
@@ -238,8 +228,7 @@
 
             </div>
         </div>
-
-        <!-- Table Section -->
+ 
         <div class="p-col-9">
 
             <div class="p-grid" style="background-color: white;">
@@ -256,14 +245,14 @@
 
                     <ng-template pTemplate="header">
                         <tr style="background-color: rgb(233, 233, 233);">
-                            <th style="width: 9%;" pSortableColumn="detenu?.detenuId">المعرف
+                            <th style="width: 10%;" pSortableColumn="detenu?.detenuId">المعرف
                                 <p-sortIcon field="detenu?.detenuId"></p-sortIcon>
                             </th>
                             <th style="width: 25%;">الهوية</th>
-                            <th style="width: 12%;">هوية الأم</th>
-                            <th style="width: 15%;">تاريخ و مكان الولادة</th>
-                            <th style="width: 22%;">عدد الإيقاف</th>
-                            <th style="width: 17%;">
+                            <th style="width: 10%;">هوية الأم</th>
+                            <th style="width: 10%;">تاريخ و مكان الولادة</th>
+                            <th style="width: 25%;">عدد الإيقاف</th>
+                            <th style="width: 20%;">
                                 <button *ngIf="currentUser?.etablissement.statut == 0" (click)="showAdd()"
                                     style="background-color: #28a745!important;" mat-fab>
                                     <i class="pi pi-plus" style="font-size: 25px;"></i>
@@ -274,28 +263,33 @@
 
                     <ng-template pTemplate="body" let-detenu>
                         <tr>
-                            <td style="color: blueviolet; font-weight: bold;">{{ detenu?.detenuId }}
+                            <td style="color: blueviolet; font-weight: bold;">{{ detenu?.detenuId}}
                             </td>
                             <td>{{ detenu?.nom }} بن {{ detenu?.nomPere
                                 }}
                                 بن
                                 {{ detenu?.nomGrandPere }} {{
                                 detenu?.prenom
-                                }}</td>
+                                }} </td>
                             <td>{{ detenu?.nomMere }} {{
                                 detenu?.prenomMere
                                 }}</td>
                             <td>{{ detenu?.dateNaissance + ' بـ' +
                                 detenu?.lieuNaissance }}</td>
-                            <td *ngIf="detenu?.statut != 2">{{ detenu?.dateEntree + ' ' +
-                                detenu?.nomEtablissement + ' ' + detenu?.numeroEcrou }}
+                            <td *ngIf="detenu?.statut != 2">
+                                <span style="color: blueviolet; font-weight: bold;"> {{ '(' + detenu?.numOrdinaleArrestation +')' }}</span>
+                                <span>
+                                    {{ detenu?.dateEntree + ' ' +
+                                    detenu?.nomEtablissement + ' ' + detenu?.numeroEcrou }} 
+                                </span>
+                              
                             </td>
                             <td style="color:red;" *ngIf="detenu?.statut == 2">
                                 {{ 'نقلة جارية ' + detenu?.nomEtablissement }}
                             </td>
                             <td>
                                 <div class="example-button-container">
-                                    <button (click)="showFolderEnfant(detenu?.detenuId )" mat-mini-fab color="primary"
+                                    <button (click)="showFolderEnfant(detenu?.detenuId , detenu?.numOrdinaleArrestation )" mat-mini-fab color="primary"
                                         aria-label="Example icon button with a home icon">
                                         <i class="pi pi-folder-open" style="font-size: 25px;"></i>
                                     </button>
@@ -311,6 +305,11 @@
                                         (click)="showVisite(detenu)" mat-mini-fab>
                                         <i class="pi pi-home" style="font-size: 30px; color: brown;"></i>
                                     </button>
+                                    <button  *ngIf="detenu?.detenuId.length == 8"
+                                        style="background-color: white!important; margin-right: 15px;" (click)="  print( detenu )" mat-mini-fab>
+                                        <i class="pi pi-file" style="font-size: 30px; color: rgb(139, 130, 130);"></i>
+                                    </button>
+                                  
                                 </div>
                             </td>
                         </tr>
@@ -328,324 +327,8 @@
     </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- <p-dialog dir="rtl" [(visible)]="searchBoolean" [modal]="true">
-        <p-header>
-            <span style="font-family: 'Amiri', Times, serif; font-size: 20px; "> محرك البحث </span>
-
-        </p-header>
-        <p-card [style]="{ 'height': 'auto', 'width':'800px' ,   'margin-left': 'auto' , 'margin-right':'auto'  , 
-    '-moz-box-shadow': '0px 2px 2px #8a2225','margin-top': '5px',  'font-family': 'Times New Roman',
-    '-webkit-box-shadow': '0px 2px 2px #8a2225',
-    'box-shadow':' 0px 2px 2px #8a2225','background-image': 'url(assets/layout/images/cart.jpg)' }">
-            <mat-tab-group mat-align-tabs="center" backgroundColor="secondary">
-
-
-
-
-                <mat-tab>
-                    <ng-template mat-tab-label>
-                        <h1> الهوية العربية </h1>
-
-                    </ng-template>
-
-
-                    <form [formGroup]="searchForm" style="margin-top: 50px; margin-right: 10px;">
-                        <div class="p-grid" style="width: 95%;">
-
-                            <div class="p-col-12 p-md-2">
-                                <h2>الإسم </h2>
-
-                            </div>
-                            <div class="p-col-12 p-md-4">
-
-                                <input #nom id="input" formControlName="nom" type="text" pInputText />
-                            </div>
-                            <div class="p-col-12 p-md-2">
-                                <h2>اللقب </h2>
-
-                            </div>
-                            <div class="p-col-12 p-md-4">
-
-                                <input id="input" formControlName="prenom" type="text" pInputText />
-                            </div>
-                            <div class="p-col-12 p-md-2">
-                                <h2>إسم الأب</h2>
-
-                            </div>
-                            <div class="p-col-12 p-md-4">
-
-                                <input id="input" formControlName="nomPere" type="text" pInputText />
-                            </div>
-                            <div class="p-col-12 p-md-2">
-                                <h2>إسم الجد</h2>
-
-                            </div>
-                            <div class="p-col-12 p-md-4">
-
-                                <input id="input" formControlName="nomGrandPere" type="text" pInputText />
-                            </div>
-                            <div class="p-col-12 p-md-2">
-                                <h2>إسم الأم</h2>
-
-                            </div>
-                            <div class="p-col-12 p-md-4">
-
-                                <input id="input" formControlName="nomMere" type="text" pInputText />
-                            </div>
-                            <div class="p-col-12 p-md-2">
-                                <h2>لقبها</h2>
-
-                            </div>
-                            <div class="p-col-12 p-md-4">
-
-                                <input id="input" formControlName="prenomMere" type="text" pInputText />
-                            </div>
-                            <div class="p-col-12 p-md-2">
-                                <h2>تاريخ الولادة</h2>
-
-                            </div>
-                            <div class="p-col-12 p-md-4" style="width: 235px;">
-                                <p-inputMask formControlName="dateNaissance" required mask="9999/99/99"
-                                    slotChar="----/--/--" placeholder="يوم/شهر/سنة"></p-inputMask>
-
-                            </div>
-                            <div class="p-col-12 p-md-2">
-                                <h2> الجنس </h2>
-
-                            </div>
-                            <div style="margin-right: 40px;" class="p-grid">
-                                <div class="p-col-4">
-                                    <h2>
-                                        <p-radioButton name="rg" formControlName="sexe" value="ذكر">
-
-                                        </p-radioButton>
-                                        ذكر
-                                    </h2>
-                                </div>
-                                <div class="p-col-4">
-
-                                </div>
-                                <div class="p-col-4">
-                                    <h2>
-                                        <p-radioButton name="rg" formControlName="sexe" value="أنثى">
-
-                                        </p-radioButton>
-                                        أنثى
-                                    </h2>
-                                </div>
-
-                            </div>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <div class="p-col-12 p-md-12" style="text-align: center;">
-
-                                <button (click)="onSubmitSearchForm()" style="background-color: #28a745!important;"
-                                    mat-fab aria-label="Example icon button with a home icon">
-                                    <i class="pi pi-search" style="font-size: 25px;"></i>
-                                </button>
-                              </div>
-                        </div>
-                    </form>
-                </mat-tab>
-                <mat-tab>
-                    <br>
-
-                    <ng-template mat-tab-label>
-                        <h1> المعرف الجزائي </h1>
-
-                    </ng-template>
-
-                    <div class="p-grid "
-                        style="width: 97%; text-align: center; margin-top: 50px; background-color: rgb(220, 220, 220);">
-
-                        <div class="p-col-3">
-
-
-                            <h2>معرف الطفل </h2>
-
-                        </div>
-                        <div class="p-col-1">
-
-                            <p-radioButton name="groupname" value="val1" [(ngModel)]="selectedValue"
-                                (click)="show()"></p-radioButton>
-
-
-                        </div>
-                        <div class="p-col-8">
-
-
-
-                            <p-inputMask *ngIf="selectedValue == 'val1'"
-                                [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black'}" dir="rtl"
-                                [(ngModel)]="id" mask="99999999" slotChar="----------" placeholder=" معرف  ">
-                            </p-inputMask>
-                        </div>
-                        <div class="p-col-3">
-
-                            <h2>عدد الإيقاف</h2>
-
-                        </div>
-                        <div class="p-col-1">
-                            <p-radioButton name="groupname" value="val2" [(ngModel)]="selectedValue"
-                                (click)="show()"></p-radioButton>
-
-
-                        </div>
-                        <div class="p-col-8">
-
-                            <p-inputMask *ngIf="selectedValue == 'val2'"
-                                [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black'}" dir="rtl"
-                                [(ngModel)]="numArr" mask="999999" slotChar="------" placeholder=" عدد  ">
-                            </p-inputMask>
-                        </div>
-
-
-
-
-                    </div>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-
-                    <div class="p-col-12 p-md-12" style="text-align: center;">
-                        <button (click)="onSubmitId()" style="background-color: #28a745!important;" mat-fab
-                            aria-label="Example icon button with a home icon">
-
-                            <i class="pi pi-search" style="font-size: 25px;"></i>
-                        </button>
-                    </div>
-                </mat-tab>
-            </mat-tab-group>
-
-
-
-
-
-        </p-card>
-
-
-    </p-dialog> -->
+ 
+    
     <p-dialog dir="rtl" [(visible)]="addBoolean" (onHide)="direction()" [modal]="true" [closable]="false"
         class="custom-dialog">
         <p-header>

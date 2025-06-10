@@ -29,12 +29,13 @@ export class AuthService {
       {
         username: user.username,
         personelle: user.personelle,
+        telephone: user.telephone,
         role: user.role,
         password: user.password,
         nom: user.nom,
         prenom: user.prenom,
         numAdministratif: user.numAdministratif,
-        etablissement: user.etablissement,
+        etablissementId: user.etablissementId,
       },
       httpOptions
     );
@@ -47,15 +48,13 @@ export class AuthService {
         username: user.username,
         personelle: user.personelle,
         role: user.role,
-        password: user.password,
+        telephone: user.telephone,
         nom: user.nom,
         prenom: user.prenom,
         numAdministratif: user.numAdministratif,
-        etablissement: user.etablissement,
+        etablissementId: user.etablissementId,
       },
       httpOptions
     );
   }
-
- 
 }

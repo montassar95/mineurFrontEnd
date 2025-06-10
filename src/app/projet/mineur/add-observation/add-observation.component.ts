@@ -28,6 +28,7 @@ import { AppConfigService } from "../app-config.service";
   providers: [MessageService],
 })
 export class AddObservationComponent implements OnInit {
+  currentUser: any;
   refresh() {
     this.documentService
       .calculerNombreDocumentsJudiciairesParDetention(
@@ -89,7 +90,7 @@ export class AddObservationComponent implements OnInit {
       { label: "الإستقبال", routerLink: ["/"] },
 
       { label: "إجراءات الطعن ", routerLink: ["/mineur/ProcedureAppel"] },
-      { label: " طعن الطفل بالتعقيب "},
+      { label: " طعن الطفل بالتعقيب " },
       { label: "إدراج" },
     ]);
   }
@@ -131,6 +132,11 @@ export class AddObservationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.currentUser = this.token.getUserFromTokenFromToken();
+
+    if (!this.currentUser) {
+      this.router.navigate(["/logoutpage"]);
+    }
     let idValide = window.localStorage.getItem("idValide");
     let idValideNav = window.localStorage.getItem("idValideNav");
     console.log(idValide);
@@ -166,7 +172,7 @@ export class AddObservationComponent implements OnInit {
     this.detentionService
       .trouverDetenuAvecSonStatutActuel(
         id,
-        this.token.getUser().etablissement.id
+        this.token.getUserFromTokenFromToken().etablissement.id
       )
       .subscribe((data) => {
         this.enfantLocal = data.result.enfant;
@@ -293,7 +299,7 @@ export class AddObservationComponent implements OnInit {
 
           this.observation.numArrestation = this.residence.numArrestation;
           this.observation.etablissement = this.residence.etablissement;
-          //this.observation.user = this.token.getUser();
+          //this.observation.user = this.token.getUserFromTokenFromToken();
           this.observation.dateInsertion = this.datepipe.transform(
             new Date(),
             "yyyy-MM-dd"

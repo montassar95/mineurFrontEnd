@@ -145,12 +145,12 @@ export class DetentionService {
     );
   }
   trouverToutDetentionInfosParPrisonerIdDansPrisons(
-    idOjet: any
+    prisonerId: any
   ): Observable<ApiResponse> {
     return this.httpClient.get<ApiResponse>(
       environment.baseUrl +
         "enfant/trouverToutDetentionInfosParPrisonerIdDansPrisons/" +
-        idOjet
+        prisonerId
     );
   }
   calculerNombreDetentionsParIdDetenu(
@@ -178,9 +178,48 @@ export class DetentionService {
     );
   }
 
-  findPrisonerPenalByPrisonerId(idEnfant: any): Observable<ApiResponse> {
+  findPrisonerPenalByPrisonerId(
+    idEnfant: any,
+    tcoddet: any
+  ): Observable<ApiResponse> {
     return this.httpClient.get<ApiResponse>(
-      environment.baseUrl + "enfant/findPrisonerPenalByPrisonerId/" + idEnfant
+      environment.baseUrl +
+        "enfant/findPrisonerPenalByPrisonerId/" +
+        idEnfant +
+        "/" +
+        tcoddet
+    );
+  }
+
+  rechercherAffaires(
+    prisonerId: any,
+    numArr: any,
+    minPage: any,
+    maxPAge: any
+  ): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(
+      environment.baseUrl +
+        "enfant/rechercherAffaires/" +
+        prisonerId +
+        "/" +
+        numArr +
+        "/" +
+        minPage +
+        "/" +
+        maxPAge
+    );
+  }
+
+  rechercherPenalSyntheseDetenu(
+    prisonerId: any,
+    numArr: any
+  ): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(
+      environment.baseUrl +
+        "enfant/rechercherPenalSyntheseDetenu/" +
+        prisonerId +
+        "/" +
+        numArr
     );
   }
 
@@ -254,6 +293,58 @@ export class DetentionService {
         tcodma +
         "/" +
         codeDocumentSecondaire
+    );
+  }
+
+  getContrainte(
+    tnumide: any,
+    tcoddet: any,
+    tnumseqaff: any
+  ): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(
+      environment.baseUrl +
+        "enfant/getContrainte/" +
+        tnumide +
+        "/" +
+        tcoddet +
+        "/" +
+        tnumseqaff
+    );
+  }
+
+  getPenalGraces(tnumide: any, tcoddet: any): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(
+      environment.baseUrl + "enfant/getPenalGraces/" + tnumide + "/" + tcoddet
+    );
+  }
+
+  getMutationResidence(tnumide: any, tcoddet: any): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(
+      environment.baseUrl +
+        "enfant/getMutationResidence/" +
+        tnumide +
+        "/" +
+        tcoddet
+    );
+  }
+
+  getEvasionsWithCaptures(tnumide: any, tcoddet: any): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(
+      environment.baseUrl +
+        "enfant/getEvasionsWithCaptures/" +
+        tnumide +
+        "/" +
+        tcoddet
+    );
+  }
+
+  findParticipantsAffaire(tnumide: any, tcoddet: any): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(
+      environment.baseUrl +
+        "enfant/findParticipantsAffaire/" +
+        tnumide +
+        "/" +
+        tcoddet
     );
   }
 
