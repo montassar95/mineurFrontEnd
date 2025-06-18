@@ -81,7 +81,7 @@ import { FormationComponent } from "./formation/formation.component";
 import { SupportServicesComponent } from "./support-services/support-services.component";
 import { VisitFamilyComponent } from "./visit-family/visit-family.component";
 import { JudicialDisciplinaryComponent } from "./judicial-disciplinary/judicial-disciplinary.component";
-
+ 
 const routes: Routes = [
   {
     path: "",
@@ -201,6 +201,7 @@ const routes: Routes = [
         path: "judicialDisciplinary",
         component: JudicialDisciplinaryComponent,
       },
+      
     ],
   },
 ];

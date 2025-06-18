@@ -66,11 +66,12 @@ export class TokenStorageService {
 
     return {
       id: payload.id,
-        username: payload.sub,
+      username: payload.sub,
       roles: payload.roles || [],
       nom: payload.nom,
       prenom: payload.prenom,
       etablissement: payload.etablissement,
+      acce: payload.acce  || null
     };
   }
 }

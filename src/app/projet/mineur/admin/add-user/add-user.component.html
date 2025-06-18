@@ -7,7 +7,7 @@
     </div>
     <div class="p-field p-grid">
         {{errorMessage}}
-        <label for="lastname3" class="p-col-fixed" style="width: 180px;">رقـــم الإداري :</label>
+        <label for="lastname3" class="p-col-fixed" style="width: 190px;">رقـــم الإداري :</label>
         <div class="p-col">
             <input [(ngModel)]="id" type="number" pInputText>
             <small *ngIf="fieldErrors.numAdministratif" class="p-error">{{ fieldErrors.numAdministratif }}</small>
@@ -16,7 +16,7 @@
     </div>
 
     <div class="p-field p-grid">
-        <label for="lastname3" class="p-col-fixed " style="width: 180px;"> الإســـم :</label>
+        <label for="lastname3" class="p-col-fixed " style="width: 190px;"> الإســـم :</label>
         <div class="p-col">
             <input [(ngModel)]="nom" type="text" pInputText>
             <small *ngIf="fieldErrors.nom" class="p-error">{{ fieldErrors.nom }}</small>
@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="p-field p-grid">
-        <label for="lastname3" class="p-col-fixed" style="width: 180px;">اللقــب :</label>
+        <label for="lastname3" class="p-col-fixed" style="width: 190px;">اللقــب :</label>
         <div class="p-col">
             <input [(ngModel)]="prenom" type="text" pInputText>
             <small *ngIf="fieldErrors.prenom" class="p-error">{{ fieldErrors.prenom }}</small>
@@ -33,7 +33,7 @@
 
 
     <div class="p-field p-grid">
-        <label for="lastname3" class="p-col-fixed" style="width: 180px;">رقم الهاتف :</label>
+        <label for="lastname3" class="p-col-fixed" style="width: 190px;">رقم الهاتف :</label>
         <div class="p-col">
             <input [(ngModel)]="telephone" type="text" name="telephone" pInputText>
             <small *ngIf="fieldErrors.telephone" class="p-error">{{ fieldErrors.telephone }}</small>
@@ -42,16 +42,16 @@
 
 
     <div class="p-field p-grid">
-        <label class="p-col-fixed" style="width:180px"> المـــؤسسة :  </label>
+        <label class="p-col-fixed" style="width:190px"> المـــؤسسة :  </label>
         <div class="p-col">
             <p-dropdown appendTo="body" [(ngModel)]="etablissementId" [options]="etablissements"
                 placeholder=" المـــؤسسة  " [filter]="true" id="etablissementId"
                 [style]="{'width':'220px', 'min-height' : '10px' }" name="etablissementId">
 
-                <ng-template let-eta pTemplate="item">
-                    <div class="item">
+                <ng-template let-eta pTemplate="item"  >
+                    <div class="item" [ngClass]="{'text-gray': eta.value?.length > 2 }">
 
-                        <div>{{eta.label }}</div>
+                        <div>{{eta.label }}    </div>  
                     </div>
                 </ng-template>
             </p-dropdown>
@@ -59,7 +59,7 @@
     </div>
 
     <div class="p-field p-grid">
-        <label class="p-col-fixed" style="width:180px"> المهــــام : </label>
+        <label class="p-col-fixed" style="width:190px"> المهــــام : </label>
         <div class="p-col">
             <p-dropdown appendTo="body" [(ngModel)]="role" [options]="roles" placeholder="  المهــــام " [filter]="true"
                 id="role" [style]="{'width':'220px'}" name="role">
@@ -74,8 +74,26 @@
         </div>
     </div>
 
+
     <div class="p-field p-grid">
-        <label for="lastname3" class="p-col-fixed " style="width: 180px;"> إســـم المستعمـــل :</label>
+        <label class="p-col-fixed" style="width:190px"> الإطلاع على معطيات      : </label>
+        <div class="p-col">
+            <p-dropdown appendTo="body" [(ngModel)]="acce" [options]="acces" placeholder="  معطيــات " [filter]="true"
+                id="acce" [style]="{'width':'220px'}" name="acce">
+                <ng-template let-acce pTemplate="item">
+                    <div class="item">
+    
+                        <div>{{acce.label }}</div>
+                    </div>
+                </ng-template>
+    
+            </p-dropdown>
+        </div>
+    </div>
+
+   
+    <div class="p-field p-grid">
+        <label for="lastname3" class="p-col-fixed " style="width: 190px;"> إســـم المستعمـــل :</label>
         <div class="p-col">
             <input [(ngModel)]="login" type="text" pInputText>
             <small *ngIf="fieldErrors.username" class="p-error">{{ fieldErrors.username }}</small>
@@ -83,7 +101,7 @@
     </div>
     <!-- <div class="p-field p-grid">
      
-        <label *ngIf="update" for="lastname3" class="p-col-fixed" style="width: 180px;"> تغير كلمة السر :</label>
+        <label *ngIf="update" for="lastname3" class="p-col-fixed" style="width: 190px;"> تغير كلمة السر :</label>
 
         <div *ngIf="update" class="p-col">
             <input [(ngModel)]="pwd" type="text" pInputText>
@@ -99,7 +117,7 @@
 
 
     <div class="p-field p-grid" style="text-align: center; margin-top: 10%;">
-        <label for="lastname3" class="p-col-fixed " style="width: 180px;"> </label>
+        <label for="lastname3" class="p-col-fixed " style="width: 190px;"> </label>
         <div class="p-col-fixed">
 
             <button (click)="close()" style="background-color: rgba(255, 0, 0, 0.822)!important; margin-right: 20px;"
@@ -134,21 +152,21 @@
 
 <div *ngIf="generatedPassword || afficheDataUpdated" class="password-summary-box">
     <div class="p-field p-grid summary-line">
-        <label class="p-col-fixed label" style="width: 180px;">الهـويـــــــــــــــــة :</label>
+        <label class="p-col-fixed label" style="width: 190px;">الهـويـــــــــــــــــة :</label>
         <div class="p-col value">{{ user?.nom + ' ' + user?.prenom }}</div>
     </div>
 
     <div class="p-field p-grid summary-line">
-        <label class="p-col-fixed label" style="width: 180px;">إســـم المستعمـــــل :</label>
+        <label class="p-col-fixed label" style="width: 190px;">إســـم المستعمـــــل :</label>
         <div class="p-col value">{{ user?.username }}</div>
     </div>
     <div class="p-field p-grid summary-line">
-        <label class="p-col-fixed label" style="width: 180px;"> رقم الهاتف :</label>
+        <label class="p-col-fixed label" style="width: 190px;"> رقم الهاتف :</label>
         <div class="p-col value">{{ user?.telephone }}</div>
     </div>
 
     <div class="p-field p-grid summary-line" *ngIf="generatedPassword && !afficheDataUpdated">
-        <label class="p-col-fixed label" style="width: 180px;">كلمـة السـر المُنشأة :</label>
+        <label class="p-col-fixed label" style="width: 190px;">كلمـة السـر المُنشأة :</label>
         <div class="p-col generated-password">
             {{ generatedPassword }}
         </div>

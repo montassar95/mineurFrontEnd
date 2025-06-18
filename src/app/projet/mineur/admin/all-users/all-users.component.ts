@@ -81,6 +81,7 @@ export class AllUsersComponent implements OnInit {
           username: user.username,
           roleName: this.translateRoleToArabic(user.roles[0]?.name), // Traduire le rôle en arabe
           etablissement: user.etablissement?.libelle_etablissement,
+          acce:  user.acce ,
         }));
       }
     });
@@ -98,6 +99,14 @@ export class AllUsersComponent implements OnInit {
     // Retourner la traduction si elle existe, sinon retourner le rôle original
     return roleTranslations[role] || role;
   }
+  // translateAccesToArabic(value: string): string {
+  //   const accesTranslations: { [key: string]: string } = {
+  //     prison: "الإصلاحيات فقط",
+  //     all: "السجون و الإصلاحيات",
+  //   };
+
+  //   return accesTranslations[value] || value;
+  // }
 
   editUser(user: User) {
     this.selectedUser = user; // Pass the user to be edited

@@ -46,13 +46,15 @@
     "quill": "^1.3.7",
     "rxjs": "6.5.4",
     "save": "^2.4.0",
+    "sockjs-client": "^1.6.1",
+    "stompjs": "^2.3.3",
     "typescript-formatter": "^7.2.2",
     "web-animations-js": "^2.3.2",
     "zone.js": "0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.901.9",
-    "@angular/cli": "9.0.4",
+    "@angular/cli": "^9.0.4",
     "@angular/compiler-cli": "9.0.4",
     "@angular/language-service": "9.0.4",
     "@types/jasmine": "3.5.7",

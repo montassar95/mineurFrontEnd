@@ -254,3 +254,9 @@ th{
    max-width: 300px;
    max-height: 300px;
  }
+ .disabled-button {
+   opacity: 0.6;
+   cursor: not-allowed;
+   pointer-events: auto !important;
+   /* pour garder le tooltip */
+ }

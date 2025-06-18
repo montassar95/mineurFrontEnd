@@ -141,7 +141,7 @@
 <div class="p-field p-grid">
     <label   class="p-col-fixed" style="width:180px">  الولاية    :  </label>
     <div class="p-col">
-        <p-dropdown    (onChange)="onChangGouv($event) " [options]="gouvernorats" placeholder="الولاية  "   [filter]="true" id="gouvernorat"  
+        <p-dropdown appendTo="body"   (onChange)="onChangGouv($event) " [options]="gouvernorats" placeholder="الولاية  "   [filter]="true" id="gouvernorat"  
                   [style]="{'width':'300px'}"   name="gouvernorat">
                 <ng-template let-gouv pTemplate="item">
                     <div class="item">
@@ -152,6 +152,27 @@
                 </p-dropdown>
     </div>
  </div>  
+
+
+<div class="p-field p-grid">
+    <label class="p-col-fixed" style="width:190px"> الإطلاع على معطيات : </label>
+    <div class="p-col">
+        <p-dropdown appendTo="body" [(ngModel)]="acce" [options]="typeEtablissements" placeholder="  معطيــات " [filter]="true"
+            id="acce" [style]="{'width':'220px'}" name="acce">
+            <ng-template let-acce pTemplate="item">
+                <div class="item">
+
+                    <div>{{acce.label }}</div>
+                </div>
+            </ng-template>
+
+        </p-dropdown>
+    </div>
+</div>
+
+
+
+
  <div style="text-align: center; margin-top: 20%;">
             
     <button  (click)="addEtab()" style="background-color: #28a745!important;" mat-fab>

@@ -43,7 +43,9 @@
               "node_modules/@fullcalendar/timegrid/main.js",
               "node_modules/@fullcalendar/interaction/main.js",
               "node_modules/prismjs/prism.js",
-              "node_modules/quill/dist/quill.js"
+              "node_modules/quill/dist/quill.js",
+                "node_modules/sockjs-client/dist/sockjs.min.js",
+                "node_modules/stompjs/lib/stomp.min.js"
             ]
           },
           "configurations": {

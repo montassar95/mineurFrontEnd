@@ -790,7 +790,7 @@ export class ListPenaleComponent implements OnInit {
     this.filteredEtablissements = [];
     if (this.entitiesEtablissement) {
       for (const item of this.entitiesEtablissement) {
-        if (item && item.libelle_etablissement) {
+        if (item && item.libelle_etablissement && item?.id.length <3) {
           const etablissement = item.libelle_etablissement;
           if (
             etablissement.toLowerCase().indexOf(event.query.toLowerCase()) === 0

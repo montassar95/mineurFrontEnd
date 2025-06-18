@@ -212,6 +212,7 @@ import { VisitFamilyComponent } from './visit-family/visit-family.component';
 import { FormationComponent } from './formation/formation.component';
 import { SupportServicesComponent } from './support-services/support-services.component';
 import { JudicialDisciplinaryComponent } from './judicial-disciplinary/judicial-disciplinary.component';
+ 
 
 @NgModule({
   declarations: [
@@ -419,6 +420,7 @@ import { JudicialDisciplinaryComponent } from './judicial-disciplinary/judicial-
     MatSelectModule,
     MatButtonToggleModule,
     MatMenuModule,
+   
   ],
   exports: [
     AddUserComponent, // Exportez le composant pour qu'il soit accessible dans d'autres modules

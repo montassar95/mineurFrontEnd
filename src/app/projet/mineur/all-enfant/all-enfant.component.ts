@@ -93,6 +93,7 @@ export class AllEnfantComponent implements OnInit {
 
   source: string;
   errorMessage: null;
+  showDialog: boolean;
 
   selectTab(tab: string) {
     this.selectedTab = tab; // Met à jour l'onglet sélectionné
@@ -139,14 +140,8 @@ export class AllEnfantComponent implements OnInit {
       this.routerSec.navigate(["/logoutpage"]);
     }
     this.currentUser = this.token.getUserFromTokenFromToken();
-
-    if (
-      this.currentUser.username == "test" ||
-      this.currentUser.username == "ibtissem" ||
-      this.currentUser.username == "zied" ||
-      this.currentUser.username == "montassar" ||
-      this.currentUser.username == "mouhamed"
-    ) {
+    console.log(this.currentUser);
+    if (this.currentUser.acce == "all") {
       this.acceeSoujoun = true;
     }
 
@@ -227,6 +222,10 @@ export class AllEnfantComponent implements OnInit {
   }
 
   onSubmitSearchForm2() {
+    if (!this.acceeSoujoun) {
+      this.showDialog = true;
+      return;
+    }
     this.source = "Penale";
     console.log("Formulaire départ :", this.searchForm.value);
 
@@ -558,6 +557,10 @@ export class AllEnfantComponent implements OnInit {
   }
 
   onSubmitIdDansPrision() {
+    if (!this.acceeSoujoun) {
+      this.showDialog = true;
+      return;
+    }
     //  this.searchForm.reset();
     console.log(this.selectedValue);
 
@@ -877,6 +880,5 @@ export class AllEnfantComponent implements OnInit {
         },
       });
   }
-/////////////////////////////////////////////////////////////////////////
-
+  /////////////////////////////////////////////////////////////////////////
 }
