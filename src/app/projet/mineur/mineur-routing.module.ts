@@ -81,8 +81,12 @@ import { FormationComponent } from "./formation/formation.component";
 import { SupportServicesComponent } from "./support-services/support-services.component";
 import { VisitFamilyComponent } from "./visit-family/visit-family.component";
 import { JudicialDisciplinaryComponent } from "./judicial-disciplinary/judicial-disciplinary.component";
+<<<<<<< HEAD
 import { ChatBoxComponent } from "src/chat/components/chat-box/chat-box.component";
 
+=======
+ 
+>>>>>>> b6c996e8a0b6692ef323c3a6b17fc61e143ec728
 const routes: Routes = [
   {
     path: "",
@@ -202,10 +206,14 @@ const routes: Routes = [
         path: "judicialDisciplinary",
         component: JudicialDisciplinaryComponent,
       },
+<<<<<<< HEAD
       {
         path: "chat",
         component: ChatBoxComponent,
       },
+=======
+      
+>>>>>>> b6c996e8a0b6692ef323c3a6b17fc61e143ec728
     ],
   },
 ];

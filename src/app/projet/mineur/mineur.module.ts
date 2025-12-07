@@ -212,7 +212,11 @@ import { VisitFamilyComponent } from './visit-family/visit-family.component';
 import { FormationComponent } from './formation/formation.component';
 import { SupportServicesComponent } from './support-services/support-services.component';
 import { JudicialDisciplinaryComponent } from './judicial-disciplinary/judicial-disciplinary.component';
+<<<<<<< HEAD
 import { ChatModule } from "src/chat/chat.module";
+=======
+ 
+>>>>>>> b6c996e8a0b6692ef323c3a6b17fc61e143ec728
 
 @NgModule({
   declarations: [
@@ -420,7 +424,11 @@ import { ChatModule } from "src/chat/chat.module";
     MatSelectModule,
     MatButtonToggleModule,
     MatMenuModule,
+<<<<<<< HEAD
      ChatModule,
+=======
+   
+>>>>>>> b6c996e8a0b6692ef323c3a6b17fc61e143ec728
   ],
   exports: [
     AddUserComponent, // Exportez le composant pour qu'il soit accessible dans d'autres modules
