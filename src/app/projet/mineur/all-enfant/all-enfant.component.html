@@ -25,7 +25,7 @@
 
     <div class="p-grid" style="width: 100%;">
         <div class="p-col-3" *ngIf="!selectedIndex">
-            <div class="court-document " style="width: 90%;  ">
+            <div class="card" style="width: 90%;  ">
 
                 <p-tabView>
 
@@ -102,7 +102,9 @@
                             </button>
 
                             <!-- Bouton 2 : البحث داخل الوحدات السجنية -->
-                            <button  *ngIf="acceeSoujoun" class="custom-button blue-button" (click)="onSubmitIdDansPrision()">
+                           
+                            <button class="custom-button blue-button" (click)="onSubmitIdDansPrision()"
+                                [ngClass]="{ 'disabled-button': !acceeSoujoun }">
                                 <i class="pi pi-search"></i>
                                 <span> داخل الوحدات السجنية </span>
                             </button>
@@ -212,9 +214,14 @@
                                 </button>
 
                                 <!-- Bouton 2 : البحث داخل الوحدات السجنية -->
-                                <button *ngIf="acceeSoujoun" class="custom-button blue-button" (click)="onSubmitSearchForm2()">
+                            
+                                      <!-- [disabled]="!acceeSoujoun" -->
+
+                                <button class="custom-button blue-button" 
+                                  (click)="onSubmitSearchForm2()"
+                                    [ngClass]="{ 'disabled-button': !acceeSoujoun }">
                                     <i class="pi pi-search"></i>
-                                    <span> داخل الوحدات السجنية</span>
+                                    <span> داخل الوحدات السجنية </span>
                                 </button>
                             </div>
 
@@ -231,7 +238,7 @@
  
         <div class="p-col-9">
 
-            <div class="p-grid" style="background-color: white;">
+            <div class="p-grid " style="background-color: white;">
                 <p-table [value]="detenus" *ngIf="detenus.length" id="dt" #dt dataKey="numOrdinale"
                     paginatorPosition="bottom" [rowsPerPageOptions]="[4,10,20,50]" [rows]="4" [paginator]="true"
                     [globalFilterFields]="['arrestation.enfant.nom']">
@@ -244,7 +251,7 @@
                     </ng-template>
 
                     <ng-template pTemplate="header">
-                        <tr style="background-color: rgb(233, 233, 233);">
+                        <tr style="background-color: #f5f7ff">
                             <th style="width: 10%;" pSortableColumn="detenu?.detenuId">المعرف
                                 <p-sortIcon field="detenu?.detenuId"></p-sortIcon>
                             </th>
@@ -418,4 +425,11 @@
 
 
         </p-footer>
+    </p-dialog>
+
+    <p-dialog header="تنبيه" [(visible)]="showDialog" [modal]="true" [closable]="true" [style]="{ width: '400px' }">
+        <p class="text-right" style="direction: rtl; font-size: 18px ; color: red;">
+            للحصول على صلاحية الاطلاع على بيانات المودعين داخل الوحدات السجنية، يرجى توجيه طلب رسمي إلى مركز الإعلامية بمنوبة.
+
+        </p>
     </p-dialog>

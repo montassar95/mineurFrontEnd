@@ -39,11 +39,17 @@
                                 placeholder="يوم/شهر/سنة" class="custom-calendar w-100">
                             </p-calendar>
                         </div>
-                        <div class="p-col-6">
-                            <button *ngIf="statistiqueEtablissement?.length !== 0"
-                                (click)="downloadStatistiqueGenerale()">تحميل
-                                إحصائية عامة</button>
+                        <div class="p-col-3">
+                            <button *ngIf="statistiqueEtablissement?.length !== 0" (click)="downloadStatistiqueCentres()">
+                                تحميل إحصائية المراكز
+                            </button>
                         </div>
+                        <div class="p-col-3">
+                            <button *ngIf="statistiqueEtablissement?.length !== 0" (click)="downloadStatistiquePrisons()">
+                                تحميل إحصائية السجون
+                            </button>
+                        </div>
+
                     </div>
 
 

@@ -13,4 +13,6 @@ export class ActeJudiciaire {
   libelleTribunal: string;
   typeDocument: string;
   typeMotif: string;
+  numAffairePenal: string;
+  idTribunalPenal: string;
 }

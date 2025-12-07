@@ -240,7 +240,9 @@ export class DetentionService {
     tnumide: any,
     tcoddet: any,
     tnumseqaff: any,
-    tcodma: any
+    tcodma: any,
+    numAffairePenal,
+    idTribunalPenal
   ): Observable<ApiResponse> {
     return this.httpClient.get<ApiResponse>(
       environment.baseUrl +
@@ -251,15 +253,44 @@ export class DetentionService {
         "/" +
         tnumseqaff +
         "/" +
-        tcodma
+        tcodma +
+        "/" +
+        numAffairePenal +
+        "/" +
+        idTribunalPenal
     );
   }
-
+  getMandatAmener(
+    tnumide: any,
+    tcoddet: any,
+    tnumseqaff: any,
+    tcodma: any,
+    numAffairePenal,
+    idTribunalPenal
+  ): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(
+      environment.baseUrl +
+        "enfant/getMandatAmener/" +
+        tnumide +
+        "/" +
+        tcoddet +
+        "/" +
+        tnumseqaff +
+        "/" +
+        tcodma +
+        "/" +
+        numAffairePenal +
+        "/" +
+        idTribunalPenal
+    );
+  }
   getTransfert(
     tnumide: any,
     tcoddet: any,
     tnumseqaff: any,
-    tcodma: any
+    tcodma: any,
+    numAffairePenal,
+    idTribunalPenal
   ): Observable<ApiResponse> {
     return this.httpClient.get<ApiResponse>(
       environment.baseUrl +
@@ -270,7 +301,11 @@ export class DetentionService {
         "/" +
         tnumseqaff +
         "/" +
-        tcodma
+        tcodma +
+        "/" +
+        numAffairePenal +
+        "/" +
+        idTribunalPenal
     );
   }
 
@@ -279,7 +314,9 @@ export class DetentionService {
     tcoddet: any,
     tnumseqaff: any,
     tcodma: any,
-    codeDocumentSecondaire: any
+    codeDocumentSecondaire: any,
+    numAffairePenal,
+    idTribunalPenal
   ): Observable<ApiResponse> {
     return this.httpClient.get<ApiResponse>(
       environment.baseUrl +
@@ -292,14 +329,20 @@ export class DetentionService {
         "/" +
         tcodma +
         "/" +
-        codeDocumentSecondaire
+        codeDocumentSecondaire +
+        "/" +
+        numAffairePenal +
+        "/" +
+        idTribunalPenal
     );
   }
 
   getContrainte(
     tnumide: any,
     tcoddet: any,
-    tnumseqaff: any
+    tnumseqaff: any,
+    numAffairePenal,
+    idTribunalPenal
   ): Observable<ApiResponse> {
     return this.httpClient.get<ApiResponse>(
       environment.baseUrl +
@@ -308,7 +351,11 @@ export class DetentionService {
         "/" +
         tcoddet +
         "/" +
-        tnumseqaff
+        tnumseqaff +
+        "/" +
+        numAffairePenal +
+        "/" +
+        idTribunalPenal
     );
   }
 
@@ -352,7 +399,9 @@ export class DetentionService {
     tnumide: any,
     tcoddet: any,
 
-    codExtj: any
+    codExtj: any,
+    numAffairePenal,
+    idTribunalPenal
   ): Observable<ApiResponse> {
     return this.httpClient.get<ApiResponse>(
       environment.baseUrl +
@@ -361,7 +410,11 @@ export class DetentionService {
         "/" +
         tcoddet +
         "/" +
-        codExtj
+        codExtj +
+        "/" +
+        numAffairePenal +
+        "/" +
+        idTribunalPenal
     );
   }
   getActesJudiciaires(
@@ -385,7 +438,9 @@ export class DetentionService {
     tcoddet: any,
 
     tnumseqaff: any,
-    typeActe: any
+    typeActe: any,
+    numAffairePenal,
+    idTribunalPenal
   ): Observable<ApiResponse> {
     return this.httpClient.get<ApiResponse>(
       environment.baseUrl +
@@ -396,7 +451,11 @@ export class DetentionService {
         "/" +
         tnumseqaff +
         "/" +
-        typeActe
+        typeActe +
+        "/" +
+        numAffairePenal +
+        "/" +
+        idTribunalPenal
     );
   }
 
@@ -409,7 +468,11 @@ export class DetentionService {
         prisonerId
     );
   }
-
+  findRelationsFamiliales(tnumide: any): Observable<ApiResponse> {
+    return this.httpClient.get<ApiResponse>(
+      environment.baseUrl + "enfant/findRelationsFamiliales/" + tnumide
+    );
+  }
   trouverDetenusParDetenuIdMineurDansPrisons(
     prisonerIdMineur: any
   ): Observable<ApiResponse> {

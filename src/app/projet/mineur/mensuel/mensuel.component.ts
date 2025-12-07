@@ -277,7 +277,7 @@ export class MensuelComponent implements OnInit {
     this.printAllCentre(etablissement, situationJudiciaire);
   }
 
-  downloadStatistiqueGenerale() {
+  downloadStatistiqueCentres() {
     console.log(this.datePipe.transform(this.lastDay, "yyyy-MM-dd"));
     let pDFListExistDTO = new PDFListExistDTO();
 
@@ -317,4 +317,46 @@ export class MensuelComponent implements OnInit {
       }
     );
   }
+
+
+  
+  downloadStatistiquePrisons() {
+   
+     
+    this.click = true;
+
+    this.rapportService
+      .genererStatistiquePdfPrison(
+        this.datepipe.transform(this.dateDebutGlobale, "yyyy-MM-dd"),
+        this.datepipe.transform(this.dateFinGlobale, "yyyy-MM-dd")
+      )
+      .subscribe(
+        (x) => {
+          this.sizeFile = x.size;
+          console.log(this.sizeFile);
+
+          const blob = new Blob([x], { type: "application/pdf" });
+          const data = window.URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = data;
+          link.download = "historique.pdf";
+
+          if (blob) {
+            this.sizeFile = 0;
+            this.click = false;
+          }
+
+          this.openPDFInNewTab(data);
+        },
+        (error) => {
+          // Handle error here
+          console.error("An error occurred while generating the PDF:", error);
+          this.click = false;
+          // You can show an alert or display a user-friendly message if needed
+          alert("فشل إنشاء ملف PDF. يرجى المحاولة مرة أخرى.");
+        }
+      );
+  }
+
+   
 }

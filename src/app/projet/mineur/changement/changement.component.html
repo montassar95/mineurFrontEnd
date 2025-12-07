@@ -1,167 +1,97 @@
-
-
 <p-toast key="tst" [style]="{marginTop: '150px'}"></p-toast>
-<div  style=" margin-bottom: 60px;">
-<div class="wrapper" >
-    <div class="card">
-        <label for="card7" class="titre" aria-hidden="true">
-            قرار تغير مكان الإيداع
-        </label>
-        <input type="checkbox" id="card7" class="more">
-        <div class="content">
-            <div class="front"    >
-                <div class="inner">
-                    
-                  <img src="assets/layout/images/house.png" class="image-adjust " />
-                <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black' , 'margin-top': '15px' }" dir="rtl"
-                    [(ngModel)]="idChangementLieu" mask="99999999" slotChar="----------" (keyup.enter)="dirChangementLieu()"
-                    placeholder=" معرف الطفل   ">
-                </p-inputMask>
-                </div>
-            </div>
-            
-        </div>
-    </div>
 
+<div style="margin-bottom: 60px;">
 
-
-    <!-- style="width: max-content; text-align: center;" -->
-
-
-    
-    <div class="card">
-        <label for="card6" class="titre" aria-hidden="true">
-            المراجعة / رفض المراجعة
-        </label>
-        <div class="content">
-            <div class="front"    >
-                <div class="inner">
-                   
-                  <img src="assets/layout/images/dashboard/icon-internship.svg"  class="image-adjust " />
-                <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black' , 'margin-top': '15px' }" dir="rtl" [(ngModel)]="idRevue"
-                    mask="99999999" slotChar="----------" (keyup.enter)="dirRevue()" placeholder=" معرف الطفل   ">
-                </p-inputMask>
-                </div>
-            </div>
-             
-        </div>
-    </div>
-
-
-
-
-  
-
-
-
-
-
-
-    <div class="card">
-        <label for="card2" class="titre" aria-hidden="true">
-            السراح / تغير وسيلة
-        </label>
-        <input type="checkbox" id="card2" class="more">
-        <div class="content">
-            <div class="front"  >
-                <div class="inner">
-                
-                    
-                        <img src="assets/layout/images/slavery.png"  class="image-adjust "/>
-                    <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black' , 'margin-top': '15px' }" dir="rtl" [(ngModel)]="idLiberation"
-                        mask="99999999" slotChar="----------" (keyup.enter)="dirLiberation()" placeholder=" معرف الطفل   ">
-                    </p-inputMask>
-                    
-                </div>
-            </div>
-             
-        </div>
-    </div>
-    <div class="card">
-        <label for="card5" class="titre" aria-hidden="true">
-            قرار تمديد
-        </label>
-        <input type="checkbox" id="card5" class="more">
-        <div class="content">
-            <div class="front"  >
-                <div class="inner">
-                   
-                    <img src="assets/layout/images/timing.png"  class="image-adjust " />
-                <p-inputMask [style]="{'font-weight': '700' ,   'font-size': '20px','color': 'black' , 'margin-top': '15px' }" dir="rtl"
-                    [(ngModel)]="idPropagation" mask="99999999" slotChar="----------" (keyup.enter)="dirPropagation()"
-                    placeholder=" معرف الطفل   ">
-                </p-inputMask>
-                </div>
-            </div>
-         
-        </div>
-    </div>
-    </div>
-    <div class="wrapper" > 
+    <div class="wrapper">
+        <!-- Carte 1 : قرار تغير مكان الإيداع -->
         <div class="card">
-            <label for="card1" class="titre" aria-hidden="true">
-                الوفاة
-            </label>
-            <input type="checkbox" id="card1" class="more" aria-hidden="true">
-            <div class="content"  >
-             
-                <div class="front"  >
-                    <div class="inner">
-                       
-                        
-                        <img src="assets/layout/images/death.png"  class="image-adjust " />
-                    <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black' , 'margin-top': '15px'}" dir="rtl" [(ngModel)]="idDeces"
-                        mask="99999999" slotChar="----------" (keyup.enter)="dirDeces()" placeholder=" معرف الطفل   ">
-                    </p-inputMask>
-                   
-                </div>
-                </div>
-              
-            </div>
-        </div>
-  
-    <div class="card">
-        <label for="card4" class="titre" aria-hidden="true">
-            الفرار / إلقاء القبض
-        </label>
-        <input type="checkbox" id="card4" class="more">
-        <div class="content">
-            <div class="front"  >
-                <div class="inner">
-                   
-                    <img src="assets/layout/images/T.png"  class="image-adjust " />
-                    <p-inputMask [style]="{'font-weight': '700' ,   'font-size': '20px','color': 'black' , 'margin-top': '15px' }" dir="rtl"
-                        [(ngModel)]="idEchappes" mask="99999999" slotChar="----------" (keyup.enter)="dirEchappes()"
-                        placeholder=" معرف الطفل   ">
-                    </p-inputMask>
-                </div>
-            </div>
-           
-        </div>
-    </div>
-    <div class="card">
-        <label for="card3" class="titre" aria-hidden="true">
-            النقل / الإستقبال
-        </label>
-        <input type="checkbox" id="card3" class="more">
-        <div class="content">
-            <div class="front"  >
-                <div class="inner">
-                    
-                    <img src="assets/layout/images/M.png"  class="image-adjust " />
-                    
-                <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black' , 'margin-top': '15px' }" dir="rtl" [(ngModel)]="idMutation"
-                    mask="99999999" slotChar="----------" (keyup.enter)="dirMutation()" placeholder=" معرف الطفل   ">
+            <div class="inner">
+                <label class="titre">قرار تغير مكان الإيداع</label>
+                <img src="assets/layout/images/shift.png" class="image-adjust" />
+                <p-inputMask [style]="{'font-weight': '700','font-size': '20px','color': 'black','margin-top': '15px'}"
+                    dir="rtl" [(ngModel)]="idChangementLieu" mask="99999999" slotChar="----------"
+                    (keyup.enter)="dirChangementLieu()" placeholder="معرف الطفل">
                 </p-inputMask>
-                </div>
             </div>
-            
+        </div>
+
+        <!-- Carte 2 : المراجعة / رفض المراجعة -->
+        <div class="card">
+            <div class="inner">
+                <label class="titre">المراجعة / رفض المراجعة</label>
+                <img src="assets/layout/images/documents.png" class="image-adjust" />
+                <p-inputMask [style]="{'font-weight': '700','font-size': '20px','color': 'black','margin-top': '15px'}"
+                    dir="rtl" [(ngModel)]="idRevue" mask="99999999" slotChar="----------" (keyup.enter)="dirRevue()"
+                    placeholder="معرف الطفل">
+                </p-inputMask>
+            </div>
+        </div>
+
+        <!-- Carte 3 : السراح / تغير وسيلة -->
+        <div class="card">
+            <div class="inner">
+                <label class="titre">السراح / تغير وسيلة</label>
+                <img src="assets/layout/images/liberation-de-lesclavage.png" class="image-adjust" />
+                <p-inputMask [style]="{'font-weight': '700','font-size': '20px','color': 'black','margin-top': '15px'}"
+                    dir="rtl" [(ngModel)]="idLiberation" mask="99999999" slotChar="----------"
+                    (keyup.enter)="dirLiberation()" placeholder="معرف الطفل">
+                </p-inputMask>
+            </div>
+        </div>
+
+        <!-- Carte 4 : قرار تمديد -->
+        <div class="card">
+            <div class="inner">
+                <label class="titre">قرار تمديد</label>
+                <img src="assets/layout/images/date-limite.png" class="image-adjust" />
+                <p-inputMask [style]="{'font-weight': '700','font-size': '20px','color': 'black','margin-top': '15px'}"
+                    dir="rtl" [(ngModel)]="idPropagation" mask="99999999" slotChar="----------"
+                    (keyup.enter)="dirPropagation()" placeholder="معرف الطفل">
+                </p-inputMask>
+            </div>
         </div>
     </div>
-  
-  </div>
 
-  <div style="text-align: center; margin-top: 50px;" *ngIf="isExist">
-      <h1 style="color: crimson; font-family: 'Amiri', Times, serif;"> {{msg}} </h1>
-   </div>
+    <div class="wrapper">
+        <!-- Carte 5 : الوفاة -->
+        <div class="card">
+            <div class="inner">
+                <label class="titre">الوفاة</label>
+                <img src="assets/layout/images/tombeau.png" class="image-adjust" />
+                <p-inputMask [style]="{'font-weight': '700','font-size': '20px','color': 'black','margin-top': '15px'}"
+                    dir="rtl" [(ngModel)]="idDeces" mask="99999999" slotChar="----------" (keyup.enter)="dirDeces()"
+                    placeholder="معرف الطفل">
+                </p-inputMask>
+            </div>
+        </div>
+
+        <!-- Carte 6 : الفرار / إلقاء القبض -->
+        <div class="card">
+            <div class="inner">
+                <label class="titre">الفرار / إلقاء القبض</label>
+                <img src="assets/layout/images/evasion-de-la-prison.png" class="image-adjust" />
+                <p-inputMask [style]="{'font-weight': '700','font-size': '20px','color': 'black','margin-top': '15px'}"
+                    dir="rtl" [(ngModel)]="idEchappes" mask="99999999" slotChar="----------"
+                    (keyup.enter)="dirEchappes()" placeholder="معرف الطفل">
+                </p-inputMask>
+            </div>
+        </div>
+
+        <!-- Carte 7 : النقل / الإستقبال -->
+        <div class="card">
+            <div class="inner">
+                <label class="titre">النقل / الإستقبال</label>
+                <img src="assets/layout/images/localisateur-de-carte.png" class="image-adjust" />
+                <p-inputMask [style]="{'font-weight': '700','font-size': '20px','color': 'black','margin-top': '15px'}"
+                    dir="rtl" [(ngModel)]="idMutation" mask="99999999" slotChar="----------"
+                    (keyup.enter)="dirMutation()" placeholder="معرف الطفل">
+                </p-inputMask>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 50px;" *ngIf="isExist">
+        <h1 style="color: crimson; font-family: 'Amiri', Times, serif;">{{msg}}</h1>
+    </div>
+
 </div>

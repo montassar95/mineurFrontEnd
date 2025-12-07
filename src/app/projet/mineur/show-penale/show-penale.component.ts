@@ -8,7 +8,9 @@ import { ActeJudiciaire } from "src/app/domain/acteJudiciaire";
 import { AffairePenaleDto } from "src/app/domain/affairePenaleDto";
 
 import { ArretExecutionPenalDTO } from "src/app/domain/arretExecutionPenalDTO";
+import { ArretProvisoireDTO } from "src/app/domain/arretProvisoireDTO";
 import { EvasionCaptureDTO } from "src/app/domain/evasionCaptureDTO";
+import { LienFamilialDTO } from "src/app/domain/lienFamilialDTO";
 import { MutationResidenceDto } from "src/app/domain/mutationResidenceDto";
 import { ParticipantAffaireDTO } from "src/app/domain/participantAffaireDTO";
 
@@ -46,8 +48,9 @@ export class ShowPenaleComponent implements OnInit {
   penalContrainteDto: PenalContrainteDTO;
   arretExecutionPenalDTO: ArretExecutionPenalDTO;
   accusationExtraitJugements: AccusationExtraitJugementDTO[];
+  arretProvisoires: ArretProvisoireDTO[];
   penalJugementDTO: PenalJugementDTO;
-
+  lienFamilialDTOs: LienFamilialDTO[] = [];
   acteJudiciaires: ActeJudiciaire[];
 
   penalAffaireDTOs: PenalAffaireDTO[];
@@ -87,7 +90,8 @@ export class ShowPenaleComponent implements OnInit {
         this.loadMutationResidence(this.idEnfant, this.tcoddet);
         this.loadEvasionCapture(this.idEnfant, this.tcoddet);
         this.loadParticipantsAffaire(this.idEnfant, this.tcoddet);
-        // this.loadData({ first: 0, rows: 10 });
+          this.findRelationsFamiliales(this.idEnfant);
+          // this.loadData({ first: 0, rows: 10 });
 
         this.source = params.get("source"); // Récupération du paramètre 'source'
         this.trouverToutDetentionInfosParPrisonerIdDansPrisons(this.idEnfant);
@@ -110,7 +114,13 @@ export class ShowPenaleComponent implements OnInit {
         this.affairePenaleDtos = data.result;
       });
   }
-
+  findRelationsFamiliales(id): void {
+    this.detentionService.findRelationsFamiliales(id).subscribe((data) => {
+     console.log("kkkkkkkkkkkkkkkkkkkkkkkk");
+      console.log(data.result);
+      this.lienFamilialDTOs = data.result;
+    });
+  }
   /*search(id: String) {
     this.detentionService
       .findPrisonerPenalByPrisonerId(id)
@@ -227,31 +237,36 @@ export class ShowPenaleComponent implements OnInit {
     return age;
   }
   getDocumentByAffaireConsult(acteJudiciaire: ActeJudiciaire) {
-    console.log(acteJudiciaire + "iiiiiiiiii");
+    console.log(acteJudiciaire);
 
     if (acteJudiciaire.typeActe == "tjugement") {
       this.detentionService
         .getAccusationsParDetenu(
           this.prisonerPenaleDto.detenuId,
           this.prisonerPenaleDto.numOrdinaleArrestation,
-          acteJudiciaire.codeDocument
+          acteJudiciaire.codeDocument,
+          acteJudiciaire.numAffairePenal,
+          acteJudiciaire.idTribunalPenal
         )
         .subscribe((data) => {
           this.penalJugementDTO = data.result;
           this.accusationExtraitJugements =
             this.penalJugementDTO.accusationExtraitJugementDTOs;
+          this.arretProvisoires = this.penalJugementDTO.arretProvisoireDTOs;
 
           this.displayAffaireConsult = true;
           console.log(this.penalJugementDTO);
         });
       this.displayExtraitJugement = "jugement";
-    } else if (acteJudiciaire.typeActe == "tmandatdepot") {
+    } else if (acteJudiciaire.typeActe == "tmandatdepot" ) {
       this.detentionService
         .getMandatDepot(
           this.prisonerPenaleDto.detenuId,
           this.prisonerPenaleDto.numOrdinaleArrestation,
           acteJudiciaire.tnumseqaff,
-          acteJudiciaire.codeDocument
+          acteJudiciaire.codeDocument,
+          acteJudiciaire.numAffairePenal,
+          acteJudiciaire.idTribunalPenal
         )
         .subscribe((data) => {
           console.log(data.result);
@@ -259,13 +274,36 @@ export class ShowPenaleComponent implements OnInit {
           this.displayAffaireConsult = true;
         });
       this.displayExtraitJugement = "depot";
-    } else if (acteJudiciaire.typeActe == "ttransfert") {
+    } 
+     else if ( 
+      acteJudiciaire.typeActe ==  "tmandatamener"
+    ) {
+       this.detentionService
+         .getMandatAmener(
+           this.prisonerPenaleDto.detenuId,
+           this.prisonerPenaleDto.numOrdinaleArrestation,
+           acteJudiciaire.tnumseqaff,
+           acteJudiciaire.codeDocument,
+           acteJudiciaire.numAffairePenal,
+           acteJudiciaire.idTribunalPenal
+         )
+         .subscribe((data) => {
+           console.log(data.result);
+           this.penalMandatDepotDTO = data.result;
+           this.displayAffaireConsult = true;
+         });
+       this.displayExtraitJugement = "amener";
+    }
+    
+    else if (acteJudiciaire.typeActe == "ttransfert") {
       this.detentionService
         .getTransfert(
           this.prisonerPenaleDto.detenuId,
           this.prisonerPenaleDto.numOrdinaleArrestation,
           acteJudiciaire.tnumseqaff,
-          acteJudiciaire.codeDocument
+          acteJudiciaire.codeDocument,
+          acteJudiciaire.numAffairePenal,
+          acteJudiciaire.idTribunalPenal
         )
         .subscribe((data) => {
           this.penalTransfertDto = data.result;
@@ -279,7 +317,9 @@ export class ShowPenaleComponent implements OnInit {
           this.prisonerPenaleDto.numOrdinaleArrestation,
           acteJudiciaire.tnumseqaff,
           acteJudiciaire.codeDocument,
-          acteJudiciaire.codeDocumentSecondaire
+          acteJudiciaire.codeDocumentSecondaire,
+          acteJudiciaire.numAffairePenal,
+          acteJudiciaire.idTribunalPenal
         )
         .subscribe((data) => {
           this.penalContestationDto = data.result;
@@ -291,10 +331,13 @@ export class ShowPenaleComponent implements OnInit {
         .getContrainte(
           this.prisonerPenaleDto.detenuId,
           this.prisonerPenaleDto.numOrdinaleArrestation,
-          acteJudiciaire.tnumseqaff
+          acteJudiciaire.codeDocument,
+          acteJudiciaire.numAffairePenal,
+          acteJudiciaire.idTribunalPenal
         )
         .subscribe((data) => {
           this.penalContrainteDto = data.result;
+          this.arretProvisoires = this.penalContrainteDto.arretProvisoireDTOs;
           this.displayAffaireConsult = true;
         });
       this.displayExtraitJugement = "tcontrainte";
@@ -304,7 +347,9 @@ export class ShowPenaleComponent implements OnInit {
           this.prisonerPenaleDto.detenuId,
           this.prisonerPenaleDto.numOrdinaleArrestation,
           acteJudiciaire.tnumseqaff,
-          acteJudiciaire.typeActe
+          acteJudiciaire.typeActe,
+          acteJudiciaire.numAffairePenal,
+          acteJudiciaire.idTribunalPenal
         )
         .subscribe((data) => {
           this.arretExecutionPenalDTO = data.result;
@@ -330,7 +375,7 @@ export class ShowPenaleComponent implements OnInit {
       )
       .subscribe((data) => {
         this.acteJudiciaires = data.result;
-
+console.log(this.acteJudiciaires);
         this.displayActeJudiciaire = true;
       });
   }
@@ -343,6 +388,8 @@ export class ShowPenaleComponent implements OnInit {
     this.loadMutationResidence(this.idEnfant, this.tcoddet);
     this.loadEvasionCapture(this.idEnfant, this.tcoddet);
     this.loadParticipantsAffaire(this.idEnfant, this.tcoddet);
+    this.loadData({ first: 0, rows: 5 });
+    this.findRelationsFamiliales(this.idEnfant);
     this.displayAllArrestation = false;
   }
 

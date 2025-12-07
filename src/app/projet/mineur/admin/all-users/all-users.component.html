@@ -17,8 +17,8 @@
       <!-- Table Header -->
       <ng-template pTemplate="header">
          <tr>
-            <th pSortableColumn="id" style="width: 50px;"> معـــرف ألـــي <p-sortIcon field="id"></p-sortIcon></th>
-            <th pSortableColumn="personelleId" style="width: 50px;"> رقـــم الإداري <p-sortIcon
+            <!-- <th pSortableColumn="id" style="width: auto;"> معـــرف ألـــي <p-sortIcon field="id"></p-sortIcon></th> -->
+            <th pSortableColumn="personelleId" style="width: auto;"> رقـــم الإداري <p-sortIcon
                   field="personelleId"></p-sortIcon></th>
             <th pSortableColumn="fullName">الهويـــة <p-sortIcon field="fullName"></p-sortIcon></th>
             <th pSortableColumn="telephone">رقم الهاتف <p-sortIcon field="telephone"></p-sortIcon></th>
@@ -36,7 +36,10 @@
                <p-sortIcon field="etablissement"></p-sortIcon>
             </th>
 
-
+            <th pSortableColumn="acce">
+               الإطـلاع
+               <p-sortIcon field="acce"></p-sortIcon>
+            </th>
 
             <th><button mat-fab (click)="addUser()" class="add-btn"><i class="pi pi-plus"></i></button></th>
          </tr>
@@ -46,9 +49,9 @@
       <ng-template pTemplate="body" let-user>
          <tr
             [ngStyle]="isLoginExpired(user ) ? {'background-color': '#f8d7da', 'color': '#721c24'} : {'background-color': '#fff', 'color': '#000'}">
-       
 
-            <td>{{user?.id}}</td> <!-- معرف آلي -->
+
+            <!-- <td>{{user?.id}}</td> معرف آلي -->
             <td><b>{{user?.personelleId}}</b></td> <!-- رقم إداري -->
             <td>{{user?.fullName}}</td> <!-- الهوية -->
             <td>{{user?.telephone}}</td> <!-- رقم الهاتف -->
@@ -57,10 +60,17 @@
             <td>{{user?.username}}</td> <!-- اسم المستعمل -->
             <td>{{user?.roleName}}</td> <!-- المهام -->
             <td>{{user?.etablissement}}</td> <!-- المؤسسة -->
-            <td *ngIf="user?.id != 41">
+            <!-- <td>{{user?.acce}}</td> -->
+         
+            <td>
+               <i *ngIf="user?.acce === 'all'" class="pi pi-unlock"  title="السجون و الإصلاحيات"  style="color: green;"></i>
+               <i *ngIf="user?.acce === 'prison'" class="pi pi-lock"  title="الإصلاحيات فقط" style="color: red;"></i>
+             </td>
+             
+            <td>
                <button mat-mini-fab (click)="editUser(user)" class="edit-btn"><i class="pi pi-pencil"></i></button>
-               <button mat-mini-fab (click)="deleteUser(user)" class="delete-btn" style="margin-right: 10px;"><i
-                     class="pi pi-trash"></i></button>
+               <button *ngIf="user?.id != 41" mat-mini-fab (click)="deleteUser(user)" class="delete-btn"
+                  style="margin-right: 10px;"><i class="pi pi-trash"></i></button>
             </td>
          </tr>
 

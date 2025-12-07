@@ -18,7 +18,7 @@
 }
 
 .table-modern tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #ffffff;
 }
 
 .table-modern th {
@@ -88,29 +88,48 @@ th{
    
     color: white;
  }
+
+
  .card {
-   width: 340px;
-   height: auto;
- margin: 1em;
- perspective: 1500px;
- .content {
+   border-top: 6px solid #0d47a1;
+   
+   border-radius: 10px;
   
-   position: relative;
-   width: 100%;
-   height: 100%;
-   -moz-box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.800);
- -webkit-box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.800);
- box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.800);
+ 
+   /* très léger dégradé sur carte */
+   box-shadow: 0 14px 35px rgba(0, 0, 0, 0.08), 0 8px 20px rgba(0, 0, 0, 0.06);
+  
+  
    transform-style: preserve-3d;
-   transition: transform 0.8s cubic-bezier(0.75, 0, 0.85, 1);
+   
+   cursor: pointer;
+  background: linear-gradient(to right, #fcfcfc, #f0f7ff);
+
+ 
  }
- }
+//  .card {
+//    width: 340px;
+//    height: auto;
+//  margin: 1em;
+//  perspective: 1500px;
+//  .content {
+  
+//    position: relative;
+//    width: 100%;
+//    height: 100%;
+// //    -moz-box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.800);
+// //  -webkit-box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.800);
+// //  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.800);
+//    transform-style: preserve-3d;
+//    transition: transform 0.8s cubic-bezier(0.75, 0, 0.85, 1);
+//  }
+//  }
 
 
- .card:hover {
-   border-radius:60% 60% 60% 60% / 10% 10% 10% 10% ;
-   box-shadow: 10px 20px rgba(0, 0, 0, 0.521);
- }
+//  .card:hover {
+//    border-radius:60% 60% 60% 60% / 10% 10% 10% 10% ;
+//    box-shadow: 10px 20px rgba(122, 122, 122, 0.521);
+//  }
 
 
  
@@ -253,4 +272,10 @@ th{
  .loading-gif {
    max-width: 300px;
    max-height: 300px;
+ }
+ .disabled-button {
+   opacity: 0.6;
+   cursor: not-allowed;
+   pointer-events: auto !important;
+   /* pour garder le tooltip */
  }

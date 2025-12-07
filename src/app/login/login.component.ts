@@ -49,11 +49,11 @@ export class LoginComponent implements OnInit {
         this.roles = user?.roles || [];
 
         // 👉 Affiche les warnings s'ils existent
-        if (data.warnings && data.warnings.length > 0) {
-          this.warningMessages = data.warnings;
-        } else {
+        // if (data.warnings && data.warnings.length > 0) {
+        //   this.warningMessages = data.warnings;
+        // } else {
           this.redirectPage();
-        }
+        // }
         
       },
       (err) => {

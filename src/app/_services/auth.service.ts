@@ -36,6 +36,7 @@ export class AuthService {
         prenom: user.prenom,
         numAdministratif: user.numAdministratif,
         etablissementId: user.etablissementId,
+        acce: user.acce,
       },
       httpOptions
     );
@@ -53,6 +54,7 @@ export class AuthService {
         prenom: user.prenom,
         numAdministratif: user.numAdministratif,
         etablissementId: user.etablissementId,
+        acce: user.acce,
       },
       httpOptions
     );

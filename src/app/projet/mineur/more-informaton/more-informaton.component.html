@@ -1,5 +1,5 @@
-<div dir="rtl" *ngIf="arrestationLocal" class="container" style="margin-bottom: 100px;">
-
+<div dir="rtl" *ngIf="arrestationLocal"  style="margin-bottom: 100px;">
+<!-- class="container" merci de supprimier dans css -->
    <div class="p-grid">
 
 
@@ -7,14 +7,14 @@
          <div class="p-grid ">
             <div class="p-col-2">
                <button mat-raised-button class="button-card3" (click)="displayAllArrestation = true">
-                  <span style="font-family: 'Amiri', Times, serif; font-size: 20px; color:   black;">
+                  <span style="font-family: 'Amiri', Times, serif; font-size: 20px; ">
                      الإيقــــاف:
                      <b style="color: #ff3434;  ; font-weight: bold;">{{'0' +
                         arrestationLocal?.arrestationId?.numOrdinale
                         }}</b>
 
                   </span>
-                  <i class="pi pi-cog" style="font-size: 35px;  color:   #214954;"></i>
+                  <i class="pi pi-cog" style="font-size: 35px;  "></i>
                </button>
             </div>
             <div class="p-col-6">
@@ -443,7 +443,7 @@
                <p-table *ngIf="displayAffaire" [value]="ficheDeDetentionDto?.affaires" #dt dataKey="numOrdinale"
                   selectionMode="single" [paginator]="true" [rows]="10" [globalFilterFields]="['type']">
                   <ng-template pTemplate="header">
-                     <tr>
+                     <tr style="font-size: 18px;">
                         <th style="width:  3em;"> ع.ر </th>
                         <th style="width: 12%;">عدد القضية</th>
                         <th style="width: 11%;"> تاريخ الحكم </th>
@@ -462,7 +462,7 @@
                   <ng-template pTemplate="body" let-row>
 
 
-                     <tr style="background: white;">
+                     <tr style="background: white; font-size: 18px;">
                         <td class="d">{{row?.numOrdinalAffaire}}</td>
                         <td> {{row?.affaireId?.numAffaire}}</td>
                         <td>{{row?.dateEmission}}</td>

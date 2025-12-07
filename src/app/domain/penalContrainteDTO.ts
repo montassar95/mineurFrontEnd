@@ -1,3 +1,5 @@
+import { ArretProvisoireDTO } from "./arretProvisoireDTO";
+
 export class PenalContrainteDTO {
   tnumide: string;
   tcoddet: string;
@@ -24,4 +26,6 @@ export class PenalContrainteDTO {
   dureeApresRevision: string;
   dateDebutPeine: string;
   dateFinPeine: string;
+
+   arretProvisoireDTOs: ArretProvisoireDTO[];
 }

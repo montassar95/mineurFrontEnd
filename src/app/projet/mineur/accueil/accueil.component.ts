@@ -104,7 +104,7 @@ export class AccueilComponent implements OnInit {
     this.error = null;
     this.answer = "";
 
-    this.crudservice.askQuestion(this.question).subscribe({
+    this.crudservice.askPrisonerById(this.question.trim()).subscribe({
       next: (res) => {
         this.answer = res;
         this.loading = false;

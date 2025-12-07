@@ -145,6 +145,7 @@ import {
   HighchartsChartModule,
 } from "highcharts-angular";
 import { MineurModule } from "./projet/mineur/mineur.module";
+import { ChatModule } from "src/chat/chat.module";
 
 @NgModule({
   imports: [
@@ -233,20 +234,20 @@ import { MineurModule } from "./projet/mineur/mineur.module";
     MatFormFieldModule,
     MatSelectModule,
     // MineurModule,
-
+ 
     // HighchartsChartModule,
   ],
   declarations: [
     AppComponent,
     AppMainComponent,
-      BlankComponent,
-     AppMenuComponent,
-     AppMenuitemComponent,
+    BlankComponent,
+    AppMenuComponent,
+    AppMenuitemComponent,
     AppTopBarComponent,
-     AppFooterComponent,
-     AppRightPanelComponent,
-     AppConfigComponent,
-     AppBreadcrumbComponent,
+    AppFooterComponent,
+    AppRightPanelComponent,
+    AppConfigComponent,
+    AppBreadcrumbComponent,
     // DashboardDemoComponent,
     // SampleDemoComponent,
     // FormsDemoComponent,

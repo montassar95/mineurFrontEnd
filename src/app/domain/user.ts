@@ -11,5 +11,6 @@ export class User {
   telephone: string;
   numAdministratif: string;
   etablissement: Etablissement;
+  acce:string;
   block;
 }

@@ -38,9 +38,12 @@ export class AddUserComponent implements OnInit {
     { label: "المكتب الإجتماعي", value: "soc" },
     { label: "  متــــابعة  ", value: "dir" },
   ];
-
+  acces = [
+    { label: "    الإصلاحيات فقط    ", value: "prison" },
+    { label: "   السجون و الإصلاحيات  ", value: "all" },
+  ];
   role = null;
-
+  acce = null;
   form: any = {};
   currentUser: any;
   constructor(
@@ -96,7 +99,7 @@ export class AddUserComponent implements OnInit {
           this.nom = data.result.nom;
           this.prenom = data.result.prenom;
           this.telephone = data.result.telephone;
-
+          this.acce = data.result.acce;
           this.etablissementId = data.result.etablissement.id;
           this.update = true;
           // this.showPwd = false;
@@ -122,6 +125,7 @@ export class AddUserComponent implements OnInit {
     this.afficheDataUpdated = false;
     this.errorMessage = null;
     this.fieldErrors = {};
+    this.acce = null;
   }
   // close() {
   //   // Emit the close event to notify the parent component
@@ -158,6 +162,9 @@ export class AddUserComponent implements OnInit {
   onChange(event) {
     this.role = event.value;
   }
+  // onChangeAcces(event) {
+  //   this.acce = event.value;
+  // }
 
   // addUser() {
   //   this.personelle = new Personelle();
@@ -197,6 +204,7 @@ export class AddUserComponent implements OnInit {
       telephone: this.telephone,
       numAdministratif: this.id,
       etablissementId: this.etablissementId,
+      acce: this.acce,
     };
 
     // Fonction pour gérer le succès de la requête
@@ -212,6 +220,7 @@ export class AddUserComponent implements OnInit {
         prenom: this.prenom,
         telephone: this.telephone,
         numAdministratif: this.id,
+        acce: this.acce,
         etablissement: this.etablissements.find(
           (e) => e.value.id === this.etablissementId
         )?.value,

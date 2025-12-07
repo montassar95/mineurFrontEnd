@@ -4,6 +4,7 @@ import { AccusationExtraitJugementDTO } from "./accusationExtraitJugementDTO";
 import { Affaire } from "./affaire";
 import { Arrestation } from "./arrestation";
 import { ArretProvisoire } from "./arretProvisoire";
+import { ArretProvisoireDTO } from "./arretProvisoireDTO";
 import { CarteDepot } from "./carteDepot";
 import { DocumentId } from "./documentId";
 import { Enfant } from "./enfant";
@@ -36,7 +37,10 @@ export class PenalJugementDTO {
   dateDepot: string;
   ttexjug: string;
   libelleTjugement: string;
+  controleAnnee: string;
+  controleMois: string;
   dateDebutPunition: string;
   dateFinPunition: string;
   accusationExtraitJugementDTOs: AccusationExtraitJugementDTO[];
+  arretProvisoireDTOs: ArretProvisoireDTO[];
 }

@@ -202,38 +202,38 @@
 
 
  .container {
-     position: relative;
-     max-width: 80%;
+    // position: relative;
+    //  max-width: 80%;
 
-     /* Largeur maximale */
-     background: linear-gradient(to right, #ffffff, #f0efef);
-     /* Dégradé subtil pour simuler une texture papier */
-     margin: 00px auto;
-     /* Centré avec un espacement autour */
-     padding: 20px;
-     /* Espacement interne */
-     border: 3px solid #4a4a4a;
-     /* Bordure épaisse sombre */
-     border-right: 15px solid #333;
-     /* Bande latérale moderne plus fine */
+    //  /* Largeur maximale */
+    //  background: linear-gradient(to right, #ffffff, #f0efef);
+    //  /* Dégradé subtil pour simuler une texture papier */
+    //  margin: 00px auto;
+    //  /* Centré avec un espacement autour */
+    //  padding: 20px;
+    //  /* Espacement interne */
+    //  border: 3px solid #4a4a4a;
+    //  /* Bordure épaisse sombre */
+    //  border-right: 15px solid #333;
+    //  /* Bande latérale moderne plus fine */
 
-     -moz-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
-     -webkit-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
-     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
-     /* Coins légèrement arrondis */
-     // box-shadow: 0 12px 18px rgba(0, 0, 0, 0.35), 0 12px 18px rgba(0, 0, 0, 0.35);
-     /* Ombres plus nettes pour une meilleure profondeur */
-     // font-family: 'Times New Roman', serif;
-     /* Police officielle classique */
-     // line-height: 1.8;
-     /* Espacement des lignes pour lisibilité */
-     color: #333;
-     // /* Texte sombre */
-     overflow: hidden;
-     // /* Empêche tout débordement */
-     position: relative;
-     z-index: 1;
-     // /* Placer le contenu au-dessus des ombres */
+    //  -moz-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+    //  -webkit-box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+    //  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.4);
+    //  /* Coins légèrement arrondis */
+    //  // box-shadow: 0 12px 18px rgba(0, 0, 0, 0.35), 0 12px 18px rgba(0, 0, 0, 0.35);
+    //  /* Ombres plus nettes pour une meilleure profondeur */
+    //  // font-family: 'Times New Roman', serif;
+    //  /* Police officielle classique */
+    //  // line-height: 1.8;
+    //  /* Espacement des lignes pour lisibilité */
+    //  color: #333;
+    //  // /* Texte sombre */
+    //  overflow: hidden;
+    //  // /* Empêche tout débordement */
+    //  position: relative;
+    //  z-index: 1;
+    //  // /* Placer le contenu au-dessus des ombres */
  }
 
 

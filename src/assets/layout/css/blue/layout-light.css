@@ -295,7 +295,7 @@ body {
   /* background-position: center;
   background-image: url("../../images/fond.jpg"); */
    /* background-color: #dfdfd9;   */
-background: linear-gradient(to right, #ffffff, #dbdbdb);
+background: white;
    /* background-color: #fdfbf5;  */
 }
 body .ajax-loader {
@@ -340,12 +340,12 @@ body.hidden-overflow {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 50px;
+  height: 40px;
    position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: #485159;
+  background-color: #7f8588;
   z-index: 10;
   text-align: center;
   /* background-image: url("../../images/flag-tunsia-bg.jpg"); */
@@ -731,32 +731,41 @@ body.hidden-overflow {
 
 /* ********************* menu css ******************************************************************/
 @media (min-width: 992px) {
-  .layout-wrapper.layout-horizontal .layout-sidebar {
+.layout-wrapper.layout-horizontal .layout-sidebar {
     width: max-content;
-    height: 50px;
-    top: 15px;
-    
-     
-    margin-left: auto;
-    margin-right: auto;
-    
-    position:  sticky;
+    height: 60px;
+    position: sticky;
+    top: 6px;
+    margin: 0 auto;
     z-index: 999;
-    transform: none;
-    box-shadow: 3px 0 5px 0 rgba(33, 35, 39, 0.15);
-    
-    border-radius: 0%;
-    -moz-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.603);
-    -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.603);
-    box-shadow: 1px 1px 1px #b1b1b1,
-    1px 2px 1px #b1b1b1,
-    1px 3px 1px #b1b1b1,
-    1px 4px 1px #b1b1b1,
-    1px 5px 1px #b1b1b1,
-  
-    3px 3px 3px rgba(0, 0, 0, 0.966);
-    
+
+    /* Design moderne et pro */
+    background-color: #f0f4f8;
+    /* gris très clair neutre */
+    border-radius: 14px;
+    border: 1px solid #d1d5db;
+    /* discrète */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.04);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* centré horizontalement */
+    gap: 1.5em;
+    /* espace entre les items */
+    padding: 0 24px;
+
+    /* Transition fluide */
+    transition: all 0.35s ease-in-out;
+    cursor: pointer;
   }
+
+  /* Hover effet léger */
+  /* .layout-wrapper.layout-horizontal .layout-sidebar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.05);
+    background-color: #ffffff;
+  } */
   .layout-wrapper.layout-horizontal .layout-sidebar .sidebar-logo {
     display: none;
   }
@@ -998,8 +1007,9 @@ body.hidden-overflow {
 }
 @media (min-width: 992px) {
   .layout-menu-light.layout-horizontal .layout-sidebar {
+    background-color: #ffffff;
    /* background-color: rgb(225, 230, 233); */
-   background-image: url("../../images/menu.jpg");
+   /* background-image: url("../../images/menu.jpg"); */
   }
   .layout-menu-light.layout-horizontal .layout-sidebar .layout-menu li > a.active-menuitem-routerlink .menuitem-text {
     color: #5e81ac;
@@ -6285,35 +6295,54 @@ color: #1a69a1;
     color: #88C0D0;
   }
 }
-
+/* ******************************************************************  topbar */
 .layout-topbar {
   font-family: 'Amiri', Times, serif;
-/* background-image: linear-gradient(#0f2740,  white); */
-    /* background-image: linear-gradient(#0f3845, white);   */
-        
-      /* color: white; */
-      /* text-align: center; */
-      /* font-size: 24px; */
-    /* background-image: linear-gradient(#184c6e, white);    */
-    /* background-image: url("../../images/ok.jpg");   */
-     /* background-image: url("../../images/montaa.jpg");     */
-    /* background-image: url("../../images/flag-tunsia-bg1.jpg");   */
-    /* background-image: url("../../images/Themis_homepage.jpg");      */
-    /* background-image: url("../../images/realistic-spider-web-background_107791-26720.avif"); */
-    /* background-image: url("../../images/tete.jpg") no-repeat ; */
-background: linear-gradient(to right, #0b1e2d, #536475);
-    /* Couleur d'arrière-plan */
+
+  /* Fond moderne dégradé bleu professionnel */
+  background: linear-gradient(90deg, #1e40af, #2563eb);
+  color: #ffffff;
+  /* texte blanc lisible */
+
+  /* Position et dimension */
   position: fixed;
   top: 0;
   z-index: 998;
   width: calc(100% - 60px);
- 
-  /* height:   130px;
-  
-    padding: 4px;   */
-    height: 75px;
-      padding: 0 2em;
-  
+  height: 65px;
+  padding: 0 2em;
+
+  /* Profondeur & modernité */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+
+  /* Animation très douce pour le fond */
+  background-size: 200% 200%;
+  animation: topbarGradient 10s ease infinite;
+
+  /* Transition fluide sur hover */
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px);
+  }
+}
+
+/* Animation subtile du dégradé */
+@keyframes topbarGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 
@@ -7648,20 +7677,22 @@ background: linear-gradient(to right, #0b1e2d, #536475);
 }
 .layout-breadcrumb {
   font-family: 'Amiri', Times, serif;
-  /* background-color: #d8dee9; */
-  background-color: #faf8f8; 
-  padding: 10px 30px;
-  display: -webkit-box;
-  display: -ms-flexbox;
+  background-color: #ffffff;
+  /* fond neutre et pro */
+  padding: 12px 30px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-   margin-top:-10px;  
-    -moz-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.500);
-  -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.500);
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.500);  
- 
+  margin-top: 0px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
 }
+
+/* .layout-breadcrumb:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+} */
 .layout-breadcrumb .breadcrumb .route-bar-breadcrumb {
   list-style: none;
   display: -webkit-box;

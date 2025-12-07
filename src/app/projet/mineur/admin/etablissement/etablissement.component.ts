@@ -37,7 +37,13 @@ export class EtablissementComponent implements OnInit {
       { label: "قائمة  المؤسسات" },
     ]);
   }
+  typeEtablissements = [
+    { label: "  إصلاحية ", value: "centre" },
+    { label: " سجن ", value: "prison" },
+    { label: "  إدارة ", value: "administration" },
+  ];
 
+  typeEtablissement=null;
   ngOnInit(): void {
     this.currentUser = this.token.getUserFromTokenFromToken();
 

@@ -1,4 +1,4 @@
-<div dir="rtl" class="container"   style="margin-bottom: 50px;">
+<div dir="rtl"    style="margin-bottom: 50px;">
 
 
     <div class="p-grid">
@@ -396,7 +396,7 @@
                     <!-- [value]="penalAffaireDTOs" #dt dataKey="numOrdinale" selectionMode="single" [paginator]="true"
                                     [rows]="10" [globalFilterFields]="['tnumseqaff', 'tnumjafFormatte', 'libelleTribunal']" -->
                     <p-table [value]="penalAffaireDTOs" [paginator]="true" [rows]="5" [lazy]="true"
-                        (onLazyLoad)="loadData($event)" [totalRecords]="totalRecords" paginatorPosition="both"
+                        (onLazyLoad)="loadData($event)" [totalRecords]="totalRecords" paginatorPosition="bottom"
                         [globalFilterFields]="['tnumseqaff', 'tnumjafFormatte', 'libelleTribunal']"
                         [rowsPerPageOptions]="[5,10,20,50,100,200,500 ]">
                         <!-- [totalRecords]="20" -->
@@ -698,9 +698,9 @@
                         <!-- Bloc informations sur l'affaire -->
                         <div style="display: flex; flex-wrap: wrap; gap: 20px; font-size: 19px; font-family: 'Amiri', serif;">
                             <span><strong>ع/ ر الإيقاف:</strong> {{ participant.tcoddet }}</span>
-                            <span><strong>رقم القضية:</strong> {{ participant.tnumjafFormatte2 }}</span>
-                            <span><strong>المحكمة:</strong> {{ participant.libelleTribunal }}</span>
-                            <span style="color: #a02417;"><strong>نوع القضية:</strong> {{ participant.libelleNature }}</span>
+                            <span *ngIf="participant.tnumjafFormatte2" ><strong>رقم القضية:</strong> {{ participant.tnumjafFormatte2 }}</span>
+                            <span *ngIf="participant.libelleTribunal"  ><strong>المحكمة:</strong> {{ participant.libelleTribunal }}</span>
+                            <span *ngIf="participant.libelleNature" style="color: #a02417;"><strong>نوع القضية:</strong> {{ participant.libelleNature }}</span>
                         </div>
                 
                     </li>
@@ -709,6 +709,62 @@
                   
             </mat-tab>
               
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <i class="pi pi-user-friends" style="font-size: 25px;"></i>
+                <span style="font-family: 'Amiri', Times, serif; font-size: 20px;"> القرابة الممكنة</span>
+            </ng-template>
+        
+            <ul class="list-group" dir="rtl" style="padding: 0; list-style: none; margin: 20px;">
+                <li *ngFor="let lien of lienFamilialDTOs; let i = index" class="list-group-item" style="
+                              font-size: 19px;
+                              font-family: 'Amiri', serif;
+                              color: #2c3e50;
+                              background: linear-gradient(145deg, #f0f4f7, #ffffff);
+                              border-right: 6px solid #ffc107;
+                              margin-bottom: 16px;
+                              padding: 18px 24px;
+                              line-height: 2;
+                              border-radius: 10px;
+                              box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+                              display: flex;
+                              flex-direction: column;
+                            ">
+        
+                    <div style="display: flex; flex-wrap: wrap; gap: 20px; font-size: 19px; font-family: 'Amiri', serif;">
+                        <span><strong style="font-size: 20px; font-weight: bold; color: #ffc107;">#{{ i + 1
+                                }}</strong></span>
+                        <span><strong>رقم الهوية:</strong> {{ lien.numIdentifiant }}</span>
+                        <span>
+                            <strong>الاسم الكامل:</strong>
+                            <span [ngStyle]="{ color: lien.sexe === '1' ? '#007bff' : '#e91e63' }">
+                                {{ lien.nomComplet }}
+                            </span> </span>
+                        <span><strong>اسم الأم:</strong> {{ lien.nomMereComplet }}</span>
+                        <span><strong> الــزوج(ة) :</strong> {{ lien.partenaire }}</span>
+        
+                        <span><strong>تاريخ الولادة:</strong> {{ lien.dateNaissance | date:'yyyy/MM/dd' }}</span>
+        
+                        <span><strong>مكان الولادة:</strong> {{ lien.lieuNaissance }}</span>
+                        <span>
+                            <strong>العلاقة:</strong>
+                            <span [ngStyle]="{
+                            color: lien.relation === 'Pere' ? '#007bff' :
+                                   lien.relation === 'Frere' ? '#28a745' :
+                                   lien.relation === 'Fils' ? '#a02417' : '#6c757d'
+                          }">
+                                {{ lien.relation === 'Pere' ? 'أب' :
+                                lien.relation === 'Frere' ? 'أخ' :
+                                lien.relation === 'Fils' ? 'ابن' : 'أخرى' }}
+                            </span>
+                        </span>
+                    </div>
+        
+        
+                </li>
+            </ul>
+        </mat-tab>
+        
         </mat-tab-group>
     </div>
     <p-dialog [style]="{ 'width': '70vw', 'height': 'auto', 'padding': '0', 'background-color': 'transparent' }"
@@ -738,7 +794,7 @@
                 </div>
 
                 <div class="header-center">
-                    <h1 class="document-title"><b> إستئنـــــــــاف </b></h1>
+                    <h1 class="document-title"><b> {{ penalContestationDto?.libelleContestation }} </b></h1>
                 </div>
 
                 <div class="header-right">
@@ -822,7 +878,7 @@
         </div>
 
 
-        <div class="judicial-document  " *ngIf="displayExtraitJugement == 'depot' && penalMandatDepotDTO">
+        <div class="judicial-document  " *ngIf="(displayExtraitJugement == 'depot' || displayExtraitJugement == 'amener')  && penalMandatDepotDTO">
             <div class="document-header">
                 <div class="header-left">
                     <h1>الجمهورية التونسية</h1>
@@ -831,7 +887,8 @@
                 </div>
 
                 <div class="header-center">
-                    <h1 class="document-title"><b> بطــاقــة إيــداع</b></h1>
+                    <h1 class="document-title" *ngIf="displayExtraitJugement == 'depot'"><b> بطــاقــة إيــداع</b></h1>
+                    <h1 class="document-title" *ngIf="displayExtraitJugement == 'amener'"><b> بطــاقــة جلــب</b></h1>
                 </div>
 
                 <div class="header-right">
@@ -865,20 +922,25 @@
                     </div>
 
                     <div class="p-grid" style="line-height: 1.6;  ">
-                        <div class="p-col-2" style="font-weight: bold;"> عدد الإيقاف و السجن:</div>
-                        <div class="p-col-10">{{ penalMandatDepotDTO.numeroEcrou + ' '+ penalMandatDepotDTO.prision }}
+                        <div class="p-col-4" style="font-weight: bold;"> عدد الإيقاف و السجن:</div>
+                        <div class="p-col-8">{{ penalMandatDepotDTO.numeroEcrou + ' '+ penalMandatDepotDTO.prision }}
                         </div>
                     </div>
 
 
 
                     <div class="p-grid" style="line-height: 1.6;  ">
-                        <div class="p-col-2" style="font-weight: bold;"> عدد لقضية و المحكمة:</div>
-                        <div class="p-col-10">{{ penalMandatDepotDTO.numAffaire + ' '+
+                        <div class="p-col-4" style="font-weight: bold;"> عدد لقضية و المحكمة:</div>
+                        <div class="p-col-8">{{ penalMandatDepotDTO.numAffaire + ' '+
                             penalMandatDepotDTO.libelleTribunal}}
                         </div>
                     </div>
-
+<div class="p-grid" style="line-height: 1.6;  ">
+    <div class="p-col-4" style="font-weight: bold;"> عدد قضية و المحكمة ( الربط ) :</div>
+    <div class="p-col-8">{{ penalMandatDepotDTO?.numAffaireLiee + ' '+
+        penalMandatDepotDTO?.libelleTribunalLiee}}
+    </div>
+</div>
                     <div class="p-grid" style="line-height: 1.6;  ">
                         <div class="p-col-2" style="font-weight: bold;">تاريخ صدور البطاقة:</div>
                         <div class="p-col-10">{{ penalMandatDepotDTO.dateEmissionMandat | date:'yyyy-MM-dd' }}</div>
@@ -1189,44 +1251,113 @@
                     </div>
 
                     <div class="p-grid" style="line-height: 1.6;  ">
-                        <div class="p-col-2" style="font-weight: bold;"> عدد الإيقاف و السجن:</div>
-                        <div class="p-col-10">{{ penalJugementDTO.numeroEcrou + ' '+ penalJugementDTO.prision }}
+                        <div class="p-col-4" style="font-weight: bold;"> عدد الإيقاف و السجن:</div>
+                        <div class="p-col-8">{{ penalJugementDTO.numeroEcrou + ' '+ penalJugementDTO.prision }}
                         </div>
                     </div>
 
 
 
                     <div class="p-grid" style="line-height: 1.6;  ">
-                        <div class="p-col-2" style="font-weight: bold;"> عدد لقضية و المحكمة:</div>
-                        <div class="p-col-10">{{ penalJugementDTO.numAffaire + ' '+
+                        <div class="p-col-4" style="font-weight: bold;"> عدد لقضية و المحكمة:</div>
+                        <div class="p-col-8">{{ penalJugementDTO.numAffaire + ' '+
                             penalJugementDTO.libelleTribunal}}
                         </div>
                     </div>
-
+<div class="p-grid" style="line-height: 1.6;  ">
+    <div class="p-col-4" style="font-weight: bold;"> عدد قضية و المحكمة ( الربط ) :</div>
+    <div class="p-col-8">{{ penalJugementDTO?.numAffaireLiee + ' '+
+        penalJugementDTO?.libelleTribunalLiee}}
+    </div>
+</div>
+<div class="p-grid" style="line-height: 1.6;  ">
+    <div class="p-col-4" style="font-weight: bold;"> عدد قضية و المحكمة ( الضم ) :</div>
+    <div class="p-col-8">{{ penalJugementDTO?.numAffaireAffectee + ' '+
+        penalJugementDTO?.libelleTribunalAffectee}}
+    </div>
+</div>
                     <div class="p-grid" style="line-height: 1.6;  ">
-                        <div class="p-col-2" style="font-weight: bold;">تاريخ الحكم :</div>
-                        <div class="p-col-10">{{ penalJugementDTO.dateJugement | date:'yyyy-MM-dd' }}</div>
+                        <div class="p-col-4" style="font-weight: bold;">تاريخ الحكم :</div>
+                        <div class="p-col-8">{{ penalJugementDTO.dateJugement | date:'yyyy-MM-dd' }}</div>
 
-                        <div class="p-col-2" style="font-weight: bold;">تاريخ إيداع المضمون:</div>
-                        <div class="p-col-10">{{ penalJugementDTO.dateDepot | date:'yyyy-MM-dd' }}</div>
+                        <div class="p-col-4" style="font-weight: bold;">تاريخ إيداع المضمون:</div>
+                        <div class="p-col-8">{{ penalJugementDTO.dateDepot | date:'yyyy-MM-dd' }}</div>
                     </div>
 
                     <div *ngIf="penalJugementDTO.texjug" class="p-grid" style="line-height: 1.6;">
-                        <div class="p-col-2" style="font-weight: bold;">نص الحكم:</div>
-                        <div class="p-col-10">{{ penalJugementDTO.texjug }}</div>
+                        <div class="p-col-4" style="font-weight: bold;">نص الحكم:</div>
+                        <div class="p-col-8">{{ penalJugementDTO.texjug }}</div>
                     </div>
                     <div class="p-grid" style="line-height: 1.6;">
-                        <div class="p-col-2" style="font-weight: bold;"> مدة الحكم و نوعه :</div>
-                        <div class="p-col-10">{{ penalJugementDTO.libelleTjugement }}</div>
+                        <div class="p-col-4" style="font-weight: bold;"> مدة الحكم و نوعه :</div>
+                        <div class="p-col-8">{{ penalJugementDTO.libelleTjugement }}</div>
                     </div>
 
 
+                <div class="p-grid" style="line-height: 1.6;">
+                    <div class="p-col-4" style="font-weight: bold;">مدة المراقبة الإدارية :</div>
+                <div class="p-col-8">
+                
+                    <span *ngIf="penalJugementDTO.controleAnnee">
+                        {{ penalJugementDTO.controleAnnee }}
+                        {{ penalJugementDTO.controleAnnee == 1 ? 'عام' : 'أعوام' }}
+                    </span>
+                
+                    <span *ngIf="penalJugementDTO.controleMois">
+                        {{ penalJugementDTO.controleMois }}
+                        {{ penalJugementDTO.controleMois == 1 ? 'شهر' : 'أشهر' }}
+                    </span>
+                
+                    <span *ngIf="!penalJugementDTO.controleAnnee && !penalJugementDTO.controleMois">
+                        لا توجد مدة محددة
+                    </span>
+                
+                </div>
+
+                </div>
+
+            <div *ngIf="arretProvisoires?.length == 0" class="p-grid" style="line-height: 1.6;">
+                <div class="p-col-4" style="font-weight: bold;"> إيقافات تحفظية :</div>
+                <div class="p-col-8">
+                            ⚠ لا توجد إيقافات تحفظية
+                </div>
+            </div>
+<div class="p-col-12">
+    <!-- Message si la liste est vide -->
+    
+    <ul  dir="rtl" class="list-group">
+
+        <li *ngFor="let ar of arretProvisoires" class="list-group-item"
+            style="border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); font-size: 16px; line-height: 1.8; background-color: #fdfdfd;">
+
+            <span style="font-weight: bold;"> الإيقاف التحفظي عدد {{ ar.codeArret }} :</span>
+
+            <span style="margin-right: 10px;" *ngIf="ar.periodeTotale">
+                <span style="margin-right: 8px;">المدة :</span>
+                <span style="color: #f81414; font-weight: bold">{{ ar.periodeTotale }}</span>
+            </span>
+
+           
+
+            <span *ngIf="ar.dateDebut && ar.dateFin && (ar.dateDebut != ar.dateFin)">
+                ، من تاريخ
+                <span style="font-weight: bold; color: #024daf;">{{ ar.dateDebut | date:'dd-MM-yyyy' }}</span>
+                إلى
+                <span style="font-weight: bold; color: #024daf;">{{ ar.dateFin | date:'dd-MM-yyyy' }}</span>
+            </span>.
+
+        </li>
+
+    </ul>
+</div>
+
+
                     <div class="p-grid" style="line-height: 1.6;">
-                        <div class="p-col-2">تاريخ بداية العقوبة :</div>
+                        <div class="p-col-2" style="font-weight: bold;">تاريخ بداية العقوبة :</div>
                         <div class="p-col-10">{{ penalJugementDTO.dateDebutPunition }}</div>
                     </div>
                     <div class="p-grid" style="line-height: 1.6;">
-                        <div class="p-col-2">تاريخ نهاية العقوبة :</div>
+                        <div class="p-col-2" style="font-weight: bold;">تاريخ نهاية العقوبة :</div>
                         <div class="p-col-10">{{ penalJugementDTO.dateFinPunition }}</div>
                     </div>
 
@@ -1353,7 +1484,12 @@
                             penalContrainteDto?.libelleTribunal}}
                         </div>
                     </div>
-
+<div class="p-grid" style="line-height: 1.6;  ">
+    <div class="p-col-4" style="font-weight: bold;"> عدد قضية و المحكمة ( الضم ) :</div>
+    <div class="p-col-8">{{ penalContrainteDto?.numAffaireAffectee + ' '+
+        penalContrainteDto?.libelleTribunalAffectee}}
+    </div>
+</div>
 
                     <div class="p-grid" style="line-height: 1.6;  ">
                         <div class="p-col-3" style="font-weight: bold;">تاريخ الحكم :</div>
@@ -1362,6 +1498,49 @@
                         <div class="p-col-3" style="font-weight: bold;"> إيداع البطاقة :</div>
                         <div class="p-col-9">{{ penalContrainteDto?.dateDepot | date:'yyyy-MM-dd' }}</div>
                     </div>
+
+
+
+
+
+
+
+                        <div *ngIf="arretProvisoires?.length == 0" class="p-grid" style="line-height: 1.6;">
+                            <div class="p-col-4" style="font-weight: bold;"> إيقافات تحفظية :</div>
+                            <div class="p-col-8">
+                                ⚠ لا توجد إيقافات تحفظية
+                            </div>
+                        </div>
+                        <div class="p-col-12">
+                            <!-- Message si la liste est vide -->
+                        
+                            <ul dir="rtl" class="list-group">
+                        
+                                <li *ngFor="let ar of arretProvisoires" class="list-group-item"
+                                    style="border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); font-size: 16px; line-height: 1.8; background-color: #fdfdfd;">
+                        
+                                    <span style="font-weight: bold;"> الإيقاف التحفظي عدد {{ ar.codeArret }} :</span>
+                        
+                                    <span style="margin-right: 10px;" *ngIf="ar.periodeTotale">
+                                        <span style="margin-right: 8px;">المدة :</span>
+                                        <span style="color: #f81414; font-weight: bold">{{ ar.periodeTotale }}</span>
+                                    </span>
+                        
+                        
+                        
+                                    <span *ngIf="ar.dateDebut && ar.dateFin && (ar.dateDebut != ar.dateFin)">
+                                        ، من تاريخ
+                                        <span style="font-weight: bold; color: #024daf;">{{ ar.dateDebut | date:'dd-MM-yyyy' }}</span>
+                                        إلى
+                                        <span style="font-weight: bold; color: #024daf;">{{ ar.dateFin | date:'dd-MM-yyyy' }}</span>
+                                    </span>.
+                        
+                                </li>
+                        
+                            </ul>
+                        </div>
+
+
 
                     <div class="p-grid" style="line-height: 1.6;  ">
 

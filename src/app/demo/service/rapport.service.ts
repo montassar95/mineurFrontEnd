@@ -64,4 +64,17 @@ export class RapportService {
       ojet
     );
   }
+  
+  genererStatistiquePdfPrison(
+    startDate: string,
+    endDate: string
+  ): Observable<Blob> {
+    return this.httpClient.get(
+      environment.baseUrl + "historique/pdf", // endpoint backend pour générer le PDF
+      {
+        params: { startDate, endDate }, // passe les dates en query parameters
+        responseType: "blob", // nécessaire pour récupérer le PDF
+      }
+    );
+  }
 }

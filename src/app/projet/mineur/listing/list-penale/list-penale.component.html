@@ -1,4 +1,4 @@
-<div class="Listcontainer " style=" width: 70%;   margin-bottom: 200px;">
+<div class="Listcontainer "  >
    <p-toast key="tst" [style]="{marginTop: '150px'}"></p-toast>
 
    <div class=" p-grid" style="text-align: right;">
@@ -385,10 +385,10 @@
 
    </div>
 
-   <div *ngIf=" sizeFile==0 && click" style="text-align: center;">
-      <img src="assets/layout/images/g.gif" />
-
-   </div>
+<!-- Overlay qui bloque tout -->
+<div *ngIf="sizeFile==0 && click" class="overlay">
+   <img src="assets/layout/images/g.gif" class="center-gif" />
+</div>
 
 
    <p-dialog header="  دليل المستـــوى الدراســـي" dir="rtl" [(visible)]="displayNiveauEducatif" modal="true"

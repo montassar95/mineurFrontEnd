@@ -123,11 +123,11 @@ export class CrudEnfantService {
     );
   }
 
-  askQuestion(question: string): Observable<string> {
-    const body = { question }; // Crée un objet { question: "..." }
-    return this.httpClient.post<string>(environment.baseUrl + "ai", body, {
-      headers: { "Content-Type": "application/json" },
-      responseType: "text" as "json", // important pour éviter l’erreur de type
+  askPrisonerById(id: string): Observable<string> {
+    const url = `${environment.baseUrl}ai/${id}`; // GET /api/ai/{id}
+
+    return this.httpClient.get(url, {
+      responseType: "text", // important pour recevoir la rédaction texte
     });
   }
 }

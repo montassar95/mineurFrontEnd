@@ -1,93 +1,51 @@
- 
 <div class="wrapper">
 
-  <div class="card">
-    <input type="checkbox" id="card4" class="more">
-    <div class="content">
-      <div class="front">
-        <div class="inner">
   
-         
-          <label for="card4" class="titre" aria-hidden="true">
-          إعتراض
-          </label>
-          <img src="assets/layout/images/pas-de-racisme.png" class="image-adjust"   />
-          <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black' , 'margin-top': '15px'}" dir="rtl"
-            [(ngModel)]="idOpposition" mask="99999999" slotChar="----------" (keyup.enter)="dirOpposition()"
-         
-            mask="99999999"  placeholder=" معرف الطفل   ">
-          </p-inputMask>
-        </div>
-      </div>
-      
+  <!-- Carte 2 : تعقيب -->
+  <div class="card">
+    <div class="inner">
+      <label class="titre">تعقيب</label>
+      <img src="assets/layout/images/feedback-loop.png" class="image-adjust" />
+      <p-inputMask [style]="{'font-weight': '700', 'font-size': '20px', 'color': 'black', 'margin-top': '15px'}"
+        dir="rtl" [(ngModel)]="idObservation" mask="99999999" slotChar="----------" (keyup.enter)="dirObservation()"
+        placeholder="معرف الطفل">
+      </p-inputMask>
+    </div>
+  </div>
+  <!-- Carte 4 : إستئناف النيابة -->
+  <div class="card">
+    <div class="inner">
+      <label class="titre">إستئناف النيابة</label>
+      <img src="assets/layout/images/judge123.png" class="image-adjust" />
+      <p-inputMask [style]="{'font-weight': '700', 'font-size': '20px', 'color': 'black', 'margin-top': '15px'}" dir="rtl"
+        [(ngModel)]="idAppelParquet" mask="99999999" slotChar="----------" (keyup.enter)="dirAppelParquet()"
+        placeholder="معرف الطفل">
+      </p-inputMask>
+    </div>
+  </div>
+  <!-- Carte 3 : إستئناف الطفل -->
+  <div class="card">
+    <div class="inner">
+      <label class="titre">إستئناف  </label>
+      <img src="assets/layout/images/justice123.png" class="image-adjust" />
+      <p-inputMask [style]="{'font-weight': '700', 'font-size': '20px', 'color': 'black', 'margin-top': '15px'}"
+        dir="rtl" [(ngModel)]="idAppelEnfant" mask="99999999" slotChar="----------" (keyup.enter)="dirAppelEnfant()"
+        placeholder="معرف الطفل">
+      </p-inputMask>
     </div>
   </div>
 
-  <div class="card">
-    <input type="checkbox" id="card2" class="more">
-    <div class="content">
-      <div class="front">
-        <div class="inner">
-  
-         
-          <label for="card2" class="titre" aria-hidden="true">
-        تعقيب
-          </label>
-          <img src="assets/layout/images/vote.png" class="image-adjust"   />
-          <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black' , 'margin-top': '15px' }" dir="rtl"
-          [(ngModel)]="idObservation" mask="99999999" slotChar="----------" (keyup.enter)="dirObservation()"
-            mask="99999999"   placeholder=" معرف الطفل   ">
-          </p-inputMask>
-        </div>
-      </div>
-     
-    </div>
+<!-- Carte 1 : إعتراض -->
+<div class="card">
+  <div class="inner">
+    <label class="titre">إعتراض</label>
+    <img src="assets/layout/images/right-to-objection.png" class="image-adjust" />
+    <p-inputMask [style]="{'font-weight': '700', 'font-size': '20px', 'color': 'black', 'margin-top': '15px'}" dir="rtl"
+      [(ngModel)]="idOpposition" mask="99999999" slotChar="----------" (keyup.enter)="dirOpposition()"
+      placeholder="معرف الطفل">
+    </p-inputMask>
   </div>
-
-  <div class="card">
-      <input type="checkbox" id="card1" class="more" aria-hidden="true">
-      <div class="content">
-       
-          <div class="front"    >
-              <div class="inner">
-                   
-                
-                  <label for="card1" class="titre" aria-hidden="true">
-              إستئناف الطفل
-                  </label>
-                  <img src="assets/layout/images/swear.png" class="image-adjust"    />
-                  <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black' , 'margin-top': '15px' }" dir="rtl"
-                    [(ngModel)]="idAppelEnfant" mask="99999999" slotChar="----------" (keyup.enter)="dirAppelEnfant()"
-                    placeholder=" معرف الطفل ">
-                  </p-inputMask>
-              </div>
-              
-          </div>
-           
-      </div>
-  </div>
-   
-  <div class="card">
-      <input type="checkbox" id="card3" class="more">
-      <div class="content">
-          <div class="front"    >
-              <div class="inner">
-                 
-              
-                  <label for="card3" class="titre" aria-hidden="true">
-                    إستئناف النيابة  
-                  </label>
-                    <img src="assets/layout/images/court-judge.png" class="image-adjust"    />
-                    <p-inputMask [style]="{'font-weight': '700' ,'font-size': '20px','color': 'black' , 'margin-top': '15px' }" dir="rtl"
-                      [(ngModel)]="idAppelParquet" mask="99999999" slotChar="----------" (keyup.enter)="dirAppelParquet()"
-                      placeholder=" معرف الطفل   ">
-                    </p-inputMask>
-              </div>
-          </div>
-          
-      </div>
-  </div>
+</div>
 
 
-  
 </div>
